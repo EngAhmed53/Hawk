@@ -1,0 +1,52 @@
+<resources>
+    <string name="app_name">Sales Eagle</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="email_address_edit_text">Email address</string>
+    <string name="password_edit_text">Password</string>
+    <string name="app_logo_dsc">app_logo</string>
+    <string name="log_in_btn">Sign in</string>
+    <string name="did_you_forget_your_password">Forget password ?</string>
+    <string name="don_t_have_an_account">Don\'t have an account ?</string>
+    <string name="sign_up_now">Sign up Now !</string>
+    <string name="or">OR</string>
+    <string name="sign_in_with_social">Sign in with Social</string>
+    <string name="choose_your_position">Choose your position !</string>
+    <string name="user_name">User Name</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="sign_up">Sign up with Email</string>
+    <string name="sign_up_with_social">Sign up with Social</string>
+    <string name="company_id">Company Id</string>
+    <string name="branch_pin_code">Branch Pin Code</string>
+    <string name="confirm">Confirm</string>
+    <string name="company_id_helper_text">Call your Manager or HR for this id</string>
+    <string name="hr_helper_text">Call your Manager to get Company Id</string>
+    <string name="hr_pin_code_helper">Please type your pin code</string>
+    <string name="hr_pin_code_hint">HR PIN code</string>
+    <string name="slogan">An Easy, Smart Customers Control System</string>
+    <string name="google_logo">google_logo</string>
+    <string name="facebook_logo">facebook_logo</string>
+    <string name="logo_image">logo_image</string>
+    <string name="continue_sign_up">Continue</string>
+    <string name="it_seems_this_your_first_time_using_easyhr_app_please_specify_your_position_and_all_information_needed">It Seems this your first time using EasyHR app, Please Specify your position and all information needed.</string>
+    <string name="please_type_company_name">Please type your Company name</string>
+    <string name="company_name">Company name</string>
+    <string name="password_min_6_characters">Password (min. 6 characters)</string>
+    <string name="create_new_account">Create an account</string>
+    <string name="i_already_have_account">I already have an account</string>
+    <string name="blank_email_error">your email address can\'t be blank</string>
+    <string name="valid_email_address_error">Please type valid email address</string>
+    <string name="blank_password_error">your password can\'t be blank</string>
+    <string name="mini_chars_password_error">Password minimum length is 6 characters</string>
+    <string name="blank_user_name_error">your name can\'t be blank</string>
+    <string name="spacial_chars_error">your name should not contain any spacial characters</string>
+    <string name="com_id_spacial_chars_error">Company Id should not contain any spacial characters</string>
+    <string name="blank_compay_name_error">Company name can\'t be blank</string>
+    <string name="blank_company_id_error">Company Id can\'t be blank</string>
+    <string name="blank_pib_code_error">brench pin code can\'t be blank</string>
+    <string name="valid_pin_code_error">please type valid pin code</string>
+    <string name="we_sent_you_email_msg">We sent you a verification email, Please check your inbox.</string>
+    <string name="email_verification_title">Email Verification</string>
+</resources>

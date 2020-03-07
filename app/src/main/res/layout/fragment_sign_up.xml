@@ -1,0 +1,566 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="com.shouman.apps.hawk.model.BaseUser" />
+
+        <import type="com.shouman.apps.hawk.model.Company" />
+
+        <import type="com.shouman.apps.hawk.model.SalesMan" />
+
+        <variable
+            name="baseUser"
+            type="BaseUser" />
+
+        <variable
+            name="salesMan"
+            type="SalesMan" />
+
+        <variable
+            name="company"
+            type="Company" />
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/photo_background_protection">
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <FrameLayout
+                android:id="@+id/brand_frame"
+                android:layout_width="wrap_content"
+                android:layout_height="170dp"
+                android:layout_marginTop="24dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/logo_image"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:layout_gravity="top|center_horizontal"
+                    android:adjustViewBounds="true"
+                    android:contentDescription="@string/app_logo_dsc"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/app_logo"
+                    android:transitionName="@string/logo_image" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|center_horizontal"
+                    android:fontFamily="sans-serif-medium"
+                    android:text="@string/app_name"
+                    android:textColor="@color/white"
+                    android:textSize="28sp" />
+
+            </FrameLayout>
+
+
+            <RelativeLayout
+                android:id="@+id/linear_sign_up_choose_type"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="50dp"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/brand_frame"
+                app:layout_constraintVertical_bias="0.0">
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/choose_type_input_layout"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:hint="@string/choose_your_position"
+                    android:textColorHint="@color/white"
+                    app:boxCornerRadiusBottomEnd="6dp"
+                    app:boxCornerRadiusBottomStart="6dp"
+                    app:boxCornerRadiusTopEnd="6dp"
+                    app:boxCornerRadiusTopStart="6dp"
+                    app:boxStrokeColor="@color/white"
+                    app:boxStrokeWidth="1dp"
+                    app:hintTextAppearance="@style/TextAppearance.AppCompat.Caption"
+                    app:hintTextColor="@color/white">
+
+                    <AutoCompleteTextView
+                        android:id="@+id/filled_exposed_dropdown"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:maxLength="50"
+                        android:maxLines="1"
+                        android:textColor="@color/white" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/sign_up_box"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/choose_type_input_layout"
+                    android:layout_marginTop="16dp"
+                    android:orientation="vertical"
+                    android:visibility="visible">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/name_TextField"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="6dp"
+                        android:hint="@string/user_name"
+                        android:textColorHint="@color/white"
+                        app:boxCornerRadiusBottomEnd="6dp"
+                        app:boxCornerRadiusBottomStart="6dp"
+                        app:boxCornerRadiusTopEnd="6dp"
+                        app:boxCornerRadiusTopStart="6dp"
+                        app:boxStrokeColor="@color/white"
+                        app:boxStrokeWidth="1dp"
+                        app:errorEnabled="true"
+                        app:errorTextColor="@android:color/holo_red_dark"
+                        app:hintTextAppearance="@style/TextAppearance.AppCompat.Caption"
+                        app:hintTextColor="@color/white"
+                        app:userNameValidation="@{baseUser.userName}">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edt_name"
+                            android:layout_width="match_parent"
+                            android:layout_height="56dp"
+                            android:inputType="text"
+                            android:maxLength="100"
+                            android:maxLines="1"
+                            android:text="@={baseUser.userName}"
+                            android:textColor="@color/white"
+                            android:textColorHint="@color/white" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/email_TextField"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="6dp"
+                        android:hint="@string/email"
+                        android:textColorHint="@color/white"
+                        app:boxCornerRadiusBottomEnd="6dp"
+                        app:boxCornerRadiusBottomStart="6dp"
+                        app:boxCornerRadiusTopEnd="6dp"
+                        app:boxCornerRadiusTopStart="6dp"
+                        app:boxStrokeColor="@color/white"
+                        app:boxStrokeWidth="1dp"
+                        app:emailValidation="@{baseUser.userEmail}"
+                        app:errorEnabled="true"
+                        app:errorTextColor="@android:color/holo_red_dark"
+                        app:hintTextAppearance="@style/TextAppearance.AppCompat.Caption"
+                        app:hintTextColor="@color/white">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edt_email_sign_up"
+                            android:layout_width="match_parent"
+                            android:layout_height="56dp"
+                            android:inputType="textEmailAddress"
+                            android:maxLength="100"
+                            android:maxLines="1"
+                            android:text="@={baseUser.userEmail}"
+                            android:textColor="@color/white"
+                            android:textColorHint="@color/white" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/password_TextField"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="6dp"
+                        android:hint="@string/password_min_6_characters"
+                        android:textColorHint="@color/white"
+                        app:boxCornerRadiusBottomEnd="6dp"
+                        app:boxCornerRadiusBottomStart="6dp"
+                        app:boxCornerRadiusTopEnd="6dp"
+                        app:boxCornerRadiusTopStart="6dp"
+                        app:boxStrokeColor="@color/white"
+                        app:boxStrokeWidth="1dp"
+                        app:errorEnabled="true"
+                        app:errorTextColor="@android:color/holo_red_dark"
+                        app:hintTextAppearance="@style/TextAppearance.AppCompat.Caption"
+                        app:hintTextColor="@color/white"
+                        app:passwordToggleEnabled="true"
+                        app:passwordToggleTint="@color/white"
+                        app:passwordValidation="@{baseUser.userPassword}">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edt_password_sign_up"
+                            android:layout_width="match_parent"
+                            android:layout_height="56dp"
+                            android:inputType="textPassword"
+                            android:maxLength="100"
+                            android:maxLines="1"
+                            android:text="@={baseUser.userPassword}"
+                            android:textColor="@color/white"
+                            android:textColorHint="@color/white" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
+                </LinearLayout>
+
+
+                <Button
+                    android:id="@+id/btn_email_sign_up"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:layout_below="@id/sign_up_box"
+                    android:layout_marginLeft="50dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginRight="50dp"
+                    android:layout_marginBottom="8dp"
+                    android:backgroundTint="@color/colorPrimary"
+                    android:elevation="6dp"
+                    android:text="@string/sign_up" />
+
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/or_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/btn_email_sign_up"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp">
+
+                    <View
+                        android:id="@+id/view3"
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        android:background="@color/white"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/or1"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/or1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="4dp"
+                        android:layout_marginRight="4dp"
+                        android:text="@string/or"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                        android:textColor="@color/white"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/view4"
+                        app:layout_constraintStart_toEndOf="@+id/view3"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <View
+                        android:id="@+id/view4"
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        android:background="@color/white"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/or1"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/or_layout"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="12dp">
+
+                    <TextView
+                        android:id="@+id/social_sign_up"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/sign_up_with_social"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                        android:textColor="@color/white"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+                    <ImageButton
+                        android:id="@+id/facebook_icon_sign_up"
+                        android:layout_width="56dp"
+                        android:layout_height="56dp"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginRight="8dp"
+                        android:background="@drawable/facebook_btn_ripple_effect"
+                        android:contentDescription="@string/facebook_logo"
+                        android:elevation="6dp"
+                        android:padding="12dp"
+                        android:src="@drawable/ic_facebook_logo"
+                        android:stateListAnimator="@animator/social_icon_state_list_anim"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/google_icon_sign_up"
+                        app:layout_constraintTop_toBottomOf="@+id/social_sign_up" />
+
+                    <ImageButton
+                        android:id="@+id/google_icon_sign_up"
+                        android:layout_width="56dp"
+                        android:layout_height="56dp"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginRight="8dp"
+                        android:background="@drawable/google_btn_ripple_effect"
+                        android:contentDescription="@string/google_logo"
+                        android:elevation="6dp"
+                        android:padding="12dp"
+                        android:src="@drawable/ic_google_logo"
+                        android:stateListAnimator="@animator/social_icon_state_list_anim"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/facebook_icon_sign_up"
+                        app:layout_constraintHorizontal_chainStyle="packed"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/social_sign_up" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/company_first_time_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
+                android:layout_marginEnd="50dp"
+                android:orientation="vertical"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/brand_frame"
+                app:layout_constraintVertical_bias="0.31">
+
+                <!--                <TextView-->
+                <!--                    android:id="@+id/txt_first_time"-->
+                <!--                    android:layout_width="match_parent"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:text="@string/it_seems_this_your_first_time_using_easyhr_app_please_specify_your_position_and_all_information_needed"-->
+                <!--                    android:textColor="@color/white"-->
+                <!--                    android:fontFamily="sans-serif-black"-->
+                <!--                    android:textAppearance="@style/TextAppearance.MaterialComponents.SubCaption1"/>-->
+
+
+                <LinearLayout
+                    android:id="@+id/company_info_box"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:orientation="vertical"
+                    android:visibility="visible">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/company_name_inputLayout"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="6dp"
+                        android:hint="@string/company_name"
+                        android:textColorHint="@color/white"
+                        app:boxCornerRadiusBottomEnd="6dp"
+                        app:boxCornerRadiusBottomStart="6dp"
+                        app:boxCornerRadiusTopEnd="6dp"
+                        app:boxCornerRadiusTopStart="6dp"
+                        app:boxStrokeColor="@color/white"
+                        app:boxStrokeWidth="1dp"
+                        app:companyNameValidation="@{company.comName}"
+                        app:errorEnabled="true"
+                        app:errorTextColor="@android:color/holo_red_dark"
+                        app:helperText="@string/please_type_company_name"
+                        app:helperTextEnabled="true"
+                        app:helperTextTextAppearance="@style/TextAppearance.MaterialComponents.Caption"
+                        app:helperTextTextColor="@color/white"
+                        app:hintTextAppearance="@style/TextAppearance.AppCompat.Caption"
+                        app:hintTextColor="@color/white">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edt_company_name"
+                            android:layout_width="match_parent"
+                            android:layout_height="56dp"
+                            android:inputType="text"
+                            android:maxLength="200"
+                            android:maxLines="1"
+                            android:text="@={company.comName}"
+                            android:textColor="@color/white"
+                            android:textColorHint="@color/white" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/btn_continue_sign_up"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:layout_below="@id/company_info_box"
+                    android:layout_marginLeft="50dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginRight="50dp"
+                    android:layout_marginBottom="8dp"
+                    android:backgroundTint="@color/colorPrimary"
+                    android:elevation="6dp"
+                    android:text="@string/continue_sign_up" />
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/sales_first_time_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
+                android:layout_marginEnd="50dp"
+                android:orientation="vertical"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/brand_frame"
+                app:layout_constraintVertical_bias="0.37">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/com_id_TextField"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="6dp"
+                    android:hint="@string/company_id"
+                    android:textColorHint="@color/white"
+                    app:boxCornerRadiusBottomEnd="6dp"
+                    app:boxCornerRadiusBottomStart="6dp"
+                    app:boxCornerRadiusTopEnd="6dp"
+                    app:boxCornerRadiusTopStart="6dp"
+                    app:boxStrokeColor="@color/white"
+                    app:boxStrokeWidth="1dp"
+                    app:companyIdValidation="@{salesMan.companyId}"
+                    app:errorEnabled="true"
+                    app:errorTextColor="@android:color/holo_red_dark"
+                    app:helperText="@string/company_id_helper_text"
+                    app:helperTextEnabled="true"
+                    app:helperTextTextAppearance="@style/TextAppearance.MaterialComponents.Caption"
+                    app:helperTextTextColor="@color/white"
+                    app:hintTextAppearance="@style/TextAppearance.AppCompat.Caption"
+                    app:hintTextColor="@color/white">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edt_com_id"
+                        android:layout_width="match_parent"
+                        android:layout_height="56dp"
+                        android:inputType="text"
+                        android:maxLength="100"
+                        android:maxLines="1"
+                        android:text="@={salesMan.companyId}"
+                        android:textColor="@color/white"
+                        android:textColorHint="@color/white" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/branch_pin_TextField"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="6dp"
+                    android:hint="@string/branch_pin_code"
+                    android:textColorHint="@color/white"
+                    app:boxCornerRadiusBottomEnd="6dp"
+                    app:boxCornerRadiusBottomStart="6dp"
+                    app:boxCornerRadiusTopEnd="6dp"
+                    app:boxCornerRadiusTopStart="6dp"
+                    app:boxStrokeColor="@color/white"
+                    app:boxStrokeWidth="1dp"
+                    app:branchPinCodeValidation="@{salesMan.branchPin}"
+                    app:errorEnabled="true"
+                    app:errorTextColor="@android:color/holo_red_dark"
+                    app:helperText="Please type your Branch unique number"
+                    app:helperTextEnabled="true"
+                    app:helperTextTextAppearance="@style/TextAppearance.MaterialComponents.Caption"
+                    app:helperTextTextColor="@color/white"
+                    app:hintTextAppearance="@style/TextAppearance.AppCompat.Caption"
+                    app:hintTextColor="@color/white">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edt_branch_num"
+                        android:layout_width="match_parent"
+                        android:layout_height="56dp"
+                        android:inputType="number"
+                        android:maxLength="100"
+                        android:maxLines="1"
+                        android:text="@={salesMan.branchPin}"
+                        android:textColor="@color/white"
+                        android:textColorHint="@color/white" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+                <Button
+                    android:id="@+id/btn_sales_confirm"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:layout_marginLeft="50dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginRight="50dp"
+                    android:layout_marginBottom="8dp"
+                    android:backgroundTint="@color/colorPrimary"
+                    android:elevation="6dp"
+                    android:text="@string/confirm" />
+
+
+            </LinearLayout>
+
+            <FrameLayout
+                android:id="@+id/verify_email_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="50dp"
+                android:layout_marginEnd="50dp"
+                android:orientation="vertical"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/brand_frame"
+                app:layout_constraintVertical_bias="0.13999999">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="start|top"
+                    android:text="@string/email_verification_title"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
+                    android:textColor="@color/white"
+                    android:textStyle="bold" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="42dp"
+                    android:gravity="start"
+                    android:text="@string/we_sent_you_email_msg"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+                    android:textColor="@color/white" />
+
+
+            </FrameLayout>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+</layout>

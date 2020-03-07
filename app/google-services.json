@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "937988043143",
+    "firebase_url": "https://hawk-937ea.firebaseio.com",
+    "project_id": "hawk-937ea",
+    "storage_bucket": "hawk-937ea.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:937988043143:android:d0ac7244722549c4f42322",
+        "android_client_info": {
+          "package_name": "com.shouman.apps.hawk"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "937988043143-7bertl2et19ms0cui6sn86kf227fligs.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.shouman.apps.hawk",
+            "certificate_hash": "bc16a46041ea90a09f7ebe6d54445643d312aa02"
+          }
+        },
+        {
+          "client_id": "937988043143-18niil2bulucc0vu1apuv7pmsejm1rki.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCbWl_Hv0wHZ1KxdgAHqBwh5vmolQbPP-o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "937988043143-18niil2bulucc0vu1apuv7pmsejm1rki.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
