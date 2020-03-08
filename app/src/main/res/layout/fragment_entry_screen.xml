@@ -65,7 +65,7 @@
             android:backgroundTint="@color/colorPrimary"
             android:text="@string/create_new_account"
             android:textAllCaps="false"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
             app:layout_constraintBottom_toTopOf="@+id/btn_already_have_account"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -80,7 +80,7 @@
             android:backgroundTint="@color/colorPrimaryDark"
             android:text="@string/i_already_have_account"
             android:textAllCaps="false"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/btn_create_account"
             app:layout_constraintStart_toStartOf="@+id/btn_create_account" />

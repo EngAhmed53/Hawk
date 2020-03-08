@@ -2,22 +2,25 @@ package com.shouman.apps.hawk.ui.starting;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.MutableLiveData;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.shouman.apps.hawk.R;
+import com.shouman.apps.hawk.common.Common;
 import com.shouman.apps.hawk.databinding.ActivityStartingBinding;
-import com.shouman.apps.hawk.model.Company;
+import com.shouman.apps.hawk.preferences.UserPreference;
+import com.shouman.apps.hawk.ui.main.MainActivity;
 
 public class StartingActivity extends AppCompatActivity {
 
     private static final String TAG = "StartingActivity";
-    Company company = new Company();
 
     public ActivityStartingBinding mBinding;
 
@@ -28,14 +31,12 @@ public class StartingActivity extends AppCompatActivity {
     private Fragment_entry_screen fragment_entry_screen = Fragment_entry_screen.getInstance();
 
     private Fragment_signIn fragment_signIn = Fragment_signIn.getInstance();
+    private Fragment_signUp fragment_signUp = Fragment_signUp.getInstance();
 
-    private OnBackButtonPressed onBackButtonPressed;
 
-    public static int count = 0;
+    private Fragment_verify_email fragment_verify_email = Fragment_verify_email.getInstance();
 
-    public interface OnBackButtonPressed {
-        void doBack();
-    }
+    private Fragment_select_user_type fragment_select_user_type = Fragment_select_user_type.getInstance();
 
 
     @Override
@@ -49,33 +50,85 @@ public class StartingActivity extends AppCompatActivity {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
 
+                //check if the user is exist or not
                 FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
                 if (firebaseUser == null) {
-                    Log.e(TAG, "onAuthStateChanged: null");
+                    //new user or user wes logged out
+                    Common.baseUserLiveData = new MutableLiveData<>();
                     showEntryFragment();
                 } else {
-                    Log.e(TAG, "onAuthStateChanged: not null");
+                    // user is already exist and signed in
+                    Common.baseUserLiveData = new MutableLiveData<>();
 
-                    //showEntryFragment();
+                    if (firebaseUser.isEmailVerified()) {
+                        // user email is verified
+                        if (!UserPreference.isUserInfoSetted(StartingActivity.this)) {
+                            //user type is not defined
+                            Common.salesManMutableLiveData = new MutableLiveData<>();
+                            Common.companyMutableLiveData = new MutableLiveData<>();
+                            showSelectUserTypeFragment();
+                        } else {
+                            //user is logged in and his email is verified and his type is selected and all is set
+                            //run the main activity depend on his type (company or sales member)
+                            showMainActivity();
+                        }
+
+                    } else {
+                        //user email is not verified
+                        showVerifyEmailFragment();
+                    }
                 }
-
             }
         });
+    }
 
+    public void showSignUpFragment() {
+        Fragment_signUp f = (Fragment_signUp) fragmentManager.findFragmentByTag("fragment_sign_up");
+        if (f == null) {
+            fragmentManager
+                    .beginTransaction()
+                    .add(R.id.starting_container, fragment_signUp, "fragment_sign_up")
+                    .commit();
+        }
+    }
+
+    public void showVerifyEmailFragment() {
+        Fragment_verify_email f = (Fragment_verify_email) fragmentManager.findFragmentByTag("fragment_verify_email");
+        if (f == null) {
+            fragmentManager
+                    .beginTransaction()
+                    .add(R.id.starting_container, fragment_verify_email, "fragment_verify_email")
+                    .commit();
+        }
+
+    }
+
+    public void showSelectUserTypeFragment() {
+        Fragment_select_user_type f = (Fragment_select_user_type) fragmentManager.findFragmentByTag("fragment_select_user_type");
+        if (f == null) {
+            fragmentManager
+                    .beginTransaction()
+                    .add(R.id.starting_container, fragment_select_user_type, "fragment_select_user_type")
+                    .commit();
+        }
     }
 
     private void showMainActivity() {
         //check if the user if company type or sales member
         //to navigate him to the company ui or sales member ui
+        Toast.makeText(this, "show main activity", Toast.LENGTH_SHORT).show();
     }
 
 
-    private void showEntryFragment() {
+    public void showEntryFragment() {
+        Fragment_entry_screen f = (Fragment_entry_screen) fragmentManager.findFragmentByTag("fragment_entry_screen");
+        if (f == null) {
+            fragmentManager
+                    .beginTransaction()
+                    .add(R.id.starting_container, fragment_entry_screen, "fragment_entry_screen")
+                    .commit();
+        }
 
-        fragmentManager
-                .beginTransaction()
-                .add(R.id.starting_container, fragment_entry_screen, "fragment_entry_screen")
-                .commit();
 
 //        new Handler().postDelayed(new Runnable() {
 //            @Override
@@ -91,31 +144,30 @@ public class StartingActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if (count > 0) {
-            Fragment_signUp fragment_signUp = (Fragment_signUp) fragmentManager.findFragmentByTag("sign_up_fragment");
-            if (fragment_signUp != null && fragment_signUp.isVisible()) {
-                Log.e(TAG, "onBackPressed here fragment != null ");
-                try {
-                    onBackButtonPressed = (OnBackButtonPressed) fragment_signUp;
-                    if (fragment_signUp.count > 0) {
-                        Log.e(TAG, "onBackPressed here fragment.count > 0");
-                        onBackButtonPressed.doBack();
-                    } else {
-                        Log.e(TAG, "onBackPressed: " + fragment_signUp.count);
-                        fragmentManager.beginTransaction().show(fragment_entry_screen).commit();
-                        super.onBackPressed();
-                    }
-                } catch (ClassCastException e) {
-                    e.printStackTrace();
-                }
-
-            } else {
-                fragmentManager.beginTransaction().show(fragment_entry_screen).commit();
-                super.onBackPressed();
-            }
-
-        } else {
-            super.onBackPressed();
-        }
+        //if (count > 0) {
+//            Fragment_signUp fragment_signUp = (Fragment_signUp) fragmentManager.findFragmentByTag("sign_up_fragment");
+//            if (fragment_signUp != null && fragment_signUp.isVisible()) {
+//                Log.e(TAG, "onBackPressed here fragment != null ");
+//                try {
+//                    onBackButtonPressed = (OnBackButtonPressed) fragment_signUp;
+//                    if (fragment_signUp.count > 0) {
+//                        Log.e(TAG, "onBackPressed here fragment.count > 0");
+//                        onBackButtonPressed.doBack();
+//                    } else {
+//                        Log.e(TAG, "onBackPressed: " + fragment_signUp.count);
+//                        fragmentManager.beginTransaction().show(fragment_entry_screen).commit();
+//                        super.onBackPressed();
+//                    }
+//                } catch (ClassCastException e) {
+//                    e.printStackTrace();
+//                }
+//
+//            } else {
+//                fragmentManager.beginTransaction().show(fragment_entry_screen).commit();
+//                super.onBackPressed();
+//            }
+//
+//        } else {
+        super.onBackPressed();
     }
 }

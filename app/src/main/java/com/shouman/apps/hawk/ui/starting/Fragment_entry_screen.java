@@ -6,14 +6,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.MutableLiveData;
 import androidx.transition.Fade;
 import androidx.transition.Transition;
 import androidx.transition.TransitionInflater;
 
 import com.shouman.apps.hawk.R;
 import com.shouman.apps.hawk.databinding.FragmentEntryScreenBinding;
+import com.shouman.apps.hawk.model.BaseUser;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -35,7 +38,7 @@ public class Fragment_entry_screen extends Fragment {
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         mBinding = FragmentEntryScreenBinding.inflate(inflater);
         host = (StartingActivity) getActivity();
@@ -60,7 +63,6 @@ public class Fragment_entry_screen extends Fragment {
     }
 
     private void startSignUpFragment() {
-        StartingActivity.count +=1;
         Fragment_signUp fragment_signUp = Fragment_signUp.getInstance();
         Transition customTransition = TransitionInflater.from(getActivity()).inflateTransition(R.transition.logo_curve_transition);
 
@@ -80,7 +82,6 @@ public class Fragment_entry_screen extends Fragment {
     }
 
     private void startSignInFragment() {
-        StartingActivity.count += 1;
         Fragment_signIn fragment_signIn = Fragment_signIn.getInstance();
         Transition customTransition = TransitionInflater.from(getActivity()).inflateTransition(R.transition.logo_curve_transition);
 

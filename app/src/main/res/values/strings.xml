@@ -45,8 +45,20 @@
     <string name="com_id_spacial_chars_error">Company Id should not contain any spacial characters</string>
     <string name="blank_compay_name_error">Company name can\'t be blank</string>
     <string name="blank_company_id_error">Company Id can\'t be blank</string>
-    <string name="blank_pib_code_error">brench pin code can\'t be blank</string>
+    <string name="blank_pib_code_error">branch pin code can\'t be blank</string>
     <string name="valid_pin_code_error">please type valid pin code</string>
-    <string name="we_sent_you_email_msg">We sent you a verification email, Please check your inbox.</string>
+    <string name="we_sent_you_email_msg">In order to continue you have to Verify your email address, We sent you a verification email, Please check your inbox.</string>
     <string name="email_verification_title">Email Verification</string>
+    <string name="sign_up_with_facebook">Sign up with Facebook</string>
+    <string name="sign_up_with_google">Sign up with Google</string>
+    <string name="create_account">Create account</string>
+    <string name="sign_in">Sign in</string>
+    <string name="sign_in_with_google">Sign in with Google</string>
+    <string name="sign_in_with_facebook">Sign in with Facebook</string>
+    <string name="change_email">Change Email</string>
+    <string name="please_select_your_position">Please Select your Position and type the needed information in order to continue.</string>
+    <string name="select_your_position">Select your Position</string>
+    <string name="name_helper_text">Type your name without numbers or any special characters</string>
+    <string name="did_not_receive_email">Did not Receive Email ?</string>
+    <string name="resend_email">Resend Email !</string>
 </resources>

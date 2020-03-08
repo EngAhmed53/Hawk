@@ -2,7 +2,13 @@ package com.shouman.apps.hawk.common;
 
 import android.content.Context;
 
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
+
 import com.shouman.apps.hawk.R;
+import com.shouman.apps.hawk.model.BaseUser;
+import com.shouman.apps.hawk.model.Company;
+import com.shouman.apps.hawk.model.SalesMan;
 
 import java.util.Random;
 
@@ -12,6 +18,9 @@ public class Common {
     public static int MANAGER_POSITION = 0;
     public static int SALES_POSITION = 1;
     public static final String BASE = "0123456789abcdefghijklmnopqrstuvwxyz";
+    public static MutableLiveData<BaseUser> baseUserLiveData;
+    public static MutableLiveData<Company> companyMutableLiveData;
+    public static MutableLiveData<SalesMan> salesManMutableLiveData;
 
 
 

@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+        <variable
+            name="empty"
+            type="String" />
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/photo_background_protection"
+        tools:context=".ui.starting.Fragment_select_user_type">
+
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="32dp"
+            android:fontFamily="sans-serif-light"
+            android:gravity="start|top"
+            android:text="@string/select_your_position"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.06999999" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:gravity="start"
+            android:text="@string/please_select_your_position"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/textView"
+            app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/choose_type_input_layout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="32dp"
+            android:hint="@string/choose_your_position"
+            android:textColorHint="@color/white"
+            app:boxCornerRadiusBottomEnd="6dp"
+            app:boxCornerRadiusBottomStart="6dp"
+            app:boxCornerRadiusTopEnd="6dp"
+            app:boxCornerRadiusTopStart="6dp"
+            app:boxStrokeColor="@color/white"
+            app:boxStrokeWidth="1dp"
+            app:hintTextAppearance="@style/TextAppearance.AppCompat.Caption"
+            app:hintTextColor="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView2">
+
+            <AutoCompleteTextView
+                android:id="@+id/filled_exposed_dropdown"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:maxLength="50"
+                android:maxLines="1"
+                android:textColor="@color/white" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <LinearLayout
+            android:id="@+id/position_info_layout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:orientation="vertical"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/choose_type_input_layout"
+            app:layout_constraintStart_toStartOf="@+id/choose_type_input_layout"
+            app:layout_constraintTop_toBottomOf="@+id/choose_type_input_layout"
+            app:layout_constraintVertical_bias="0.0">
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/name_inputLayout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="6dp"
+                android:hint="@string/user_name"
+                android:textColorHint="@color/white"
+                app:boxCornerRadiusBottomEnd="6dp"
+                app:boxCornerRadiusBottomStart="6dp"
+                app:boxCornerRadiusTopEnd="6dp"
+                app:boxCornerRadiusTopStart="6dp"
+                app:boxStrokeColor="@color/white"
+                app:boxStrokeWidth="1dp"
+                app:errorEnabled="true"
+                app:errorTextColor="@android:color/holo_red_dark"
+                app:helperText="@string/name_helper_text"
+                app:helperTextEnabled="true"
+                app:helperTextTextAppearance="@style/TextAppearance.MaterialComponents.Caption"
+                app:helperTextTextColor="@color/white"
+                app:hintTextAppearance="@style/TextAppearance.AppCompat.Caption"
+                app:hintTextColor="@color/white"
+                app:userNameValidation="@{empty}">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edt_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:inputType="text"
+                    android:maxLength="100"
+                    android:maxLines="1"
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/white" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <LinearLayout
+                android:id="@+id/company_info_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/company_name_inputLayout"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="6dp"
+                    android:hint="@string/company_name"
+                    android:textColorHint="@color/white"
+                    app:boxCornerRadiusBottomEnd="6dp"
+                    app:boxCornerRadiusBottomStart="6dp"
+                    app:boxCornerRadiusTopEnd="6dp"
+                    app:boxCornerRadiusTopStart="6dp"
+                    app:boxStrokeColor="@color/white"
+                    app:boxStrokeWidth="1dp"
+                    app:companyNameValidation="@{empty}"
+                    app:errorEnabled="true"
+                    app:errorTextColor="@android:color/holo_red_dark"
+                    app:helperText="@string/please_type_company_name"
+                    app:helperTextEnabled="true"
+                    app:helperTextTextAppearance="@style/TextAppearance.MaterialComponents.Caption"
+                    app:helperTextTextColor="@color/white"
+                    app:hintTextAppearance="@style/TextAppearance.AppCompat.Caption"
+                    app:hintTextColor="@color/white">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edt_company_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="56dp"
+                        android:inputType="text"
+                        android:maxLength="200"
+                        android:maxLines="1"
+                        android:textColor="@color/white"
+                        android:textColorHint="@color/white" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/sales_info_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/brand_frame"
+                app:layout_constraintVertical_bias="0.37">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/com_id_TextField"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="6dp"
+                    android:hint="@string/company_id"
+                    android:textColorHint="@color/white"
+                    app:boxCornerRadiusBottomEnd="6dp"
+                    app:boxCornerRadiusBottomStart="6dp"
+                    app:boxCornerRadiusTopEnd="6dp"
+                    app:boxCornerRadiusTopStart="6dp"
+                    app:boxStrokeColor="@color/white"
+                    app:boxStrokeWidth="1dp"
+                    app:companyIdValidation="@{empty}"
+                    app:errorEnabled="true"
+                    app:errorTextColor="@android:color/holo_red_dark"
+                    app:helperText="@string/company_id_helper_text"
+                    app:helperTextEnabled="true"
+                    app:helperTextTextAppearance="@style/TextAppearance.MaterialComponents.Caption"
+                    app:helperTextTextColor="@color/white"
+                    app:hintTextAppearance="@style/TextAppearance.AppCompat.Caption"
+                    app:hintTextColor="@color/white">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edt_com_id"
+                        android:layout_width="match_parent"
+                        android:layout_height="56dp"
+                        android:inputType="text"
+                        android:maxLength="100"
+                        android:maxLines="1"
+                        android:textColor="@color/white"
+                        android:textColorHint="@color/white" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/branch_pin_TextField"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="6dp"
+                    android:hint="@string/branch_pin_code"
+                    android:textColorHint="@color/white"
+                    app:boxCornerRadiusBottomEnd="6dp"
+                    app:boxCornerRadiusBottomStart="6dp"
+                    app:boxCornerRadiusTopEnd="6dp"
+                    app:boxCornerRadiusTopStart="6dp"
+                    app:boxStrokeColor="@color/white"
+                    app:boxStrokeWidth="1dp"
+                    app:branchPinCodeValidation="@{empty}"
+                    app:errorEnabled="true"
+                    app:errorTextColor="@android:color/holo_red_dark"
+                    app:helperText="Please type your Branch unique number"
+                    app:helperTextEnabled="true"
+                    app:helperTextTextAppearance="@style/TextAppearance.MaterialComponents.Caption"
+                    app:helperTextTextColor="@color/white"
+                    app:hintTextAppearance="@style/TextAppearance.AppCompat.Caption"
+                    app:hintTextColor="@color/white">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edt_branch_num"
+                        android:layout_width="match_parent"
+                        android:layout_height="56dp"
+                        android:inputType="number"
+                        android:maxLength="100"
+                        android:maxLines="1"
+                        android:textColor="@color/white"
+                        android:textColorHint="@color/white" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </LinearLayout>
+
+
+            <Button
+                android:id="@+id/btn_confirm_info"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_marginLeft="50dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginRight="50dp"
+                android:layout_marginBottom="8dp"
+                android:enabled="false"
+                android:backgroundTint="@color/colorPrimary"
+                android:elevation="6dp"
+                android:text="@string/confirm" />
+
+
+        </LinearLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
