@@ -15,9 +15,13 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.shouman.apps.hawk.common.Common;
 import com.shouman.apps.hawk.databinding.FragmentVerifyEmailBinding;
-import com.shouman.apps.hawk.model.BaseUser;
+import com.shouman.apps.hawk.preferences.UserPreference;
+
+import java.util.HashMap;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -26,8 +30,13 @@ public class Fragment_verify_email extends Fragment {
 
     private static final String TAG = "Fragment_verify_email";
     private FirebaseUser firebaseUser;
+
     private FirebaseAuth auth;
+
     private FragmentVerifyEmailBinding mBinding;
+
+    private FirebaseDatabase database;
+    private DatabaseReference userMapReference;
 
     public static Fragment_verify_email getInstance() {
         return new Fragment_verify_email();
@@ -41,9 +50,22 @@ public class Fragment_verify_email extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
         auth = FirebaseAuth.getInstance();
         firebaseUser = auth.getCurrentUser();
+
+        database = FirebaseDatabase.getInstance();
+
+        //get user Email to get userMapUID
+        String userEmail = UserPreference.getUserEmail(getContext());
+
+        if (userEmail != null) {
+            Log.e(TAG, "onCreateView: " + userEmail );
+            userMapReference = database.getReference().child("usersMap").child(Common.EmailToUID(userEmail));
+        } else {
+            Toast.makeText(getContext(), "email is empty", Toast.LENGTH_SHORT).show();
+        }
+
         mBinding = FragmentVerifyEmailBinding.inflate(inflater);
 
         mBinding.resendEmailBtn.setOnClickListener(new View.OnClickListener() {
@@ -75,6 +97,7 @@ public class Fragment_verify_email extends Fragment {
         super.onResume();
     }
 
+    //resend email if the user did not get it at first time
     private void resendVerificationEmail() {
         final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
@@ -93,33 +116,33 @@ public class Fragment_verify_email extends Fragment {
         }
     }
 
+    //check if the user verified his email
     private void checkIfUserIsVerified() {
         if (firebaseUser != null) {
-            Log.e(TAG, "checkIfUserIsVerified: firebase user is not null");
             firebaseUser.reload().addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
                     if (task.isSuccessful()) {
-                        isEmailVerified();
+                        verificationDone();
                     }
                 }
             });
         }
     }
 
-    private void isEmailVerified() {
+    private void verificationDone() {
         if (firebaseUser.isEmailVerified()) {
-            BaseUser user = Common.baseUserLiveData.getValue();
-            Log.e(TAG, "checkIfUserIsVerified: email is verified ");
-            if (user != null) {
-                Log.e(TAG, "checkIfUserIsVerified: base user is not null");
-                user.setVerified(true);
-                showSelectTypeFragment();
-            } else {
-                throw new IllegalStateException("the base user of the app is null");
+            Common.userMap.setVerified(true);
+
+            //push the updated userMap to data base
+            HashMap<String, Object> newValues = new HashMap<>();
+            newValues.put("verified", true);
+            if (userMapReference != null) {
+                userMapReference.updateChildren(newValues);
             }
-        } else {
-            Log.e(TAG, "checkIfUserIsVerified: not verified");
+
+            //show select type fragment
+            showSelectTypeFragment();
         }
     }
 

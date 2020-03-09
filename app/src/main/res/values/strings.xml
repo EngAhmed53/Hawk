@@ -18,10 +18,9 @@
     <string name="password">Password</string>
     <string name="sign_up">Sign up with Email</string>
     <string name="sign_up_with_social">Sign up with Social</string>
-    <string name="company_id">Company Id</string>
-    <string name="branch_pin_code">Branch Pin Code</string>
+    <string name="branch_uid">Branch UID</string>
     <string name="confirm">Confirm</string>
-    <string name="company_id_helper_text">Call your Manager or HR for this id</string>
+    <string name="company_id_helper_text">Call your Manager or HR for this UID</string>
     <string name="hr_helper_text">Call your Manager to get Company Id</string>
     <string name="hr_pin_code_helper">Please type your pin code</string>
     <string name="hr_pin_code_hint">HR PIN code</string>

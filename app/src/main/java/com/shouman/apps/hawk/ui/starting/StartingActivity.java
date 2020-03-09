@@ -1,22 +1,19 @@
 package com.shouman.apps.hawk.ui.starting;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.FragmentManager;
-import androidx.lifecycle.MutableLiveData;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.shouman.apps.hawk.R;
 import com.shouman.apps.hawk.common.Common;
 import com.shouman.apps.hawk.databinding.ActivityStartingBinding;
+import com.shouman.apps.hawk.model.UserMap;
 import com.shouman.apps.hawk.preferences.UserPreference;
-import com.shouman.apps.hawk.ui.main.MainActivity;
 
 public class StartingActivity extends AppCompatActivity {
 
@@ -46,41 +43,40 @@ public class StartingActivity extends AppCompatActivity {
         fragmentManager = getSupportFragmentManager();
 
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-        firebaseAuth.addAuthStateListener(new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
 
-                //check if the user is exist or not
-                FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
-                if (firebaseUser == null) {
-                    //new user or user wes logged out
-                    Common.baseUserLiveData = new MutableLiveData<>();
-                    showEntryFragment();
+        //check if the user is exist or not
+        FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+        if (firebaseUser == null) {
+            //new user or user wes logged out
+            showEntryFragment();
+
+        } else {
+            // user is already exist and signed in
+            //check if the user email is verified
+            Common.userMap = new UserMap();
+            Common.userMap.setUserUID(UserPreference.getUserUID(StartingActivity.this));
+            if (firebaseUser.isEmailVerified()) {
+                // user email is verified
+                Common.userMap.setVerified(true);
+
+                //check if the user type is defined
+                if (!UserPreference.isUserInfoSetted(StartingActivity.this)) {
+                    //user type is not defined
+
+                    showSelectUserTypeFragment();
                 } else {
-                    // user is already exist and signed in
-                    Common.baseUserLiveData = new MutableLiveData<>();
-
-                    if (firebaseUser.isEmailVerified()) {
-                        // user email is verified
-                        if (!UserPreference.isUserInfoSetted(StartingActivity.this)) {
-                            //user type is not defined
-                            Common.salesManMutableLiveData = new MutableLiveData<>();
-                            Common.companyMutableLiveData = new MutableLiveData<>();
-                            showSelectUserTypeFragment();
-                        } else {
-                            //user is logged in and his email is verified and his type is selected and all is set
-                            //run the main activity depend on his type (company or sales member)
-                            showMainActivity();
-                        }
-
-                    } else {
-                        //user email is not verified
-                        showVerifyEmailFragment();
-                    }
+                    //user is logged in and his email is verified and his type is selected and all is set
+                    //run the main activity depend on his type (company or sales member)
+                    showMainActivity();
                 }
+
+            } else {
+                //user email is not verified
+                showVerifyEmailFragment();
             }
-        });
+        }
     }
+
 
     public void showSignUpFragment() {
         Fragment_signUp f = (Fragment_signUp) fragmentManager.findFragmentByTag("fragment_sign_up");
@@ -97,7 +93,7 @@ public class StartingActivity extends AppCompatActivity {
         if (f == null) {
             fragmentManager
                     .beginTransaction()
-                    .add(R.id.starting_container, fragment_verify_email, "fragment_verify_email")
+                    .replace(R.id.starting_container, fragment_verify_email, "fragment_verify_email")
                     .commit();
         }
 
@@ -108,7 +104,7 @@ public class StartingActivity extends AppCompatActivity {
         if (f == null) {
             fragmentManager
                     .beginTransaction()
-                    .add(R.id.starting_container, fragment_select_user_type, "fragment_select_user_type")
+                    .replace(R.id.starting_container, fragment_select_user_type, "fragment_select_user_type")
                     .commit();
         }
     }
@@ -125,7 +121,7 @@ public class StartingActivity extends AppCompatActivity {
         if (f == null) {
             fragmentManager
                     .beginTransaction()
-                    .add(R.id.starting_container, fragment_entry_screen, "fragment_entry_screen")
+                    .replace(R.id.starting_container, fragment_entry_screen, "fragment_entry_screen")
                     .commit();
         }
 

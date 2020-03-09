@@ -9,6 +9,8 @@ public class UserPreference {
     public static final String IS_USER_TYPE_SELECTED = "is_user_type_selected";
     public static final String IS_USER_INFO_TYPED = "is_user_info_typed";
     public static final String USER_TYPE = "user_type";
+    public static final String USER_EMAIL = "user_email";
+    public static final String USER_MAP_UID = "user_uid";
 
     public static String getUserType(Context context) {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
@@ -26,9 +28,19 @@ public class UserPreference {
          preferences.edit().putString(USER_TYPE, userType).apply();
     }
 
-    public static boolean isUserTypeSelected(Context context) {
+//    public static boolean isUserTypeSelected(Context context) {
+//        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+//        return preferences.getBoolean(IS_USER_TYPE_SELECTED, false);
+//    }
+
+    public static void setUserEmail(Context context, String userEmail) {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
-        return preferences.getBoolean(IS_USER_TYPE_SELECTED, false);
+            preferences.edit().putString(USER_EMAIL, userEmail).apply();
+    }
+
+    public static String getUserEmail(Context context) {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        return preferences.getString(USER_EMAIL, "null");
     }
 
     public static boolean isUserInfoSetted(Context context) {
@@ -46,5 +58,15 @@ public class UserPreference {
         preferences.edit().putBoolean(IS_USER_INFO_TYPED, true).apply();
     }
 
+
+    public static void setUserUID(Context context, String UID) {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        preferences.edit().putString(USER_MAP_UID, UID).apply();
+    }
+
+    public static String getUserUID(Context context) {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        return preferences.getString(USER_MAP_UID, "null");
+    }
 
 }

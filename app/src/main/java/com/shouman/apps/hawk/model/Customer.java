@@ -1,148 +1,104 @@
 package com.shouman.apps.hawk.model;
 
-import androidx.databinding.BaseObservable;
-import androidx.databinding.Bindable;
 import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
-import com.shouman.apps.hawk.BR;
-
 @Entity(tableName = "customers_table")
-public class Customer extends BaseObservable {
+public class Customer {
 
     @PrimaryKey(autoGenerate = true)
     private long id;
 
     private String customerName;
 
-    private String customerAddress;
+    private double lat;
 
-    private double customerLat;
+    private double lang;
 
-    private double customerLang;
+    private String companyName;
 
-    private String customerCompanyName;
-
-    private String customerPhoneNumber;
+    private String phoneNumber;
 
     private long timeStamp;
-
-    private String customerId;
 
     @Ignore
     public Customer() {
     }
 
     @Ignore
-    public Customer(long id, String customerName, String customerAddress, double customerLat, double customerLang, String customerCompanyName, String customerPhoneNumber, long timeStamp) {
+    public Customer(long id, String customerName, double lat, double lang, String companyName, String phoneNumber, long timeStamp) {
         this.id = id;
         this.customerName = customerName;
-        this.customerAddress = customerAddress;
-        this.customerLat = customerLat;
-        this.customerLang = customerLang;
-        this.customerCompanyName = customerCompanyName;
-        this.customerPhoneNumber = customerPhoneNumber;
+        this.lat = lat;
+        this.lang = lang;
+        this.companyName = companyName;
+        this.phoneNumber = phoneNumber;
         this.timeStamp = timeStamp;
     }
 
-    public Customer(String customerName, String customerAddress, double customerLat, double customerLang, String customerCompanyName, String customerPhoneNumber, long timeStamp) {
+    public Customer(String customerName, double lat, double lang, String companyName, String phoneNumber, long timeStamp) {
         this.customerName = customerName;
-        this.customerAddress = customerAddress;
-        this.customerLat = customerLat;
-        this.customerLang = customerLang;
-        this.customerCompanyName = customerCompanyName;
-        this.customerPhoneNumber = customerPhoneNumber;
+        this.lat = lat;
+        this.lang = lang;
+        this.companyName = companyName;
+        this.phoneNumber = phoneNumber;
         this.timeStamp = timeStamp;
     }
 
-    @Bindable
     public long getId() {
         return id;
     }
 
     public void setId(long id) {
         this.id = id;
-        notifyPropertyChanged(BR.id);
     }
 
-    @Bindable
     public String getCustomerName() {
         return customerName;
     }
 
     public void setCustomerName(String customerName) {
         this.customerName = customerName;
-        notifyPropertyChanged(BR.customerName);
     }
 
-    @Bindable
-    public String getCustomerAddress() {
-        return customerAddress;
+    public double getLat() {
+        return lat;
     }
 
-    public void setCustomerAddress(String customerAddress) {
-        this.customerAddress = customerAddress;
-        notifyPropertyChanged(BR.customerAddress);
+    public void setLat(double lat) {
+        this.lat = lat;
     }
 
-    @Bindable
-    public double getCustomerLat() {
-        return customerLat;
+    public double getLang() {
+        return lang;
     }
 
-    public void setCustomerLat(double customerLat) {
-        this.customerLat = customerLat;
-        notifyPropertyChanged(BR.customerLat);
+    public void setLang(double lang) {
+        this.lang = lang;
     }
 
-    @Bindable
-    public double getCustomerLang() {
-        return customerLang;
+    public String getCompanyName() {
+        return companyName;
     }
 
-    public void setCustomerLang(double customerLang) {
-        this.customerLang = customerLang;
-        notifyPropertyChanged(BR.customerLang);
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
     }
 
-    @Bindable
-    public String getCustomerCompanyName() {
-        return customerCompanyName;
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
-    public void setCustomerCompanyName(String customerCompanyName) {
-        this.customerCompanyName = customerCompanyName;
-        notifyPropertyChanged(BR.customerCompanyName);
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
-    @Bindable
-    public String getCustomerPhoneNumber() {
-        return customerPhoneNumber;
-    }
-
-    public void setCustomerPhoneNumber(String customerPhoneNumber) {
-        this.customerPhoneNumber = customerPhoneNumber;
-        notifyPropertyChanged(BR.customerPhoneNumber);
-    }
-
-    @Bindable
     public long getTimeStamp() {
         return timeStamp;
     }
 
     public void setTimeStamp(long timeStamp) {
         this.timeStamp = timeStamp;
-        notifyPropertyChanged(BR.timeStamp);
-    }
-
-    @Bindable
-    public String getCustomerId() {
-        return customerId;
-    }
-
-    public void setCustomerId(String customerId) {
-        this.customerId = customerId;
-        notifyPropertyChanged(BR.customerId);
     }
 }

@@ -176,7 +176,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:visibility="gone"
+                android:visibility="visible"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -189,7 +189,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="6dp"
-                    android:hint="@string/company_id"
+                    android:hint="@string/branch_uid"
                     android:textColorHint="@color/white"
                     app:boxCornerRadiusBottomEnd="6dp"
                     app:boxCornerRadiusBottomStart="6dp"
@@ -218,40 +218,40 @@
                         android:textColorHint="@color/white" />
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/branch_pin_TextField"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="6dp"
-                    android:hint="@string/branch_pin_code"
-                    android:textColorHint="@color/white"
-                    app:boxCornerRadiusBottomEnd="6dp"
-                    app:boxCornerRadiusBottomStart="6dp"
-                    app:boxCornerRadiusTopEnd="6dp"
-                    app:boxCornerRadiusTopStart="6dp"
-                    app:boxStrokeColor="@color/white"
-                    app:boxStrokeWidth="1dp"
-                    app:branchPinCodeValidation="@{empty}"
-                    app:errorEnabled="true"
-                    app:errorTextColor="@android:color/holo_red_dark"
-                    app:helperText="Please type your Branch unique number"
-                    app:helperTextEnabled="true"
-                    app:helperTextTextAppearance="@style/TextAppearance.MaterialComponents.Caption"
-                    app:helperTextTextColor="@color/white"
-                    app:hintTextAppearance="@style/TextAppearance.AppCompat.Caption"
-                    app:hintTextColor="@color/white">
+<!--                <com.google.android.material.textfield.TextInputLayout-->
+<!--                    android:id="@+id/branch_pin_TextField"-->
+<!--                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginBottom="6dp"-->
+<!--                    android:hint="@string/branch_pin_code"-->
+<!--                    android:textColorHint="@color/white"-->
+<!--                    app:boxCornerRadiusBottomEnd="6dp"-->
+<!--                    app:boxCornerRadiusBottomStart="6dp"-->
+<!--                    app:boxCornerRadiusTopEnd="6dp"-->
+<!--                    app:boxCornerRadiusTopStart="6dp"-->
+<!--                    app:boxStrokeColor="@color/white"-->
+<!--                    app:boxStrokeWidth="1dp"-->
+<!--                    app:branchPinCodeValidation="@{empty}"-->
+<!--                    app:errorEnabled="true"-->
+<!--                    app:errorTextColor="@android:color/holo_red_dark"-->
+<!--                    app:helperText="Please type your Branch unique number"-->
+<!--                    app:helperTextEnabled="true"-->
+<!--                    app:helperTextTextAppearance="@style/TextAppearance.MaterialComponents.Caption"-->
+<!--                    app:helperTextTextColor="@color/white"-->
+<!--                    app:hintTextAppearance="@style/TextAppearance.AppCompat.Caption"-->
+<!--                    app:hintTextColor="@color/white">-->
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/edt_branch_num"
-                        android:layout_width="match_parent"
-                        android:layout_height="56dp"
-                        android:inputType="number"
-                        android:maxLength="100"
-                        android:maxLines="1"
-                        android:textColor="@color/white"
-                        android:textColorHint="@color/white" />
-                </com.google.android.material.textfield.TextInputLayout>
+<!--                    <com.google.android.material.textfield.TextInputEditText-->
+<!--                        android:id="@+id/edt_branch_num"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="56dp"-->
+<!--                        android:inputType="number"-->
+<!--                        android:maxLength="100"-->
+<!--                        android:maxLines="1"-->
+<!--                        android:textColor="@color/white"-->
+<!--                        android:textColorHint="@color/white" />-->
+<!--                </com.google.android.material.textfield.TextInputLayout>-->
 
             </LinearLayout>
 

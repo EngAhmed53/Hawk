@@ -9,14 +9,12 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.lifecycle.MutableLiveData;
 import androidx.transition.Fade;
 import androidx.transition.Transition;
 import androidx.transition.TransitionInflater;
 
 import com.shouman.apps.hawk.R;
 import com.shouman.apps.hawk.databinding.FragmentEntryScreenBinding;
-import com.shouman.apps.hawk.model.BaseUser;
 
 /**
  * A simple {@link Fragment} subclass.

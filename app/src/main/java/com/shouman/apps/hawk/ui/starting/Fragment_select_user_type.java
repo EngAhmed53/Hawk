@@ -11,18 +11,22 @@ import android.view.animation.AnimationUtils;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.shouman.apps.hawk.R;
 import com.shouman.apps.hawk.common.Common;
 import com.shouman.apps.hawk.databinding.FragmentSelectUserTypeBinding;
-import com.shouman.apps.hawk.model.BaseUser;
 import com.shouman.apps.hawk.model.Company;
 import com.shouman.apps.hawk.model.SalesMan;
 import com.shouman.apps.hawk.preferences.UserPreference;
+
+import java.util.HashMap;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -37,6 +41,12 @@ public class Fragment_select_user_type extends Fragment {
 
     private ArrayAdapter<String> positionsAdapter;
 
+    private FirebaseDatabase database;
+    private DatabaseReference companiesReference;
+    private DatabaseReference salesMembersReferences;
+    private DatabaseReference userMapReference;
+
+
 
     public static Fragment_select_user_type getInstance() {
         return new Fragment_select_user_type();
@@ -50,8 +60,21 @@ public class Fragment_select_user_type extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
         mBinding = FragmentSelectUserTypeBinding.inflate(inflater);
+
+        database = FirebaseDatabase.getInstance();
+        companiesReference = database.getReference().child("companies");
+        salesMembersReferences = database.getReference().child("sales_members");
+        //get user Email to get userMapUID
+        String userEmail = UserPreference.getUserEmail(getContext());
+
+        if (userEmail != null) {
+            Log.e(TAG, "onCreateView: " + userEmail );
+            userMapReference = database.getReference().child("usersMap").child(Common.EmailToUID(userEmail));
+        } else {
+            Toast.makeText(getContext(), "email is empty", Toast.LENGTH_SHORT).show();
+        }
 
         positionsAdapter = new ArrayAdapter<>(getContext(),
                 R.layout.drop_down_list_item,
@@ -89,26 +112,36 @@ public class Fragment_select_user_type extends Fragment {
                             && checkInputTextErrors(mBinding.companyNameInputLayout)) {
 
                         //add company profile
-                        Company company = Common.companyMutableLiveData.getValue();
-                        if (company == null) {
-                            BaseUser user = Common.baseUserLiveData.getValue();
-                            if (user == null) {
-                                user = new BaseUser();
-                                user.setUserType(SELECTED_POSITION);
-                                UserPreference.setUserInfoSettedTrue(getContext());
-                                UserPreference.setUserTypeTrue(getContext());
-                                UserPreference.setUserType(getContext(), SELECTED_POSITION);
-                                Log.e(TAG, "preference changed" );
-                                Company newCompany = new Company("id",
-                                        user.getUserEmail(),
-                                        mBinding.edtCompanyName.getText().toString(),
-                                        mBinding.edtName.getText().toString(),
-                                        user.getUserPassword()
-                                );
-                                Common.companyMutableLiveData.setValue(newCompany);
+                        Company company = new Company();
+//
+                        //set company info
+                        company.setUserName(mBinding.edtName.getText().toString());
+                        company.setCompanyName(mBinding.edtCompanyName.getText().toString());
 
-                            }
+                        //get the newUID
+                        String newKey = companiesReference.push().getKey();
+                        companiesReference.child(newKey).setValue(company);
+
+
+                        //continue setting the userMap
+                        Common.userMap.setPath("companies");
+                        Common.userMap.setUserUID(newKey);
+
+                        //push the updated userMap to data base
+                        HashMap<String, Object> newValues = new HashMap<>();
+                        newValues.put("userUID", newKey);
+                        newValues.put("path", "companies");
+                        if (userMapReference != null) {
+                            userMapReference.updateChildren(newValues);
                         }
+
+
+
+                        //update the user preference
+                        UserPreference.setUserInfoSettedTrue(getContext());
+                        UserPreference.setUserTypeTrue(getContext());
+                        UserPreference.setUserType(getContext(), SELECTED_POSITION);
+                        UserPreference.setUserUID(getContext(), companiesReference.getKey());
 
                     } else {
                         if (mBinding.nameInputLayout.getError() != null ||
@@ -123,29 +156,35 @@ public class Fragment_select_user_type extends Fragment {
                     }
                 } else if (SELECTED_POSITION == Common.SALES_POSITION) {
                     if (checkInputTextErrors(mBinding.nameInputLayout)
-                            && checkInputTextErrors(mBinding.comIdTextField)
-                            && checkInputTextErrors(mBinding.branchPinTextField)) {
+                            && checkInputTextErrors(mBinding.comIdTextField)) {
 
                         //add sales member profile
-                        SalesMan salesMan = Common.salesManMutableLiveData.getValue();
-                        if (salesMan == null) {
-                            BaseUser user = Common.baseUserLiveData.getValue();
-                            if (user != null) {
-                                user.setUserType(SELECTED_POSITION);
-                                UserPreference.setUserInfoSettedTrue(getContext());
-                                UserPreference.setUserTypeTrue(getContext());
-                                UserPreference.setUserType(getContext(), SELECTED_POSITION);
-                                SalesMan newSalesMan = new SalesMan(mBinding.edtName.getText().toString(),
-                                        user.getUserEmail(),
-                                        user.getUserPassword(),
-                                        22232,
-                                        mBinding.edtComId.getText().toString(),
-                                        mBinding.edtBranchNum.getText().toString()
-                                );
-                                Common.salesManMutableLiveData.setValue(newSalesMan);
+                        SalesMan salesMan = new SalesMan();
 
-                            }
+                        //set sales_member info
+                        salesMan.setUserName(mBinding.edtName.getText().toString());
+                        salesMan.setEmail(UserPreference.getUserEmail(getContext()));
+
+                        //get the newUID
+                        String newKey = salesMembersReferences.push().getKey();
+                        companiesReference.child(newKey).setValue(salesMan);
+
+                        //continue setting the userMap
+                        Common.userMap.setPath("sales_member");
+                        Common.userMap.setUserUID(newKey);
+
+                        //push the updated userMap to data base
+                        HashMap<String, Object> newValues = new HashMap<>();
+                        newValues.put("userUID", newKey);
+                        newValues.put("path", "sales_member");
+                        if (userMapReference != null) {
+                            userMapReference.updateChildren(newValues);
                         }
+
+                        //update user preferences
+                        UserPreference.setUserInfoSettedTrue(getContext());
+                        UserPreference.setUserTypeTrue(getContext());
+                        UserPreference.setUserType(getContext(), SELECTED_POSITION);
 
                     } else {
                         if (mBinding.nameInputLayout.getError() != null ||
@@ -155,10 +194,6 @@ public class Fragment_select_user_type extends Fragment {
                         } else if (mBinding.comIdTextField.getEditText().getText().toString().isEmpty() ||
                                 mBinding.comIdTextField.getError() != null) {
                             mBinding.comIdTextField.requestFocus();
-
-                        } else if (mBinding.branchPinTextField.getEditText().getText().toString().isEmpty() ||
-                                mBinding.branchPinTextField.getError() != null) {
-                            mBinding.branchPinTextField.requestFocus();
                         }
                     }
                 }

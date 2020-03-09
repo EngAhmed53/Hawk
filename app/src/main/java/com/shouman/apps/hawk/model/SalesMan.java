@@ -4,65 +4,63 @@ import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
+import java.util.HashMap;
+
 @Entity(tableName = "clients_table")
 public class SalesMan {
 
     @PrimaryKey(autoGenerate = true)
     private long _id;
 
-    private String salesName;
+    private String userName;
 
-    private String salesEmail;
+    private String email;
 
-    private String salesPassword;
+    public HashMap<String, Boolean> getCustomersHashMap() {
+        return customersHashMap;
+    }
 
-    private int salesId;
+    public void setCustomersHashMap(HashMap<String, Boolean> customersHashMap) {
+        this.customersHashMap = customersHashMap;
+    }
 
-    private String companyId;
-
-    private String branchPin;
+    @Ignore
+    private HashMap<String, Boolean> customersHashMap;
 
     @Ignore
     public SalesMan() {
+        customersHashMap = new HashMap<>();
     }
 
-    public SalesMan(String salesName, String salesEmail, String salesPassword, int salesId, String companyId, String branchPin) {
-        this.salesName = salesName;
-        this.salesEmail = salesEmail;
-        this.salesPassword = salesPassword;
-        this.salesId = salesId;
-        this.companyId = companyId;
-        this.branchPin = branchPin;
+    public SalesMan(String userName, String email) {
+        this.userName = userName;
+        this.email = email;
+        customersHashMap = new HashMap<>();
     }
 
     @Ignore
-    public SalesMan(long _id, String salesName, String salesEmail, String salesPassword, int salesId, String companyId, String branchPin) {
+    public SalesMan(long _id, String userName, String email) {
         this._id = _id;
-        this.salesName = salesName;
-        this.salesEmail = salesEmail;
-        this.salesPassword = salesPassword;
-        this.salesId = salesId;
-        this.companyId = companyId;
-        this.branchPin = branchPin;
+        this.userName = userName;
+        this.email = email;
+        customersHashMap = new HashMap<>();
     }
 
 
-    public String getSalesName() {
-        return salesName;
+    public String getUserName() {
+        return userName;
     }
 
-    public String getSalesEmail() {
-        return salesEmail;
+    public String getEmail() {
+        return email;
     }
 
-
-    public String getSalesPassword() {
-        return salesPassword;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
-    public void setUserBaseInfo(BaseUser user) {
-        this.salesEmail = user.getUserEmail();
-        this.salesPassword = user.getUserPassword();
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public long get_id() {
@@ -74,29 +72,4 @@ public class SalesMan {
     }
 
 
-    public int getSalesId() {
-        return salesId;
-    }
-
-    public void setSalesId(int salesId) {
-        this.salesId = salesId;
-    }
-
-
-    public String getCompanyId() {
-        return companyId;
-    }
-
-    public void setCompanyId(String companyId) {
-        this.companyId = companyId;
-    }
-
-
-    public String getBranchPin() {
-        return branchPin;
-    }
-
-    public void setBranchPin(String branchPin) {
-        this.branchPin = branchPin;
-    }
 }
