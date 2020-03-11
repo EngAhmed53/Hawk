@@ -2,6 +2,7 @@ package com.shouman.apps.hawk.preferences;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+
 import androidx.preference.PreferenceManager;
 
 public class UserPreference {
@@ -11,21 +12,22 @@ public class UserPreference {
     public static final String USER_TYPE = "user_type";
     public static final String USER_EMAIL = "user_email";
     public static final String USER_MAP_UID = "user_uid";
+    public static final String SALES_MEMBER_BRANCH_UID = "sales_member_branch_uid";
 
     public static String getUserType(Context context) {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
         return preferences.getString(USER_TYPE, "not_defined");
     }
 
-    public static void setUserType(Context context,int type ) {
+    public static void setUserType(Context context, int type) {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
         String userType = "not_defined";
         if (type == 0) {
-            userType = "company";
-        } else if (type == 1){
-            userType = "sales_member";
+            userType = "companies";
+        } else if (type == 1) {
+            userType = "sales_members";
         }
-         preferences.edit().putString(USER_TYPE, userType).apply();
+        preferences.edit().putString(USER_TYPE, userType).apply();
     }
 
 //    public static boolean isUserTypeSelected(Context context) {
@@ -35,13 +37,24 @@ public class UserPreference {
 
     public static void setUserEmail(Context context, String userEmail) {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
-            preferences.edit().putString(USER_EMAIL, userEmail).apply();
+        preferences.edit().putString(USER_EMAIL, userEmail).apply();
     }
 
     public static String getUserEmail(Context context) {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
         return preferences.getString(USER_EMAIL, "null");
     }
+
+    public static void setBranchUID(Context context, String branchUID) {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        preferences.edit().putString(SALES_MEMBER_BRANCH_UID, branchUID).apply();
+    }
+
+    public static String getBranchUID(Context context) {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        return preferences.getString(SALES_MEMBER_BRANCH_UID, "null");
+    }
+
 
     public static boolean isUserInfoSetted(Context context) {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);

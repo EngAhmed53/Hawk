@@ -15,6 +15,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserInfo;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.shouman.apps.hawk.common.Common;
@@ -60,7 +61,7 @@ public class Fragment_verify_email extends Fragment {
         String userEmail = UserPreference.getUserEmail(getContext());
 
         if (userEmail != null) {
-            Log.e(TAG, "onCreateView: " + userEmail );
+            Log.e(TAG, "onCreateView: " + userEmail);
             userMapReference = database.getReference().child("usersMap").child(Common.EmailToUID(userEmail));
         } else {
             Toast.makeText(getContext(), "email is empty", Toast.LENGTH_SHORT).show();
@@ -131,6 +132,25 @@ public class Fragment_verify_email extends Fragment {
     }
 
     private void verificationDone() {
+        boolean isFacebook = false;
+        for (UserInfo user : firebaseUser.getProviderData()) {
+            if (user.getProviderId().equals("facebook.com")) {
+                isFacebook = true;
+            }
+        }
+
+        //check if the user is facebook and make it verified
+        if (isFacebook) {
+            //push the updated userMap to data base
+            HashMap<String, Object> newValues = new HashMap<>();
+            newValues.put("verified", true);
+            if (userMapReference != null) {
+                userMapReference.updateChildren(newValues);
+            }
+            //then show select type fragment
+            showSelectTypeFragment();
+            return;
+        }
         if (firebaseUser.isEmailVerified()) {
             Common.userMap.setVerified(true);
 
@@ -141,7 +161,7 @@ public class Fragment_verify_email extends Fragment {
                 userMapReference.updateChildren(newValues);
             }
 
-            //show select type fragment
+            //then show select type fragment
             showSelectTypeFragment();
         }
     }

@@ -57,7 +57,13 @@
     <string name="change_email">Change Email</string>
     <string name="please_select_your_position">Please Select your Position and type the needed information in order to continue.</string>
     <string name="select_your_position">Select your Position</string>
-    <string name="name_helper_text">Type your name without numbers or any special characters</string>
-    <string name="did_not_receive_email">Did not Receive Email ?</string>
-    <string name="resend_email">Resend Email !</string>
+    <string name="name_helper_text">Please Type your personal name</string>
+    <string name="did_not_receive_email">Did not Receive Email? </string>
+    <string name="resend_email">Resend Email!</string>
+
+
+    <string name="facebook_app_id">1793010957498128</string>
+    <string name="fb_login_protocol_scheme">fb1793010957498128</string>
+
+    
 </resources>

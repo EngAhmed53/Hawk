@@ -7,8 +7,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.FragmentManager;
 
+import com.facebook.FacebookSdk;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserInfo;
 import com.shouman.apps.hawk.R;
 import com.shouman.apps.hawk.common.Common;
 import com.shouman.apps.hawk.databinding.ActivityStartingBinding;
@@ -39,6 +41,7 @@ public class StartingActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        FacebookSdk.sdkInitialize(getApplicationContext());
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_starting);
         fragmentManager = getSupportFragmentManager();
 
@@ -51,11 +54,24 @@ public class StartingActivity extends AppCompatActivity {
             showEntryFragment();
 
         } else {
+            //reload firebase user
+            firebaseUser.reload();
+
             // user is already exist and signed in
             //check if the user email is verified
             Common.userMap = new UserMap();
             Common.userMap.setUserUID(UserPreference.getUserUID(StartingActivity.this));
-            if (firebaseUser.isEmailVerified()) {
+
+            //check if the user is facebook user
+            boolean isFacebook = false;
+            for (UserInfo user : firebaseUser.getProviderData()) {
+                if (user.getProviderId().equals("facebook.com")) {
+                    isFacebook = true;
+                }
+            }
+
+            if (isFacebook) {
+
                 // user email is verified
                 Common.userMap.setVerified(true);
 
@@ -67,12 +83,55 @@ public class StartingActivity extends AppCompatActivity {
                 } else {
                     //user is logged in and his email is verified and his type is selected and all is set
                     //run the main activity depend on his type (company or sales member)
+
+                    //set user type
+                    String userType = UserPreference.getUserType(StartingActivity.this);
+                    Common.userMap.setPath(userType);
+
+                    //set user branchUID if the user is sales_member
+                    if (userType.equals("sales_members")) {
+                        Common.userMap.setBranchUID(UserPreference.getBranchUID(StartingActivity.this));
+                    } else {
+                        Common.userMap.setBranchUID(null);
+                    }
+                    //show the main activity
                     showMainActivity();
                 }
 
+
             } else {
-                //user email is not verified
-                showVerifyEmailFragment();
+                // user is not a facebook so we need to check if he is verified or not
+                if (firebaseUser.isEmailVerified()) {
+                    // user email is verified
+                    Common.userMap.setVerified(true);
+
+                    //check if the user type is defined
+                    if (!UserPreference.isUserInfoSetted(StartingActivity.this)) {
+                        //user type is not defined
+
+                        showSelectUserTypeFragment();
+                    } else {
+                        //user is logged in and his email is verified and his type is selected and all is set
+                        //run the main activity depend on his type (company or sales member)
+
+                        //set user type
+                        String userType = UserPreference.getUserType(StartingActivity.this);
+                        Common.userMap.setPath(userType);
+
+                        //set user branchUID if the user is sales_member
+                        if (userType.equals("sales_members")) {
+                            Common.userMap.setBranchUID(UserPreference.getBranchUID(StartingActivity.this));
+                        } else {
+                            Common.userMap.setBranchUID(null);
+                        }
+                        //show the main activity
+                        showMainActivity();
+                    }
+
+                } else {
+                    //user email is not verified
+                    showVerifyEmailFragment();
+                }
             }
         }
     }
@@ -83,7 +142,7 @@ public class StartingActivity extends AppCompatActivity {
         if (f == null) {
             fragmentManager
                     .beginTransaction()
-                    .add(R.id.starting_container, fragment_signUp, "fragment_sign_up")
+                    .replace(R.id.starting_container, fragment_signUp, "fragment_sign_up")
                     .commit();
         }
     }

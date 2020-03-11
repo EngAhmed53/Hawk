@@ -2,14 +2,8 @@ package com.shouman.apps.hawk.common;
 
 import android.content.Context;
 
-import androidx.lifecycle.MutableLiveData;
-
 import com.shouman.apps.hawk.R;
-import com.shouman.apps.hawk.model.Company;
-import com.shouman.apps.hawk.model.SalesMan;
 import com.shouman.apps.hawk.model.UserMap;
-
-import java.util.Random;
 
 
 public class Common {
@@ -25,14 +19,16 @@ public class Common {
 
     //convert the user email to UID to put it as key in UserMap database
     public static String EmailToUID(String email) {
-        StringBuilder stringBuilder = new StringBuilder();
-        for (char c : email.toCharArray()) {
+        if (email != null) {
+            StringBuilder stringBuilder = new StringBuilder();
+            for (char c : email.toCharArray()) {
 
-            if (Character.isLetterOrDigit(c)) {
-                stringBuilder.append(c);
+                if (Character.isLetterOrDigit(c)) {
+                    stringBuilder.append(c);
+                }
             }
+            return stringBuilder.toString();
         }
-        return stringBuilder.toString();
+        return null;
     }
-
 }

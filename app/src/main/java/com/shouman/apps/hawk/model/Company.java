@@ -8,11 +8,12 @@ public class Company {
     private String email;
     private String companyName;
     private HashMap<String, Boolean> branchesList;
+    private String type;
     //private boolean isPaidVersion;
 
     public Company() {
         this.branchesList = new HashMap<>();
-        branchesList.put("Main branch", true);
+        this.type = "company_account";
     }
 
 
@@ -20,7 +21,7 @@ public class Company {
         this.userName = userName;
         this.companyName = companyName;
         this.email = email;
-        branchesList.put("Main branch", true);
+        this.type = "company_account";
     }
 
     public void setUserName(String userName) {
@@ -35,6 +36,9 @@ public class Company {
         return email;
     }
 
+    public String getType() {
+        return type;
+    }
 
     public String getCompanyName() {
         return companyName;
@@ -44,6 +48,9 @@ public class Company {
         this.companyName = companyName;
     }
 
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
     public HashMap<String, Boolean> getBranchesList() {
         return branchesList;

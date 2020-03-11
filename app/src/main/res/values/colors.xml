@@ -11,7 +11,11 @@
     <color name="gray1">#616161</color>
     <color name="gray2">#8e8e8e</color>
     <color name="facebook_color">#4267B2</color>
+    <color name="facebook_color_dark">#253964</color>
+    <color name="facebook_color_transparent">#334267B2</color>
     <color name="google_color">#DB4437</color>
+    <color name="google_color_dark">#8B2E27</color>
+    \<color name="google_color_transparent">#33DB4437</color>
     <color name="mtrl_textinput_default_box_stroke_color" tools:override="true">#fff</color>
 
 </resources>

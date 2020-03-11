@@ -16,13 +16,7 @@ public class SalesMan {
 
     private String email;
 
-    public HashMap<String, Boolean> getCustomersHashMap() {
-        return customersHashMap;
-    }
-
-    public void setCustomersHashMap(HashMap<String, Boolean> customersHashMap) {
-        this.customersHashMap = customersHashMap;
-    }
+    private String type;
 
     @Ignore
     private HashMap<String, Boolean> customersHashMap;
@@ -30,12 +24,14 @@ public class SalesMan {
     @Ignore
     public SalesMan() {
         customersHashMap = new HashMap<>();
+        this.type = "sales_member_account";
     }
 
     public SalesMan(String userName, String email) {
         this.userName = userName;
         this.email = email;
         customersHashMap = new HashMap<>();
+        this.type = "sales_member_account";
     }
 
     @Ignore
@@ -71,5 +67,15 @@ public class SalesMan {
         this._id = _id;
     }
 
+    public HashMap<String, Boolean> getCustomersHashMap() {
+        return customersHashMap;
+    }
 
+    public void setCustomersHashMap(HashMap<String, Boolean> customersHashMap) {
+        this.customersHashMap = customersHashMap;
+    }
+
+    public String getType() {
+        return type;
+    }
 }

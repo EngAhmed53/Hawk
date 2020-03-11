@@ -17,6 +17,8 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.shouman.apps.hawk.R;
@@ -41,9 +43,14 @@ public class Fragment_select_user_type extends Fragment {
 
     private ArrayAdapter<String> positionsAdapter;
 
+    private FirebaseAuth auth;
+
     private FirebaseDatabase database;
+
     private DatabaseReference companiesReference;
+
     private DatabaseReference salesMembersReferences;
+
     private DatabaseReference userMapReference;
 
 
@@ -63,14 +70,23 @@ public class Fragment_select_user_type extends Fragment {
 
         mBinding = FragmentSelectUserTypeBinding.inflate(inflater);
 
+        auth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
+
         companiesReference = database.getReference().child("companies");
         salesMembersReferences = database.getReference().child("sales_members");
+
+        FirebaseUser firebaseUser = auth.getCurrentUser();
+        if (firebaseUser != null) {
+            String name = firebaseUser.getDisplayName();
+            if (name != null) {
+                mBinding.edtName.setText(name);
+            }
+        }
         //get user Email to get userMapUID
         String userEmail = UserPreference.getUserEmail(getContext());
 
         if (userEmail != null) {
-            Log.e(TAG, "onCreateView: " + userEmail );
             userMapReference = database.getReference().child("usersMap").child(Common.EmailToUID(userEmail));
         } else {
             Toast.makeText(getContext(), "email is empty", Toast.LENGTH_SHORT).show();
@@ -117,6 +133,7 @@ public class Fragment_select_user_type extends Fragment {
                         //set company info
                         company.setUserName(mBinding.edtName.getText().toString());
                         company.setCompanyName(mBinding.edtCompanyName.getText().toString());
+                        company.setEmail(UserPreference.getUserEmail(getContext()));
 
                         //get the newUID
                         String newKey = companiesReference.push().getKey();
@@ -127,7 +144,7 @@ public class Fragment_select_user_type extends Fragment {
                         Common.userMap.setPath("companies");
                         Common.userMap.setUserUID(newKey);
 
-                        //push the updated userMap to data base
+                        //push the updated userMap to database
                         HashMap<String, Object> newValues = new HashMap<>();
                         newValues.put("userUID", newKey);
                         newValues.put("path", "companies");
@@ -136,12 +153,11 @@ public class Fragment_select_user_type extends Fragment {
                         }
 
 
-
                         //update the user preference
                         UserPreference.setUserInfoSettedTrue(getContext());
                         UserPreference.setUserTypeTrue(getContext());
                         UserPreference.setUserType(getContext(), SELECTED_POSITION);
-                        UserPreference.setUserUID(getContext(), companiesReference.getKey());
+                        UserPreference.setUserUID(getContext(), newKey);
 
                     } else {
                         if (mBinding.nameInputLayout.getError() != null ||
@@ -174,9 +190,11 @@ public class Fragment_select_user_type extends Fragment {
                         Common.userMap.setUserUID(newKey);
 
                         //push the updated userMap to data base
+                        String branchUID = mBinding.edtBranchId.getText().toString();
                         HashMap<String, Object> newValues = new HashMap<>();
                         newValues.put("userUID", newKey);
                         newValues.put("path", "sales_member");
+                        newValues.put("branchUID", branchUID);
                         if (userMapReference != null) {
                             userMapReference.updateChildren(newValues);
                         }
@@ -185,6 +203,8 @@ public class Fragment_select_user_type extends Fragment {
                         UserPreference.setUserInfoSettedTrue(getContext());
                         UserPreference.setUserTypeTrue(getContext());
                         UserPreference.setUserType(getContext(), SELECTED_POSITION);
+                        UserPreference.setUserUID(getContext(), newKey);
+
 
                     } else {
                         if (mBinding.nameInputLayout.getError() != null ||

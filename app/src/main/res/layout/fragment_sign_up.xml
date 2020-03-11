@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
             name="empty"
             type="String" />
@@ -79,8 +80,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="4dp"
                         android:background="@drawable/google_btn_ripple_effect"
-                        android:elevation="6dp"
                         android:clickable="true"
+                        android:elevation="6dp"
                         android:focusable="true"
                         android:stateListAnimator="@animator/social_icon_state_list_anim"
                         app:layout_constraintBottom_toTopOf="@+id/facebook_sign_up_layout"
@@ -117,8 +118,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
                         android:background="@drawable/facebook_btn_ripple_effect"
-                        android:elevation="6dp"
                         android:clickable="true"
+                        android:elevation="6dp"
                         android:focusable="true"
                         android:stateListAnimator="@animator/social_icon_state_list_anim"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -145,6 +146,14 @@
                             android:text="@string/sign_up_with_facebook"
                             android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
                             android:textColor="@color/white" />
+
+
+                        <com.facebook.login.widget.LoginButton
+                            android:id="@+id/facebook_login_button"
+                            android:layout_width="1dp"
+                            android:layout_height="match_parent"
+                            android:alpha="0"
+                            android:paddingBottom="1dp" />
                     </FrameLayout>
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -208,7 +217,6 @@
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="6dp"
                         android:hint="@string/email"
                         android:textColorHint="@color/white"
                         app:boxCornerRadiusBottomEnd="6dp"
