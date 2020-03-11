@@ -168,7 +168,7 @@ public class Fragment_verify_email extends Fragment {
 
     private void openSignUpFragment() {
         StartingActivity host = (StartingActivity) getActivity();
-        if (host != null) host.showSignUpFragment();
+        if (host != null) host.showSignUpFragment(null);
     }
 
     private void showSelectTypeFragment() {

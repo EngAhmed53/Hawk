@@ -44,6 +44,7 @@ import java.util.Arrays;
 
 import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_OK;
+import static com.shouman.apps.hawk.preferences.UserPreference.USER_EMAIL;
 
 
 public class Fragment_signUp extends Fragment {
@@ -68,6 +69,14 @@ public class Fragment_signUp extends Fragment {
     public static Fragment_signUp getInstance() {
         return new Fragment_signUp();
     }
+
+    public static Fragment_signUp getInstance(String email) {
+        Fragment_signUp fragmentSignUp = new Fragment_signUp();
+        Bundle bundle = new Bundle();
+        bundle.putString(USER_EMAIL, email);
+        fragmentSignUp.setArguments(bundle);
+        return fragmentSignUp;
+    }
 //فك اعتماد الجرد
 
     @Override
@@ -78,7 +87,6 @@ public class Fragment_signUp extends Fragment {
 
         firebaseAuth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
-        database.setPersistenceEnabled(true);
 
         usersMapReference = database.getReference().child("usersMap");
         callbackManager = CallbackManager.Factory.create();
@@ -157,34 +165,36 @@ public class Fragment_signUp extends Fragment {
                         && checkInputTextErrors(mBinding.passwordTextField)) {
 
                     final String email = mBinding.emailTextField.getEditText().getText().toString().trim();
-                    final String password = mBinding.passwordTextField.getEditText().toString().trim();
+                    final String password = mBinding.passwordTextField.getEditText().getText().toString().trim();
+                    Log.e(TAG, "onClick: " + email );
+                    Log.e(TAG, "onClick: " + password );
 
-                    firebaseAuth.createUserWithEmailAndPassword(email, password)
-                            .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                                @Override
-                                public void onComplete(@NonNull Task<AuthResult> task) {
-                                    if (task.isSuccessful()) {
-
-                                        //make a new userMap object
-                                        Common.userMap = new UserMap();
-
-                                        //getThe mapUID from the email address
-                                        String mapUID = Common.EmailToUID(email);
-
-                                        //save email to userPreference
-                                        UserPreference.setUserEmail(getContext(), email);
-
-                                        //push userMap to database
-                                        usersMapReference.child(mapUID).setValue(Common.userMap);
-
-                                        //send verification email
-                                        sendVerificationMail();
-                                    } else {
-                                        //there is an error
-                                        Toast.makeText(getContext(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                                    }
+                    final String userMapUID = Common.EmailToUID(email);
+                    Log.e(TAG, "onClick: " + userMapUID );
+                    if (userMapUID != null) {
+                        usersMapReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                if (dataSnapshot.hasChild(userMapUID)) {
+                                    //user is already exist
+                                    //open signIn Fragment
+                                    Toast.makeText(getContext(), "this email is exit .. go to Sign in", Toast.LENGTH_SHORT).show();
+                                    openSignInFragment(email);
+                                } else {
+                                    //user is not exist create new user email password account
+                                    Log.e(TAG, "onDataChange: " + "new email password user" );
+                                    createNewEmailPasswordAccount(email, password);
                                 }
-                            });
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                            }
+                        });
+                    }
+
+
                 } else {
                     if (mBinding.emailTextField.getError() != null ||
                             mBinding.emailTextField.getEditText().getText().toString().isEmpty()) {
@@ -200,6 +210,40 @@ public class Fragment_signUp extends Fragment {
         });
 
         return mBinding.getRoot();
+    }
+
+    private void openSignInFragment(String email) {
+        StartingActivity host = (StartingActivity) getActivity();
+        if (host != null) host.showSignInFragment(email);
+    }
+
+    private void createNewEmailPasswordAccount(final String email, String password) {
+        firebaseAuth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+
+                            //make a new userMap object
+                            Common.userMap = new UserMap();
+
+                            //getThe mapUID from the email address
+                            String mapUID = Common.EmailToUID(email);
+
+                            //save email to userPreference
+                            UserPreference.setUserEmail(getContext(), email);
+
+                            //push userMap to database
+                            usersMapReference.child(mapUID).setValue(Common.userMap);
+
+                            //send verification email
+                            sendVerificationMail();
+                        } else {
+                            //there is an error
+                            Toast.makeText(getContext(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
     }
 
     private void handelFacebookToken(AccessToken accessToken) {
@@ -428,7 +472,6 @@ public class Fragment_signUp extends Fragment {
         final String userMapUID = Common.EmailToUID(email);
         if (userMapUID != null) {
             //push userMap to database
-            Common.userMap.setUserUID(userMapUID);
             usersMapReference.child(userMapUID).setValue(Common.userMap);
             openVerifyFragment();
         }

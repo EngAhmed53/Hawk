@@ -97,6 +97,4 @@ public class Fragment_entry_screen extends Fragment {
                 .replace(R.id.starting_container, fragment_signIn, "sign_in_fragment")
                 .commit();
     }
-
-
 }

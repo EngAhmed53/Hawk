@@ -2,7 +2,7 @@
 
 <layout>
 
-    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
@@ -136,6 +136,13 @@
                             android:text="@string/sign_in_with_facebook"
                             android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
                             android:textColor="@color/white" />
+
+                        <com.facebook.login.widget.LoginButton
+                            android:id="@+id/facebook_login_button"
+                            android:layout_width="1dp"
+                            android:layout_height="match_parent"
+                            android:alpha="0"
+                            android:paddingBottom="1dp" />
                     </FrameLayout>
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -185,7 +192,7 @@
 
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/emilTextField"
+                    android:id="@+id/email_inputLayout"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -220,7 +227,7 @@
                     android:layout_marginTop="6dp">
 
                     <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/passwordTextField"
+                        android:id="@+id/password_InputLayout"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -267,7 +274,7 @@
 
 
                 <Button
-                    android:id="@+id/btn_log_in"
+                    android:id="@+id/btn_sign_in"
                     android:layout_width="match_parent"
                     android:layout_height="56dp"
                     android:layout_marginLeft="50dp"
@@ -318,6 +325,6 @@
             </LinearLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </FrameLayout>
+    </ScrollView>
 
 </layout>

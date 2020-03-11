@@ -5,6 +5,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import com.facebook.FacebookSdk;
@@ -20,6 +21,7 @@ import com.shouman.apps.hawk.preferences.UserPreference;
 public class StartingActivity extends AppCompatActivity {
 
     private static final String TAG = "StartingActivity";
+    private static final String USER_EMAIL = "user_email";
 
     public ActivityStartingBinding mBinding;
 
@@ -28,10 +30,6 @@ public class StartingActivity extends AppCompatActivity {
     //public static int SPLASH_SCREEN_TIMEOUT = 3500;
 
     private Fragment_entry_screen fragment_entry_screen = Fragment_entry_screen.getInstance();
-
-    private Fragment_signIn fragment_signIn = Fragment_signIn.getInstance();
-    private Fragment_signUp fragment_signUp = Fragment_signUp.getInstance();
-
 
     private Fragment_verify_email fragment_verify_email = Fragment_verify_email.getInstance();
 
@@ -137,34 +135,34 @@ public class StartingActivity extends AppCompatActivity {
     }
 
 
-    public void showSignUpFragment() {
-        Fragment_signUp f = (Fragment_signUp) fragmentManager.findFragmentByTag("fragment_sign_up");
-        if (f == null) {
-            fragmentManager
-                    .beginTransaction()
-                    .replace(R.id.starting_container, fragment_signUp, "fragment_sign_up")
-                    .commit();
-        }
+    public void showSignUpFragment(String email) {
+        Fragment_signUp fragment_signUp = Fragment_signUp.getInstance(email);
+        fragmentManager
+                .beginTransaction()
+                .replace(R.id.starting_container, fragment_signUp, "fragment_sign_up")
+                .commit();
+
     }
 
     public void showVerifyEmailFragment() {
-        Fragment_verify_email f = (Fragment_verify_email) fragmentManager.findFragmentByTag("fragment_verify_email");
-        if (f == null) {
-            fragmentManager
-                    .beginTransaction()
-                    .replace(R.id.starting_container, fragment_verify_email, "fragment_verify_email")
-                    .commit();
+        fragmentManager
+                .beginTransaction()
+                .replace(R.id.starting_container, fragment_verify_email, "fragment_verify_email")
+                .commit();
+        //empty all fragments in the backStack
+        for(int i = 0; i < fragmentManager.getBackStackEntryCount(); ++i) {
+            fragmentManager.popBackStack();
         }
-
     }
 
     public void showSelectUserTypeFragment() {
-        Fragment_select_user_type f = (Fragment_select_user_type) fragmentManager.findFragmentByTag("fragment_select_user_type");
-        if (f == null) {
-            fragmentManager
-                    .beginTransaction()
-                    .replace(R.id.starting_container, fragment_select_user_type, "fragment_select_user_type")
-                    .commit();
+        fragmentManager
+                .beginTransaction()
+                .replace(R.id.starting_container, fragment_select_user_type, "fragment_select_user_type")
+                .commit();
+        //empty all fragments in the backStack
+        for(int i = 0; i < fragmentManager.getBackStackEntryCount(); ++i) {
+            fragmentManager.popBackStack();
         }
     }
 
@@ -176,13 +174,10 @@ public class StartingActivity extends AppCompatActivity {
 
 
     public void showEntryFragment() {
-        Fragment_entry_screen f = (Fragment_entry_screen) fragmentManager.findFragmentByTag("fragment_entry_screen");
-        if (f == null) {
-            fragmentManager
-                    .beginTransaction()
-                    .replace(R.id.starting_container, fragment_entry_screen, "fragment_entry_screen")
-                    .commit();
-        }
+        fragmentManager
+                .beginTransaction()
+                .replace(R.id.starting_container, fragment_entry_screen, "fragment_entry_screen")
+                .commit();
 
 
 //        new Handler().postDelayed(new Runnable() {
@@ -197,8 +192,8 @@ public class StartingActivity extends AppCompatActivity {
 //        }, SPLASH_SCREEN_TIMEOUT);
     }
 
-    @Override
-    public void onBackPressed() {
+    //@Override
+    //public void onBackPressed() {
         //if (count > 0) {
 //            Fragment_signUp fragment_signUp = (Fragment_signUp) fragmentManager.findFragmentByTag("sign_up_fragment");
 //            if (fragment_signUp != null && fragment_signUp.isVisible()) {
@@ -223,6 +218,14 @@ public class StartingActivity extends AppCompatActivity {
 //            }
 //
 //        } else {
-        super.onBackPressed();
+    //    super.onBackPressed();
+    //}
+
+    public void showSignInFragment(String email) {
+        Fragment_signIn fragment_signIn = Fragment_signIn.getInstance(email);
+        fragmentManager
+                .beginTransaction()
+                .replace(R.id.starting_container, fragment_signIn, "fragment_entry_screen")
+                .commit();
     }
 }
