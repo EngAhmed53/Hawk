@@ -1,11 +1,11 @@
 package com.shouman.apps.hawk.ui.starting;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import com.facebook.FacebookSdk;
@@ -17,6 +17,7 @@ import com.shouman.apps.hawk.common.Common;
 import com.shouman.apps.hawk.databinding.ActivityStartingBinding;
 import com.shouman.apps.hawk.model.UserMap;
 import com.shouman.apps.hawk.preferences.UserPreference;
+import com.shouman.apps.hawk.ui.main.companyUi.MainActivity;
 
 public class StartingActivity extends AppCompatActivity {
 
@@ -29,10 +30,8 @@ public class StartingActivity extends AppCompatActivity {
 
     //public static int SPLASH_SCREEN_TIMEOUT = 3500;
 
-    private Fragment_entry_screen fragment_entry_screen = Fragment_entry_screen.getInstance();
-
     private Fragment_verify_email fragment_verify_email = Fragment_verify_email.getInstance();
-
+    private Fragment_entry_screen fragment_entry_screen = Fragment_entry_screen.getInstance();
     private Fragment_select_user_type fragment_select_user_type = Fragment_select_user_type.getInstance();
 
 
@@ -137,6 +136,10 @@ public class StartingActivity extends AppCompatActivity {
 
     public void showSignUpFragment(String email) {
         Fragment_signUp fragment_signUp = Fragment_signUp.getInstance(email);
+        if (fragment_signUp.isAdded()) {
+            fragmentManager.beginTransaction().show(fragment_signUp).commit();
+            return;
+        }
         fragmentManager
                 .beginTransaction()
                 .replace(R.id.starting_container, fragment_signUp, "fragment_sign_up")
@@ -145,38 +148,48 @@ public class StartingActivity extends AppCompatActivity {
     }
 
     public void showVerifyEmailFragment() {
+        if (fragment_verify_email.isAdded()) {
+            fragmentManager.beginTransaction().show(fragment_verify_email).commit();
+            return;
+        }
+        fragmentManager.popBackStack("entry", FragmentManager.POP_BACK_STACK_INCLUSIVE);
         fragmentManager
                 .beginTransaction()
                 .replace(R.id.starting_container, fragment_verify_email, "fragment_verify_email")
                 .commit();
-        //empty all fragments in the backStack
-        for(int i = 0; i < fragmentManager.getBackStackEntryCount(); ++i) {
-            fragmentManager.popBackStack();
-        }
     }
 
     public void showSelectUserTypeFragment() {
+        if (fragment_select_user_type.isAdded()) {
+            fragmentManager.beginTransaction().show(fragment_select_user_type);
+            return;
+        }
+        fragmentManager.popBackStack("entry", FragmentManager.POP_BACK_STACK_INCLUSIVE);
         fragmentManager
                 .beginTransaction()
                 .replace(R.id.starting_container, fragment_select_user_type, "fragment_select_user_type")
                 .commit();
-        //empty all fragments in the backStack
-        for(int i = 0; i < fragmentManager.getBackStackEntryCount(); ++i) {
-            fragmentManager.popBackStack();
-        }
     }
 
     private void showMainActivity() {
         //check if the user if company type or sales member
         //to navigate him to the company ui or sales member ui
         Toast.makeText(this, "show main activity", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(StartingActivity.this, MainActivity.class);
+        startActivity(intent);
+        finish();
     }
 
 
     public void showEntryFragment() {
+        if (fragment_entry_screen.isAdded()) {
+            fragmentManager.beginTransaction().show(fragment_entry_screen).commit();
+            return;
+        }
         fragmentManager
                 .beginTransaction()
                 .replace(R.id.starting_container, fragment_entry_screen, "fragment_entry_screen")
+                .addToBackStack("entry")
                 .commit();
 
 
@@ -192,9 +205,21 @@ public class StartingActivity extends AppCompatActivity {
 //        }, SPLASH_SCREEN_TIMEOUT);
     }
 
+    @Override
+    public void onBackPressed() {
+        Fragment_entry_screen fragment_entry_screen = (Fragment_entry_screen) fragmentManager.findFragmentByTag("fragment_entry_screen");
+
+        if (fragment_entry_screen != null && fragment_entry_screen.isVisible()) {
+            finish();
+        }
+
+        super.onBackPressed();
+
+    }
+
     //@Override
     //public void onBackPressed() {
-        //if (count > 0) {
+    //if (count > 0) {
 //            Fragment_signUp fragment_signUp = (Fragment_signUp) fragmentManager.findFragmentByTag("sign_up_fragment");
 //            if (fragment_signUp != null && fragment_signUp.isVisible()) {
 //                Log.e(TAG, "onBackPressed here fragment != null ");
@@ -223,9 +248,27 @@ public class StartingActivity extends AppCompatActivity {
 
     public void showSignInFragment(String email) {
         Fragment_signIn fragment_signIn = Fragment_signIn.getInstance(email);
+        if (fragment_signIn.isAdded()) {
+            fragmentManager.beginTransaction().show(fragment_signIn).commit();
+            return;
+        }
         fragmentManager
                 .beginTransaction()
-                .replace(R.id.starting_container, fragment_signIn, "fragment_entry_screen")
+                .add(R.id.starting_container, fragment_signIn, "fragment_entry_screen")
+                .commit();
+    }
+
+    public void showForgetPasswordFragment(String email) {
+        Fragment_Forget_Password forget_password = Fragment_Forget_Password.getInstance(email);
+        if (forget_password.isAdded()) {
+            fragmentManager.beginTransaction().show(forget_password).commit();
+            return;
+        }
+        fragmentManager
+                .beginTransaction()
+                .setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right, android.R.anim.slide_in_left, android.R.anim.slide_out_right)
+                .add(R.id.starting_container, forget_password, "fragment_forget_password")
+                .addToBackStack(null)
                 .commit();
     }
 }

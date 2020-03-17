@@ -76,7 +76,7 @@ public class Fragment_select_user_type extends Fragment {
         companiesReference = database.getReference().child("companies");
         salesMembersReferences = database.getReference().child("sales_members");
 
-        FirebaseUser firebaseUser = auth.getCurrentUser();
+        final FirebaseUser firebaseUser = auth.getCurrentUser();
         if (firebaseUser != null) {
             String name = firebaseUser.getDisplayName();
             if (name != null) {
@@ -136,7 +136,7 @@ public class Fragment_select_user_type extends Fragment {
                         company.setEmail(UserPreference.getUserEmail(getContext()));
 
                         //get the newUID
-                        String newKey = companiesReference.push().getKey();
+                        String newKey = firebaseUser.getUid();
                         companiesReference.child(newKey).setValue(company);
 
 
@@ -182,8 +182,8 @@ public class Fragment_select_user_type extends Fragment {
                         salesMan.setEmail(UserPreference.getUserEmail(getContext()));
 
                         //get the newUID
-                        String newKey = salesMembersReferences.push().getKey();
-                        companiesReference.child(newKey).setValue(salesMan);
+                        String newKey = firebaseUser.getUid();
+                        salesMembersReferences.child(newKey).setValue(salesMan);
 
                         //continue setting the userMap
                         Common.userMap.setPath("sales_member");

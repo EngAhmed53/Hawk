@@ -147,7 +147,7 @@ public class EditTextDataValidation {
                 public void afterTextChanged(Editable s) {
                     String companyName = s.toString();
                     if (TextUtils.isEmpty(companyName)) {
-                        inputLayout.setError(resources.getString(R.string.blank_compay_name_error));
+                        inputLayout.setError(resources.getString(R.string.blank_company_name_error));
                     } else {
                         inputLayout.setError(null);
                     }

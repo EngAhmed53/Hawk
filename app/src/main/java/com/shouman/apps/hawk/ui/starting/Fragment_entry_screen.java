@@ -74,8 +74,8 @@ public class Fragment_entry_screen extends Fragment {
         fragmentManager
                 .beginTransaction()
                 .addSharedElement(mBinding.appLogoImage, "logo_image")
-                .addToBackStack("sign_up_fragment")
                 .replace(R.id.starting_container, fragment_signUp, "sign_up_fragment")
+                .addToBackStack("sign_up_fragment")
                 .commit();
     }
 
@@ -93,8 +93,8 @@ public class Fragment_entry_screen extends Fragment {
         fragmentManager
                 .beginTransaction()
                 .addSharedElement(mBinding.appLogoImage, "logo_image")
-                .addToBackStack("sign_in_fragment")
                 .replace(R.id.starting_container, fragment_signIn, "sign_in_fragment")
+                .addToBackStack("sign_in_fragment")
                 .commit();
     }
 }

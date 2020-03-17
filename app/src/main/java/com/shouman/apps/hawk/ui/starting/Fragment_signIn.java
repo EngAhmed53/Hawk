@@ -147,7 +147,7 @@ public class Fragment_signIn extends Fragment {
 
 
         //open the google sign up
-        mBinding.googleSignUpLayout.setOnClickListener(new View.OnClickListener() {
+        mBinding.googleSignInLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivityForResult(
@@ -157,7 +157,7 @@ public class Fragment_signIn extends Fragment {
         });
 
         //perform the facebook login button click _ i did this to keep the custom layout and the ripple effect
-        mBinding.facebookSignUpLayout.setOnClickListener(new View.OnClickListener() {
+        mBinding.facebookSignInLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mBinding.facebookLoginButton.performClick();
@@ -214,7 +214,22 @@ public class Fragment_signIn extends Fragment {
                 }
             }
         });
+
+        //open forget password fragment
+        mBinding.forgetPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String email = mBinding.edtEmailSignIn.getText().toString();
+                openForgetPasswordFragment(email);
+            }
+        });
+
         return mBinding.getRoot();
+    }
+
+    private void openForgetPasswordFragment(String email) {
+        StartingActivity host = (StartingActivity) getActivity();
+        if (host != null) host.showForgetPasswordFragment(email);
     }
 
     private void openSignUpFragment(String email) {

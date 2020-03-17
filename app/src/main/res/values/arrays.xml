@@ -5,4 +5,9 @@
         <item>Sales Member</item>
     </string-array>
 
+    <string-array name="dayes_array">
+        <item>Today</item>
+        <item>Yesterday</item>
+    </string-array>
+
 </resources>

@@ -3,7 +3,7 @@
     android:color="?colorControlHighlight">
     <item>
         <shape android:shape="rectangle">
-            <solid android:color="@color/google_color_transparent" />
+            <solid android:color="@color/google_color" />
             <stroke
                 android:width="1dp"
                 android:color="@color/white" />

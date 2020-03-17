@@ -51,7 +51,7 @@ public class Fragment_verify_email extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
+        mBinding = FragmentVerifyEmailBinding.inflate(inflater);
         auth = FirebaseAuth.getInstance();
         firebaseUser = auth.getCurrentUser();
 
@@ -67,7 +67,6 @@ public class Fragment_verify_email extends Fragment {
             Toast.makeText(getContext(), "email is empty", Toast.LENGTH_SHORT).show();
         }
 
-        mBinding = FragmentVerifyEmailBinding.inflate(inflater);
 
         mBinding.resendEmailBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -124,6 +123,7 @@ public class Fragment_verify_email extends Fragment {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
                     if (task.isSuccessful()) {
+                        Log.e(TAG, "onComplete: verification check done" );
                         verificationDone();
                     }
                 }
@@ -175,4 +175,5 @@ public class Fragment_verify_email extends Fragment {
         StartingActivity host = (StartingActivity) getActivity();
         if (host != null) host.showSelectUserTypeFragment();
     }
+
 }

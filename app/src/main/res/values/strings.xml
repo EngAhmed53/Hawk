@@ -6,7 +6,7 @@
     <string name="email_address_edit_text">Email address</string>
     <string name="password_edit_text">Password</string>
     <string name="app_logo_dsc">app_logo</string>
-    <string name="log_in_btn">Sign in</string>
+    <string name="sign_in_btn">Sign in with Email</string>
     <string name="did_you_forget_your_password">Forget password ?</string>
     <string name="don_t_have_an_account">Don\'t have an account ?</string>
     <string name="sign_up_now">Sign up Now !</string>
@@ -42,7 +42,7 @@
     <string name="blank_user_name_error">your name can\'t be blank</string>
     <string name="spacial_chars_error">your name should not contain any spacial characters</string>
     <string name="com_id_spacial_chars_error">Company Id should not contain any spacial characters</string>
-    <string name="blank_compay_name_error">Company name can\'t be blank</string>
+    <string name="blank_company_name_error">Company name can\'t be blank</string>
     <string name="blank_company_id_error">Company Id can\'t be blank</string>
     <string name="blank_pib_code_error">branch pin code can\'t be blank</string>
     <string name="valid_pin_code_error">please type valid pin code</string>
@@ -64,6 +64,23 @@
 
     <string name="facebook_app_id">1793010957498128</string>
     <string name="fb_login_protocol_scheme">fb1793010957498128</string>
+    <string name="signing_up">Signing up</string>
+    <string name="signing_in">Signing in</string>
+    <string name="error_logo">error_logo</string>
+    <string name="error">Error</string>
+    <string name="forget_password_title">Forget password?</string>
+    <string name="forget_password_message">No problem, Enter your email address and we\'ll send you a link to change your password.</string>
+    <string name="send_email">Send email</string>
+    <string name="company_home">Home</string>
+    <string name="company_notification">Notification</string>
+    <string name="company_my_profile">My Profile</string>
+    <string name="overview">Overview</string>
+    <string name="chart_label">Last 7 Days Total Customers Counter For All Branches</string>
+    <string name="open_branch_details">open branch details</string>
+    <string name="branch_name">Branch Name</string>
+    <string name="type_your_new_branch_name_and_then_press_add_button">Type your new branch name and then press add button</string>
+    <string name="add_new_branch">Add new branch</string>
+    <string name="branches_list">Branches List</string>
 
-    
+
 </resources>

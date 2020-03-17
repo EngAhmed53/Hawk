@@ -60,7 +60,7 @@
         <Button
             android:id="@+id/btn_create_account"
             android:layout_width="260dp"
-            android:layout_height="64dp"
+            android:layout_height="60dp"
             android:layout_marginBottom="8dp"
             android:backgroundTint="@color/colorPrimary"
             android:text="@string/create_new_account"
@@ -75,7 +75,7 @@
         <Button
             android:id="@+id/btn_already_have_account"
             android:layout_width="0dp"
-            android:layout_height="64dp"
+            android:layout_height="60dp"
             android:layout_marginBottom="32dp"
             android:backgroundTint="@color/colorPrimaryDark"
             android:text="@string/i_already_have_account"

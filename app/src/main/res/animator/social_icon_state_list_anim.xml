@@ -17,13 +17,12 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:state_enabled="true"
-        android:state_pressed="true"
-        >
+        android:state_pressed="true">
         <set>
             <objectAnimator
                 android:duration="@android:integer/config_shortAnimTime"
                 android:propertyName="translationZ"
-                android:valueTo="12dp"
+                android:valueTo="8dp"
                 android:valueType="floatType" />
         </set>
     </item>

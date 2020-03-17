@@ -1,12 +1,14 @@
 package com.shouman.apps.hawk.ui.starting;
 
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -18,11 +20,13 @@ import com.facebook.AccessTokenTracker;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
+import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.firebase.ui.auth.AuthMethodPickerLayout;
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
@@ -87,10 +91,12 @@ public class Fragment_signUp extends Fragment {
 
         firebaseAuth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
-
         usersMapReference = database.getReference().child("usersMap");
+
+        //facebook callbackManager
         callbackManager = CallbackManager.Factory.create();
 
+        //setting the facebook login button
         mBinding.facebookLoginButton.setReadPermissions("email", "public_profile");
         mBinding.facebookLoginButton.setFragment(this);
         mBinding.facebookLoginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
@@ -107,11 +113,12 @@ public class Fragment_signUp extends Fragment {
 
             @Override
             public void onError(FacebookException error) {
-                Log.e(TAG, "onError: " + error.getMessage());
-                Toast.makeText(getContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+                hideTheSigningUPProgressBarLayout();
+                showErrorDialog(error.getMessage());
 
             }
         });
+
         accessTokenTracker = new AccessTokenTracker() {
             @Override
             protected void onCurrentAccessTokenChanged(AccessToken oldAccessToken, AccessToken currentAccessToken) {
@@ -144,6 +151,7 @@ public class Fragment_signUp extends Fragment {
                 startActivityForResult(
                         googleIntent,
                         RC_SIGN_IN);
+                showTheSigningUPProgressBarLayout();
             }
         });
 
@@ -152,6 +160,7 @@ public class Fragment_signUp extends Fragment {
             @Override
             public void onClick(View v) {
                 mBinding.facebookLoginButton.performClick();
+                showTheSigningUPProgressBarLayout();
             }
         });
 
@@ -164,25 +173,25 @@ public class Fragment_signUp extends Fragment {
                 if (checkInputTextErrors(mBinding.emailTextField)
                         && checkInputTextErrors(mBinding.passwordTextField)) {
 
+                    showTheSigningUPProgressBarLayout();
+
                     final String email = mBinding.emailTextField.getEditText().getText().toString().trim();
                     final String password = mBinding.passwordTextField.getEditText().getText().toString().trim();
-                    Log.e(TAG, "onClick: " + email );
-                    Log.e(TAG, "onClick: " + password );
 
                     final String userMapUID = Common.EmailToUID(email);
-                    Log.e(TAG, "onClick: " + userMapUID );
                     if (userMapUID != null) {
                         usersMapReference.addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                 if (dataSnapshot.hasChild(userMapUID)) {
-                                    //user is already exist
-                                    //open signIn Fragment
+                                    //user is already exist open signIn Fragment
+
+                                    //hide the progressBar
+                                    hideTheSigningUPProgressBarLayout();
                                     Toast.makeText(getContext(), "this email is exit .. go to Sign in", Toast.LENGTH_SHORT).show();
                                     openSignInFragment(email);
                                 } else {
                                     //user is not exist create new user email password account
-                                    Log.e(TAG, "onDataChange: " + "new email password user" );
                                     createNewEmailPasswordAccount(email, password);
                                 }
                             }
@@ -212,6 +221,18 @@ public class Fragment_signUp extends Fragment {
         return mBinding.getRoot();
     }
 
+    private void showTheSigningUPProgressBarLayout() {
+        mBinding.signingUpProgressBar.setVisibility(View.VISIBLE);
+        mBinding.signingUpProgressBar.startAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.fade_in_animation));
+        mBinding.mainLayout.setAlpha(0.5f);
+    }
+
+    private void hideTheSigningUPProgressBarLayout() {
+        mBinding.signingUpProgressBar.startAnimation(AnimationUtils.loadAnimation(getContext(), android.R.anim.fade_out));
+        mBinding.signingUpProgressBar.setVisibility(View.GONE);
+        mBinding.mainLayout.setAlpha(1.0f);
+    }
+
     private void openSignInFragment(String email) {
         StartingActivity host = (StartingActivity) getActivity();
         if (host != null) host.showSignInFragment(email);
@@ -223,6 +244,9 @@ public class Fragment_signUp extends Fragment {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
+
+                            //hide progressBar
+                            hideTheSigningUPProgressBarLayout();
 
                             //make a new userMap object
                             Common.userMap = new UserMap();
@@ -240,10 +264,32 @@ public class Fragment_signUp extends Fragment {
                             sendVerificationMail();
                         } else {
                             //there is an error
-                            Toast.makeText(getContext(), task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                            //show error dialog
+                            //hide progressBar
+                            hideTheSigningUPProgressBarLayout();
+                            try {
+                                throw task.getException();
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                                showErrorDialog(e.getMessage());
+                            }
                         }
                     }
                 });
+    }
+
+    private void showErrorDialog(String message) {
+        final MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(getActivity(), R.style.ThemeOverlay_MaterialComponents_MaterialAlertDialog)
+                .setTitle("Error")
+                .setMessage(message)
+                .setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        //no action to do just dismiss
+                    }
+                })
+                .setIcon(R.drawable.ic_report_problem);
+        builder.create().show();
     }
 
     private void handelFacebookToken(AccessToken accessToken) {
@@ -286,7 +332,15 @@ public class Fragment_signUp extends Fragment {
                     }
 
                 } else {
-                    Log.e(TAG, "handelFacebook " + task.isSuccessful());
+                    try {
+                        throw task.getException();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        showErrorDialog(e.getMessage());
+                    }
+                    hideTheSigningUPProgressBarLayout();
+                    //sign out from facebook account because there was an erroe
+                    LoginManager.getInstance().logOut();
                 }
             }
         });
@@ -339,7 +393,6 @@ public class Fragment_signUp extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == RC_SIGN_IN) {
             if (resultCode == RESULT_OK) {
-
                 //first we need to check if the user is exist in the firebase users database
                 //if the user was exist we show a toast and send the user to sign in fragment
                 //if the user is not exist we do a complete sign up process
@@ -384,7 +437,6 @@ public class Fragment_signUp extends Fragment {
     }
 
     private void performUserExistCheck(@NonNull DataSnapshot dataSnapshot, String userMapUID) {
-        Log.e(TAG, "performUserExistCheck: " + "user is exist");
         Common.userMap = new UserMap();
         //get the user path
         DataSnapshot userSnapshot = dataSnapshot.child(userMapUID);
@@ -455,6 +507,9 @@ public class Fragment_signUp extends Fragment {
             //user path is not found we open the verify fragment
             openVerifyFragment();
         }
+
+        //all done so hide the progressBar
+        hideTheSigningUPProgressBarLayout();
     }
 
     private void createNewAccount() {
@@ -473,6 +528,8 @@ public class Fragment_signUp extends Fragment {
         if (userMapUID != null) {
             //push userMap to database
             usersMapReference.child(userMapUID).setValue(Common.userMap);
+            //hide the progressBar
+            hideTheSigningUPProgressBarLayout();
             openVerifyFragment();
         }
     }
