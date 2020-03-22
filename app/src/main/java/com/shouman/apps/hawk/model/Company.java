@@ -4,59 +4,68 @@ import java.util.HashMap;
 
 public class Company {
 
-    private String userName;
-    private String email;
-    private String companyName;
-    private HashMap<String, Boolean> branchesList;
-    private String type;
+    //user name
+    private String u;
+
+    //user email
+    private String e;
+
+    //user company name
+    private String c;
+
+    //branches map
+    private HashMap<String, Boolean> b;
+
+    //user type
+    private String t;
     //private boolean isPaidVersion;
 
     public Company() {
-        this.branchesList = new HashMap<>();
-        this.type = "company_account";
+        this.b = new HashMap<>();
+        this.t = "company_account";
     }
 
 
-    public Company(String userName, String companyName, String email) {
-        this.userName = userName;
-        this.companyName = companyName;
-        this.email = email;
-        this.type = "company_account";
+    public Company(String u, String c, String e) {
+        this.u = u;
+        this.c = c;
+        this.e = e;
+        this.t = "company_account";
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setU(String u) {
+        this.u = u;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getU() {
+        return u;
     }
 
-    public String getEmail() {
-        return email;
+    public String getE() {
+        return e;
     }
 
-    public String getType() {
-        return type;
+    public String getT() {
+        return t;
     }
 
-    public String getCompanyName() {
-        return companyName;
+    public String getC() {
+        return c;
     }
 
-    public void setCompanyName(String companyName) {
-        this.companyName = companyName;
+    public void setC(String c) {
+        this.c = c;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setE(String e) {
+        this.e = e;
     }
 
-    public HashMap<String, Boolean> getBranchesList() {
-        return branchesList;
+    public HashMap<String, Boolean> getB() {
+        return b;
     }
 
-    public void setBranchesList(HashMap<String, Boolean> branchesList) {
-        this.branchesList = branchesList;
+    public void setB(HashMap<String, Boolean> b) {
+        this.b = b;
     }
 }

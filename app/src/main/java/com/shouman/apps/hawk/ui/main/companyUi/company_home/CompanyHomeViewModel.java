@@ -24,9 +24,6 @@ public class CompanyHomeViewModel extends AndroidViewModel {
     //each branch reference
     private DatabaseReference branchDetailsReference;
 
-//    //branch details liveData
-//    private final FirebaseQueryLiveData branchDetailsLiveData = new FirebaseQueryLiveData(branchDetailsReference);
-
     //company all branches
     private final DatabaseReference allBranches = Repo.getCompanyBranchesReference(getApplication());
     //company branch liveData
@@ -61,25 +58,9 @@ public class CompanyHomeViewModel extends AndroidViewModel {
         });
     }
 
-//    //set branch reference
-//    public void setBranchDetailsReference(String branchUID) {
-//        this.branchDetailsReference = Repo.getBranchDetailsReference(branchUID);
-//    }
-
-    //getter for allBranchesLiveData
-    public LiveData<DataSnapshot> getAllBranchesLiveData() {
-        return allBranchesLiveData;
-    }
-
     //getter for mapMediatorLiveData
-
-
     public MediatorLiveData<Map<String, String>> getMapMediatorLiveData() {
         return mapMediatorLiveData;
     }
 
-//    //getter for each branch
-//    public LiveData<DataSnapshot> getBranchDetailsLiveData() {
-//        return branchDetailsLiveData;
-//    }
 }

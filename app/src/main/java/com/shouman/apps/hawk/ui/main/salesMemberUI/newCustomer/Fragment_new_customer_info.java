@@ -1,4 +1,4 @@
-package com.shouman.apps.hawk.ui.main.companyUi;
+package com.shouman.apps.hawk.ui.main.salesMemberUI.newCustomer;
 
 
 import android.os.Bundle;
@@ -14,13 +14,10 @@ import com.shouman.apps.hawk.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class Fragment_company_profile extends Fragment {
+public class Fragment_new_customer_info extends Fragment {
 
 
-    public static Fragment_company_profile getInstance() {
-        return new Fragment_company_profile();
-    }
-    public Fragment_company_profile() {
+    public Fragment_new_customer_info() {
         // Required empty public constructor
     }
 
@@ -29,7 +26,7 @@ public class Fragment_company_profile extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_company_profile, container, false);
+        return inflater.inflate(R.layout.frgament_new_customer_info, container, false);
     }
 
 }

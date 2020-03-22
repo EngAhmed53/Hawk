@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="java.util.Map" />
+
+        <variable
+            name="dates_customers_map"
+            type="Map&lt;String, Map&lt;String, String>>" />
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:nestedScrollingEnabled="true">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:clickable="true"
+                android:focusable="true"
+                tools:context=".ui.main.companyUi.company_home.Fragment_company_home">
+
+
+                <com.github.mikephil.charting.charts.LineChart
+                    android:id="@+id/chart_view"
+                    android:layout_width="0dp"
+                    android:layout_height="240dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:background="@color/fui_transparent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+                <TextView
+                    android:id="@+id/textView6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp"
+                    android:text="@string/customers_log"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                    android:textColor="@color/gray1"
+                    android:textSize="18sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/chart_view" />
+
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rec_customers"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="16dp"
+                    android:clipToPadding="false"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView6"
+                    app:setDaysMap="@{dates_customers_map}" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </ScrollView>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_add_new_customer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="16dp"
+            android:backgroundTint="@color/colorPrimaryDark"
+            android:src="@drawable/ic_add_branch"
+            app:borderWidth="0dp"
+            app:elevation="6dp"
+            app:fabSize="normal"
+            app:hideMotionSpec="@anim/move_and_fade_animator"
+            app:layout_behavior="com.google.android.material.floatingactionbutton.FloatingActionButton$Behavior"
+            app:pressedTranslationZ="12dp"
+            app:rippleColor="@color/colorPrimaryDark"
+            app:showMotionSpec="@anim/fade_in_animation"
+            app:tint="@color/white" />
+
+
+    </FrameLayout>
+</layout>

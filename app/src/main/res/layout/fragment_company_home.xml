@@ -3,11 +3,13 @@
 
     <data>
 
-        <import type="java.util.List" />
+        <import type="java.util.Map" />
 
         <variable
-            name="branchesList"
-            type="List&lt;String>" />
+            name="branchesMap"
+            type="Map&lt;String, String>" />
+
+
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -15,7 +17,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/main_background"
+        android:background="@color/white"
         tools:context=".ui.main.companyUi.company_home.Fragment_company_home">
 
         <com.google.android.material.appbar.AppBarLayout
@@ -23,10 +25,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
-            android:elevation="6dp"
             android:background="@android:color/transparent"
+            android:elevation="6dp"
             android:fitsSystemWindows="true"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            android:theme="@style/ThemeOverlay.AppCompat.Light"
             app:elevation="6dp">
 
             <com.google.android.material.appbar.CollapsingToolbarLayout
@@ -48,8 +50,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="?actionBarSize"
                     android:background="@android:color/transparent"
-                    android:fadeScrollbars="true"
                     android:elevation="6dp"
+                    android:fadeScrollbars="true"
                     android:fitsSystemWindows="true"
                     app:layout_collapseMode="pin"
                     app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
@@ -74,7 +76,7 @@
             android:fontFamily="monospace"
             android:text="@string/branches_list"
             android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-            android:textColor="@color/white"
+            android:textColor="@color/gray1"
             android:textSize="18sp"
             app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior" />
 
@@ -92,7 +94,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
-                app:setBranchesList="@{branchesList}" />
+                app:setBranchesMap="@{branchesMap}" />
 
 
         </androidx.core.widget.NestedScrollView>
@@ -105,9 +107,9 @@
             android:layout_margin="16dp"
             android:backgroundTint="@color/colorPrimaryDark"
             android:src="@drawable/ic_add_branch"
+            app:borderWidth="0dp"
             app:elevation="6dp"
             app:fabSize="normal"
-            app:borderWidth="0dp"
             app:hideMotionSpec="@anim/move_and_fade_animator"
             app:layout_behavior="com.google.android.material.floatingactionbutton.FloatingActionButton$Behavior"
             app:pressedTranslationZ="12dp"

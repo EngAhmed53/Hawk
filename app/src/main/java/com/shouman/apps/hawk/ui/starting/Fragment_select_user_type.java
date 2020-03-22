@@ -3,7 +3,6 @@ package com.shouman.apps.hawk.ui.starting;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,10 +48,11 @@ public class Fragment_select_user_type extends Fragment {
 
     private DatabaseReference companiesReference;
 
+    private DatabaseReference branchesReference;
+
     private DatabaseReference salesMembersReferences;
 
     private DatabaseReference userMapReference;
-
 
 
     public static Fragment_select_user_type getInstance() {
@@ -74,6 +74,8 @@ public class Fragment_select_user_type extends Fragment {
         database = FirebaseDatabase.getInstance();
 
         companiesReference = database.getReference().child("companies");
+        branchesReference = database.getReference().child("branches");
+
         salesMembersReferences = database.getReference().child("sales_members");
 
         final FirebaseUser firebaseUser = auth.getCurrentUser();
@@ -131,9 +133,9 @@ public class Fragment_select_user_type extends Fragment {
                         Company company = new Company();
 //
                         //set company info
-                        company.setUserName(mBinding.edtName.getText().toString());
-                        company.setCompanyName(mBinding.edtCompanyName.getText().toString());
-                        company.setEmail(UserPreference.getUserEmail(getContext()));
+                        company.setU(mBinding.edtName.getText().toString());
+                        company.setC(mBinding.edtCompanyName.getText().toString());
+                        company.setE(UserPreference.getUserEmail(getContext()));
 
                         //get the newUID
                         String newKey = firebaseUser.getUid();
@@ -204,7 +206,8 @@ public class Fragment_select_user_type extends Fragment {
                         UserPreference.setUserTypeTrue(getContext());
                         UserPreference.setUserType(getContext(), SELECTED_POSITION);
                         UserPreference.setUserUID(getContext(), newKey);
-
+                        UserPreference.setBranchUID(getContext(), branchUID);
+                        branchesReference.child(branchUID).child("salesMemberList").child(newKey).setValue(salesMan.getUserName());
 
                     } else {
                         if (mBinding.nameInputLayout.getError() != null ||

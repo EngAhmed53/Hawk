@@ -4,7 +4,6 @@ import android.os.Handler;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LiveData;
 
 import com.google.firebase.database.DataSnapshot;

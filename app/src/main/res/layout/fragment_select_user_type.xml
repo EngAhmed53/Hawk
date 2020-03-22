@@ -204,7 +204,6 @@
                         app:boxCornerRadiusTopStart="6dp"
                         app:boxStrokeColor="@color/white"
                         app:boxStrokeWidth="1dp"
-                        app:companyIdValidation="@{empty}"
                         app:errorEnabled="true"
                         app:errorTextColor="@android:color/holo_red_dark"
                         app:helperText="@string/company_id_helper_text"

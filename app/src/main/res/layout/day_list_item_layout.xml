@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="date"
+            type="String" />
+
+        <variable
+            name="customersMap"
+            type="java.util.Map&lt;String, String>" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/parent_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="4dp"
+        android:backgroundTint="@color/white">
+
+
+        <ImageView
+            android:id="@+id/arrow_img"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            android:layout_marginStart="8dp"
+            android:src="@drawable/ic_dropdown_arrow"
+            android:tint="@color/colorPrimaryDark"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+            android:id="@+id/date_txt"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_toEndOf="@id/arrow_img"
+            android:background="@drawable/date_item_rounded_background"
+            android:gravity="center"
+            android:paddingLeft="16dp"
+            android:paddingTop="4dp"
+            android:paddingRight="16dp"
+            android:paddingBottom="4dp"
+            android:text="@{date}"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium.Inverse"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="@+id/arrow_img"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/arrow_img"
+            app:layout_constraintTop_toTopOf="@+id/arrow_img"
+            tools:text="20Mar 2020" />
+
+        <net.cachapa.expandablelayout.ExpandableLayout
+            android:id="@+id/expandable_layout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:el_duration="1000"
+            app:el_expanded="false"
+            app:el_parallax="0.5"
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/date_txt"
+            app:layout_constraintTop_toBottomOf="@+id/date_txt">
+
+
+            <androidx.core.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/child_rec_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="visible"
+                    app:setCustomersMap="@{customersMap}" />
+
+            </androidx.core.widget.NestedScrollView>
+
+        </net.cachapa.expandablelayout.ExpandableLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

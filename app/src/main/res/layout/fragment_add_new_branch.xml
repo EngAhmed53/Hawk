@@ -6,6 +6,8 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
+        android:clickable="true"
+        android:focusable="true"
         android:layout_height="match_parent"
         android:background="@drawable/main_background"
         tools:context=".ui.main.companyUi.add_new_branch.Fragment_add_new_branch">
@@ -85,7 +87,7 @@
                 android:id="@+id/edt_branch_name"
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
-                android:inputType="textEmailAddress"
+                android:inputType="text"
                 android:maxLength="100"
                 android:maxLines="1"
                 android:textColor="@color/white"

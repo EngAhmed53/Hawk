@@ -14,40 +14,58 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.shouman.apps.hawk.R;
 import com.shouman.apps.hawk.common.Common;
 import com.shouman.apps.hawk.databinding.BranchesListItemLayoutBinding;
+import com.shouman.apps.hawk.ui.main.companyUi.IMainClickHandler;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
-public class BranchesRecyclerAdapter extends RecyclerView.Adapter<BranchesRecyclerAdapter.BranchesViewHolder> {
+public class BranchRecyclerViewAdapter extends RecyclerView.Adapter<BranchRecyclerViewAdapter.BranchesViewHolder> {
 
-    private List<String> branchesName;
+    private Map<String, String> branchesMap;
+    private List<String> branchesNames;
+    private List<String> branchesUID;
     private Context mContext;
 
-    public BranchesRecyclerAdapter(Context mContext) {
+    public BranchRecyclerViewAdapter(Context mContext) {
         this.mContext = mContext;
     }
 
-    public void setBranchesName(List<String> branchesName) {
-        this.branchesName = branchesName;
+    public void setBranchesMap(Map<String, String> branchesMap) {
+        this.branchesMap = branchesMap;
+        this.branchesNames = new ArrayList<>();
+        this.branchesNames.addAll(branchesMap.values());
+        this.branchesUID = new ArrayList<>();
+        this.branchesUID.addAll(branchesMap.keySet());
         notifyDataSetChanged();
     }
 
     @NonNull
     @Override
-    public BranchesRecyclerAdapter.BranchesViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public BranchRecyclerViewAdapter.BranchesViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         BranchesListItemLayoutBinding mBinding =
                 DataBindingUtil
                         .inflate(LayoutInflater.from(mContext), R.layout.branches_list_item_layout, parent, false);
         return new BranchesViewHolder(mBinding.getRoot());
-
     }
 
     @Override
-    public void onBindViewHolder(@NonNull BranchesRecyclerAdapter.BranchesViewHolder holder, int position) {
-        String branchName = branchesName.get(position);
+    public void onBindViewHolder(@NonNull BranchRecyclerViewAdapter.BranchesViewHolder holder, int position) {
+        String branchName = branchesNames.get(position);
         holder.mBinding.branchNameTxt.setText(branchName);
+        //set on clickHandler
+        IMainClickHandler iMainClickHandler = (IMainClickHandler) mContext;
+        String branchUID = branchesUID.get(position);
+        holder.mBinding.setBranchUID(branchUID);
+        holder.mBinding.setBranchName(branchName);
+        holder.mBinding.setIMainClickHandler(iMainClickHandler);
 
+        //set the 2 letters
+        setThe2Letters(holder, position, branchName);
+    }
 
+    private void setThe2Letters(@NonNull BranchesViewHolder holder, int position, String branchName) {
         String[] branchArray = branchName.split(" ");
         char c1;
         char c2;
@@ -72,8 +90,8 @@ public class BranchesRecyclerAdapter extends RecyclerView.Adapter<BranchesRecycl
 
     @Override
     public int getItemCount() {
-        if (branchesName != null) {
-            return branchesName.size();
+        if (branchesMap != null) {
+            return branchesMap.size();
         }
         return 0;
     }

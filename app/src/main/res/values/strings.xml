@@ -14,7 +14,7 @@
     <string name="sign_in_with_social">Sign in with Social</string>
     <string name="choose_your_position">Choose your position !</string>
     <string name="user_name">User Name</string>
-    <string name="email">Email</string>
+    <string name="e">Email</string>
     <string name="password">Password</string>
     <string name="sign_up">Sign up with Email</string>
     <string name="sign_up_with_social">Sign up with Social</string>
@@ -35,8 +35,8 @@
     <string name="password_min_6_characters">Password (min. 6 characters)</string>
     <string name="create_new_account">Create an account</string>
     <string name="i_already_have_account">I already have an account</string>
-    <string name="blank_email_error">your email address can\'t be blank</string>
-    <string name="valid_email_address_error">Please type valid email address</string>
+    <string name="blank_email_error">your e address can\'t be blank</string>
+    <string name="valid_email_address_error">Please type valid e address</string>
     <string name="blank_password_error">your password can\'t be blank</string>
     <string name="mini_chars_password_error">Password minimum length is 6 characters</string>
     <string name="blank_user_name_error">your name can\'t be blank</string>
@@ -46,7 +46,7 @@
     <string name="blank_company_id_error">Company Id can\'t be blank</string>
     <string name="blank_pib_code_error">branch pin code can\'t be blank</string>
     <string name="valid_pin_code_error">please type valid pin code</string>
-    <string name="we_sent_you_email_msg">In order to continue you have to Verify your email address, We sent you a verification email, Please check your inbox.</string>
+    <string name="we_sent_you_email_msg">In order to continue you have to Verify your e address, We sent you a verification e, Please check your inbox.</string>
     <string name="email_verification_title">Email Verification</string>
     <string name="sign_up_with_facebook">Sign up with Facebook</string>
     <string name="sign_up_with_google">Sign up with Google</string>
@@ -69,8 +69,8 @@
     <string name="error_logo">error_logo</string>
     <string name="error">Error</string>
     <string name="forget_password_title">Forget password?</string>
-    <string name="forget_password_message">No problem, Enter your email address and we\'ll send you a link to change your password.</string>
-    <string name="send_email">Send email</string>
+    <string name="forget_password_message">No problem, Enter your e address and we\'ll send you a link to change your password.</string>
+    <string name="send_email">Send e</string>
     <string name="company_home">Home</string>
     <string name="company_notification">Notification</string>
     <string name="company_my_profile">My Profile</string>
@@ -81,6 +81,28 @@
     <string name="type_your_new_branch_name_and_then_press_add_button">Type your new branch name and then press add button</string>
     <string name="add_new_branch">Add new branch</string>
     <string name="branches_list">Branches List</string>
+    <string name="sales_member_list">Sales member list</string>
+    <string name="customers_log">Customers Log</string>
+    <string name="customer_photo">Customer photo</string>
+    <string name="edit_customer_info">Edit Customer Info</string>
+    <string name="customer_name">Customer name</string>
+    <string name="customer_email">Email</string>
+    <string name="customer_phone">Phone number</string>
+    <string name="added_date">Added time</string>
+    <string name="google_maps_key">AIzaSyABpiW13-2gPYkgXVyzFypJTQIW1me4Y1s</string>
+    <string name="company_uid">Company UID</string>
+    <string name="edit_company_info">Edit Company Info</string>
+    <string name="drawer_user_image_disc">sales_user_image</string>
+    <string name="home">Home</string>
+    <string name="personal_page">Profile</string>
+    <string name="settings">Settings</string>
+    <string name="my_branch">My Branch</string>
+    <string name="terms_and_condition">Terms And Condition</string>
+    <string name="sign_out">Sign out</string>
+    <string name="exit">Exit</string>
+    <string name="nav_drawer_open">nav_open</string>
+    <string name="nav_drawer_closed">nav_closed</string>
+    <string name="type_the_new_customer_information_then_press_continue">Type the new customer information then press continue.</string>
 
 
 </resources>

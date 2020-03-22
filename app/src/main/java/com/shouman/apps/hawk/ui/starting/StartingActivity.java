@@ -18,6 +18,7 @@ import com.shouman.apps.hawk.databinding.ActivityStartingBinding;
 import com.shouman.apps.hawk.model.UserMap;
 import com.shouman.apps.hawk.preferences.UserPreference;
 import com.shouman.apps.hawk.ui.main.companyUi.MainActivity;
+import com.shouman.apps.hawk.ui.main.salesMemberUI.Main2Activity;
 
 public class StartingActivity extends AppCompatActivity {
 
@@ -174,8 +175,11 @@ public class StartingActivity extends AppCompatActivity {
     private void showMainActivity() {
         //check if the user if company type or sales member
         //to navigate him to the company ui or sales member ui
-        Toast.makeText(this, "show main activity", Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(StartingActivity.this, MainActivity.class);
+        String userType = UserPreference.getUserType(StartingActivity.this);
+        Intent intent = null;
+        if (userType.equals("companies")) intent = new Intent(StartingActivity.this, MainActivity.class);
+        else if (userType.equals("sales_members")) intent = new Intent(StartingActivity.this, Main2Activity.class);
+        if (intent != null)
         startActivity(intent);
         finish();
     }

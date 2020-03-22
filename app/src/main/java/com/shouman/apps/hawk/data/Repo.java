@@ -16,18 +16,34 @@ public class Repo {
 
     private static FirebaseDatabase database = FirebaseDatabase.getInstance();
     private static DatabaseReference branchesReference = database.getReference().child("branches");
+    private static DatabaseReference salesMemberReference = database.getReference().child("sales_members");
+    private static DatabaseReference customersReference = database.getReference().child("customers");
 
     //get company branches list
     public static DatabaseReference getCompanyBranchesReference(Context context) {
         String userUID = UserPreference.getUserUID(context);
         String userPath = UserPreference.getUserType(context);
-        Log.e(TAG, "getCompanyBranchesReference : " + userPath + " " + userUID );
-        return database.getReference().child(userPath).child(userUID).child("branchesList");
+        return database.getReference().child(userPath).child(userUID).child("b");
     }
 
     //return branch reference
     public static DatabaseReference getBranchDetailsReference(String branchUID) {
         return branchesReference.child(branchUID);
+    }
+
+    //return branch sales member list reference
+    public static DatabaseReference getBranchSalesMembersList(String branchUID) {
+        return branchesReference.child(branchUID).child("salesMemberList");
+    }
+
+    //return sales member customers list reference
+    public static DatabaseReference getSalesMemberCustomersList(String salesUID) {
+        return salesMemberReference.child(salesUID).child("customersLog");
+    }
+
+    //return customer reference
+    public static DatabaseReference getCustomerReference(String customerUID) {
+        return customersReference.child(customerUID);
     }
 
     //add new branch to company
@@ -44,6 +60,13 @@ public class Repo {
         //add this new branch to company branchesList
         Map<String, Object> newValue = new HashMap<>();
         newValue.put(newBranchKey, branchName);
-        database.getReference().child(userPath).child(userUID).child("branchesList").updateChildren(newValue);
+        database.getReference().child(userPath).child(userUID).child("b").updateChildren(newValue);
+    }
+
+    // return company reference;
+    public static DatabaseReference getCompanyReference(Context context) {
+        String userUID = UserPreference.getUserUID(context);
+        Log.e(TAG, "getCompanyReference: " + userUID);
+        return database.getReference().child("companies").child(userUID);
     }
 }

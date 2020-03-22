@@ -3,6 +3,23 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+
+        <import type="com.shouman.apps.hawk.ui.main.companyUi.IMainClickHandler"/>
+
+        <variable
+            name="iMainClickHandler"
+            type="IMainClickHandler" />
+
+        <variable
+            name="branchUID"
+            type="String" />
+        <variable
+            name="branchName"
+            type="String" />
+
+    </data>
+
     <com.google.android.material.card.MaterialCardView
         android:layout_width="300dp"
         android:layout_height="50dp"
@@ -11,6 +28,7 @@
         android:backgroundTint="@color/fui_transparent"
         android:clickable="true"
         android:focusable="true"
+        android:onClick="@{() -> iMainClickHandler.onBranchItemClickHandler(branchUID, branchName)}"
         android:stateListAnimator="@animator/branch_list_item_anim"
         app:cardCornerRadius="8dp"
         app:cardElevation="3dp">

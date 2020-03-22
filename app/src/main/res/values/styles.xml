@@ -20,4 +20,8 @@
         <item name="boxStrokeWidth">2dp</item>
     </style>
 
+    <style name="bottom_nav_bar_text_style" parent="TextAppearance.AppCompat.Small">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
 </resources>

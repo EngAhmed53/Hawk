@@ -1,14 +1,281 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.main.companyUi.Fragment_company_profile">
+<layout>
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <data>
+
+        <import type="com.shouman.apps.hawk.model.Company" />
+
+        <variable
+            name="company"
+            type="Company" />
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:clickable="true"
+        android:focusable="true"
+        android:background="@color/white"
+        tools:context=".ui.main.companyUi.customers.Fragment_customers_info">
 
-</FrameLayout>
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/app_bar"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:backgroundTint="@color/colorPrimaryDark"
+            android:elevation="6dp"
+            android:fitsSystemWindows="true"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+            <com.google.android.material.appbar.CollapsingToolbarLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:collapsedTitleTextAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+                app:expandedTitleGravity="bottom"
+                app:expandedTitleMarginStart="16dp"
+                app:expandedTitleMarginTop="8dp"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed"
+                app:titleEnabled="true">
+
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?actionBarSize"
+                    android:background="@android:color/transparent"
+                    android:elevation="6dp"
+                    android:fadeScrollbars="true"
+                    android:fitsSystemWindows="true"
+                    app:layout_collapseMode="pin"
+                    app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+                    app:title="@{company.c}" />
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:contentDescription="@string/customer_photo"
+                    app:layout_collapseMode="parallax" />
+
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+
+            <LinearLayout
+                android:id="@+id/edit_fields_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:orientation="vertical">
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/user_name_textInput"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="10dp"
+                    android:focusable="true"
+                    android:hint="@string/user_name"
+                    android:textColorHint="@color/old_rose_dark"
+                    app:boxBackgroundColor="@color/white"
+                    app:boxCornerRadiusBottomEnd="6dp"
+                    app:boxCornerRadiusBottomStart="6dp"
+                    app:boxCornerRadiusTopEnd="6dp"
+                    app:boxCornerRadiusTopStart="6dp"
+                    app:boxStrokeColor="@color/colorPrimaryDark"
+                    app:boxStrokeWidth="1dp"
+                    app:hintTextAppearance="@style/TextAppearance.AppCompat.Caption"
+                    app:hintTextColor="@color/old_rose_dark"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/constraintLayout2"
+                    app:startIconDrawable="@drawable/ic_person"
+                    app:startIconTint="@color/old_rose">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edt_user_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:enabled="false"
+                        android:focusable="true"
+                        android:inputType="text"
+                        android:maxLength="100"
+                        android:maxLines="1"
+                        android:text="@{company.u}"
+                        android:textColor="@color/gray1"
+                        android:textColorHint="@color/primaryTransparent" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="25dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@color/gray1" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/customer_email_textInput"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="10dp"
+                    android:focusable="true"
+                    android:hint="@string/customer_email"
+                    android:textColorHint="@color/old_rose_dark"
+                    app:boxBackgroundColor="@color/white"
+                    app:boxCornerRadiusBottomEnd="6dp"
+                    app:boxCornerRadiusBottomStart="6dp"
+                    app:boxCornerRadiusTopEnd="6dp"
+                    app:boxCornerRadiusTopStart="6dp"
+                    app:boxStrokeColor="@color/colorPrimaryDark"
+                    app:boxStrokeWidth="1dp"
+                    app:hintTextAppearance="@style/TextAppearance.AppCompat.Caption"
+                    app:hintTextColor="@color/old_rose_dark"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/constraintLayout2"
+                    app:startIconDrawable="@drawable/ic_email"
+                    app:startIconTint="@color/old_rose">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edt_customer_email"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:enabled="false"
+                        android:focusable="true"
+                        android:inputType="textEmailAddress"
+                        android:maxLength="100"
+                        android:maxLines="1"
+                        android:text="@{company.e}"
+                        android:textColor="@color/gray1"
+                        android:textColorHint="@color/primaryTransparent" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="25dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@color/gray1" />
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/company_name_textInput"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="10dp"
+                    android:focusable="true"
+                    android:hint="@string/company_name"
+                    android:textColorHint="@color/old_rose_dark"
+                    app:boxBackgroundColor="@color/white"
+                    app:boxCornerRadiusBottomEnd="6dp"
+                    app:boxCornerRadiusBottomStart="6dp"
+                    app:boxCornerRadiusTopEnd="6dp"
+                    app:boxCornerRadiusTopStart="6dp"
+                    app:boxStrokeColor="@color/colorPrimaryDark"
+                    app:boxStrokeWidth="1dp"
+                    app:hintTextAppearance="@style/TextAppearance.AppCompat.Caption"
+                    app:hintTextColor="@color/old_rose_dark"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/constraintLayout2"
+                    app:startIconDrawable="@drawable/ic_domain"
+                    app:startIconTint="@color/old_rose">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edt_company_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:enabled="false"
+                        android:focusable="true"
+                        android:inputType="text"
+                        android:maxLength="100"
+                        android:maxLines="1"
+                        android:text="@{company.c}"
+                        android:textColor="@color/gray1"
+                        android:textColorHint="@color/primaryTransparent" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="25dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@color/gray1" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/company_uid_textInput"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="10dp"
+                    android:focusable="true"
+                    android:hint="@string/company_uid"
+                    android:textColorHint="@color/old_rose_dark"
+                    app:boxBackgroundColor="@color/white"
+                    app:boxCornerRadiusBottomEnd="6dp"
+                    app:boxCornerRadiusBottomStart="6dp"
+                    app:boxCornerRadiusTopEnd="6dp"
+                    app:boxCornerRadiusTopStart="6dp"
+                    app:boxStrokeColor="@color/colorPrimaryDark"
+                    app:boxStrokeWidth="1dp"
+                    app:hintTextAppearance="@style/TextAppearance.AppCompat.Caption"
+                    app:hintTextColor="@color/old_rose_dark"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/constraintLayout2"
+                    app:startIconDrawable="@drawable/ic_domain"
+                    app:startIconTint="@color/old_rose">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edt_company_uid"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:enabled="false"
+                        android:focusable="true"
+                        android:inputType="text"
+                        android:maxLength="100"
+                        android:maxLines="1"
+                        android:textColor="@color/gray1"
+                        android:textColorHint="@color/primaryTransparent" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="56dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginBottom="8dp"
+                    android:backgroundTint="@color/colorPrimaryDark"
+                    android:text="@string/edit_company_info"
+                    android:textColor="@color/white"
+                    android:textSize="18sp" />
+
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

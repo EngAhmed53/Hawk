@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -23,13 +22,11 @@ import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.google.android.material.appbar.AppBarLayout;
-import com.google.firebase.database.DataSnapshot;
 import com.shouman.apps.hawk.R;
 import com.shouman.apps.hawk.databinding.FragmentCompanyHomeBinding;
 import com.shouman.apps.hawk.ui.main.companyUi.MainActivity;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -44,9 +41,6 @@ public class Fragment_company_home extends Fragment {
         return new Fragment_company_home();
     }
 
-    private List<String> allBranchesNames;
-    private List<String> allBranchesUID;
-    private LiveData<DataSnapshot> branchLiveData;
 
     public Fragment_company_home() {
         // Required empty public constructor
@@ -59,8 +53,6 @@ public class Fragment_company_home extends Fragment {
         // Inflate the layout for this fragment
         mBinding = FragmentCompanyHomeBinding.inflate(inflater);
 
-        allBranchesUID = new ArrayList<>();
-        allBranchesNames = new ArrayList<>();
 
         //viewModel
         CompanyHomeViewModel companyHomeViewModel = new ViewModelProvider(this).get(CompanyHomeViewModel.class);
@@ -70,11 +62,7 @@ public class Fragment_company_home extends Fragment {
             @Override
             public void onChanged(Map<String, String> branches_UID_Names_Map) {
                 if (branches_UID_Names_Map != null) {
-                    allBranchesUID.clear();
-                    allBranchesNames.clear();
-                    allBranchesNames.addAll(branches_UID_Names_Map.values());
-                    allBranchesUID.addAll(branches_UID_Names_Map.keySet());
-                    mBinding.setBranchesList(allBranchesNames);
+                    mBinding.setBranchesMap(branches_UID_Names_Map);
                 } else {
                     Log.e(TAG, "onChanged: " + "branches list is null");
                 }
@@ -129,7 +117,7 @@ public class Fragment_company_home extends Fragment {
                 } else if (verticalOffset == 0) {
                     mBinding.chartView.setAlpha(1.0f);
                 } else {
-                    float alpha = (1 + (float) ((float) verticalOffset / (float) maxScrollRange));
+                    float alpha = (1 + ((float) verticalOffset / (float) maxScrollRange));
                     mBinding.chartView.setAlpha(alpha);
                 }
             }
@@ -144,7 +132,7 @@ public class Fragment_company_home extends Fragment {
         dataSetArray.add(dataSet);
         LineData lineData = new LineData(dataSetArray);
         lineData.setValueTextSize(10);
-        lineData.setValueTextColor(Color.WHITE);
+        lineData.setValueTextColor(Color.BLACK);
         lineData.setValueFormatter(new MyValueFormatter());
 
 
@@ -155,8 +143,8 @@ public class Fragment_company_home extends Fragment {
 
         mBinding.chartView.setData(lineData);
         mBinding.chartView.setDescription(chartDescription);
-        mBinding.chartView.setNoDataText("no data to view");
-        mBinding.chartView.setNoDataTextColor(Color.WHITE);
+        mBinding.chartView.setNoDataText("No data to view");
+        mBinding.chartView.setNoDataTextColor(Color.BLACK);
         mBinding.chartView.getAxisRight().setDrawLabels(false);
         mBinding.chartView.setPinchZoom(false);
         mBinding.chartView.setDoubleTapToZoomEnabled(false);

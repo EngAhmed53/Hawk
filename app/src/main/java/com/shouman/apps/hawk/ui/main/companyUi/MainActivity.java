@@ -13,10 +13,21 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.shouman.apps.hawk.R;
 import com.shouman.apps.hawk.common.Common;
 import com.shouman.apps.hawk.databinding.ActivityMainBinding;
+import com.shouman.apps.hawk.preferences.UserPreference;
 import com.shouman.apps.hawk.ui.main.companyUi.add_new_branch.Fragment_add_new_branch;
+import com.shouman.apps.hawk.ui.main.companyUi.branches.Fragment_branch_details;
 import com.shouman.apps.hawk.ui.main.companyUi.company_home.Fragment_company_home;
+import com.shouman.apps.hawk.ui.main.companyUi.company_notification.Fragment_company_notification;
+import com.shouman.apps.hawk.ui.main.companyUi.company_profile.Fragment_company_profile;
+import com.shouman.apps.hawk.ui.main.companyUi.customers.Fragment_customers_info;
+import com.shouman.apps.hawk.ui.main.companyUi.sales_members.Fragment_sales_details;
 
-public class MainActivity extends AppCompatActivity {
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
+import nl.joery.animatedbottombar.AnimatedBottomBar;
+
+public class MainActivity extends AppCompatActivity implements IMainClickHandler {
 
     private static final String TAG = "MainActivity";
     private ActivityMainBinding mainBinding;
@@ -37,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
         if (savedInstanceState == null) {
             fragment_company_home = Fragment_company_home.getInstance();
             fragment_company_notification = Fragment_company_notification.getInstance();
-            fragment_company_profile = Fragment_company_profile.getInstance();
+            fragment_company_profile = Fragment_company_profile.getInstance(UserPreference.getUserUID(this));
             fragment_add_new_branch = Fragment_add_new_branch.getInstance();
             active = fragment_company_home;
             addAllFragmentsToFragmentManager();
@@ -50,20 +61,21 @@ public class MainActivity extends AppCompatActivity {
             active = fragmentManager.findFragmentByTag(Common.LAST_ACTIVE_FRAGMENT);
         }
 
-        mainBinding.bottomNavigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+        mainBinding.bottomNavigation.setOnTabSelectListener(new AnimatedBottomBar.OnTabSelectListener() {
+
             @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()) {
+            public void onTabSelected(int i, @Nullable AnimatedBottomBar.Tab tab, int i1, @NotNull AnimatedBottomBar.Tab tab1) {
+                switch (tab1.getId()) {
                     case R.id.notification:
                         showNotificationFragment();
-                        return true;
+                        break;
                     case R.id.profile:
                         showCompanyProfileHome();
-                        return true;
+                        break;
                     case R.id.company_home:
                     default:
                         showHomeFragment();
-                        return true;
+                        break;
                 }
             }
         });
@@ -130,10 +142,44 @@ public class MainActivity extends AppCompatActivity {
                     .beginTransaction()
                     .addToBackStack(null)
                     .setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right, android.R.anim.slide_in_left, android.R.anim.slide_out_right)
-                    .add(R.id.home_container, fragment_add_new_branch, "fragment_add_new_branch")
+                    .add(R.id.full_container, fragment_add_new_branch, "fragment_add_new_branch")
                     .commit();
         } else {
             fragmentManager.beginTransaction().show(fragment_add_new_branch).commit();
         }
+    }
+
+    @Override
+    public void onBranchItemClickHandler(String branchUID, String branchName) {
+        //show branch fragment
+        Fragment_branch_details fragment_branch_details = Fragment_branch_details.getInstance(branchUID, branchName);
+        fragmentManager
+                .beginTransaction()
+                .addToBackStack(null)
+                .setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right, android.R.anim.slide_in_left, android.R.anim.slide_out_right)
+                .add(R.id.full_container, fragment_branch_details, "fragment_branch_details")
+                .commit();
+    }
+
+    @Override
+    public void onSalesItemClickHandler(String salesUID, String salesName) {
+        Fragment_sales_details fragment_sales_details = Fragment_sales_details.getInstance(salesUID, salesName);
+        fragmentManager
+                .beginTransaction()
+                .addToBackStack(null)
+                .setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right, android.R.anim.slide_in_left, android.R.anim.slide_out_right)
+                .add(R.id.full_container, fragment_sales_details, "fragment_branch_details")
+                .commit();
+    }
+
+    @Override
+    public void onCustomerItemClickHandler(String customerUID, String customerName) {
+        Fragment_customers_info fragment_customers_info = Fragment_customers_info.getInstance(customerName, customerUID);
+        fragmentManager
+                .beginTransaction()
+                .addToBackStack(null)
+                .setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right, android.R.anim.slide_in_left, android.R.anim.slide_out_right)
+                .add(R.id.full_container, fragment_customers_info, "fragment_customers_info")
+                .commit();
     }
 }

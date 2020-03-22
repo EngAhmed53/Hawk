@@ -1,104 +1,137 @@
 package com.shouman.apps.hawk.model;
 
-import androidx.room.Entity;
-import androidx.room.Ignore;
-import androidx.room.PrimaryKey;
+import android.os.Parcel;
+import android.os.Parcelable;
 
-@Entity(tableName = "customers_table")
-public class Customer {
+public class Customer implements Parcelable {
 
-    @PrimaryKey(autoGenerate = true)
-    private long id;
+    //customer name
+    private String n;
 
-    private String customerName;
+    //customer latitude;
+    private double lt;
 
-    private double lat;
+    //customer longitude
+    private double ln;
 
-    private double lang;
+    //company name
+    private String cn;
 
-    private String companyName;
+    //customer phone number
+    private String p;
 
-    private String phoneNumber;
+    //customer email
+    //can be empty or null
+    private String e;
 
-    private long timeStamp;
+    //customer extra information;
+    //can be extra or null
+    private String ei;
 
-    @Ignore
     public Customer() {
     }
 
-    @Ignore
-    public Customer(long id, String customerName, double lat, double lang, String companyName, String phoneNumber, long timeStamp) {
-        this.id = id;
-        this.customerName = customerName;
-        this.lat = lat;
-        this.lang = lang;
-        this.companyName = companyName;
-        this.phoneNumber = phoneNumber;
-        this.timeStamp = timeStamp;
+    public Customer(String n, double lt, double ln, String cn, String p, String e, String ei) {
+        this.n = n;
+        this.lt = lt;
+        this.ln = ln;
+        this.cn = cn;
+        this.p = p;
+        this.e = e;
+        this.ei = ei;
     }
 
-    public Customer(String customerName, double lat, double lang, String companyName, String phoneNumber, long timeStamp) {
-        this.customerName = customerName;
-        this.lat = lat;
-        this.lang = lang;
-        this.companyName = companyName;
-        this.phoneNumber = phoneNumber;
-        this.timeStamp = timeStamp;
+    public String getE() {
+        return e;
     }
 
-    public long getId() {
-        return id;
+    public void setE(String e) {
+        this.e = e;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public String getN() {
+        return n;
     }
 
-    public String getCustomerName() {
-        return customerName;
+    public void setN(String n) {
+        this.n = n;
     }
 
-    public void setCustomerName(String customerName) {
-        this.customerName = customerName;
+    public double getLt() {
+        return lt;
     }
 
-    public double getLat() {
-        return lat;
+    public void setLt(double lt) {
+        this.lt = lt;
     }
 
-    public void setLat(double lat) {
-        this.lat = lat;
+    public double getLn() {
+        return ln;
     }
 
-    public double getLang() {
-        return lang;
+    public void setLn(double ln) {
+        this.ln = ln;
     }
 
-    public void setLang(double lang) {
-        this.lang = lang;
+    public String getCn() {
+        return cn;
     }
 
-    public String getCompanyName() {
-        return companyName;
+    public void setCn(String cn) {
+        this.cn = cn;
     }
 
-    public void setCompanyName(String companyName) {
-        this.companyName = companyName;
+    public String getP() {
+        return p;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
+    public void setP(String p) {
+        this.p = p;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public String getEi() {
+        return ei;
     }
 
-    public long getTimeStamp() {
-        return timeStamp;
+    public void setEi(String ei) {
+        this.ei = ei;
     }
 
-    public void setTimeStamp(long timeStamp) {
-        this.timeStamp = timeStamp;
+    protected Customer(Parcel in) {
+        n = in.readString();
+        lt = in.readDouble();
+        ln = in.readDouble();
+        cn = in.readString();
+        p = in.readString();
+        ei = in.readString();
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(n);
+        dest.writeDouble(lt);
+        dest.writeDouble(ln);
+        dest.writeString(cn);
+        dest.writeString(p);
+        dest.writeString(e);
+        dest.writeString(ei);
+    }
+
+    @SuppressWarnings("unused")
+    public static final Parcelable.Creator<Customer> CREATOR = new Parcelable.Creator<Customer>() {
+        @Override
+        public Customer createFromParcel(Parcel in) {
+            return new Customer(in);
+        }
+
+        @Override
+        public Customer[] newArray(int size) {
+            return new Customer[size];
+        }
+    };
 }
