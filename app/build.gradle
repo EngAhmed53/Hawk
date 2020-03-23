@@ -85,7 +85,14 @@ dependencies {
     // rounded image view
     implementation 'com.makeramen:roundedimageview:2.3.0'
 
+    // animated bottom nav bar
     implementation 'nl.joery.animatedbottombar:library:1.0.4'
+
+    // view pager 2
+    implementation 'androidx.viewpager2:viewpager2:1.0.0'
+
+    //dexter lib
+    implementation 'com.karumi:dexter:6.0.1'
 
 
 }

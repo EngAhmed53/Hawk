@@ -5,8 +5,6 @@ import android.content.Context;
 import com.shouman.apps.hawk.R;
 import com.shouman.apps.hawk.model.UserMap;
 
-import java.util.Random;
-
 
 public class Common {
     private static final String TAG = "Common class";

@@ -5,14 +5,13 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.Observer;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
+import com.shouman.apps.hawk.data.CompanyRepo;
 import com.shouman.apps.hawk.data.FirebaseQueryLiveData;
-import com.shouman.apps.hawk.data.Repo;
 import com.shouman.apps.hawk.utils.AppExecutors;
 
 import java.util.HashMap;
@@ -25,7 +24,7 @@ public class CompanyHomeViewModel extends AndroidViewModel {
     private DatabaseReference branchDetailsReference;
 
     //company all branches
-    private final DatabaseReference allBranches = Repo.getCompanyBranchesReference(getApplication());
+    private final DatabaseReference allBranches = CompanyRepo.getCompanyBranchesReference(getApplication());
     //company branch liveData
     private final FirebaseQueryLiveData allBranchesLiveData = new FirebaseQueryLiveData(allBranches);
 

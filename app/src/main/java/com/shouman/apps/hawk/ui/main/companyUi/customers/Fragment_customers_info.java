@@ -21,8 +21,6 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.shouman.apps.hawk.databinding.FragmentCustomersInfoBinding;
 import com.shouman.apps.hawk.model.Customer;
 
-import java.util.Map;
-
 /**
  * A simple {@link Fragment} subclass.
  */

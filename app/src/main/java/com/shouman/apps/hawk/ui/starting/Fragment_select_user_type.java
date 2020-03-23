@@ -180,8 +180,8 @@ public class Fragment_select_user_type extends Fragment {
                         SalesMan salesMan = new SalesMan();
 
                         //set sales_member info
-                        salesMan.setUserName(mBinding.edtName.getText().toString());
-                        salesMan.setEmail(UserPreference.getUserEmail(getContext()));
+                        salesMan.setUn(mBinding.edtName.getText().toString());
+                        salesMan.setE(UserPreference.getUserEmail(getContext()));
 
                         //get the newUID
                         String newKey = firebaseUser.getUid();
@@ -207,7 +207,9 @@ public class Fragment_select_user_type extends Fragment {
                         UserPreference.setUserType(getContext(), SELECTED_POSITION);
                         UserPreference.setUserUID(getContext(), newKey);
                         UserPreference.setBranchUID(getContext(), branchUID);
-                        branchesReference.child(branchUID).child("salesMemberList").child(newKey).setValue(salesMan.getUserName());
+
+
+                        branchesReference.child(branchUID).child("salesMemberList").child(newKey).setValue(salesMan.getUn());
 
                     } else {
                         if (mBinding.nameInputLayout.getError() != null ||

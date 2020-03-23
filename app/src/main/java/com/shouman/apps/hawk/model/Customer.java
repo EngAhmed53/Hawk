@@ -3,7 +3,12 @@ package com.shouman.apps.hawk.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class Customer implements Parcelable {
+import androidx.databinding.BaseObservable;
+import androidx.databinding.Bindable;
+
+import com.shouman.apps.hawk.BR;
+
+public class Customer extends BaseObservable implements Parcelable {
 
     //customer name
     private String n;
@@ -41,63 +46,77 @@ public class Customer implements Parcelable {
         this.ei = ei;
     }
 
+    @Bindable
     public String getE() {
         return e;
     }
 
     public void setE(String e) {
         this.e = e;
+        notifyPropertyChanged(BR.e);
     }
 
+    @Bindable
     public String getN() {
         return n;
     }
 
     public void setN(String n) {
         this.n = n;
+        notifyPropertyChanged(BR.n);
     }
 
+    @Bindable
     public double getLt() {
         return lt;
     }
 
     public void setLt(double lt) {
         this.lt = lt;
+        notifyPropertyChanged(BR.lt);
     }
 
+    @Bindable
     public double getLn() {
         return ln;
     }
 
     public void setLn(double ln) {
         this.ln = ln;
+        notifyPropertyChanged(BR.ln);
     }
 
+    @Bindable
     public String getCn() {
         return cn;
     }
 
     public void setCn(String cn) {
         this.cn = cn;
+        notifyPropertyChanged(BR.cn);
     }
 
+    @Bindable
     public String getP() {
         return p;
     }
 
     public void setP(String p) {
         this.p = p;
+        notifyPropertyChanged(BR.p);
     }
 
+    @Bindable
     public String getEi() {
         return ei;
     }
 
     public void setEi(String ei) {
         this.ei = ei;
+        notifyPropertyChanged(BR.ei);
     }
 
-    protected Customer(Parcel in) {
+    public Customer(Parcel in) {
         n = in.readString();
         lt = in.readDouble();
         ln = in.readDouble();
@@ -122,7 +141,6 @@ public class Customer implements Parcelable {
         dest.writeString(ei);
     }
 
-    @SuppressWarnings("unused")
     public static final Parcelable.Creator<Customer> CREATOR = new Parcelable.Creator<Customer>() {
         @Override
         public Customer createFromParcel(Parcel in) {

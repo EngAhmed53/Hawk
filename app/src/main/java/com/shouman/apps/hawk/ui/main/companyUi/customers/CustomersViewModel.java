@@ -8,8 +8,8 @@ import androidx.lifecycle.ViewModel;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
+import com.shouman.apps.hawk.data.CompanyRepo;
 import com.shouman.apps.hawk.data.FirebaseQueryLiveData;
-import com.shouman.apps.hawk.data.Repo;
 import com.shouman.apps.hawk.model.Customer;
 import com.shouman.apps.hawk.utils.AppExecutors;
 
@@ -19,7 +19,7 @@ class CustomersViewModel extends ViewModel {
     private MediatorLiveData<Customer> customerMediatorLiveData = new MediatorLiveData<>();
 
     public CustomersViewModel(String customerUID) {
-        DatabaseReference customerReference = Repo.getCustomerReference(customerUID);
+        DatabaseReference customerReference = CompanyRepo.getCustomerReference(customerUID);
         FirebaseQueryLiveData customerQueryLiveData = new FirebaseQueryLiveData(customerReference);
 
         customerMediatorLiveData.addSource(customerQueryLiveData, new Observer<DataSnapshot>() {

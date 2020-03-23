@@ -2,7 +2,6 @@ package com.shouman.apps.hawk.ui.starting;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
@@ -18,7 +17,7 @@ import com.shouman.apps.hawk.databinding.ActivityStartingBinding;
 import com.shouman.apps.hawk.model.UserMap;
 import com.shouman.apps.hawk.preferences.UserPreference;
 import com.shouman.apps.hawk.ui.main.companyUi.MainActivity;
-import com.shouman.apps.hawk.ui.main.salesMemberUI.Main2Activity;
+import com.shouman.apps.hawk.ui.main.salesMemberUI.home.Main2Activity;
 
 public class StartingActivity extends AppCompatActivity {
 
@@ -48,6 +47,7 @@ public class StartingActivity extends AppCompatActivity {
         //check if the user is exist or not
         FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
         if (firebaseUser == null) {
+
             //new user or user wes logged out
             showEntryFragment();
 
@@ -177,10 +177,12 @@ public class StartingActivity extends AppCompatActivity {
         //to navigate him to the company ui or sales member ui
         String userType = UserPreference.getUserType(StartingActivity.this);
         Intent intent = null;
-        if (userType.equals("companies")) intent = new Intent(StartingActivity.this, MainActivity.class);
-        else if (userType.equals("sales_members")) intent = new Intent(StartingActivity.this, Main2Activity.class);
+        if (userType.equals("companies"))
+            intent = new Intent(StartingActivity.this, MainActivity.class);
+        else if (userType.equals("sales_members"))
+            intent = new Intent(StartingActivity.this, Main2Activity.class);
         if (intent != null)
-        startActivity(intent);
+            startActivity(intent);
         finish();
     }
 

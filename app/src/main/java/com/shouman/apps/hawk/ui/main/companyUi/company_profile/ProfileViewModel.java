@@ -9,8 +9,8 @@ import androidx.lifecycle.Observer;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
+import com.shouman.apps.hawk.data.CompanyRepo;
 import com.shouman.apps.hawk.data.FirebaseQueryLiveData;
-import com.shouman.apps.hawk.data.Repo;
 import com.shouman.apps.hawk.model.Company;
 import com.shouman.apps.hawk.utils.AppExecutors;
 
@@ -20,7 +20,7 @@ public class ProfileViewModel extends AndroidViewModel {
 
     public ProfileViewModel(@NonNull Application application) {
         super(application);
-        DatabaseReference companyReference = Repo.getCompanyReference(application);
+        DatabaseReference companyReference = CompanyRepo.getCompanyReference(application);
         FirebaseQueryLiveData firebaseQueryLiveData = new FirebaseQueryLiveData(companyReference);
         companyMediatorLiveData.addSource(firebaseQueryLiveData, new Observer<DataSnapshot>() {
             @Override

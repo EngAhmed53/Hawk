@@ -11,8 +11,8 @@ import com.shouman.apps.hawk.preferences.UserPreference;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Repo {
-    private static final String TAG = "Repo";
+public class CompanyRepo {
+    private static final String TAG = "CompanyRepo";
 
     private static FirebaseDatabase database = FirebaseDatabase.getInstance();
     private static DatabaseReference branchesReference = database.getReference().child("branches");

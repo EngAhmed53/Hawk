@@ -4,19 +4,25 @@ import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
+import com.google.firebase.database.Exclude;
+
 import java.util.HashMap;
 
 @Entity(tableName = "clients_table")
 public class SalesMan {
 
     @PrimaryKey(autoGenerate = true)
+    @Exclude
     private long _id;
 
-    private String userName;
+    //user name
+    private String un;
 
-    private String email;
+    //email
+    private String e;
 
-    private String type;
+    //user_type
+    private String t;
 
     @Ignore
     private HashMap<String, Boolean> customersHashMap;
@@ -24,39 +30,39 @@ public class SalesMan {
     @Ignore
     public SalesMan() {
         customersHashMap = new HashMap<>();
-        this.type = "sales_member_account";
+        this.t = "sales_member_account";
     }
 
-    public SalesMan(String userName, String email) {
-        this.userName = userName;
-        this.email = email;
+    public SalesMan(String un, String e) {
+        this.un = un;
+        this.e = e;
         customersHashMap = new HashMap<>();
-        this.type = "sales_member_account";
+        this.t = "sales_member_account";
     }
 
     @Ignore
-    public SalesMan(long _id, String userName, String email) {
+    public SalesMan(long _id, String un, String e) {
         this._id = _id;
-        this.userName = userName;
-        this.email = email;
+        this.un = un;
+        this.e = e;
         customersHashMap = new HashMap<>();
     }
 
 
-    public String getUserName() {
-        return userName;
+    public String getUn() {
+        return un;
     }
 
-    public String getEmail() {
-        return email;
+    public String getE() {
+        return e;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUn(String un) {
+        this.un = un;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setE(String e) {
+        this.e = e;
     }
 
     public long get_id() {
@@ -75,7 +81,11 @@ public class SalesMan {
         this.customersHashMap = customersHashMap;
     }
 
-    public String getType() {
-        return type;
+    public String getT() {
+        return t;
+    }
+
+    public void setT(String t) {
+        this.t = t;
     }
 }

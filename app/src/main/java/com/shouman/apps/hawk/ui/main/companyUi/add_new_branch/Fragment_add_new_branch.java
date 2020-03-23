@@ -9,7 +9,7 @@ import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
-import com.shouman.apps.hawk.data.Repo;
+import com.shouman.apps.hawk.data.CompanyRepo;
 import com.shouman.apps.hawk.databinding.FragmentAddNewBranchBinding;
 
 /**
@@ -40,7 +40,7 @@ public class Fragment_add_new_branch extends Fragment {
             public void onClick(View v) {
                 String branchName = mBinding.edtBranchName.getEditableText().toString();
                 if (branchName != null && !branchName.isEmpty()) {
-                    Repo.addNewBranchToMyCompany(getContext(), branchName);
+                    CompanyRepo.addNewBranchToMyCompany(getContext(), branchName);
                     Toast.makeText(getContext(), branchName + " added to Company", Toast.LENGTH_SHORT).show();
                     mBinding.edtBranchName.setText("");
                 } else {

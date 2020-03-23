@@ -1,4 +1,4 @@
-package com.shouman.apps.hawk.ui.main.salesMemberUI;
+package com.shouman.apps.hawk.ui.main.salesMemberUI.home;
 
 import com.shouman.apps.hawk.ui.main.OnCustomerItemClickHandler;
 

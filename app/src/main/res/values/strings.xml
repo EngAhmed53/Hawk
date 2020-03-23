@@ -1,8 +1,6 @@
 <resources>
     <string name="app_name">Sales Eagle</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="email_address_edit_text">Email address</string>
     <string name="password_edit_text">Password</string>
     <string name="app_logo_dsc">app_logo</string>
@@ -103,6 +101,8 @@
     <string name="nav_drawer_open">nav_open</string>
     <string name="nav_drawer_closed">nav_closed</string>
     <string name="type_the_new_customer_information_then_press_continue">Type the new customer information then press continue.</string>
+    <string name="notes">Notes....</string>
+    <string name="add_customer">Add customer</string>
 
 
 </resources>

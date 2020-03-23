@@ -9,7 +9,7 @@ import androidx.lifecycle.ViewModel;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.shouman.apps.hawk.data.FirebaseQueryLiveData;
-import com.shouman.apps.hawk.data.Repo;
+import com.shouman.apps.hawk.data.CompanyRepo;
 import com.shouman.apps.hawk.utils.AppExecutors;
 
 import java.util.HashMap;
@@ -23,7 +23,7 @@ public class BranchDetailsViewModel extends ViewModel {
     public BranchDetailsViewModel(String branchUID) {
 
         //set the branch uid
-        DatabaseReference branchReference = Repo.getBranchSalesMembersList(branchUID);
+        DatabaseReference branchReference = CompanyRepo.getBranchSalesMembersList(branchUID);
         FirebaseQueryLiveData firebaseQueryLiveData = new FirebaseQueryLiveData(branchReference);
 
 

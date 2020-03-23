@@ -1,6 +1,7 @@
 package com.shouman.apps.hawk.ui.main.salesMemberUI.home;
 
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -8,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -23,6 +25,7 @@ import com.shouman.apps.hawk.databinding.FragmentSalesDetailsBinding;
 import com.shouman.apps.hawk.databinding.FragmentSalesHomeBinding;
 import com.shouman.apps.hawk.preferences.UserPreference;
 import com.shouman.apps.hawk.ui.main.companyUi.sales_members.Fragment_sales_details;
+import com.shouman.apps.hawk.ui.main.salesMemberUI.newCustomer.AddNewCustomerActivity;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -45,7 +48,7 @@ public class Fragment_sales_home extends Fragment {
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         mBinding = FragmentSalesHomeBinding.inflate(inflater);
         mBinding.recCustomers.setNestedScrollingEnabled(false);
@@ -64,6 +67,14 @@ public class Fragment_sales_home extends Fragment {
 
 
         initializeChart();
+
+        mBinding.fabAddNewCustomer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), AddNewCustomerActivity.class);
+                startActivity(intent);
+            }
+        });
         return mBinding.getRoot();
     }
 
