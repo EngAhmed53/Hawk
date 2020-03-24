@@ -19,6 +19,8 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.shouman.apps.hawk.databinding.FragmentAddNewCustomerBinding;
 import com.shouman.apps.hawk.model.Customer;
 
+import java.util.Objects;
+
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -87,18 +89,18 @@ public class Fragment_add_new_customer extends Fragment {
 
                 } else {
                     if (mBinding.customerNameTxtInput.getError() != null ||
-                            mBinding.customerNameTxtInput.getEditText().getText().toString().isEmpty()) {
+                            Objects.requireNonNull(mBinding.customerNameTxtInput.getEditText()).getText().toString().isEmpty()) {
 
                         //request focus
                         mBinding.customerNameTxtInput.requestFocus();
 
                     } else if (mBinding.customerCompanyNameTxtInput.getError() != null ||
-                            mBinding.customerCompanyNameTxtInput.getEditText().getText().toString().isEmpty()) {
+                            Objects.requireNonNull(mBinding.customerCompanyNameTxtInput.getEditText()).getText().toString().isEmpty()) {
                         //request focus
                         mBinding.customerCompanyNameTxtInput.requestFocus();
 
                     } else if (mBinding.customerPhoneTxtInput.getError() != null ||
-                            mBinding.customerPhoneTxtInput.getEditText().getText().toString().isEmpty()) {
+                            Objects.requireNonNull(mBinding.customerPhoneTxtInput.getEditText()).getText().toString().isEmpty()) {
                         //request focus
                         mBinding.customerPhoneTxtInput.requestFocus();
                     }
@@ -120,7 +122,7 @@ public class Fragment_add_new_customer extends Fragment {
     }
 
     private boolean checkInputTextErrors(TextInputLayout inputLayout) {
-        String text = inputLayout.getEditText().getText().toString();
+        String text = Objects.requireNonNull(inputLayout.getEditText()).getText().toString();
         if (!text.isEmpty()) {
             return inputLayout.getError() == null;
         }
@@ -140,8 +142,9 @@ public class Fragment_add_new_customer extends Fragment {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                mBinding.customerCompanyNameTxtInput.getEditText().requestFocus();
-                InputMethodManager inputMethodManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                Objects.requireNonNull(mBinding.customerCompanyNameTxtInput.getEditText()).requestFocus();
+                InputMethodManager inputMethodManager = (InputMethodManager) Objects.requireNonNull(getActivity()).getSystemService(Context.INPUT_METHOD_SERVICE);
+                assert inputMethodManager != null;
                 inputMethodManager.showSoftInput(mBinding.edtCustomerName, InputMethodManager.SHOW_IMPLICIT);
             }
         }, 100);

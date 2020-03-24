@@ -25,14 +25,15 @@ import com.shouman.apps.hawk.databinding.FragmentSalesDetailsBinding;
 
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class Fragment_sales_details extends Fragment {
 
-    public static final String SALES_MEMBER_UID = "sales_uid";
-    public static final String SALES_MEMBER_NAME = "sales_name";
+    private static final String SALES_MEMBER_UID = "sales_uid";
+    private static final String SALES_MEMBER_NAME = "sales_name";
     private String salesMemberUID;
     private String salesMemberName;
     public FragmentSalesDetailsBinding mBinding;
@@ -68,7 +69,7 @@ public class Fragment_sales_details extends Fragment {
         }
 
         //setting up the viewModel
-        SalesDetailsViewModelFactory factory = new SalesDetailsViewModelFactory(salesMemberUID);
+        SalesDetailsViewModelFactory factory = new SalesDetailsViewModelFactory(getContext(), salesMemberUID);
         SalesDetailsViewModel salesDetailsViewModel = new ViewModelProvider(this, factory).get(SalesDetailsViewModel.class);
         salesDetailsViewModel.getMediatorSalesLiveData().observe(getViewLifecycleOwner(), new Observer<Map<String, Map<String, String>>>() {
             @Override
@@ -96,7 +97,7 @@ public class Fragment_sales_details extends Fragment {
 
     private void toolbarCustomization() {
         mBinding.toolbar.setTitle(salesMemberName);
-        mBinding.collapsingToolbar.setCollapsedTitleTypeface(Typeface.createFromAsset(getContext().getAssets(), "russo_one_regular.ttf"));
+        mBinding.collapsingToolbar.setCollapsedTitleTypeface(Typeface.createFromAsset(Objects.requireNonNull(getContext()).getAssets(), "russo_one_regular.ttf"));
         mBinding.collapsingToolbar.setExpandedTitleTypeface(Typeface.createFromAsset(getContext().getAssets(), "russo_one_regular.ttf"));
         mBinding.appBar.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
             @Override
@@ -117,7 +118,7 @@ public class Fragment_sales_details extends Fragment {
     private void initializeChart() {
         LineDataSet dataSet = new LineDataSet(getChartEntries(), "Total Customers");
         dataSet.setDrawFilled(true);
-        dataSet.setFillDrawable(getContext().getResources().getDrawable(R.drawable.chart_gradient_fill));
+        dataSet.setFillDrawable(Objects.requireNonNull(getContext()).getResources().getDrawable(R.drawable.chart_gradient_fill));
         ArrayList<ILineDataSet> dataSetArray = new ArrayList<>();
         dataSetArray.add(dataSet);
         LineData lineData = new LineData(dataSetArray);

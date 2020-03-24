@@ -3,30 +3,32 @@ package com.shouman.apps.hawk.model;
 import java.util.Map;
 
 public class Branch {
-    private String name;
-    private Map<String, String> sales_team;
+    //branch name
+    private String n;
 
-    public Branch(String name, Map<String , String> sales_team) {
-        this.name = name;
-        this.sales_team = sales_team;
+    private Map<String, String> SM;
+
+    public Branch(String n, Map<String , String> SM) {
+        this.n = n;
+        this.SM = SM;
     }
 
     public Branch() {
     }
 
-    public String getName() {
-        return name;
+    public String getN() {
+        return n;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setN(String n) {
+        this.n = n;
     }
 
-    public Map<String, String> getSales_team() {
-        return sales_team;
+    public Map<String, String> getSM() {
+        return SM;
     }
 
-    public void setSales_team(Map<String, String> sales_team) {
-        this.sales_team = sales_team;
+    public void setSM(Map<String, String> SM) {
+        this.SM = SM;
     }
 }

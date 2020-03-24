@@ -25,14 +25,15 @@ import com.shouman.apps.hawk.databinding.FragmentBranchDetailsBinding;
 
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class Fragment_branch_details extends Fragment {
 
-    public static final String BRANCH_UID = "branch_uid";
-    public static final String BRANCH_NAME = "branch_name";
+    private static final String BRANCH_UID = "branch_uid";
+    private static final String BRANCH_NAME = "branch_name";
     private String branchUID;
     private String branchName;
     public FragmentBranchDetailsBinding mBinding;
@@ -67,7 +68,7 @@ public class Fragment_branch_details extends Fragment {
             branchName = arguments.getString(BRANCH_NAME);
         }
 
-        BranchDetailsViewModelFactory factory = new BranchDetailsViewModelFactory(branchUID);
+        BranchDetailsViewModelFactory factory = new BranchDetailsViewModelFactory(getContext(), branchUID);
         BranchDetailsViewModel branchDetailsViewModel = new ViewModelProvider(this, factory).get(BranchDetailsViewModel.class);
         branchDetailsViewModel.getMediatorBranchLiveData().observe(getViewLifecycleOwner(), new Observer<Map<String, String>>() {
             @Override
@@ -85,7 +86,7 @@ public class Fragment_branch_details extends Fragment {
 
     private void toolbarCustomization() {
         mBinding.toolbar.setTitle(branchName);
-        mBinding.collapsingToolbar.setCollapsedTitleTypeface(Typeface.createFromAsset(getContext().getAssets(), "russo_one_regular.ttf"));
+        mBinding.collapsingToolbar.setCollapsedTitleTypeface(Typeface.createFromAsset(Objects.requireNonNull(getContext()).getAssets(), "russo_one_regular.ttf"));
         mBinding.collapsingToolbar.setExpandedTitleTypeface(Typeface.createFromAsset(getContext().getAssets(), "russo_one_regular.ttf"));
         mBinding.appBar.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
             @Override
@@ -106,7 +107,7 @@ public class Fragment_branch_details extends Fragment {
     private void initializeChart() {
         LineDataSet dataSet = new LineDataSet(getChartEntries(), "Total Customers");
         dataSet.setDrawFilled(true);
-        dataSet.setFillDrawable(getContext().getResources().getDrawable(R.drawable.chart_gradient_fill));
+        dataSet.setFillDrawable(Objects.requireNonNull(getContext()).getResources().getDrawable(R.drawable.chart_gradient_fill));
         ArrayList<ILineDataSet> dataSetArray = new ArrayList<>();
         dataSetArray.add(dataSet);
         LineData lineData = new LineData(dataSetArray);

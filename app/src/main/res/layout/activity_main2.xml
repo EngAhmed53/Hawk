@@ -37,6 +37,15 @@
 
         </LinearLayout>
 
+        <FrameLayout
+            android:id="@+id/full_customer_info_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clickable="true"
+            android:focusable="true"
+            android:visibility="gone" />
+
+
 
         <com.google.android.material.navigation.NavigationView
             android:id="@+id/nav_view"
@@ -310,6 +319,7 @@
                                 android:layout_gravity="center_vertical"
                                 android:layout_marginLeft="8dp"
                                 android:layout_marginRight="8dp"
+                                android:contentDescription="@string/user_photo"
                                 android:adjustViewBounds="true"
                                 android:src="@drawable/ic_exit"
                                 android:tint="@color/white" />

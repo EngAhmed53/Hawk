@@ -1,5 +1,6 @@
 package com.shouman.apps.hawk.ui.main.companyUi.customers;
 
+import android.content.Context;
 import android.util.Log;
 
 import androidx.lifecycle.MediatorLiveData;
@@ -18,8 +19,8 @@ class CustomersViewModel extends ViewModel {
     private static final String TAG = "CustomersViewModel";
     private MediatorLiveData<Customer> customerMediatorLiveData = new MediatorLiveData<>();
 
-    public CustomersViewModel(String customerUID) {
-        DatabaseReference customerReference = CompanyRepo.getCustomerReference(customerUID);
+    public CustomersViewModel(Context context, String customerUID) {
+        DatabaseReference customerReference = CompanyRepo.getCustomerReference(context, customerUID);
         FirebaseQueryLiveData customerQueryLiveData = new FirebaseQueryLiveData(customerReference);
 
         customerMediatorLiveData.addSource(customerQueryLiveData, new Observer<DataSnapshot>() {

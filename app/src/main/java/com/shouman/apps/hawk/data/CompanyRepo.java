@@ -1,72 +1,67 @@
 package com.shouman.apps.hawk.data;
 
 import android.content.Context;
-import android.util.Log;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.shouman.apps.hawk.model.Branch;
 import com.shouman.apps.hawk.preferences.UserPreference;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Objects;
 
 public class CompanyRepo {
     private static final String TAG = "CompanyRepo";
 
     private static FirebaseDatabase database = FirebaseDatabase.getInstance();
-    private static DatabaseReference branchesReference = database.getReference().child("branches");
-    private static DatabaseReference salesMemberReference = database.getReference().child("sales_members");
-    private static DatabaseReference customersReference = database.getReference().child("customers");
+    private static DatabaseReference companiesReference = database.getReference().child("data");
+    private static DatabaseReference usersReference = database.getReference().child("users");
 
     //get company branches list
     public static DatabaseReference getCompanyBranchesReference(Context context) {
-        String userUID = UserPreference.getUserUID(context);
-        String userPath = UserPreference.getUserType(context);
-        return database.getReference().child(userPath).child(userUID).child("b");
+        String companyUID = UserPreference.getCompanyUID(context);
+        return companiesReference.child(companyUID).child("BList");
     }
 
-    //return branch reference
-    public static DatabaseReference getBranchDetailsReference(String branchUID) {
-        return branchesReference.child(branchUID);
-    }
 
     //return branch sales member list reference
-    public static DatabaseReference getBranchSalesMembersList(String branchUID) {
-        return branchesReference.child(branchUID).child("salesMemberList");
+    public static DatabaseReference getBranchSalesMembersList(Context context, String branchUID) {
+        String companyUID = UserPreference.getCompanyUID(context);
+        return companiesReference.child(companyUID).child("B").child(branchUID).child("SM");
     }
 
     //return sales member customers list reference
-    public static DatabaseReference getSalesMemberCustomersList(String salesUID) {
-        return salesMemberReference.child(salesUID).child("customersLog");
+    public static DatabaseReference getSalesMemberCustomersList(Context context, String salesUID) {
+        String companyUID = UserPreference.getCompanyUID(context);
+        return companiesReference.child(companyUID).child("ST").child(salesUID).child("cList");
     }
 
     //return customer reference
-    public static DatabaseReference getCustomerReference(String customerUID) {
-        return customersReference.child(customerUID);
+    public static DatabaseReference getCustomerReference(Context context, String customerUID) {
+        String companyUID = UserPreference.getCompanyUID(context);
+        return companiesReference.child(companyUID).child("C").child(customerUID);
     }
 
     //add new branch to company
     public static void addNewBranchToMyCompany(Context context, String branchName) {
-        String userUID = UserPreference.getUserUID(context);
-        String userPath = UserPreference.getUserType(context);
+        String cUID = UserPreference.getCompanyUID(context);
+        DatabaseReference branchesListReference = companiesReference.child(cUID).child("BList");
+        DatabaseReference branchesReference = companiesReference.child(cUID).child("B");
 
-        //get the new branch added UID;
-        String newBranchKey = branchesReference.push().getKey();
+        String newBranchKey = branchesListReference.push().getKey();
 
-        //add branch to the branches node
-        branchesReference.child(newBranchKey).setValue(new Branch(branchName, new HashMap<String, String>()));
+        branchesListReference.child(newBranchKey).setValue(branchName);
+        branchesReference.child(newBranchKey).child("n").setValue(branchName);
 
-        //add this new branch to company branchesList
-        Map<String, Object> newValue = new HashMap<>();
-        newValue.put(newBranchKey, branchName);
-        database.getReference().child(userPath).child(userUID).child("b").updateChildren(newValue);
     }
 
     // return company reference;
-    public static DatabaseReference getCompanyReference(Context context) {
-        String userUID = UserPreference.getUserUID(context);
-        Log.e(TAG, "getCompanyReference: " + userUID);
-        return database.getReference().child("companies").child(userUID);
+    public static DatabaseReference getCompanyInfo() {
+        String userUID = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
+
+        return usersReference.child(userUID);
+    }
+
+    public static void addNewCompanyToDatabase(String cUID) {
+        companiesReference.child(cUID).setValue(null);
     }
 }

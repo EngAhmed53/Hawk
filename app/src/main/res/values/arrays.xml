@@ -5,7 +5,7 @@
         <item>Sales Member</item>
     </string-array>
 
-    <string-array name="dayes_array">
+    <string-array name="days_array">
         <item>Today</item>
         <item>Yesterday</item>
     </string-array>

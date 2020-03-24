@@ -22,16 +22,16 @@
 
     <com.google.android.material.card.MaterialCardView
         android:layout_width="300dp"
-        android:layout_height="50dp"
+        android:layout_height="56dp"
         android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp"
-        android:backgroundTint="@color/fui_transparent"
+        android:background="@color/fui_transparent"
         android:clickable="true"
         android:focusable="true"
         android:onClick="@{() -> onCustomerClickListener.onCustomerItemClickHandler(customerUID, customerName)}"
         android:stateListAnimator="@animator/branch_list_item_anim"
         app:cardCornerRadius="8dp"
-        app:cardElevation="3dp">
+        app:cardElevation="8dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"

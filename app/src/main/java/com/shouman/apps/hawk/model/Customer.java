@@ -6,7 +6,6 @@ import android.os.Parcelable;
 import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
 
-import com.shouman.apps.hawk.BR;
 
 public class Customer extends BaseObservable implements Parcelable {
 
@@ -53,7 +52,7 @@ public class Customer extends BaseObservable implements Parcelable {
 
     public void setE(String e) {
         this.e = e;
-        notifyPropertyChanged(BR.e);
+        notifyPropertyChanged(com.shouman.apps.hawk.BR.e);
     }
 
     @Bindable
@@ -63,7 +62,7 @@ public class Customer extends BaseObservable implements Parcelable {
 
     public void setN(String n) {
         this.n = n;
-        notifyPropertyChanged(BR.n);
+        notifyPropertyChanged(com.shouman.apps.hawk.BR.n);
     }
 
     @Bindable
@@ -73,7 +72,7 @@ public class Customer extends BaseObservable implements Parcelable {
 
     public void setLt(double lt) {
         this.lt = lt;
-        notifyPropertyChanged(BR.lt);
+        notifyPropertyChanged(com.shouman.apps.hawk.BR.lt);
     }
 
     @Bindable
@@ -83,7 +82,7 @@ public class Customer extends BaseObservable implements Parcelable {
 
     public void setLn(double ln) {
         this.ln = ln;
-        notifyPropertyChanged(BR.ln);
+        notifyPropertyChanged(com.shouman.apps.hawk.BR.ln);
     }
 
     @Bindable
@@ -93,7 +92,7 @@ public class Customer extends BaseObservable implements Parcelable {
 
     public void setCn(String cn) {
         this.cn = cn;
-        notifyPropertyChanged(BR.cn);
+        notifyPropertyChanged(com.shouman.apps.hawk.BR.cn);
     }
 
     @Bindable
@@ -103,7 +102,7 @@ public class Customer extends BaseObservable implements Parcelable {
 
     public void setP(String p) {
         this.p = p;
-        notifyPropertyChanged(BR.p);
+        notifyPropertyChanged(com.shouman.apps.hawk.BR.p);
     }
 
     @Bindable
@@ -113,7 +112,7 @@ public class Customer extends BaseObservable implements Parcelable {
 
     public void setEi(String ei) {
         this.ei = ei;
-        notifyPropertyChanged(BR.ei);
+        notifyPropertyChanged(com.shouman.apps.hawk.BR.ei);
     }
 
     public Customer(Parcel in) {

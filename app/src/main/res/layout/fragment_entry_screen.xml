@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/photo_background_protection"
-        tools:context=".ui.starting.Fragment_entry_screen">
+        tools:context=".ui.auth.Fragment_entry_screen">
 
         <ImageView
             android:id="@+id/app_logo_image"

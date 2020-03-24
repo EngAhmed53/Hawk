@@ -19,20 +19,15 @@ import java.util.Map;
 
 public class CompanyHomeViewModel extends AndroidViewModel {
     private static final String TAG = "CompanyHomeViewModel";
-
-    //each branch reference
-    private DatabaseReference branchDetailsReference;
-
-    //company all branches
-    private final DatabaseReference allBranches = CompanyRepo.getCompanyBranchesReference(getApplication());
-    //company branch liveData
-    private final FirebaseQueryLiveData allBranchesLiveData = new FirebaseQueryLiveData(allBranches);
-
     private final MediatorLiveData<Map<String, String>> mapMediatorLiveData = new MediatorLiveData<>();
 
 
     public CompanyHomeViewModel(@NonNull Application application) {
         super(application);
+        //company branch liveData
+        //company all branches
+        DatabaseReference allBranches = CompanyRepo.getCompanyBranchesReference(getApplication());
+        FirebaseQueryLiveData allBranchesLiveData = new FirebaseQueryLiveData(allBranches);
         mapMediatorLiveData.addSource(allBranchesLiveData, new Observer<DataSnapshot>() {
             @Override
             public void onChanged(final DataSnapshot dataSnapshot) {

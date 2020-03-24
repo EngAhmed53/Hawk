@@ -1,15 +1,12 @@
 package com.shouman.apps.hawk.ui.main.companyUi;
 
 import android.os.Bundle;
-import android.view.MenuItem;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.shouman.apps.hawk.R;
 import com.shouman.apps.hawk.common.Common;
 import com.shouman.apps.hawk.databinding.ActivityMainBinding;
@@ -48,7 +45,7 @@ public class MainActivity extends AppCompatActivity implements IMainClickHandler
         if (savedInstanceState == null) {
             fragment_company_home = Fragment_company_home.getInstance();
             fragment_company_notification = Fragment_company_notification.getInstance();
-            fragment_company_profile = Fragment_company_profile.getInstance(UserPreference.getUserUID(this));
+            fragment_company_profile = Fragment_company_profile.getInstance();
             fragment_add_new_branch = Fragment_add_new_branch.getInstance();
             active = fragment_company_home;
             addAllFragmentsToFragmentManager();

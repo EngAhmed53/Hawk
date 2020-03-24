@@ -1,5 +1,6 @@
 package com.shouman.apps.hawk.ui.main.companyUi.sales_members;
 
+import android.content.Context;
 import android.util.Log;
 
 import androidx.lifecycle.MediatorLiveData;
@@ -20,10 +21,10 @@ public class SalesDetailsViewModel extends ViewModel {
     private static final String TAG = "SalesHomeViewModel";
     private MediatorLiveData<Map<String, Map<String, String>>> mediatorSalesLiveData = new MediatorLiveData<>();
 
-     public SalesDetailsViewModel(String salesUID) {
+     public SalesDetailsViewModel(Context context, String salesUID) {
 
         //set the branch uid
-        DatabaseReference salesReference = CompanyRepo.getSalesMemberCustomersList(salesUID);
+        DatabaseReference salesReference = CompanyRepo.getSalesMemberCustomersList(context, salesUID);
         FirebaseQueryLiveData firebaseQueryLiveData = new FirebaseQueryLiveData(salesReference);
 
 

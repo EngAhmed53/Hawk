@@ -27,11 +27,9 @@ import com.shouman.apps.hawk.model.Customer;
 public class Fragment_customers_info extends Fragment implements OnMapReadyCallback {
     public static final String CUSTOMER_NAME = "customer_name";
     public static final String CUSTOMER_UID = "customer_uid";
-    private Customer customer;
     public FragmentCustomersInfoBinding mBinding;
-    private String customerUID;
     private GoogleMap map;
-    Marker customerMarker;
+    private Marker customerMarker;
 
 
     public static Fragment_customers_info getInstance() {
@@ -53,26 +51,29 @@ public class Fragment_customers_info extends Fragment implements OnMapReadyCallb
 
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         mBinding = FragmentCustomersInfoBinding.inflate(inflater);
-        customerUID = getArguments().getString(CUSTOMER_UID);
+        String customerUID = getArguments() != null ? getArguments().getString(CUSTOMER_UID) : null;
 
         //start the map;
         mBinding.customerLocationMap.onCreate(savedInstanceState);
         mBinding.customerLocationMap.getMapAsync(this);
 
-        CustomersViewModelFactory factory = new CustomersViewModelFactory(customerUID);
+        CustomersViewModelFactory factory = new CustomersViewModelFactory(getContext(), customerUID);
         CustomersViewModel customersViewModel = new ViewModelProvider(this, factory).get(CustomersViewModel.class);
         customersViewModel.getCustomerMediatorLiveData().observe(getViewLifecycleOwner(), new Observer<Customer>() {
             @Override
             public void onChanged(Customer customer) {
-                mBinding.setCustomer(customer);
-                customerMarker = map.addMarker(new MarkerOptions()
-                        .position(new LatLng(customer.getLt(), customer.getLn()))
-                        .title(customer.getN()));
-                map.animateCamera(CameraUpdateFactory.newLatLngZoom(customerMarker.getPosition(), 16f));
+                if (customer != null) {
+                    mBinding.setCustomer(customer);
+                    customerMarker = map.addMarker(new MarkerOptions()
+                            .position(new LatLng(customer.getLt(), customer.getLn()))
+                            .title(customer.getN()));
+                    map.animateCamera(CameraUpdateFactory.newLatLngZoom(customerMarker.getPosition(), 16f));
+                }
+
             }
         });
         return mBinding.getRoot();

@@ -3,11 +3,11 @@
 
     <data>
 
-        <import type="com.shouman.apps.hawk.model.Company" />
+        <import type="com.shouman.apps.hawk.model.User" />
 
         <variable
-            name="company"
-            type="Company" />
+            name="user"
+            type="User" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -49,7 +49,7 @@
                     android:fitsSystemWindows="true"
                     app:layout_collapseMode="pin"
                     app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-                    app:title="@{company.c}" />
+                    app:title="@{user.cn}" />
 
                 <ImageView
                     android:layout_width="match_parent"
@@ -108,7 +108,7 @@
                         android:inputType="text"
                         android:maxLength="100"
                         android:maxLines="1"
-                        android:text="@{company.u}"
+                        android:text="@{user.un}"
                         android:textColor="@color/gray1"
                         android:textColorHint="@color/primaryTransparent" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -159,7 +159,7 @@
                         android:inputType="textEmailAddress"
                         android:maxLength="100"
                         android:maxLines="1"
-                        android:text="@{company.e}"
+                        android:text="@{user.e}"
                         android:textColor="@color/gray1"
                         android:textColorHint="@color/primaryTransparent" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -210,7 +210,7 @@
                         android:inputType="text"
                         android:maxLength="100"
                         android:maxLines="1"
-                        android:text="@{company.c}"
+                        android:text="@{user.cn}"
                         android:textColor="@color/gray1"
                         android:textColorHint="@color/primaryTransparent" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -258,6 +258,7 @@
                         android:enabled="false"
                         android:focusable="true"
                         android:inputType="text"
+                        android:text="@{user.cuid}"
                         android:maxLength="100"
                         android:maxLines="1"
                         android:textColor="@color/gray1"

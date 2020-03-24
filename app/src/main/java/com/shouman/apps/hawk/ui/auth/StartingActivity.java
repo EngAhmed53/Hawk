@@ -1,20 +1,21 @@
-package com.shouman.apps.hawk.ui.starting;
+package com.shouman.apps.hawk.ui.auth;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
-import com.facebook.FacebookSdk;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.UserInfo;
 import com.shouman.apps.hawk.R;
-import com.shouman.apps.hawk.common.Common;
 import com.shouman.apps.hawk.databinding.ActivityStartingBinding;
-import com.shouman.apps.hawk.model.UserMap;
+import com.shouman.apps.hawk.model.User;
 import com.shouman.apps.hawk.preferences.UserPreference;
 import com.shouman.apps.hawk.ui.main.companyUi.MainActivity;
 import com.shouman.apps.hawk.ui.main.salesMemberUI.home.Main2Activity;
@@ -22,15 +23,47 @@ import com.shouman.apps.hawk.ui.main.salesMemberUI.home.Main2Activity;
 public class StartingActivity extends AppCompatActivity {
 
     private static final String TAG = "StartingActivity";
-    private static final String USER_EMAIL = "user_email";
 
     public ActivityStartingBinding mBinding;
 
     private FragmentManager fragmentManager;
 
+    private AuthViewModel authViewModel;
+
+    private FirebaseAuth firebaseAuth;
+
+    private FirebaseAuth.AuthStateListener firebaseAuthListener = new FirebaseAuth.AuthStateListener() {
+        @Override
+        public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+            FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+            if (firebaseUser == null) {
+                //new user or user wes logged out
+                showEntryFragment();
+
+            } else {
+                Log.e(TAG, "onAuthStateChanged: " + "user is not null");
+                //reload firebase user
+                firebaseUser.reload();
+                authViewModel.setupMediatorLiveData();
+
+
+                authViewModel.getUserMediatorLiveData().observe(StartingActivity.this, new Observer<User>() {
+                    @Override
+                    public void onChanged(User user) {
+                        if (user.getUt() == null) {
+
+                            showSelectUserTypeFragment();
+                        } else {
+                            showMainActivity(user);
+                        }
+                    }
+                });
+            }
+        }
+    };
+
     //public static int SPLASH_SCREEN_TIMEOUT = 3500;
 
-    private Fragment_verify_email fragment_verify_email = Fragment_verify_email.getInstance();
     private Fragment_entry_screen fragment_entry_screen = Fragment_entry_screen.getInstance();
     private Fragment_select_user_type fragment_select_user_type = Fragment_select_user_type.getInstance();
 
@@ -38,100 +71,21 @@ public class StartingActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        FacebookSdk.sdkInitialize(getApplicationContext());
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_starting);
         fragmentManager = getSupportFragmentManager();
+        firebaseAuth = FirebaseAuth.getInstance();
 
-        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+        initViewModel();
+
 
         //check if the user is exist or not
-        FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
-        if (firebaseUser == null) {
-
-            //new user or user wes logged out
-            showEntryFragment();
-
-        } else {
-            //reload firebase user
-            firebaseUser.reload();
-
-            // user is already exist and signed in
-            //check if the user email is verified
-            Common.userMap = new UserMap();
-            Common.userMap.setUserUID(UserPreference.getUserUID(StartingActivity.this));
-
-            //check if the user is facebook user
-            boolean isFacebook = false;
-            for (UserInfo user : firebaseUser.getProviderData()) {
-                if (user.getProviderId().equals("facebook.com")) {
-                    isFacebook = true;
-                }
-            }
-
-            if (isFacebook) {
-
-                // user email is verified
-                Common.userMap.setVerified(true);
-
-                //check if the user type is defined
-                if (!UserPreference.isUserInfoSetted(StartingActivity.this)) {
-                    //user type is not defined
-
-                    showSelectUserTypeFragment();
-                } else {
-                    //user is logged in and his email is verified and his type is selected and all is set
-                    //run the main activity depend on his type (company or sales member)
-
-                    //set user type
-                    String userType = UserPreference.getUserType(StartingActivity.this);
-                    Common.userMap.setPath(userType);
-
-                    //set user branchUID if the user is sales_member
-                    if (userType.equals("sales_members")) {
-                        Common.userMap.setBranchUID(UserPreference.getBranchUID(StartingActivity.this));
-                    } else {
-                        Common.userMap.setBranchUID(null);
-                    }
-                    //show the main activity
-                    showMainActivity();
-                }
+        firebaseAuth.addAuthStateListener(firebaseAuthListener);
 
 
-            } else {
-                // user is not a facebook so we need to check if he is verified or not
-                if (firebaseUser.isEmailVerified()) {
-                    // user email is verified
-                    Common.userMap.setVerified(true);
+    }
 
-                    //check if the user type is defined
-                    if (!UserPreference.isUserInfoSetted(StartingActivity.this)) {
-                        //user type is not defined
-
-                        showSelectUserTypeFragment();
-                    } else {
-                        //user is logged in and his email is verified and his type is selected and all is set
-                        //run the main activity depend on his type (company or sales member)
-
-                        //set user type
-                        String userType = UserPreference.getUserType(StartingActivity.this);
-                        Common.userMap.setPath(userType);
-
-                        //set user branchUID if the user is sales_member
-                        if (userType.equals("sales_members")) {
-                            Common.userMap.setBranchUID(UserPreference.getBranchUID(StartingActivity.this));
-                        } else {
-                            Common.userMap.setBranchUID(null);
-                        }
-                        //show the main activity
-                        showMainActivity();
-                    }
-
-                } else {
-                    //user email is not verified
-                    showVerifyEmailFragment();
-                }
-            }
-        }
+    private void initViewModel() {
+        authViewModel = new ViewModelProvider(StartingActivity.this).get(AuthViewModel.class);
     }
 
 
@@ -148,17 +102,6 @@ public class StartingActivity extends AppCompatActivity {
 
     }
 
-    public void showVerifyEmailFragment() {
-        if (fragment_verify_email.isAdded()) {
-            fragmentManager.beginTransaction().show(fragment_verify_email).commit();
-            return;
-        }
-        fragmentManager.popBackStack("entry", FragmentManager.POP_BACK_STACK_INCLUSIVE);
-        fragmentManager
-                .beginTransaction()
-                .replace(R.id.starting_container, fragment_verify_email, "fragment_verify_email")
-                .commit();
-    }
 
     public void showSelectUserTypeFragment() {
         if (fragment_select_user_type.isAdded()) {
@@ -172,15 +115,20 @@ public class StartingActivity extends AppCompatActivity {
                 .commit();
     }
 
-    private void showMainActivity() {
+    private void showMainActivity(User user) {
         //check if the user if company type or sales member
         //to navigate him to the company ui or sales member ui
-        String userType = UserPreference.getUserType(StartingActivity.this);
+        String userType = user.getUt();
         Intent intent = null;
-        if (userType.equals("companies"))
+
+        if (userType.equals("company_account")) {
             intent = new Intent(StartingActivity.this, MainActivity.class);
-        else if (userType.equals("sales_members"))
+            UserPreference.setCompanyUID(this, user.getCuid());
+        } else if (userType.equals("sales_account")) {
             intent = new Intent(StartingActivity.this, Main2Activity.class);
+            UserPreference.setBranchUID(this, user.getBuid());
+            UserPreference.setCompanyUID(this, user.getCuid());
+        }
         if (intent != null)
             startActivity(intent);
         finish();
@@ -189,7 +137,10 @@ public class StartingActivity extends AppCompatActivity {
 
     public void showEntryFragment() {
         if (fragment_entry_screen.isAdded()) {
-            fragmentManager.beginTransaction().show(fragment_entry_screen).commit();
+            fragmentManager
+                    .beginTransaction()
+                    .show(fragment_entry_screen)
+                    .commit();
             return;
         }
         fragmentManager
@@ -276,5 +227,12 @@ public class StartingActivity extends AppCompatActivity {
                 .add(R.id.starting_container, forget_password, "fragment_forget_password")
                 .addToBackStack(null)
                 .commit();
+    }
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        firebaseAuth.removeAuthStateListener(firebaseAuthListener);
     }
 }

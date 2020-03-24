@@ -103,6 +103,7 @@
     <string name="type_the_new_customer_information_then_press_continue">Type the new customer information then press continue.</string>
     <string name="notes">Notes....</string>
     <string name="add_customer">Add customer</string>
+    <string name="user_photo">user photo</string>
 
 
 </resources>

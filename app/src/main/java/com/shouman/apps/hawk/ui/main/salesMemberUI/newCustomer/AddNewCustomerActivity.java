@@ -124,6 +124,7 @@ public class AddNewCustomerActivity extends AppCompatActivity implements Fragmen
 
     private void hideKeyboard(IBinder iBinder) {
         InputMethodManager inputMethodManager = (InputMethodManager) this.getSystemService(Context.INPUT_METHOD_SERVICE);
+        assert inputMethodManager != null;
         inputMethodManager.hideSoftInputFromWindow(iBinder, 0);
     }
 

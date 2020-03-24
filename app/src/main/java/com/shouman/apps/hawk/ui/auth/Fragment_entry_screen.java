@@ -1,4 +1,4 @@
-package com.shouman.apps.hawk.ui.starting;
+package com.shouman.apps.hawk.ui.auth;
 
 
 import android.os.Bundle;

@@ -4,7 +4,6 @@ package com.shouman.apps.hawk.ui.main.salesMemberUI.home;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,24 +20,33 @@ import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.shouman.apps.hawk.R;
-import com.shouman.apps.hawk.databinding.FragmentSalesDetailsBinding;
 import com.shouman.apps.hawk.databinding.FragmentSalesHomeBinding;
-import com.shouman.apps.hawk.preferences.UserPreference;
-import com.shouman.apps.hawk.ui.main.companyUi.sales_members.Fragment_sales_details;
 import com.shouman.apps.hawk.ui.main.salesMemberUI.newCustomer.AddNewCustomerActivity;
 
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class Fragment_sales_home extends Fragment {
     private static final String TAG = "Fragment_sales_home";
+    private static final String USER_UID = "user_uid";
+    private String userUID;
 
     private FragmentSalesHomeBinding mBinding;
+
     public static Fragment_sales_home getInstance() {
         return new Fragment_sales_home();
+    }
+
+    public static Fragment_sales_home getInstance(String userUID) {
+        Fragment_sales_home fragment_sales_home = Fragment_sales_home.getInstance();
+        Bundle args = new Bundle();
+        args.putString(USER_UID, userUID);
+        fragment_sales_home.setArguments(args);
+        return fragment_sales_home;
     }
 
 
@@ -53,15 +61,20 @@ public class Fragment_sales_home extends Fragment {
         mBinding = FragmentSalesHomeBinding.inflate(inflater);
         mBinding.recCustomers.setNestedScrollingEnabled(false);
 
-        String userUID = UserPreference.getUserUID(getContext());
-        SalesHomeViewModelFactory factory = new SalesHomeViewModelFactory(userUID);
-        Log.e(TAG, "onCreateView: " + userUID );
+        Bundle args = getArguments();
+        if (args != null) {
+            userUID = args.getString(USER_UID);
+        }
+
+        SalesHomeViewModelFactory factory = new SalesHomeViewModelFactory(getContext(), userUID);
         SalesHomeViewModel salesHomeViewModel = new ViewModelProvider(this, factory).get(SalesHomeViewModel.class);
 
         salesHomeViewModel.getMediatorSalesLiveData().observe(getViewLifecycleOwner(), new Observer<Map<String, Map<String, String>>>() {
             @Override
             public void onChanged(Map<String, Map<String, String>> dates_customers_map) {
-                mBinding.setDatesCustomersMap(dates_customers_map);
+                if (dates_customers_map != null) {
+                    mBinding.setDatesCustomersMap(dates_customers_map);
+                }
             }
         });
 
@@ -81,7 +94,7 @@ public class Fragment_sales_home extends Fragment {
     private void initializeChart() {
         LineDataSet dataSet = new LineDataSet(getChartEntries(), "Total Customers");
         dataSet.setDrawFilled(true);
-        dataSet.setFillDrawable(getContext().getResources().getDrawable(R.drawable.chart_gradient_fill));
+        dataSet.setFillDrawable(Objects.requireNonNull(getContext()).getResources().getDrawable(R.drawable.chart_gradient_fill));
         ArrayList<ILineDataSet> dataSetArray = new ArrayList<>();
         dataSetArray.add(dataSet);
         LineData lineData = new LineData(dataSetArray);

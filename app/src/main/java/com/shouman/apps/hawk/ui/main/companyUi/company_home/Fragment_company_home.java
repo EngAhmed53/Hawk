@@ -28,6 +28,7 @@ import com.shouman.apps.hawk.ui.main.companyUi.MainActivity;
 
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -106,7 +107,7 @@ public class Fragment_company_home extends Fragment {
     }
 
     private void toolbarCustomization() {
-        mBinding.collapsingToolbar.setCollapsedTitleTypeface(Typeface.createFromAsset(getContext().getAssets(), "russo_one_regular.ttf"));
+        mBinding.collapsingToolbar.setCollapsedTitleTypeface(Typeface.createFromAsset(Objects.requireNonNull(getContext()).getAssets(), "russo_one_regular.ttf"));
         mBinding.collapsingToolbar.setExpandedTitleTypeface(Typeface.createFromAsset(getContext().getAssets(), "russo_one_regular.ttf"));
         mBinding.appBar.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
             @Override
@@ -127,7 +128,7 @@ public class Fragment_company_home extends Fragment {
     private void initializeChart() {
         LineDataSet dataSet = new LineDataSet(getChartEntries(), "Total Customers");
         dataSet.setDrawFilled(true);
-        dataSet.setFillDrawable(getContext().getResources().getDrawable(R.drawable.chart_gradient_fill));
+        dataSet.setFillDrawable(Objects.requireNonNull(getContext()).getResources().getDrawable(R.drawable.chart_gradient_fill));
         ArrayList<ILineDataSet> dataSetArray = new ArrayList<>();
         dataSetArray.add(dataSet);
         LineData lineData = new LineData(dataSetArray);

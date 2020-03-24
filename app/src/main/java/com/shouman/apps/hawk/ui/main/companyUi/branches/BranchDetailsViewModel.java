@@ -1,5 +1,6 @@
 package com.shouman.apps.hawk.ui.main.companyUi.branches;
 
+import android.content.Context;
 import android.util.Log;
 
 import androidx.lifecycle.MediatorLiveData;
@@ -20,10 +21,10 @@ public class BranchDetailsViewModel extends ViewModel {
     private MediatorLiveData<Map<String, String>> mediatorBranchLiveData = new MediatorLiveData<>();
 
 
-    public BranchDetailsViewModel(String branchUID) {
+    public BranchDetailsViewModel(Context context, String branchUID) {
 
         //set the branch uid
-        DatabaseReference branchReference = CompanyRepo.getBranchSalesMembersList(branchUID);
+        DatabaseReference branchReference = CompanyRepo.getBranchSalesMembersList(context, branchUID);
         FirebaseQueryLiveData firebaseQueryLiveData = new FirebaseQueryLiveData(branchReference);
 
 

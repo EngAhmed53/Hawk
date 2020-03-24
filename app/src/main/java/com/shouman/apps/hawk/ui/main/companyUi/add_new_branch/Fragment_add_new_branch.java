@@ -7,10 +7,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.shouman.apps.hawk.data.CompanyRepo;
 import com.shouman.apps.hawk.databinding.FragmentAddNewBranchBinding;
+import com.shouman.apps.hawk.utils.AppExecutors;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -30,7 +32,7 @@ public class Fragment_add_new_branch extends Fragment {
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         mBinding = FragmentAddNewBranchBinding.inflate(inflater);
@@ -38,9 +40,14 @@ public class Fragment_add_new_branch extends Fragment {
         mBinding.btnAddBranch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String branchName = mBinding.edtBranchName.getEditableText().toString();
-                if (branchName != null && !branchName.isEmpty()) {
-                    CompanyRepo.addNewBranchToMyCompany(getContext(), branchName);
+                final String branchName = mBinding.edtBranchName.getEditableText().toString();
+                if (!branchName.isEmpty()) {
+                    AppExecutors.getsInstance().getNetworkIO().execute(new Runnable() {
+                        @Override
+                        public void run() {
+                            CompanyRepo.addNewBranchToMyCompany(getContext(), branchName);
+                        }
+                    });
                     Toast.makeText(getContext(), branchName + " added to Company", Toast.LENGTH_SHORT).show();
                     mBinding.edtBranchName.setText("");
                 } else {
@@ -48,7 +55,6 @@ public class Fragment_add_new_branch extends Fragment {
                 }
             }
         });
-
         return mBinding.getRoot();
     }
 

@@ -14,12 +14,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.main.salesMemberUI.newCustomer.AddNewCustomerActivity" android:theme="@style/starting_activity"/>
+        <activity
+            android:name=".ui.main.salesMemberUI.newCustomer.AddNewCustomerActivity"
+            android:theme="@style/starting_activity" />
         <activity
             android:name=".ui.main.salesMemberUI.home.Main2Activity"
             android:theme="@style/starting_activity" />
         <activity
-            android:name=".ui.starting.StartingActivity"
+            android:name=".ui.auth.StartingActivity"
             android:screenOrientation="portrait"
             android:theme="@style/starting_activity">
             <intent-filter>

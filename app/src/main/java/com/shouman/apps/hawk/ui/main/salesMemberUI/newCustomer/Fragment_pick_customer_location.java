@@ -30,10 +30,12 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.shouman.apps.hawk.data.CustomerRepo;
+import com.shouman.apps.hawk.data.SalesRepo;
 import com.shouman.apps.hawk.databinding.FragmentPickLocationBinding;
 import com.shouman.apps.hawk.model.Customer;
 import com.shouman.apps.hawk.utils.AppExecutors;
+
+import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -110,7 +112,7 @@ public class Fragment_pick_customer_location extends Fragment implements OnMapRe
                 AppExecutors.getsInstance().getNetworkIO().execute(new Runnable() {
                     @Override
                     public void run() {
-                        CustomerRepo.addNewCustomerToDatabase(getContext(), theCustomer);
+                        SalesRepo.addNewCustomerToDatabase(getContext(), theCustomer);
                         getBaseActivity().runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
@@ -219,7 +221,8 @@ public class Fragment_pick_customer_location extends Fragment implements OnMapRe
 
 
     private boolean isLocationEnabled() {
-        LocationManager locationManager = (LocationManager) getContext().getSystemService(Context.LOCATION_SERVICE);
+        LocationManager locationManager = (LocationManager) Objects.requireNonNull(getContext()).getSystemService(Context.LOCATION_SERVICE);
+        assert locationManager != null;
         return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager.isProviderEnabled(
                 LocationManager.NETWORK_PROVIDER
         );
