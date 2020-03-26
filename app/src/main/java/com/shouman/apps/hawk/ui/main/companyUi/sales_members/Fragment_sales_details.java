@@ -97,22 +97,6 @@ public class Fragment_sales_details extends Fragment {
 
     private void toolbarCustomization() {
         mBinding.toolbar.setTitle(salesMemberName);
-        mBinding.collapsingToolbar.setCollapsedTitleTypeface(Typeface.createFromAsset(Objects.requireNonNull(getContext()).getAssets(), "russo_one_regular.ttf"));
-        mBinding.collapsingToolbar.setExpandedTitleTypeface(Typeface.createFromAsset(getContext().getAssets(), "russo_one_regular.ttf"));
-        mBinding.appBar.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
-            @Override
-            public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
-                int maxScrollRange = mBinding.appBar.getTotalScrollRange();
-                if (Math.abs(verticalOffset) == maxScrollRange) {
-                    mBinding.chartView.setAlpha(0.0f);
-                } else if (verticalOffset == 0) {
-                    mBinding.chartView.setAlpha(1.0f);
-                } else {
-                    float alpha = (1 + ((float) verticalOffset / (float) maxScrollRange));
-                    mBinding.chartView.setAlpha(alpha);
-                }
-            }
-        });
     }
 
     private void initializeChart() {

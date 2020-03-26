@@ -1,9 +1,8 @@
-package com.shouman.apps.hawk.ui.main.salesMemberUI.home;
+package com.shouman.apps.hawk.ui.main.salesMemberUI.home.homeFragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.view.animation.AnimationUtils;
-import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,11 +10,13 @@ import androidx.core.view.GravityCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.FragmentManager;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.shouman.apps.hawk.R;
 import com.shouman.apps.hawk.databinding.ActivityMain2Binding;
 import com.shouman.apps.hawk.ui.main.companyUi.customers.Fragment_customers_info;
+import com.shouman.apps.hawk.ui.main.salesMemberUI.home.personalPage.PersonalPageActivity;
 
 public class Main2Activity extends AppCompatActivity implements IMain2ClickHandler {
 
@@ -52,7 +53,7 @@ public class Main2Activity extends AppCompatActivity implements IMain2ClickHandl
                 mainBinding.toolbar,
                 R.string.nav_drawer_open,
                 R.string.nav_drawer_closed);
-        toggle.getDrawerArrowDrawable().setColor(getResources().getColor(R.color.colorPrimaryDark));
+        toggle.getDrawerArrowDrawable().setColor(getResources().getColor(R.color.old_rose_light));
         mainBinding.drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
 
@@ -60,7 +61,67 @@ public class Main2Activity extends AppCompatActivity implements IMain2ClickHandl
         showHomeFragment();
     }
 
+
+    public void onDrawerItemClick(View view) {
+        mainBinding.drawerLayout.closeDrawer(GravityCompat.START);
+        switch (view.getId()) {
+            case R.id.nav_home:
+                showHomeFragment();
+                break;
+            case R.id.nav_personal_page:
+                showPersonalPage();
+                break;
+            case R.id.nav_settings:
+                showSettingsPage();
+                break;
+            case R.id.nav_terms_and_conditions:
+                showTermsAndConditionPage();
+                break;
+            case R.id.nav_chang_branch:
+                showBranchPage();
+                break;
+            case R.id.nav_sign_out:
+                signOut();
+                break;
+            case R.id.nav_exit:
+                exitApp();
+                break;
+        }
+    }
+
+    private void exitApp() {
+        finish();
+    }
+
+    private void signOut() {
+        new MaterialAlertDialogBuilder(this)
+                .setCancelable(true)
+                .setMessage("Are you sure ?")
+                .setTitle("Sign out")
+                .setIcon(R.drawable.ic_logout)
+                .create()
+                .show();
+    }
+
+    private void showBranchPage() {
+
+    }
+
+    private void showTermsAndConditionPage() {
+
+    }
+
+    private void showSettingsPage() {
+
+    }
+
+    private void showPersonalPage() {
+        Intent intent = new Intent(this, PersonalPageActivity.class);
+        startActivity(intent);
+    }
+
     private void showHomeFragment() {
+        mainBinding.navHome.setPressed(true);
         fragmentManager.
                 beginTransaction()
                 .setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out, android.R.anim.fade_in, android.R.anim.fade_out)
@@ -75,20 +136,17 @@ public class Main2Activity extends AppCompatActivity implements IMain2ClickHandl
         }
 
         if (fragment_customers_info != null && fragment_customers_info.isVisible()) {
-            Toast.makeText(this, "hide fragment", Toast.LENGTH_SHORT).show();
-            fragmentManager.popBackStack("customer_info", FragmentManager.POP_BACK_STACK_INCLUSIVE);
-            mainBinding.fullCustomerInfoContainer.setVisibility(View.GONE);
-        }
 
-        else super.onBackPressed();
+            fragmentManager.popBackStack("customer_info", FragmentManager.POP_BACK_STACK_INCLUSIVE);
+
+        } else super.onBackPressed();
     }
 
     @Override
     public void onCustomerItemClickHandler(String customerUID, String customerName) {
         fragment_customers_info = Fragment_customers_info.getInstance(customerName, customerUID);
-        mainBinding.fullCustomerInfoContainer.setVisibility(View.VISIBLE);
-        fragmentManager.
-                beginTransaction()
+        fragmentManager
+                .beginTransaction()
                 .addToBackStack("customer_info")
                 .setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right, android.R.anim.slide_in_left, android.R.anim.slide_out_right)
                 .add(R.id.full_customer_info_container, fragment_customers_info, "fragment_customer_info")

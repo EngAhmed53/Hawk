@@ -1,6 +1,8 @@
 package com.shouman.apps.hawk.ui.main.companyUi.customers;
 
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,16 +23,18 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.shouman.apps.hawk.databinding.FragmentCustomersInfoBinding;
 import com.shouman.apps.hawk.model.Customer;
 
+import java.util.Objects;
+
 /**
  * A simple {@link Fragment} subclass.
  */
 public class Fragment_customers_info extends Fragment implements OnMapReadyCallback {
-    public static final String CUSTOMER_NAME = "customer_name";
-    public static final String CUSTOMER_UID = "customer_uid";
+    private static final String CUSTOMER_NAME = "customer_name";
+    private static final String CUSTOMER_UID = "customer_uid";
     public FragmentCustomersInfoBinding mBinding;
     private GoogleMap map;
-    private Marker customerMarker;
-
+    private Customer mainCustomer;
+    private boolean customerLocationSetted = false;
 
     public static Fragment_customers_info getInstance() {
         return new Fragment_customers_info();
@@ -67,16 +71,41 @@ public class Fragment_customers_info extends Fragment implements OnMapReadyCallb
             @Override
             public void onChanged(Customer customer) {
                 if (customer != null) {
+                    mainCustomer = customer;
                     mBinding.setCustomer(customer);
-                    customerMarker = map.addMarker(new MarkerOptions()
-                            .position(new LatLng(customer.getLt(), customer.getLn()))
-                            .title(customer.getN()));
-                    map.animateCamera(CameraUpdateFactory.newLatLngZoom(customerMarker.getPosition(), 16f));
-                }
 
+                    if (map != null && !customerLocationSetted) {
+                        setCustomerLocationOnMap(customer);
+                    }
+                }
             }
         });
+
+        mBinding.btnCallCustomer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onCallPhoneNumberClick();
+            }
+        });
+
         return mBinding.getRoot();
+    }
+
+    private void setCustomerLocationOnMap(Customer customer) {
+        Marker customerMarker = map.addMarker(new MarkerOptions()
+                .position(new LatLng(customer.getLt(), customer.getLn()))
+                .title(customer.getN()));
+
+        map.animateCamera(CameraUpdateFactory.newLatLngZoom(customerMarker.getPosition(), 16f));
+        customerLocationSetted = true;
+    }
+
+    private void onCallPhoneNumberClick() {
+        String phoneNumber = Objects.requireNonNull(mBinding.edtCustomerPhone.getText()).toString().trim();
+        Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + phoneNumber));
+        if (intent.resolveActivity(Objects.requireNonNull(getActivity()).getPackageManager()) != null) {
+            startActivity(intent);
+        }
     }
 
     @Override
@@ -87,6 +116,10 @@ public class Fragment_customers_info extends Fragment implements OnMapReadyCallb
         map.getUiSettings().setZoomControlsEnabled(true);
         map.setMapType(GoogleMap.MAP_TYPE_NORMAL);
         map.setMapStyle(new MapStyleOptions("myMapStyle"));
+
+        if (mainCustomer != null && !customerLocationSetted) {
+            setCustomerLocationOnMap(mainCustomer);
+        }
     }
 
     @Override

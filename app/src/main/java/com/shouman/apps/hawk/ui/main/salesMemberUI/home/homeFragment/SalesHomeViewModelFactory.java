@@ -1,4 +1,4 @@
-package com.shouman.apps.hawk.ui.main.salesMemberUI.home;
+package com.shouman.apps.hawk.ui.main.salesMemberUI.home.homeFragment;
 
 import android.content.Context;
 
@@ -11,7 +11,7 @@ public class SalesHomeViewModelFactory extends ViewModelProvider.NewInstanceFact
     private String salesUID;
     private Context mContext;
 
-    public SalesHomeViewModelFactory(Context context,@NonNull String salesUID) {
+    SalesHomeViewModelFactory(Context context, @NonNull String salesUID) {
         this.salesUID = salesUID;
         this.mContext = context;
     }

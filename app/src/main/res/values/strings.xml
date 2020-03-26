@@ -79,7 +79,7 @@
     <string name="type_your_new_branch_name_and_then_press_add_button">Type your new branch name and then press add button</string>
     <string name="add_new_branch">Add new branch</string>
     <string name="branches_list">Branches List</string>
-    <string name="sales_member_list">Sales member list</string>
+    <string name="sales_member_list">Sales members</string>
     <string name="customers_log">Customers Log</string>
     <string name="customer_photo">Customer photo</string>
     <string name="edit_customer_info">Edit Customer Info</string>
@@ -104,6 +104,10 @@
     <string name="notes">Notes....</string>
     <string name="add_customer">Add customer</string>
     <string name="user_photo">user photo</string>
+    <string name="personal_photo">personal photo</string>
+    <string name="customer_notes">Customer notes</string>
+    <string name="call_customer_phone_number">call customer phone number</string>
+    <string name="search">Search</string>
 
 
 </resources>

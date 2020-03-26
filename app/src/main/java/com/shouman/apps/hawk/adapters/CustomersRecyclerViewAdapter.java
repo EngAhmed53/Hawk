@@ -16,7 +16,7 @@ import com.shouman.apps.hawk.common.Common;
 import com.shouman.apps.hawk.databinding.CustomersListItemLayoutBinding;
 import com.shouman.apps.hawk.ui.main.OnCustomerItemClickHandler;
 import com.shouman.apps.hawk.ui.main.companyUi.IMainClickHandler;
-import com.shouman.apps.hawk.ui.main.salesMemberUI.home.IMain2ClickHandler;
+import com.shouman.apps.hawk.ui.main.salesMemberUI.home.homeFragment.IMain2ClickHandler;
 
 import java.util.ArrayList;
 import java.util.List;

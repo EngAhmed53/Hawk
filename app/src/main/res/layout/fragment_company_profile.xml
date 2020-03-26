@@ -15,19 +15,19 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/white"
         android:clickable="true"
         android:focusable="true"
-        android:background="@color/white"
         tools:context=".ui.main.companyUi.customers.Fragment_customers_info">
 
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/app_bar"
             android:layout_width="match_parent"
             android:layout_height="250dp"
-            android:backgroundTint="@color/colorPrimaryDark"
-            android:elevation="6dp"
+            android:backgroundTint="@color/colorPrimary"
             android:fitsSystemWindows="true"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:cardElevation="2dp">
 
             <com.google.android.material.appbar.CollapsingToolbarLayout
                 android:layout_width="match_parent"
@@ -44,10 +44,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="?actionBarSize"
                     android:background="@android:color/transparent"
-                    android:elevation="6dp"
                     android:fadeScrollbars="true"
                     android:fitsSystemWindows="true"
-                    app:layout_collapseMode="pin"
+                    app:cardElevation="2dp"
                     app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
                     app:title="@{user.cn}" />
 
@@ -69,212 +68,188 @@
                 android:id="@+id/edit_fields_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:orientation="vertical">
+                android:layout_marginTop="16dp"
+                android:orientation="vertical"
+                android:paddingBottom="16dp">
 
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/user_name_textInput"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense"
+                <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="65dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:backgroundTint="@android:color/white"
+                    app:cardBackgroundColor="@android:color/white"
+                    app:cardCornerRadius="0dp"
+                    app:cardElevation="2dp">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/user_name_textInput"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:hint="@string/user_name"
+                        android:textColorHint="@color/old_rose_dark"
+                        app:boxBackgroundColor="@android:color/white"
+                        app:boxStrokeColor="@color/colorPrimaryDark"
+                        app:hintTextAppearance="@style/TextAppearance.AppCompat.Caption"
+                        app:hintTextColor="@color/old_rose_dark"
+                        app:startIconDrawable="@drawable/ic_person"
+                        app:startIconTint="@color/old_rose">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edt_user_name"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:enabled="false"
+                            android:focusable="true"
+                            android:inputType="text"
+                            android:maxLength="100"
+                            android:maxLines="1"
+                            android:text="@{user.un}"
+                            android:textColor="@color/gray1"
+                            android:textColorHint="@color/primaryTransparent" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </androidx.cardview.widget.CardView>
+
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="65dp"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="10dp"
-                    android:focusable="true"
-                    android:hint="@string/user_name"
-                    android:textColorHint="@color/old_rose_dark"
-                    app:boxBackgroundColor="@color/white"
-                    app:boxCornerRadiusBottomEnd="6dp"
-                    app:boxCornerRadiusBottomStart="6dp"
-                    app:boxCornerRadiusTopEnd="6dp"
-                    app:boxCornerRadiusTopStart="6dp"
-                    app:boxStrokeColor="@color/colorPrimaryDark"
-                    app:boxStrokeWidth="1dp"
-                    app:hintTextAppearance="@style/TextAppearance.AppCompat.Caption"
-                    app:hintTextColor="@color/old_rose_dark"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/constraintLayout2"
-                    app:startIconDrawable="@drawable/ic_person"
-                    app:startIconTint="@color/old_rose">
+                    android:backgroundTint="@android:color/white"
+                    app:cardBackgroundColor="@android:color/white"
+                    app:cardCornerRadius="0dp"
+                    app:cardElevation="2dp">
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/edt_user_name"
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/customer_email_textInput"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:enabled="false"
-                        android:focusable="true"
-                        android:inputType="text"
-                        android:maxLength="100"
-                        android:maxLines="1"
-                        android:text="@{user.un}"
-                        android:textColor="@color/gray1"
-                        android:textColorHint="@color/primaryTransparent" />
-                </com.google.android.material.textfield.TextInputLayout>
+                        android:layout_gravity="center"
+                        android:hint="@string/customer_email"
+                        android:textColorHint="@color/old_rose_dark"
+                        app:boxBackgroundColor="@android:color/white"
+                        app:boxStrokeColor="@color/colorPrimaryDark"
+                        app:boxStrokeWidth="1dp"
+                        app:hintTextAppearance="@style/TextAppearance.AppCompat.Caption"
+                        app:hintTextColor="@color/old_rose_dark"
+                        app:startIconDrawable="@drawable/ic_email"
+                        app:startIconTint="@color/old_rose">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edt_customer_email"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:enabled="false"
+                            android:focusable="true"
+                            android:inputType="textEmailAddress"
+                            android:maxLength="100"
+                            android:maxLines="1"
+                            android:text="@{user.e}"
+                            android:textColor="@color/gray1"
+                            android:textColorHint="@color/primaryTransparent" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </androidx.cardview.widget.CardView>
 
 
-                <View
+                <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="25dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_marginRight="10dp"
-                    android:background="@color/gray1" />
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/customer_email_textInput"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="65dp"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="10dp"
-                    android:focusable="true"
-                    android:hint="@string/customer_email"
-                    android:textColorHint="@color/old_rose_dark"
-                    app:boxBackgroundColor="@color/white"
-                    app:boxCornerRadiusBottomEnd="6dp"
-                    app:boxCornerRadiusBottomStart="6dp"
-                    app:boxCornerRadiusTopEnd="6dp"
-                    app:boxCornerRadiusTopStart="6dp"
-                    app:boxStrokeColor="@color/colorPrimaryDark"
-                    app:boxStrokeWidth="1dp"
-                    app:hintTextAppearance="@style/TextAppearance.AppCompat.Caption"
-                    app:hintTextColor="@color/old_rose_dark"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/constraintLayout2"
-                    app:startIconDrawable="@drawable/ic_email"
-                    app:startIconTint="@color/old_rose">
+                    android:layout_marginBottom="16dp"
+                    android:backgroundTint="@android:color/white"
+                    app:cardBackgroundColor="@android:color/white"
+                    app:cardCornerRadius="0dp"
+                    app:cardElevation="2dp">
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/edt_customer_email"
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/company_name_textInput"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:enabled="false"
-                        android:focusable="true"
-                        android:inputType="textEmailAddress"
-                        android:maxLength="100"
-                        android:maxLines="1"
-                        android:text="@{user.e}"
-                        android:textColor="@color/gray1"
-                        android:textColorHint="@color/primaryTransparent" />
-                </com.google.android.material.textfield.TextInputLayout>
+                        android:layout_gravity="center"
+                        android:hint="@string/company_name"
+                        android:textColorHint="@color/old_rose_dark"
+                        app:boxBackgroundColor="@android:color/white"
+                        app:boxStrokeColor="@color/colorPrimaryDark"
+                        app:hintTextAppearance="@style/TextAppearance.AppCompat.Caption"
+                        app:hintTextColor="@color/old_rose_dark"
+                        app:startIconDrawable="@drawable/ic_domain"
+                        app:startIconTint="@color/old_rose">
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="25dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_marginRight="10dp"
-                    android:background="@color/gray1" />
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edt_company_name"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:enabled="false"
+                            android:focusable="true"
+                            android:inputType="text"
+                            android:maxLength="100"
+                            android:maxLines="1"
+                            android:text="@{user.cn}"
+                            android:textColor="@color/gray1"
+                            android:textColorHint="@color/primaryTransparent" />
+                    </com.google.android.material.textfield.TextInputLayout>
 
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/company_name_textInput"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="10dp"
-                    android:focusable="true"
-                    android:hint="@string/company_name"
-                    android:textColorHint="@color/old_rose_dark"
-                    app:boxBackgroundColor="@color/white"
-                    app:boxCornerRadiusBottomEnd="6dp"
-                    app:boxCornerRadiusBottomStart="6dp"
-                    app:boxCornerRadiusTopEnd="6dp"
-                    app:boxCornerRadiusTopStart="6dp"
-                    app:boxStrokeColor="@color/colorPrimaryDark"
-                    app:boxStrokeWidth="1dp"
-                    app:hintTextAppearance="@style/TextAppearance.AppCompat.Caption"
-                    app:hintTextColor="@color/old_rose_dark"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/constraintLayout2"
-                    app:startIconDrawable="@drawable/ic_domain"
-                    app:startIconTint="@color/old_rose">
+                </androidx.cardview.widget.CardView>
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/edt_company_name"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:enabled="false"
-                        android:focusable="true"
-                        android:inputType="text"
-                        android:maxLength="100"
-                        android:maxLines="1"
-                        android:text="@{user.cn}"
-                        android:textColor="@color/gray1"
-                        android:textColorHint="@color/primaryTransparent" />
-                </com.google.android.material.textfield.TextInputLayout>
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="25dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_marginRight="10dp"
-                    android:background="@color/gray1" />
+                <!--                <androidx.cardview.widget.CardView-->
+                <!--                    android:layout_width="match_parent"-->
+                <!--                    android:layout_height="65dp"-->
+                <!--                    android:layout_marginStart="10dp"-->
+                <!--                    android:layout_marginTop="8dp"-->
+                <!--                    android:layout_marginEnd="10dp"-->
+                <!--                    android:backgroundTint="@android:color/white"-->
+                <!--                    android:focusable="true"-->
+                <!--                    android:paddingTop="8dp"-->
+                <!--                    android:paddingBottom="8dp"-->
+                <!--                    app:cardBackgroundColor="@android:color/white"-->
+                <!--                    app:cardCornerRadius="0dp"-->
+                <!--                    app:cardElevation="2dp">-->
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/company_uid_textInput"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="10dp"
-                    android:focusable="true"
-                    android:hint="@string/company_uid"
-                    android:textColorHint="@color/old_rose_dark"
-                    app:boxBackgroundColor="@color/white"
-                    app:boxCornerRadiusBottomEnd="6dp"
-                    app:boxCornerRadiusBottomStart="6dp"
-                    app:boxCornerRadiusTopEnd="6dp"
-                    app:boxCornerRadiusTopStart="6dp"
-                    app:boxStrokeColor="@color/colorPrimaryDark"
-                    app:boxStrokeWidth="1dp"
-                    app:hintTextAppearance="@style/TextAppearance.AppCompat.Caption"
-                    app:hintTextColor="@color/old_rose_dark"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/constraintLayout2"
-                    app:startIconDrawable="@drawable/ic_domain"
-                    app:startIconTint="@color/old_rose">
+                <!--                    <com.google.android.material.textfield.TextInputLayout-->
+                <!--                        android:id="@+id/company_uid_textInput"-->
+                <!--                        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense"-->
+                <!--                        android:layout_width="match_parent"-->
+                <!--                        android:layout_height="wrap_content"-->
+                <!--                        android:layout_gravity="center"-->
+                <!--                        android:hint="@string/company_uid"-->
+                <!--                        android:textColorHint="@color/old_rose_dark"-->
+                <!--                        app:boxBackgroundColor="@android:color/white"-->
+                <!--                        app:boxStrokeColor="@color/colorPrimaryDark"-->
+                <!--                        app:hintTextAppearance="@style/TextAppearance.AppCompat.Caption"-->
+                <!--                        app:hintTextColor="@color/old_rose_dark"-->
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/edt_company_uid"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:enabled="false"
-                        android:focusable="true"
-                        android:inputType="text"
-                        android:text="@{user.cuid}"
-                        android:maxLength="100"
-                        android:maxLines="1"
-                        android:textColor="@color/gray1"
-                        android:textColorHint="@color/primaryTransparent" />
-                </com.google.android.material.textfield.TextInputLayout>
+                <!--                        app:startIconDrawable="@drawable/ic_company_uid"-->
+                <!--                        app:startIconTint="@color/old_rose">-->
 
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="56dp"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="24dp"
-                    android:layout_marginBottom="8dp"
-                    android:backgroundTint="@color/colorPrimaryDark"
-                    android:text="@string/edit_company_info"
-                    android:textColor="@color/white"
-                    android:textSize="18sp" />
+                <!--                        <com.google.android.material.textfield.TextInputEditText-->
+                <!--                            android:id="@+id/edt_company_uid"-->
+                <!--                            android:layout_width="match_parent"-->
+                <!--                            android:layout_height="wrap_content"-->
+                <!--                            android:enabled="false"-->
+                <!--                            android:focusable="true"-->
+                <!--                            android:inputType="text"-->
+                <!--                            android:maxLength="100"-->
+                <!--                            android:maxLines="1"-->
+                <!--                            android:text="@{user.cuid}"-->
+                <!--                            android:textColor="@color/gray1"-->
+                <!--                            android:textColorHint="@color/primaryTransparent" />-->
+                <!--                    </com.google.android.material.textfield.TextInputLayout>-->
+
+
+                <!--                </androidx.cardview.widget.CardView>-->
 
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>

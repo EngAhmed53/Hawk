@@ -18,7 +18,7 @@ import com.shouman.apps.hawk.databinding.ActivityStartingBinding;
 import com.shouman.apps.hawk.model.User;
 import com.shouman.apps.hawk.preferences.UserPreference;
 import com.shouman.apps.hawk.ui.main.companyUi.MainActivity;
-import com.shouman.apps.hawk.ui.main.salesMemberUI.home.Main2Activity;
+import com.shouman.apps.hawk.ui.main.salesMemberUI.home.homeFragment.Main2Activity;
 
 public class StartingActivity extends AppCompatActivity {
 

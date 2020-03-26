@@ -2,7 +2,6 @@ package com.shouman.apps.hawk.ui.main.companyUi.branches;
 
 
 import android.graphics.Color;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,19 +12,18 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.github.mikephil.charting.components.Description;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.Entry;
-import com.github.mikephil.charting.data.LineData;
-import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.ValueFormatter;
-import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
-import com.google.android.material.appbar.AppBarLayout;
+import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 import com.shouman.apps.hawk.R;
 import com.shouman.apps.hawk.databinding.FragmentBranchDetailsBinding;
+import com.shouman.apps.hawk.ui.main.companyUi.company_home.Fragment_company_home;
 
 import java.util.ArrayList;
 import java.util.Map;
-import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -80,66 +78,46 @@ public class Fragment_branch_details extends Fragment {
         toolbarCustomization();
         initializeChart();
 
+        mBinding.recSalesMember.setNestedScrollingEnabled(false);
         return mBinding.getRoot();
     }
 
 
     private void toolbarCustomization() {
         mBinding.toolbar.setTitle(branchName);
-        mBinding.collapsingToolbar.setCollapsedTitleTypeface(Typeface.createFromAsset(Objects.requireNonNull(getContext()).getAssets(), "russo_one_regular.ttf"));
-        mBinding.collapsingToolbar.setExpandedTitleTypeface(Typeface.createFromAsset(getContext().getAssets(), "russo_one_regular.ttf"));
-        mBinding.appBar.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
-            @Override
-            public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
-                int maxScrollRange = mBinding.appBar.getTotalScrollRange();
-                if (Math.abs(verticalOffset) == maxScrollRange) {
-                    mBinding.chartView.setAlpha(0.0f);
-                } else if (verticalOffset == 0) {
-                    mBinding.chartView.setAlpha(1.0f);
-                } else {
-                    float alpha = (1 + ((float) verticalOffset / (float) maxScrollRange));
-                    mBinding.chartView.setAlpha(alpha);
-                }
-            }
-        });
     }
 
     private void initializeChart() {
-        LineDataSet dataSet = new LineDataSet(getChartEntries(), "Total Customers");
-        dataSet.setDrawFilled(true);
-        dataSet.setFillDrawable(Objects.requireNonNull(getContext()).getResources().getDrawable(R.drawable.chart_gradient_fill));
-        ArrayList<ILineDataSet> dataSetArray = new ArrayList<>();
+        BarDataSet dataSet = new BarDataSet(getChartEntries(), "Total Customers");
+        dataSet.setGradientColor(getResources().getColor(R.color.colorPrimaryLight), getResources().getColor(R.color.old_rose_light));
+        ArrayList<IBarDataSet> dataSetArray = new ArrayList<>();
         dataSetArray.add(dataSet);
-        LineData lineData = new LineData(dataSetArray);
-        lineData.setValueTextSize(10);
-        lineData.setValueTextColor(Color.BLACK);
-        lineData.setValueFormatter(new MyValueFormatter());
+        BarData barData = new BarData(dataSetArray);
+        barData.setValueTextSize(10);
+        barData.setValueTextColor(Color.BLACK);
 
 
-        //chart description
-        Description chartDescription = new Description();
-        chartDescription.setText(getString(R.string.chart_label));
-        chartDescription.setTextSize(10);
-
-        mBinding.chartView.setData(lineData);
-        mBinding.chartView.setDescription(chartDescription);
+        mBinding.chartView.setData(barData);
+        mBinding.chartView.animateY(1500);
+        mBinding.chartView.setDescription(null);
         mBinding.chartView.setNoDataText("No data to view");
         mBinding.chartView.setNoDataTextColor(Color.BLACK);
         mBinding.chartView.getAxisRight().setDrawLabels(false);
         mBinding.chartView.setPinchZoom(false);
         mBinding.chartView.setDoubleTapToZoomEnabled(false);
+        mBinding.chartView.getXAxis().setDrawGridLines(false);
         mBinding.chartView.invalidate();
     }
 
-    private ArrayList<Entry> getChartEntries() {
-        ArrayList<Entry> entries = new ArrayList<>();
-        entries.add(new Entry(0, 1));
-        entries.add(new Entry(2, 2));
-        entries.add(new Entry(4, 6));
-        entries.add(new Entry(5, 9));
-        entries.add(new Entry(7, 8));
-        entries.add(new Entry(10, 2));
-        entries.add(new Entry(15, 6));
+    private ArrayList<BarEntry> getChartEntries() {
+        ArrayList<BarEntry> entries = new ArrayList<>();
+        entries.add(new BarEntry(0, 1));
+        entries.add(new BarEntry(2, 2));
+        entries.add(new BarEntry(4, 6));
+        entries.add(new BarEntry(5, 9));
+        entries.add(new BarEntry(7, 8));
+        entries.add(new BarEntry(10, 2));
+        entries.add(new BarEntry(15, 6));
         return entries;
     }
 

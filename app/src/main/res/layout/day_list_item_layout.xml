@@ -32,7 +32,7 @@
             android:layout_height="12dp"
             android:layout_marginStart="8dp"
             android:src="@drawable/ic_dropdown_arrow"
-            android:tint="@color/colorPrimaryDark"
+            android:tint="@color/old_rose"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"

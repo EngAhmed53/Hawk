@@ -3,6 +3,7 @@ package com.shouman.apps.hawk.dataBindingAdapters;
 import android.util.Log;
 
 import androidx.databinding.BindingAdapter;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -24,7 +25,7 @@ public class RecyclerViewDataBinding {
             return;
         }
         if (view.getLayoutManager() == null) {
-            view.setLayoutManager(new LinearLayoutManager(view.getContext(), LinearLayoutManager.VERTICAL, false));
+            view.setLayoutManager(new GridLayoutManager(view.getContext(), 3));
             view.setHasFixedSize(true);
         }
         if (view.getAdapter() == null) {

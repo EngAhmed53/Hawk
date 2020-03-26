@@ -1,6 +1,7 @@
 package com.shouman.apps.hawk.adapters;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.view.LayoutInflater;
@@ -85,7 +86,7 @@ public class BranchRecyclerViewAdapter extends RecyclerView.Adapter<BranchRecycl
             holder.mBinding.first2Letters.setText(s);
         }
         holder.mBinding.first2Letters.setTypeface(Typeface.createFromAsset(mContext.getAssets(), "varela_round_regular.ttf"));
-        holder.mBinding.first2Letters.setBackgroundColor(Color.parseColor(Common.getRandomColor(position)));
+        holder.mBinding.mtrlCardView.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(Common.getRandomColor(position))));
     }
 
     @Override

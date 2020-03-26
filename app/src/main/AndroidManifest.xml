@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.shouman.apps.hawk">
     <!-- internet permission -->
-    <uses-permission android:name="android.permission.INTERNET" /> <!-- location permission -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <!-- location permission -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
@@ -15,10 +16,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".ui.main.salesMemberUI.home.personalPage.PersonalPageActivity"
+            android:theme="@style/starting_activity" />
+        <activity
             android:name=".ui.main.salesMemberUI.newCustomer.AddNewCustomerActivity"
             android:theme="@style/starting_activity" />
         <activity
-            android:name=".ui.main.salesMemberUI.home.Main2Activity"
+            android:name=".ui.main.salesMemberUI.home.homeFragment.Main2Activity"
             android:theme="@style/starting_activity" />
         <activity
             android:name=".ui.auth.StartingActivity"

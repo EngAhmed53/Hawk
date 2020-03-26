@@ -18,7 +18,7 @@ import java.util.Objects;
 public class SalesRepo {
     private static FirebaseDatabase database = FirebaseDatabase.getInstance();
     private static DatabaseReference companiesReference = database.getReference().child("data");
-
+    private static DatabaseReference usersReference = database.getReference().child("users");
 
 
     //add new customer to database
@@ -61,5 +61,10 @@ public class SalesRepo {
         Map<String, Object> newCompanySalesMember = new HashMap<>();
         newBranchSalesMember.put(userUID, null);
         companySalesTeamReference.updateChildren(newCompanySalesMember);
+    }
+
+    public static DatabaseReference getCustomerInfoReference() {
+        String userUID = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
+        return usersReference.child(userUID);
     }
 }

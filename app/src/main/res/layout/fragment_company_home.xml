@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -12,110 +13,110 @@
 
     </data>
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/white"
-        tools:context=".ui.main.companyUi.company_home.Fragment_company_home">
+        android:layout_height="match_parent">
 
-        <com.google.android.material.appbar.AppBarLayout
-            android:id="@+id/app_bar"
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:background="@android:color/transparent"
+            android:layout_height="?actionBarSize"
+            android:background="@color/colorPrimary"
             android:elevation="6dp"
+            android:fadeScrollbars="true"
             android:fitsSystemWindows="true"
-            android:theme="@style/ThemeOverlay.AppCompat.Light"
-            app:elevation="6dp">
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:logo="@drawable/ic_logo24"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+            app:title="Home"
+            app:titleMarginStart="24dp"
+            app:titleTextAppearance="@style/TextAppearance.AppCompat.Title"
+            app:titleTextColor="@color/white" />
 
-            <com.google.android.material.appbar.CollapsingToolbarLayout
-                android:id="@+id/collapsing_toolbar"
+        <ScrollView
+            android:id="@+id/scrollView2"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@color/white"
+            android:nestedScrollingEnabled="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@android:color/transparent"
-                app:collapsedTitleTextAppearance="@style/TextAppearance.MaterialComponents.Headline4"
-                app:expandedTitleGravity="top"
-                app:expandedTitleMarginStart="16dp"
-                app:expandedTitleMarginTop="8dp"
-                app:layout_scrollFlags="scroll|exitUntilCollapsed"
-                app:title="@string/overview"
-                app:titleEnabled="true">
+                android:layout_height="wrap_content"
+                android:background="@color/white">
 
-
-                <androidx.appcompat.widget.Toolbar
-                    android:id="@+id/toolbar"
-                    android:layout_width="match_parent"
-                    android:layout_height="?actionBarSize"
-                    android:background="@android:color/transparent"
-                    android:elevation="6dp"
-                    android:fadeScrollbars="true"
-                    android:fitsSystemWindows="true"
-                    app:layout_collapseMode="pin"
-                    app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
-
-                <com.github.mikephil.charting.charts.LineChart
+                <com.github.mikephil.charting.charts.BarChart
                     android:id="@+id/chart_view"
                     android:layout_width="match_parent"
                     android:layout_height="240dp"
-                    android:layout_marginTop="?actionBarSize"
+                    android:layout_marginTop="24dp"
                     android:background="@color/fui_transparent"
-                    app:layout_collapseMode="parallax" />
+                    app:layout_collapseMode="parallax"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
 
-            </com.google.android.material.appbar.CollapsingToolbarLayout>
+                <TextView
+                    android:id="@+id/textView7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="@string/branches_list"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+                    android:textColor="@color/gray1"
+                    android:textSize="18sp"
+                    app:layout_constraintBottom_toTopOf="@+id/rec_branches"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/chart_view"
+                    app:layout_constraintVertical_chainStyle="packed" />
 
-        </com.google.android.material.appbar.AppBarLayout>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:fontFamily="monospace"
-            android:text="@string/branches_list"
-            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-            android:textColor="@color/gray1"
-            android:textSize="18sp"
-            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior" />
-
-        <androidx.core.widget.NestedScrollView
-            android:id="@+id/nested_scroll"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="25dp"
-            android:clipToPadding="false"
-            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rec_branches"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
-                app:setBranchesMap="@{branchesMap}" />
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rec_branches"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="16dp"
+                    android:paddingBottom="24dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView7"
+                    app:setBranchesMap="@{branchesMap}" />
 
 
-        </androidx.core.widget.NestedScrollView>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab_add_new_branch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom|end"
             android:layout_margin="16dp"
-            android:backgroundTint="@color/colorPrimaryDark"
+            android:backgroundTint="@color/colorAccent"
             android:src="@drawable/ic_add_branch"
             app:borderWidth="0dp"
             app:elevation="6dp"
             app:fabSize="normal"
             app:hideMotionSpec="@anim/move_and_fade_animator"
-            app:layout_behavior="com.google.android.material.floatingactionbutton.FloatingActionButton$Behavior"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:pressedTranslationZ="12dp"
             app:rippleColor="@color/colorPrimaryDark"
             app:showMotionSpec="@anim/fade_in_animation"
             app:tint="@color/white" />
 
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 </layout>

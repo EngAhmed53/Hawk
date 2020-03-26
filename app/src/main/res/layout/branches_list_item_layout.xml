@@ -5,7 +5,7 @@
 
     <data>
 
-        <import type="com.shouman.apps.hawk.ui.main.companyUi.IMainClickHandler"/>
+        <import type="com.shouman.apps.hawk.ui.main.companyUi.IMainClickHandler" />
 
         <variable
             name="iMainClickHandler"
@@ -14,6 +14,7 @@
         <variable
             name="branchUID"
             type="String" />
+
         <variable
             name="branchName"
             type="String" />
@@ -21,72 +22,96 @@
     </data>
 
     <com.google.android.material.card.MaterialCardView
-        android:layout_width="300dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
-        android:backgroundTint="@color/fui_transparent"
+        android:id="@+id/mtrl_card_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginBottom="4dp"
         android:clickable="true"
         android:focusable="true"
         android:onClick="@{() -> iMainClickHandler.onBranchItemClickHandler(branchUID, branchName)}"
         android:stateListAnimator="@animator/branch_list_item_anim"
-        app:cardCornerRadius="8dp"
-        app:cardElevation="3dp">
+        app:cardCornerRadius="16dp"
+        app:cardElevation="6dp"
+        tools:backgroundTint="@color/colorPrimary">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
             <TextView
                 android:id="@+id/branch_name_txt"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
-                android:layout_marginEnd="4dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:padding="8dp"
+                android:gravity="center"
                 android:textAllCaps="true"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                android:textColor="@color/black"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                android:textColor="@color/white"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/imageView"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintHorizontal_chainStyle="spread_inside"
-                app:layout_constraintStart_toEndOf="@+id/first_2_letters"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/guideline2"
+                app:layout_constraintStart_toStartOf="@+id/guideline"
+                app:layout_constraintTop_toBottomOf="@+id/frameLayout2"
                 tools:text="Main Branch" />
 
-            <TextView
-                android:id="@+id/first_2_letters"
-                android:layout_width="52dp"
-                android:layout_height="0dp"
-                android:ellipsize="end"
-                android:gravity="center"
-                android:maxLines="1"
-                android:paddingLeft="6dp"
-                android:paddingRight="6dp"
-                android:textAllCaps="true"
-                android:textColor="@color/white"
-                android:textSize="20sp"
-                app:layout_constraintBottom_toBottomOf="parent"
+            <FrameLayout
+                android:id="@+id/frameLayout2"
+                android:layout_width="42dp"
+                android:layout_height="42dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/two_letters_background"
+                app:layout_constraintBottom_toTopOf="@+id/branch_name_txt"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:background="@color/colorPrimary"
-                tools:text="ZZ" />
+                app:layout_constraintVertical_chainStyle="packed">
 
+                <TextView
+                    android:id="@+id/first_2_letters"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:textAllCaps="true"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
 
-            <ImageView
-                android:id="@+id/imageView"
+                    tools:text="ZZ" />
+
+            </FrameLayout>
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:contentDescription="@string/open_branch_details"
-                android:padding="4dp"
-                android:src="@drawable/ic_arrow"
-                android:tint="@color/old_rose_dark"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="8dp" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_end="8dp" />
+
+
+            <!--            <ImageView-->
+            <!--                android:id="@+id/imageView"-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:contentDescription="@string/open_branch_details"-->
+            <!--                android:padding="4dp"-->
+            <!--                android:src="@drawable/ic_arrow"-->
+            <!--                android:tint="@color/old_rose_dark"-->
+            <!--                app:layout_constraintBottom_toBottomOf="parent"-->
+            <!--                app:layout_constraintEnd_toEndOf="parent"-->
+            <!--                app:layout_constraintTop_toTopOf="parent" />-->
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
