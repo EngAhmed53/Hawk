@@ -122,6 +122,10 @@ public class Main2Activity extends AppCompatActivity implements IMain2ClickHandl
 
     private void showHomeFragment() {
         mainBinding.navHome.setPressed(true);
+        if (fragment_sales_home.isAdded()) {
+            fragmentManager.beginTransaction().show(fragment_sales_home);
+            return;
+        }
         fragmentManager.
                 beginTransaction()
                 .setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out, android.R.anim.fade_in, android.R.anim.fade_out)
@@ -153,6 +157,4 @@ public class Main2Activity extends AppCompatActivity implements IMain2ClickHandl
                 .commit();
 
     }
-
-
 }

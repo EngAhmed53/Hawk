@@ -3,6 +3,8 @@ package com.shouman.apps.hawk.ui.auth;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,17 +12,19 @@ import android.view.animation.AnimationUtils;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.google.android.material.textfield.TextInputLayout;
+import com.google.android.gms.vision.barcode.Barcode;
 import com.shouman.apps.hawk.R;
 import com.shouman.apps.hawk.common.Common;
 import com.shouman.apps.hawk.databinding.FragmentSelectUserTypeBinding;
 import com.shouman.apps.hawk.model.User;
+import com.shouman.apps.hawk.preferences.UserPreference;
 
 import java.util.Objects;
 
@@ -39,6 +43,12 @@ public class Fragment_select_user_type extends Fragment {
     private AuthViewModel authViewModel;
 
     private User mainUser;
+
+    private boolean isUIDsSetted = false;
+    private boolean isUserNameSetted = false;
+    private boolean isCompanyNameSetted = false;
+    private TextWatcher companyNameTextWatcher;
+    private TextWatcher userNameTextWatcher;
 
     public static Fragment_select_user_type getInstance() {
         return new Fragment_select_user_type();
@@ -75,96 +85,24 @@ public class Fragment_select_user_type extends Fragment {
 
         initDropdown();
 
-        authViewModel.getUserMediatorLiveData().observe(getViewLifecycleOwner(), new Observer<User>() {
-            @Override
-            public void onChanged(User user) {
-                mainUser = user;
-            }
-        });
+        getTheUserObjectFromViewModel();
 
+        getBarCodeFromViewModelIfExist();
 
-        mBinding.btnConfirmInfo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        initScanBtn();
 
-                cleanUserObject();
-
-                if (SELECTED_POSITION == Common.MANAGER_POSITION) {
-                    if (checkInputTextErrors(mBinding.nameInputLayout)
-                            && checkInputTextErrors(mBinding.companyNameInputLayout)) {
-
-                        cleanUserObject();
-
-                        //set company account info
-                        //company user name
-                        mainUser.setUn(Objects.requireNonNull(mBinding.edtName.getText()).toString().trim());
-                        //company name
-                        mainUser.setCn(Objects.requireNonNull(mBinding.edtCompanyName.getText()).toString().trim());
-                        //branch uid is null because it is company not sales member
-                        mainUser.setBuid(null);
-                        // set the user_type
-                        mainUser.setUt("company_account");
-                        //set the company uid
-                        mainUser.setCuid(Common.EmailToUID(mainUser.getE()));
-
-                        authViewModel.updateTheUserInDatabase(mainUser);
-
-                    } else {
-                        if (mBinding.nameInputLayout.getError() != null ||
-                                Objects.requireNonNull(mBinding.nameInputLayout.getEditText()).getText().toString().isEmpty()) {
-                            mBinding.nameInputLayout.requestFocus();
-
-                        } else if (mBinding.companyNameInputLayout.getError() != null ||
-                                Objects.requireNonNull(mBinding.companyNameInputLayout.getEditText()).getText().toString().isEmpty()) {
-                            mBinding.companyNameInputLayout.requestFocus();
-
-                        }
-                    }
-                } else if (SELECTED_POSITION == Common.SALES_POSITION) {
-                    if (checkInputTextErrors(mBinding.nameInputLayout)
-                            && checkInputTextErrors(mBinding.comIdTextField)) {
-
-
-                        cleanUserObject();
-
-                        //set company account info
-                        //company user name
-                        mainUser.setUn(Objects.requireNonNull(mBinding.edtName.getText()).toString().trim());
-                        //no company name here
-                        mainUser.setCn(null);
-                        //branch uid
-                        mainUser.setBuid(Objects.requireNonNull(mBinding.edtBranchId.getText()).toString().trim());
-                        // set the user_type
-                        mainUser.setUt("sales_account");
-                        //set the company uid
-                        mainUser.setCuid(Objects.requireNonNull(mBinding.edtCompanyUid.getText()).toString().trim());
-
-                        authViewModel.updateTheUserInDatabase(mainUser);
-
-                    } else {
-                        if (mBinding.nameInputLayout.getError() != null ||
-                                Objects.requireNonNull(mBinding.nameInputLayout.getEditText()).getText().toString().isEmpty()) {
-                            mBinding.nameInputLayout.requestFocus();
-
-                        } else if (Objects.requireNonNull(mBinding.comIdTextField.getEditText()).getText().toString().isEmpty() ||
-                                mBinding.comIdTextField.getError() != null) {
-                            mBinding.comIdTextField.requestFocus();
-                        }
-                    }
-                }
-            }
-
-
-        });
+        initConfirmButton();
 
         return mBinding.getRoot();
     }
 
-    private void cleanUserObject() {
-        this.mainUser.setUt(null);
-        this.mainUser.setBuid(null);
-        this.mainUser.setCuid(null);
-        this.mainUser.setCn(null);
+    private void initScanBtn() {
+        mBinding.btnScan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openScanFragment();
+            }
+        });
     }
 
     private void initDropdown() {
@@ -184,14 +122,102 @@ public class Fragment_select_user_type extends Fragment {
                 switch (position) {
                     case 0:
                         SELECTED_POSITION = Common.MANAGER_POSITION;
+                        companyNameTextWatcher = getCompanyAccountTextWatcher();
+                        mBinding.edtCompanyName.addTextChangedListener(companyNameTextWatcher);
                         showCompanyFields();
-                        mBinding.btnConfirmInfo.setEnabled(true);
                         break;
                     case 1:
                         SELECTED_POSITION = Common.SALES_POSITION;
+                        //remove company name textWatcher
+                        if (companyNameTextWatcher != null) {
+                            mBinding.edtCompanyName.removeTextChangedListener(companyNameTextWatcher);
+                        }
                         showSalesFields();
-                        mBinding.btnConfirmInfo.setEnabled(true);
                         break;
+                }
+            }
+        });
+    }
+
+    private void initNameEditTextChangeListener() {
+        userNameTextWatcher = new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (s != null) {
+                    isUserNameSetted = !s.toString().isEmpty();
+                    if (SELECTED_POSITION == Common.MANAGER_POSITION) {
+                        if (isUserNameSetted && isCompanyNameSetted) {
+                            mBinding.btnConfirmInfo.setEnabled(true);
+                        } else {
+                            mBinding.btnConfirmInfo.setEnabled(false);
+                        }
+                    } else if (SELECTED_POSITION == Common.SALES_POSITION) {
+                        if (isUserNameSetted && isUIDsSetted) {
+                            mBinding.btnConfirmInfo.setEnabled(true);
+                        } else {
+                            mBinding.btnConfirmInfo.setEnabled(false);
+                        }
+                    }
+                }
+            }
+        };
+        mBinding.edtName.addTextChangedListener(userNameTextWatcher);
+    }
+
+    private void initConfirmButton() {
+        mBinding.btnConfirmInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (SELECTED_POSITION == Common.MANAGER_POSITION) {
+
+                    //clean the user object to avoid any pre-entered data
+                    cleanUserObject();
+
+                    //set company account info
+                    //company user name
+                    mainUser.setUn(Objects.requireNonNull(mBinding.edtName.getText()).toString().trim());
+                    //company name
+                    mainUser.setCn(Objects.requireNonNull(mBinding.edtCompanyName.getText()).toString().trim());
+                    //branch uid is null because it is company not sales member
+                    mainUser.setBuid(null);
+                    // set the user_type
+                    mainUser.setUt("company_account");
+                    //set the company uid
+                    mainUser.setCuid(Common.EmailToUID(mainUser.getE()));
+
+                    //update the user object in the viewModel
+                    authViewModel.updateTheUserInDatabase(mainUser);
+
+                } else if (SELECTED_POSITION == Common.SALES_POSITION) {
+                    if (isUIDsSetted) {
+                        //set sales account info
+                        //sales user name
+                        mainUser.setUn(Objects.requireNonNull(mBinding.edtName.getText()).toString().trim());
+                        //no company name here
+                        mainUser.setCn(null);
+                        //branch uid
+                        mainUser.setBuid(Objects.requireNonNull(mBinding.edtBranchId.getText()).toString().trim());
+                        // set the user_type
+                        mainUser.setUt("sales_account");
+                        //set the company uid
+                        mainUser.setCuid(Objects.requireNonNull(mBinding.edtCompanyUid.getText()).toString().trim());
+
+                        authViewModel.updateTheUserInDatabase(mainUser);
+
+                    } else {
+                        openScanFragment();
+
+                    }
                 }
             }
         });
@@ -201,18 +227,83 @@ public class Fragment_select_user_type extends Fragment {
         authViewModel = new ViewModelProvider(getHostActivity()).get(AuthViewModel.class);
     }
 
+    private void getTheUserObjectFromViewModel() {
+        authViewModel.getUserMediatorLiveData().observe(getViewLifecycleOwner(), new Observer<User>() {
+            @Override
+            public void onChanged(User user) {
+                mainUser = user;
+            }
+        });
+    }
+
+    private void getBarCodeFromViewModelIfExist() {
+        authViewModel.getBarCodesMediatorLiveData().observe(getHostActivity(), new Observer<Barcode>() {
+            @Override
+            public void onChanged(Barcode barcode) {
+                if (barcode != null && barcode.displayValue != null) {
+                    String[] parameters = barcode.displayValue.split(", ");
+                    if (!parameters[0].equals(getString(R.string.qr_code_key))) {
+                        Toast.makeText(getHostActivity(), "This QR Code is not valid", Toast.LENGTH_SHORT).show();
+                    } else {
+                        mBinding.imgScanCode.setImageResource(R.drawable.ic_checkmark);
+                        mBinding.txtScan.setText(getString(R.string.done));
+                        mBinding.btnScan.setEnabled(false);
+                        mBinding.edtCompanyUid.setText(parameters[4]);
+                        mBinding.edtBranchId.setText(parameters[2]);
+                        UserPreference.setCompanyName(getHostActivity(), parameters[3]);
+                        UserPreference.setBranchName(getHostActivity(), parameters[1]);
+
+                        isUIDsSetted = true;
+                    }
+
+                    if (isUIDsSetted && isUserNameSetted) {
+                        mBinding.btnConfirmInfo.setEnabled(true);
+                    } else {
+                        mBinding.btnConfirmInfo.setEnabled(false);
+                    }
+                }
+            }
+        });
+    }
+
     private StartingActivity getHostActivity() {
         return (StartingActivity) getActivity();
     }
 
-    private boolean checkInputTextErrors(TextInputLayout inputLayout) {
-        String text = Objects.requireNonNull(inputLayout.getEditText()).getText().toString();
-        if (!text.isEmpty()) {
-            return inputLayout.getError() == null;
-        }
-        return false;
+    private TextWatcher getCompanyAccountTextWatcher() {
+        return new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (s != null) {
+                    isCompanyNameSetted = !s.toString().isEmpty();
+
+                    if (isCompanyNameSetted && isUserNameSetted) {
+                        mBinding.btnConfirmInfo.setEnabled(true);
+
+                    } else {
+                        mBinding.btnConfirmInfo.setEnabled(false);
+                    }
+                }
+            }
+        };
     }
 
+    private void cleanUserObject() {
+        this.mainUser.setUt(null);
+        this.mainUser.setBuid(null);
+        this.mainUser.setCuid(null);
+        this.mainUser.setCn(null);
+    }
 
     private void showSalesFields() {
         mBinding.companyInfoLayout.startAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.move_and_fade_animator));
@@ -231,5 +322,24 @@ public class Fragment_select_user_type extends Fragment {
 
     }
 
+    private void openScanFragment() {
+        getHostActivity().requestCameraPermission();
+    }
 
+    @Override
+    public void onResume() {
+        initNameEditTextChangeListener();
+        super.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        if (userNameTextWatcher != null) {
+            mBinding.edtName.removeTextChangedListener(userNameTextWatcher);
+        }
+        if (companyNameTextWatcher != null) {
+            mBinding.edtCompanyName.removeTextChangedListener(companyNameTextWatcher);
+        }
+        super.onPause();
+    }
 }

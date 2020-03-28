@@ -67,7 +67,6 @@ public class Fragment_add_new_customer extends Fragment {
         } else {
             customer = savedInstanceState.getParcelable(NEW_CUSTOMER);
         }
-        mBinding.setCustomer(customer);
 
         //viewModel
         final NewCustomerSharedViewModel customerViewModel = new ViewModelProvider(getBaseActivity()).get(NewCustomerSharedViewModel.class);
@@ -82,6 +81,11 @@ public class Fragment_add_new_customer extends Fragment {
                         && checkInputTextErrors(mBinding.customerCompanyNameTxtInput) && checkInputTextErrors(mBinding.customerPhoneTxtInput)) {
 
                     //set the customer object to the sharedViewModel
+                    customer.setN(mBinding.edtCustomerName.getEditableText().toString().trim());
+                    customer.setCn(mBinding.customerCompanyNameEdt.getEditableText().toString().trim());
+                    customer.setE(mBinding.edtCustomerEmail.getEditableText().toString().trim());
+                    customer.setP(mBinding.customerPhoneEdt.getEditableText().toString().trim());
+                    customer.setEi(mBinding.edtCustomerNotes.getEditableText().toString().trim());
                     customerViewModel.setCustomerMutableLiveData(customer);
 
                     //open the second mapFragment;

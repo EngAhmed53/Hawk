@@ -79,25 +79,23 @@ public class CustomersRecyclerViewAdapter extends RecyclerView.Adapter<Customers
         setThe2Letters(holder, position, customerName);
     }
 
-    private void setThe2Letters(@NonNull CustomersViewHolder holder, int position, String branchName) {
-        String[] branchArray = branchName.split(" ");
-        char c1;
-        char c2;
-        if (branchArray.length == 1) {
-            c1 = branchArray[0].charAt(0);
-            if (branchArray[0].length() > 1) {
-                c2 = branchArray[0].charAt(1);
-                String s = String.valueOf(c1) + c2;
-                holder.mBinding.first2Letters.setText(s);
-            } else {
-                holder.mBinding.first2Letters.setText(String.valueOf(c1));
+    private void setThe2Letters(@NonNull CustomersViewHolder holder, int position, String customerName) {
+
+
+        //kmkkm    ckdpck
+        char c1 = customerName.charAt(0);
+        Character c2 = null;
+        int spaceIndex = customerName.lastIndexOf(" ");
+        if (spaceIndex != -1 && customerName.length() > spaceIndex) {
+            for (int i = spaceIndex + 1; i < customerName.length(); i ++) {
+                if (customerName.charAt(i) != ' ') {
+                    c2 = customerName.charAt(i);
+                    break;
+                }
             }
-        } else if (branchArray.length > 1) {
-            c1 = branchArray[0].charAt(0);
-            c2 = branchArray[1].charAt(0);
-            String s = String.valueOf(c1) + c2;
-            holder.mBinding.first2Letters.setText(s);
         }
+        String s = String.valueOf(c1) + (c2 != null ? c2 : "");
+        holder.mBinding.first2Letters.setText(s);
         holder.mBinding.first2Letters.setTypeface(Typeface.createFromAsset(mContext.getAssets(), "varela_round_regular.ttf"));
         holder.mBinding.first2Letters.setBackgroundColor(Color.parseColor(Common.getRandomColor(position)));
     }
@@ -111,11 +109,11 @@ public class CustomersRecyclerViewAdapter extends RecyclerView.Adapter<Customers
     }
 
 
-    public class CustomersViewHolder extends RecyclerView.ViewHolder {
+    class CustomersViewHolder extends RecyclerView.ViewHolder {
 
         CustomersListItemLayoutBinding mBinding;
 
-        public CustomersViewHolder(@NonNull View itemView) {
+        CustomersViewHolder(@NonNull View itemView) {
             super(itemView);
             mBinding = DataBindingUtil.bind(itemView);
         }

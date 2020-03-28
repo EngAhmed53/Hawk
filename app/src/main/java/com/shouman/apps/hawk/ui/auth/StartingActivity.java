@@ -1,8 +1,10 @@
 package com.shouman.apps.hawk.ui.auth;
 
+import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,6 +15,12 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.karumi.dexter.Dexter;
+import com.karumi.dexter.PermissionToken;
+import com.karumi.dexter.listener.PermissionDeniedResponse;
+import com.karumi.dexter.listener.PermissionGrantedResponse;
+import com.karumi.dexter.listener.PermissionRequest;
+import com.karumi.dexter.listener.single.PermissionListener;
 import com.shouman.apps.hawk.R;
 import com.shouman.apps.hawk.databinding.ActivityStartingBinding;
 import com.shouman.apps.hawk.model.User;
@@ -26,7 +34,7 @@ public class StartingActivity extends AppCompatActivity {
 
     public ActivityStartingBinding mBinding;
 
-    private FragmentManager fragmentManager;
+    public FragmentManager fragmentManager;
 
     private AuthViewModel authViewModel;
 
@@ -124,6 +132,7 @@ public class StartingActivity extends AppCompatActivity {
         if (userType.equals("company_account")) {
             intent = new Intent(StartingActivity.this, MainActivity.class);
             UserPreference.setCompanyUID(this, user.getCuid());
+            UserPreference.setCompanyName(this, user.getCn());
         } else if (userType.equals("sales_account")) {
             intent = new Intent(StartingActivity.this, Main2Activity.class);
             UserPreference.setBranchUID(this, user.getBuid());
@@ -229,6 +238,35 @@ public class StartingActivity extends AppCompatActivity {
                 .commit();
     }
 
+
+    public void requestCameraPermission() {
+        Dexter.withActivity(this).withPermission(Manifest.permission.CAMERA).withListener(new PermissionListener() {
+            @Override
+            public void onPermissionGranted(PermissionGrantedResponse response) {
+                showScanFragment();
+            }
+
+            @Override
+            public void onPermissionDenied(PermissionDeniedResponse response) {
+                Toast.makeText(StartingActivity.this, "Permission needed to open camera", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onPermissionRationaleShouldBeShown(PermissionRequest permission, PermissionToken token) {
+
+            }
+        }).check();
+    }
+
+    public void showScanFragment() {
+        Fragment_Scan_QR scanQr = Fragment_Scan_QR.getInstance();
+        fragmentManager
+                .beginTransaction()
+                .addToBackStack("qr_scan")
+                .setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right, android.R.anim.slide_in_left, android.R.anim.slide_out_right)
+                .add(R.id.starting_container, scanQr, "fragment_scan_qr")
+                .commit();
+    }
 
     @Override
     protected void onDestroy() {

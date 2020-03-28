@@ -85,7 +85,7 @@
     <string name="edit_customer_info">Edit Customer Info</string>
     <string name="customer_name">Customer name</string>
     <string name="customer_email">Email</string>
-    <string name="customer_phone">Phone number</string>
+    <string name="phone">Phone number</string>
     <string name="added_date">Added time</string>
     <string name="google_maps_key">AIzaSyABpiW13-2gPYkgXVyzFypJTQIW1me4Y1s</string>
     <string name="company_uid">Company UID</string>
@@ -108,6 +108,18 @@
     <string name="customer_notes">Customer notes</string>
     <string name="call_customer_phone_number">call customer phone number</string>
     <string name="search">Search</string>
+    <string name="branch_info">Branch information</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="country">Country</string>
+    <string name="city">City</string>
+    <string name="branch_qr_code">Branch Qr-Code</string>
+    <string name="branch_qrcode">Branch QRCode</string>
+    <string name="qr_code_key">this is Hawk QR_CODE</string>
+    <string name="scan_qr_code">Scan QR Code</string>
+    <string name="done">Done</string>
+    <string name="scan_your_branch_qr_code">Scan your branch QR-Code</string>
 
 
 </resources>

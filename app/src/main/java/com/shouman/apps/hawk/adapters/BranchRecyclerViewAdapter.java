@@ -67,24 +67,19 @@ public class BranchRecyclerViewAdapter extends RecyclerView.Adapter<BranchRecycl
     }
 
     private void setThe2Letters(@NonNull BranchesViewHolder holder, int position, String branchName) {
-        String[] branchArray = branchName.split(" ");
-        char c1;
-        char c2;
-        if (branchArray.length == 1) {
-            c1 = branchArray[0].charAt(0);
-            if (branchArray[0].length() > 1) {
-                c2 = branchArray[0].charAt(1);
-                String s = String.valueOf(c1) + c2;
-                holder.mBinding.first2Letters.setText(s);
-            } else {
-                holder.mBinding.first2Letters.setText(String.valueOf(c1));
+        char c1 = branchName.charAt(0);
+        Character c2 = null;
+        int spaceIndex = branchName.indexOf(" ");
+        if (spaceIndex != -1 && branchName.length() > spaceIndex) {
+            for (int i = spaceIndex + 1; i < branchName.length(); i++) {
+                if (branchName.charAt(i) != ' ') {
+                    c2 = branchName.charAt(i);
+                    break;
+                }
             }
-        } else if (branchArray.length > 1) {
-            c1 = branchArray[0].charAt(0);
-            c2 = branchArray[1].charAt(0);
-            String s = String.valueOf(c1) + c2;
-            holder.mBinding.first2Letters.setText(s);
         }
+        String s = String.valueOf(c1) + (c2 != null ? c2 : "");
+        holder.mBinding.first2Letters.setText(s);
         holder.mBinding.first2Letters.setTypeface(Typeface.createFromAsset(mContext.getAssets(), "varela_round_regular.ttf"));
         holder.mBinding.mtrlCardView.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(Common.getRandomColor(position))));
     }

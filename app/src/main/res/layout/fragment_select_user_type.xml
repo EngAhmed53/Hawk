@@ -27,13 +27,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
-                android:layout_marginTop="32dp"
                 android:fontFamily="sans-serif-light"
                 android:gravity="start|top"
                 android:text="@string/select_your_position"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"
                 android:textColor="@color/white"
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.06999999" />
@@ -175,6 +176,7 @@
                             android:maxLines="1"
                             android:textColor="@color/white"
                             android:textColorHint="@color/white" />
+
                     </com.google.android.material.textfield.TextInputLayout>
                 </LinearLayout>
 
@@ -190,6 +192,45 @@
                     app:layout_constraintTop_toBottomOf="@+id/brand_frame"
                     app:layout_constraintVertical_bias="0.37">
 
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/btn_scan"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:layout_marginLeft="50dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginRight="50dp"
+                        android:layout_marginBottom="8dp"
+                        android:background="@color/colorPrimary"
+                        android:elevation="6dp"
+                        android:stateListAnimator="@animator/social_icon_state_list_anim">
+
+                        <ImageView
+                            android:id="@+id/img_scan_code"
+                            android:layout_width="36dp"
+                            android:layout_height="36dp"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginEnd="8dp"
+                            android:src="@drawable/ic_scan_code"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/txt_scan"
+                            app:layout_constraintHorizontal_chainStyle="packed"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/txt_scan"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="8dp"
+                            android:text="@string/scan_qr_code"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Widget.Button.Colored"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/img_scan_code"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/company_uid_TextField"
@@ -218,6 +259,7 @@
                             android:id="@+id/edt_company_uid"
                             android:layout_width="match_parent"
                             android:layout_height="56dp"
+                            android:enabled="false"
                             android:inputType="text"
                             android:maxLength="100"
                             android:maxLines="1"
@@ -252,16 +294,14 @@
                             android:id="@+id/edt_branch_id"
                             android:layout_width="match_parent"
                             android:layout_height="56dp"
+                            android:enabled="false"
                             android:inputType="text"
                             android:maxLength="100"
                             android:maxLines="1"
                             android:textColor="@color/white"
                             android:textColorHint="@color/white" />
                     </com.google.android.material.textfield.TextInputLayout>
-
-
                 </LinearLayout>
-
 
                 <Button
                     android:id="@+id/btn_confirm_info"
@@ -270,15 +310,13 @@
                     android:layout_marginLeft="50dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginRight="50dp"
-                    android:layout_marginBottom="8dp"
-                    android:backgroundTint="@color/colorPrimary"
-                    android:elevation="6dp"
+                    android:text="@string/confirm"
                     android:enabled="false"
-                    android:text="@string/confirm" />
-
+                    android:layout_marginBottom="8dp"
+                    android:background="@color/colorPrimary"
+                    android:elevation="6dp"/>
 
             </LinearLayout>
-
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

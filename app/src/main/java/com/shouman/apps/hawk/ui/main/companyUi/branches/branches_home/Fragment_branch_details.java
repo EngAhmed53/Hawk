@@ -1,26 +1,29 @@
-package com.shouman.apps.hawk.ui.main.companyUi.branches;
+package com.shouman.apps.hawk.ui.main.companyUi.branches.branches_home;
 
 
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
-import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 import com.shouman.apps.hawk.R;
 import com.shouman.apps.hawk.databinding.FragmentBranchDetailsBinding;
-import com.shouman.apps.hawk.ui.main.companyUi.company_home.Fragment_company_home;
+import com.shouman.apps.hawk.ui.main.companyUi.MainActivity;
+import com.shouman.apps.hawk.ui.main.companyUi.branches.branches_info.Fragment_branch_info;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -85,10 +88,53 @@ public class Fragment_branch_details extends Fragment {
 
     private void toolbarCustomization() {
         mBinding.toolbar.setTitle(branchName);
+        mBinding.toolbar.inflateMenu(R.menu.branch_ui_menu);
+
+        mBinding.toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                backToHomeFragment();
+            }
+        });
+
+        mBinding.toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.action_branch_info:
+                        openBranchInfoFragment();
+                        return true;
+                    default:
+                        return false;
+                }
+            }
+        });
+
+    }
+
+    private void backToHomeFragment() {
+        getHostActivity()
+                .fragmentManager
+                .popBackStack("branch_details", FragmentManager.POP_BACK_STACK_INCLUSIVE);
+    }
+
+    private void openBranchInfoFragment() {
+        getHostActivity()
+                .fragmentManager
+                .beginTransaction()
+                .setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out, android.R.anim.fade_in, android.R.anim.fade_out)
+                .addToBackStack("branch_info")
+                .add(R.id.full_container, Fragment_branch_info.getInstance(branchUID, branchName))
+                .commit();
+    }
+
+    private MainActivity getHostActivity() {
+        return (MainActivity) getActivity();
     }
 
     private void initializeChart() {
         BarDataSet dataSet = new BarDataSet(getChartEntries(), "Total Customers");
+        dataSet.setValueFormatter(new MyValueFormatter());
         dataSet.setGradientColor(getResources().getColor(R.color.colorPrimaryLight), getResources().getColor(R.color.old_rose_light));
         ArrayList<IBarDataSet> dataSetArray = new ArrayList<>();
         dataSetArray.add(dataSet);

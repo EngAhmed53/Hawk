@@ -94,5 +94,10 @@ dependencies {
     //dexter lib
     implementation 'com.karumi:dexter:6.0.1'
 
+    //QR gen
+    implementation 'com.github.kenglxn.QRGen:android:2.6.0'
+
+
+    implementation 'com.google.android.gms:play-services-vision:19.0.0'
 
 }

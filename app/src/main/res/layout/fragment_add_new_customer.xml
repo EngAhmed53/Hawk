@@ -3,13 +3,6 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <data>
-
-        <variable
-            name="customer"
-            type="com.shouman.apps.hawk.model.Customer" />
-    </data>
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -84,7 +77,6 @@
                     android:inputType="text"
                     android:maxLength="100"
                     android:maxLines="1"
-                    android:text="@={customer.cn}"
                     android:textColor="@color/white"
                     android:textColorHint="@color/white" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -97,7 +89,7 @@
                 android:layout_marginStart="50dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="50dp"
-                android:hint="@string/customer_phone"
+                android:hint="@string/phone"
                 android:textColorHint="@color/white"
                 app:boxCornerRadiusBottomEnd="6dp"
                 app:boxCornerRadiusBottomStart="6dp"
@@ -120,7 +112,6 @@
                     android:inputType="phone"
                     android:maxLength="100"
                     android:maxLines="1"
-                    android:text="@={customer.p}"
                     android:textColor="@color/white"
                     android:textColorHint="@color/white" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -156,7 +147,6 @@
                     android:inputType="textEmailAddress"
                     android:maxLength="100"
                     android:maxLines="1"
-                    android:text="@={customer.e}"
                     android:textColor="@color/white"
                     android:textColorHint="@color/white" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -186,12 +176,11 @@
                 app:layout_constraintTop_toBottomOf="@+id/customer_email_txtInput">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edt_customer_info"
+                    android:id="@+id/edt_customer_notes"
                     android:layout_width="match_parent"
                     android:layout_height="150dp"
                     android:gravity="top"
                     android:inputType="text"
-                    android:text="@={customer.ei}"
                     android:textColor="@color/white"
                     android:textColorHint="@color/white" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -227,7 +216,6 @@
                     android:inputType="text"
                     android:maxLength="100"
                     android:maxLines="1"
-                    android:text="@={customer.n}"
                     android:textColor="@color/white"
                     android:textColorHint="@color/white" />
             </com.google.android.material.textfield.TextInputLayout>

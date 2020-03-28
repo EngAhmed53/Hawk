@@ -10,9 +10,8 @@ import androidx.fragment.app.FragmentManager;
 import com.shouman.apps.hawk.R;
 import com.shouman.apps.hawk.common.Common;
 import com.shouman.apps.hawk.databinding.ActivityMainBinding;
-import com.shouman.apps.hawk.preferences.UserPreference;
 import com.shouman.apps.hawk.ui.main.companyUi.add_new_branch.Fragment_add_new_branch;
-import com.shouman.apps.hawk.ui.main.companyUi.branches.Fragment_branch_details;
+import com.shouman.apps.hawk.ui.main.companyUi.branches.branches_home.Fragment_branch_details;
 import com.shouman.apps.hawk.ui.main.companyUi.company_home.Fragment_company_home;
 import com.shouman.apps.hawk.ui.main.companyUi.company_notification.Fragment_company_notification;
 import com.shouman.apps.hawk.ui.main.companyUi.company_profile.Fragment_company_profile;
@@ -152,7 +151,7 @@ public class MainActivity extends AppCompatActivity implements IMainClickHandler
         Fragment_branch_details fragment_branch_details = Fragment_branch_details.getInstance(branchUID, branchName);
         fragmentManager
                 .beginTransaction()
-                .addToBackStack(null)
+                .addToBackStack("branch_details")
                 .setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right, android.R.anim.slide_in_left, android.R.anim.slide_out_right)
                 .add(R.id.full_container, fragment_branch_details, "fragment_branch_details")
                 .commit();

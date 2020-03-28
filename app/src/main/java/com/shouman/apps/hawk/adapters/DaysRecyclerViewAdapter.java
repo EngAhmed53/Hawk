@@ -22,6 +22,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.TreeMap;
 
 public class DaysRecyclerViewAdapter extends RecyclerView.Adapter<DaysRecyclerViewAdapter.DaysViewHolder> {
@@ -79,7 +80,7 @@ public class DaysRecyclerViewAdapter extends RecyclerView.Adapter<DaysRecyclerVi
                 e.printStackTrace();
             }
             Date d2 = new Date();
-            long seconds = (d2.getTime() - d1.getTime()) / 1000;
+            long seconds = (d2.getTime() - Objects.requireNonNull(d1).getTime()) / 1000;
             if (seconds > 86400 && seconds < 172800) date = "Yesterday";
         }
 
@@ -93,10 +94,10 @@ public class DaysRecyclerViewAdapter extends RecyclerView.Adapter<DaysRecyclerVi
         return 0;
     }
 
-    public class DaysViewHolder extends RecyclerView.ViewHolder {
+    class DaysViewHolder extends RecyclerView.ViewHolder {
         DayListItemLayoutBinding mBinding;
 
-        public DaysViewHolder(@NonNull View itemView) {
+        DaysViewHolder(@NonNull View itemView) {
             super(itemView);
             mBinding = DataBindingUtil.bind(itemView);
             itemView.setOnClickListener(new View.OnClickListener() {

@@ -2,12 +2,15 @@ package com.shouman.apps.hawk.ui.auth;
 
 import android.app.Application;
 import android.util.Log;
+import android.util.SparseArray;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MediatorLiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 
+import com.google.android.gms.vision.barcode.Barcode;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -22,6 +25,9 @@ public class AuthViewModel extends AndroidViewModel {
     private FirebaseUser firebaseUser;
 
     private MediatorLiveData<User> userMediatorLiveData = new MediatorLiveData<>();
+
+    //this is for the barCode captured from the scanner;
+    private MutableLiveData<Barcode> barCodesMediatorLiveData = new MutableLiveData<>();
 
     public AuthViewModel(@NonNull Application application) {
         super(application);
@@ -63,5 +69,13 @@ public class AuthViewModel extends AndroidViewModel {
 
     void updateTheUserInDatabase(User mainUser) {
         AuthRepo.updateTheUserInDatabase(firebaseUser.getUid(), mainUser);
+    }
+
+    void setBarCodesArray(Barcode barCode) {
+        barCodesMediatorLiveData.postValue(barCode);
+    }
+
+    public MutableLiveData<Barcode> getBarCodesMediatorLiveData() {
+        return barCodesMediatorLiveData;
     }
 }
