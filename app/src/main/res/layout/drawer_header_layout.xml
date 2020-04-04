@@ -1,68 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical">
+
+<layout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
 
-    <com.makeramen.roundedimageview.RoundedImageView
-        android:id="@+id/drawer_img_user"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_centerInParent="true"
-        android:layout_marginTop="28dp"
-        android:adjustViewBounds="true"
-        android:contentDescription="@string/drawer_user_image_disc"
-        android:scaleType="center"
-        android:src="@color/colorPrimary"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:riv_border_color="@color/white"
-        app:riv_border_width="3dip"
-        app:riv_corner_radius="38dip" />
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/drawer_img_user"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="28dp"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/drawer_user_image_disc"
+            android:scaleType="center"
+            android:src="@color/colorPrimary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:riv_border_color="@color/white2"
+            app:riv_border_width="3dip"
+            app:riv_corner_radius="38dip" />
 
-    <TextView
-        android:id="@+id/txt_user_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:textAppearance="?android:textAppearanceMedium"
-        android:textColor="@color/white"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@+id/drawer_img_user"
-        app:layout_constraintStart_toEndOf="@+id/drawer_img_user"
-        app:layout_constraintTop_toBottomOf="@+id/drawer_img_user"
-        tools:text="Ahmed Azmy" />
+        <TextView
+            android:id="@+id/txt_user_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textAppearance="?android:textAppearanceMedium"
+            android:textColor="@color/white2"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/drawer_img_user"
+            app:layout_constraintStart_toEndOf="@+id/drawer_img_user"
+            app:layout_constraintTop_toBottomOf="@+id/drawer_img_user"
+            tools:text="Ahmed Azmy" />
 
-    <TextView
-        android:id="@+id/txt_company_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:textColor="@color/white"
-        android:textSize="14sp"
-        app:layout_constraintBottom_toBottomOf="@id/txt_branch_name"
-        app:layout_constraintEnd_toStartOf="@id/txt_user_name"
-        app:layout_constraintStart_toEndOf="@id/txt_user_name"
-        app:layout_constraintTop_toBottomOf="@id/txt_user_name"
-        app:layout_constraintVertical_bias="0.0"
-        tools:text="Qebaa For Trading" />
+        <TextView
+            android:id="@+id/txt_company_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:textColor="@color/white2"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@id/txt_branch_name"
+            app:layout_constraintEnd_toStartOf="@id/txt_user_name"
+            app:layout_constraintStart_toEndOf="@id/txt_user_name"
+            app:layout_constraintTop_toBottomOf="@id/txt_user_name"
+            app:layout_constraintVertical_bias="0.0"
+            tools:text="Qebaa For Trading" />
 
-    <TextView
-        android:id="@+id/txt_branch_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:textColor="@color/white"
-        android:textSize="14sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/txt_user_name"
-        app:layout_constraintStart_toEndOf="@id/txt_user_name"
-        app:layout_constraintTop_toBottomOf="@id/txt_company_name"
-        tools:text="QTherm Branch" />
+        <TextView
+            android:id="@+id/txt_branch_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:textColor="@color/white2"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/txt_user_name"
+            app:layout_constraintStart_toEndOf="@id/txt_user_name"
+            app:layout_constraintTop_toBottomOf="@id/txt_company_name"
+            tools:text="QTherm Branch" />
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -11,7 +11,6 @@ public class User {
     private String cuid;
     //user type
     private String ut;
-
     //company name
     private String cn;
 

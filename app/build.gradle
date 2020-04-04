@@ -96,8 +96,13 @@ dependencies {
 
     //QR gen
     implementation 'com.github.kenglxn.QRGen:android:2.6.0'
-
-
+    //QR vision
     implementation 'com.google.android.gms:play-services-vision:19.0.0'
+
+    //multi action fab
+    implementation 'com.github.clans:fab:1.6.4'
+
+    //guava lib
+    implementation("com.google.guava:guava:28.2-android")
 
 }

@@ -50,7 +50,7 @@
                         android:layout_gravity="bottom|center_horizontal"
                         android:fontFamily="sans-serif-light"
                         android:text="@string/create_account"
-                        android:textColor="@color/white"
+                        android:textColor="@color/white2"
                         android:textSize="28sp" />
 
                 </FrameLayout>
@@ -91,7 +91,7 @@
                             android:layout_marginStart="8dp"
                             android:layout_marginEnd="8dp"
                             android:padding="4dp"
-                            android:background="@color/white"
+                            android:background="@color/white2"
                             android:contentDescription="@string/facebook_logo"
                             android:src="@drawable/ic_google_logo"
                             app:layout_constraintBottom_toBottomOf="parent"
@@ -107,7 +107,7 @@
                             android:fontFamily="sans-serif-light"
                             android:text="@string/sign_up_with_google"
                             android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
-                            android:textColor="@color/white"
+                            android:textColor="@color/white2"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toStartOf="@+id/dump_view"
                             app:layout_constraintStart_toEndOf="@+id/google_icon"
@@ -150,7 +150,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="8dp"
                             android:layout_marginEnd="8dp"
-                            android:background="@color/white"
+                            android:background="@color/white2"
                             android:padding="4dp"
                             android:contentDescription="@string/facebook_logo"
                             android:src="@drawable/ic_facebook_logo"
@@ -168,7 +168,7 @@
                             android:gravity="center"
                             android:text="@string/sign_up_with_facebook"
                             android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
-                            android:textColor="@color/white"
+                            android:textColor="@color/white2"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toStartOf="@+id/dump_view_2"
                             app:layout_constraintStart_toEndOf="@+id/facebook_icon_sign_up"
@@ -217,7 +217,7 @@
                         android:id="@+id/view3"
                         android:layout_width="0dp"
                         android:layout_height="1dp"
-                        android:background="@color/white"
+                        android:background="@color/white2"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@id/or1"
                         app:layout_constraintStart_toStartOf="parent"
@@ -231,7 +231,7 @@
                         android:layout_marginRight="4dp"
                         android:text="@string/or"
                         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                        android:textColor="@color/white"
+                        android:textColor="@color/white2"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@+id/view4"
                         app:layout_constraintStart_toEndOf="@+id/view3"
@@ -241,7 +241,7 @@
                         android:id="@+id/view4"
                         android:layout_width="0dp"
                         android:layout_height="1dp"
-                        android:background="@color/white"
+                        android:background="@color/white2"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@id/or1"
@@ -259,18 +259,18 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="50dp"
                     android:hint="@string/e"
-                    android:textColorHint="@color/white"
+                    android:textColorHint="@color/white2"
                     app:boxCornerRadiusBottomEnd="6dp"
                     app:boxCornerRadiusBottomStart="6dp"
                     app:boxCornerRadiusTopEnd="6dp"
                     app:boxCornerRadiusTopStart="6dp"
-                    app:boxStrokeColor="@color/white"
+                    app:boxStrokeColor="@color/white2"
                     app:boxStrokeWidth="1dp"
                     app:emailValidation="@{empty}"
                     app:errorEnabled="true"
                     app:errorTextColor="@android:color/holo_red_dark"
                     app:hintTextAppearance="@style/TextAppearance.AppCompat.Caption"
-                    app:hintTextColor="@color/white"
+                    app:hintTextColor="@color/white2"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/or_layout">
@@ -282,8 +282,8 @@
                         android:inputType="textEmailAddress"
                         android:maxLength="100"
                         android:maxLines="1"
-                        android:textColor="@color/white"
-                        android:textColorHint="@color/white" />
+                        android:textColor="@color/white2"
+                        android:textColorHint="@color/white2" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -295,22 +295,22 @@
                     android:layout_marginTop="2dp"
                     android:layout_marginEnd="50dp"
                     android:hint="@string/password_min_6_characters"
-                    android:textColorHint="@color/white"
+                    android:textColorHint="@color/white2"
                     app:boxCornerRadiusBottomEnd="6dp"
                     app:boxCornerRadiusBottomStart="6dp"
                     app:boxCornerRadiusTopEnd="6dp"
                     app:boxCornerRadiusTopStart="6dp"
-                    app:boxStrokeColor="@color/white"
+                    app:boxStrokeColor="@color/white2"
                     app:boxStrokeWidth="1dp"
                     app:errorEnabled="true"
                     app:errorTextColor="@android:color/holo_red_dark"
                     app:hintTextAppearance="@style/TextAppearance.AppCompat.Caption"
-                    app:hintTextColor="@color/white"
+                    app:hintTextColor="@color/white2"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/email_TextField"
                     app:passwordToggleEnabled="true"
-                    app:passwordToggleTint="@color/white"
+                    app:passwordToggleTint="@color/white2"
                     app:passwordValidation="@{empty}">
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -320,8 +320,8 @@
                         android:inputType="textPassword"
                         android:maxLength="100"
                         android:maxLines="1"
-                        android:textColor="@color/white"
-                        android:textColorHint="@color/white" />
+                        android:textColor="@color/white2"
+                        android:textColorHint="@color/white2" />
                 </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -358,7 +358,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:background="@color/white"
+                    android:background="@color/white2"
                     android:elevation="8dp"
                     android:paddingLeft="20dp"
                     android:paddingRight="20dp">

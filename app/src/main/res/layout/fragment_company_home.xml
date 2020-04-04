@@ -34,13 +34,13 @@
             app:title="Home"
             app:titleMarginStart="24dp"
             app:titleTextAppearance="@style/TextAppearance.AppCompat.Title"
-            app:titleTextColor="@color/white" />
+            app:titleTextColor="@color/white2" />
 
         <ScrollView
             android:id="@+id/scrollView2"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:background="@color/white"
+            android:background="@color/white2"
             android:nestedScrollingEnabled="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -50,7 +50,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/white">
+                android:background="@color/white2">
 
                 <com.github.mikephil.charting.charts.BarChart
                     android:id="@+id/chart_view"
@@ -112,10 +112,12 @@
             app:hideMotionSpec="@anim/move_and_fade_animator"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
             app:pressedTranslationZ="12dp"
             app:rippleColor="@color/colorPrimaryDark"
             app:showMotionSpec="@anim/fade_in_animation"
-            app:tint="@color/white" />
+            app:tint="@color/white2" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

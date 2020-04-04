@@ -1,7 +1,6 @@
 package com.shouman.apps.hawk.adapters;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,20 +11,23 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.shouman.apps.hawk.R;
-import com.shouman.apps.hawk.common.Common;
 import com.shouman.apps.hawk.databinding.CustomersListItemLayoutBinding;
+import com.shouman.apps.hawk.model.CustomersLogDataEntry;
 import com.shouman.apps.hawk.ui.main.OnCustomerItemClickHandler;
 import com.shouman.apps.hawk.ui.main.companyUi.IMainClickHandler;
 import com.shouman.apps.hawk.ui.main.salesMemberUI.home.homeFragment.IMain2ClickHandler;
 
+import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 public class CustomersRecyclerViewAdapter extends RecyclerView.Adapter<CustomersRecyclerViewAdapter.CustomersViewHolder> {
 
-    private Map<String, String> customersMap;
-    private List<String> customersNames;
+    private Map<String, CustomersLogDataEntry> customersMap;
+    private List<CustomersLogDataEntry> customersData;
     private List<String> customersUIDs;
     private Context mContext;
 
@@ -33,10 +35,10 @@ public class CustomersRecyclerViewAdapter extends RecyclerView.Adapter<Customers
         this.mContext = mContext;
     }
 
-    public void setCustomersMap(Map<String, String> customersMap) {
+    public void setCustomersMap(Map<String, CustomersLogDataEntry> customersMap) {
         this.customersMap = customersMap;
-        this.customersNames = new ArrayList<>();
-        this.customersNames.addAll(customersMap.values());
+        this.customersData = new ArrayList<>();
+        this.customersData.addAll(customersMap.values());
         this.customersUIDs = new ArrayList<>();
         this.customersUIDs.addAll(customersMap.keySet());
         notifyDataSetChanged();
@@ -54,13 +56,13 @@ public class CustomersRecyclerViewAdapter extends RecyclerView.Adapter<Customers
 
     @Override
     public void onBindViewHolder(@NonNull CustomersViewHolder holder, int position) {
-        String customerName = customersNames.get(position);
-        holder.mBinding.customerNameTxt.setText(customerName);
+        CustomersLogDataEntry customerData = customersData.get(position);
+        holder.mBinding.customerNameTxt.setText(customerData.getCustomerName());
         //set on clickHandler
 
         String customerUID = customersUIDs.get(position);
         holder.mBinding.setCustomerUID(customerUID);
-        holder.mBinding.setCustomerName(customerName);
+        holder.mBinding.setCustomerName(customerData.getCustomerName());
 
         OnCustomerItemClickHandler onCustomerItemClickHandler;
 
@@ -69,25 +71,37 @@ public class CustomersRecyclerViewAdapter extends RecyclerView.Adapter<Customers
             onCustomerItemClickHandler = (IMainClickHandler) mContext;
 
         } catch (ClassCastException e) {
-            // catch that the user is sales_mamber and the ui is sales member ui
+            // catch that the user is sales_member and the ui is sales member ui
             onCustomerItemClickHandler = (IMain2ClickHandler) mContext;
 
         }
         holder.mBinding.setOnCustomerClickListener(onCustomerItemClickHandler);
 
         //set the 2 letters
-        setThe2Letters(holder, position, customerName);
+        setThe2Letters(holder, customerData.getCustomerName());
+
+        //set company name
+        holder.mBinding.companyNameTxt.setText(customerData.getCustomerCompanyName());
+
+        //set the time
+        DateFormat formatter = DateFormat.getTimeInstance(DateFormat.SHORT, Locale.ENGLISH);
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(customerData.getTimeMillieSeconds());
+        holder.mBinding.timeAdded.setText(formatter.format(calendar.getTime()));
+
+        //show the label if the customer is new and this is not just a visit
+        if (customerData.isNewCustomer()) {
+            holder.mBinding.labelView.setBackgroundColor(mContext.getResources().getColor(R.color.colorPrimaryLight));
+            holder.mBinding.imgNewLabel.setVisibility(View.VISIBLE);
+        }
     }
 
-    private void setThe2Letters(@NonNull CustomersViewHolder holder, int position, String customerName) {
-
-
-        //kmkkm    ckdpck
+    private void setThe2Letters(@NonNull CustomersViewHolder holder, String customerName) {
         char c1 = customerName.charAt(0);
         Character c2 = null;
         int spaceIndex = customerName.lastIndexOf(" ");
         if (spaceIndex != -1 && customerName.length() > spaceIndex) {
-            for (int i = spaceIndex + 1; i < customerName.length(); i ++) {
+            for (int i = spaceIndex + 1; i < customerName.length(); i++) {
                 if (customerName.charAt(i) != ' ') {
                     c2 = customerName.charAt(i);
                     break;
@@ -97,7 +111,6 @@ public class CustomersRecyclerViewAdapter extends RecyclerView.Adapter<Customers
         String s = String.valueOf(c1) + (c2 != null ? c2 : "");
         holder.mBinding.first2Letters.setText(s);
         holder.mBinding.first2Letters.setTypeface(Typeface.createFromAsset(mContext.getAssets(), "varela_round_regular.ttf"));
-        holder.mBinding.first2Letters.setBackgroundColor(Color.parseColor(Common.getRandomColor(position)));
     }
 
     @Override
@@ -109,7 +122,7 @@ public class CustomersRecyclerViewAdapter extends RecyclerView.Adapter<Customers
     }
 
 
-    class CustomersViewHolder extends RecyclerView.ViewHolder {
+    static class CustomersViewHolder extends RecyclerView.ViewHolder {
 
         CustomersListItemLayoutBinding mBinding;
 

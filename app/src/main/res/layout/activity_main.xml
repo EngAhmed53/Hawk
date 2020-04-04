@@ -41,7 +41,7 @@
                 app:abb_selectedTabType="icon"
                 app:abb_tabAnimation="slide"
                 app:abb_tabAnimationSelected="fade"
-                app:abb_tabColor="@color/white"
+                app:abb_tabColor="@color/white2"
                 app:abb_tabColorSelected="@color/old_rose"
                 app:abb_tabs="@menu/company_bottom_navigation_menu"
                 app:abb_textAppearance="@style/bottom_nav_bar_text_style" />

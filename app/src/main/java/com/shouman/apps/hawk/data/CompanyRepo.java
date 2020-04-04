@@ -35,6 +35,12 @@ public class CompanyRepo {
         return companiesReference.child(companyUID).child("ST").child(salesUID).child("cList");
     }
 
+    //return sales member customers list reference
+    public static DatabaseReference getSalesMemberCustomersLog(Context context, String salesUID) {
+        String companyUID = UserPreference.getCompanyUID(context);
+        return companiesReference.child(companyUID).child("ST").child(salesUID).child("cLog");
+    }
+
     //return customer reference
     public static DatabaseReference getCustomerReference(Context context, String customerUID) {
         String companyUID = UserPreference.getCompanyUID(context);

@@ -1,6 +1,7 @@
 package com.shouman.apps.hawk.ui.main.salesMemberUI.home.personalPage;
 
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
@@ -23,6 +24,12 @@ public class PersonalPageActivity extends AppCompatActivity {
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_personal_page);
 
         setSupportActionBar(mBinding.toolbar);
+        mBinding.toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         initViewModel();
 

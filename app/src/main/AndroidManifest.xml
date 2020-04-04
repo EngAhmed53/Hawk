@@ -3,12 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.shouman.apps.hawk">
     <!-- internet permission -->
-    <uses-permission android:name="android.permission.INTERNET" />
-    <!-- location permission -->
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <!--camera permission-->
-    <uses-permission android:name="android.permission.CAMERA" />
-    <!--vibration permission-->
+    <uses-permission android:name="android.permission.INTERNET" /> <!-- location permission -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" /> <!-- camera permission -->
+    <uses-permission android:name="android.permission.CAMERA" /> <!-- vibration permission -->
     <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
@@ -19,19 +16,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".ui.main.salesMemberUI.home.allCustomersPage.AllCustomersActivity" android:theme="@style/no_action_bar"/>
         <activity
             android:name=".ui.main.salesMemberUI.home.personalPage.PersonalPageActivity"
-            android:theme="@style/starting_activity" />
+            android:theme="@style/no_action_bar" />
         <activity
-            android:name=".ui.main.salesMemberUI.newCustomer.AddNewCustomerActivity"
-            android:theme="@style/starting_activity" />
+            android:name=".ui.main.salesMemberUI.newAdd.AddNewActivity"
+            android:theme="@style/no_action_bar" />
         <activity
             android:name=".ui.main.salesMemberUI.home.homeFragment.Main2Activity"
-            android:theme="@style/starting_activity" />
+            android:theme="@style/no_action_bar" />
         <activity
             android:name=".ui.auth.StartingActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/starting_activity">
+            android:theme="@style/no_action_bar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -40,7 +37,7 @@
         </activity>
         <activity
             android:name=".ui.main.companyUi.MainActivity"
-            android:theme="@style/starting_activity" />
+            android:theme="@style/no_action_bar" />
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
@@ -49,7 +46,6 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
-
         <meta-data
             android:name="com.google.android.gms.vision.DEPENDENCIES"
             android:value="barcode" />

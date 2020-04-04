@@ -25,13 +25,13 @@
             app:title="Scan QR"
             app:titleMarginStart="24dp"
             app:titleTextAppearance="@style/TextAppearance.AppCompat.Title"
-            app:titleTextColor="@color/white" />
+            app:titleTextColor="@color/white2" />
 
         <TextView
             android:id="@+id/textView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:background="@color/white"
+            android:background="@color/white2"
             android:fontFamily="sans-serif-light"
             android:gravity="center"
             android:padding="8dp"

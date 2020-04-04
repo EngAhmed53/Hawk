@@ -107,7 +107,7 @@ public class Fragment_select_user_type extends Fragment {
 
     private void initDropdown() {
         ArrayAdapter<String> positionsAdapter = new ArrayAdapter<>(Objects.requireNonNull(getContext()),
-                R.layout.drop_down_list_item,
+                R.layout.select_type_dropdown_list_item,
                 Common.getAllPositions(getContext()));
         mBinding.filledExposedDropdown.setAdapter(positionsAdapter);
 

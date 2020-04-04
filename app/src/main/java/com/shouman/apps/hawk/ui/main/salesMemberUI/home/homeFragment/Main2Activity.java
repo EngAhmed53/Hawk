@@ -1,7 +1,9 @@
 package com.shouman.apps.hawk.ui.main.salesMemberUI.home.homeFragment;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -15,8 +17,13 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.shouman.apps.hawk.R;
 import com.shouman.apps.hawk.databinding.ActivityMain2Binding;
+import com.shouman.apps.hawk.preferences.UserPreference;
+import com.shouman.apps.hawk.ui.auth.StartingActivity;
 import com.shouman.apps.hawk.ui.main.companyUi.customers.Fragment_customers_info;
+import com.shouman.apps.hawk.ui.main.salesMemberUI.home.allCustomersPage.AllCustomersActivity;
 import com.shouman.apps.hawk.ui.main.salesMemberUI.home.personalPage.PersonalPageActivity;
+
+import java.util.Objects;
 
 public class Main2Activity extends AppCompatActivity implements IMain2ClickHandler {
 
@@ -25,7 +32,6 @@ public class Main2Activity extends AppCompatActivity implements IMain2ClickHandl
     Fragment_customers_info fragment_customers_info;
     private FragmentManager fragmentManager;
     private String userUID;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,8 +63,20 @@ public class Main2Activity extends AppCompatActivity implements IMain2ClickHandl
         mainBinding.drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
 
+        setDrawerInfo();
+
         //show the home fragment
         showHomeFragment();
+    }
+
+    private void setDrawerInfo() {
+        String userName = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getDisplayName();
+        String companyName = UserPreference.getUserCompanyName(this);
+        String branchName = UserPreference.getBranchName(this);
+
+        mainBinding.headerLayout.txtBranchName.setText(branchName);
+        mainBinding.headerLayout.txtCompanyName.setText(companyName);
+        mainBinding.headerLayout.txtUserName.setText(userName);
     }
 
 
@@ -80,6 +98,9 @@ public class Main2Activity extends AppCompatActivity implements IMain2ClickHandl
             case R.id.nav_chang_branch:
                 showBranchPage();
                 break;
+            case R.id.nav_allCustomers_list:
+                showAllCustomersActivity();
+                break;
             case R.id.nav_sign_out:
                 signOut();
                 break;
@@ -89,18 +110,51 @@ public class Main2Activity extends AppCompatActivity implements IMain2ClickHandl
         }
     }
 
+    private void showAllCustomersActivity() {
+        Intent intent = new Intent(this, AllCustomersActivity.class);
+        startActivity(intent);
+    }
+
     private void exitApp() {
         finish();
     }
 
     private void signOut() {
         new MaterialAlertDialogBuilder(this)
+                .setPositiveButton(getString(R.string.sign_out), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        signOutTheUser();
+                    }
+                })
+                .setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        //cancel
+                    }
+                })
                 .setCancelable(true)
-                .setMessage("Are you sure ?")
+                .setMessage("Are you sure to sign out ?")
                 .setTitle("Sign out")
                 .setIcon(R.drawable.ic_logout)
                 .create()
                 .show();
+    }
+
+    private void signOutTheUser() {
+        FirebaseAuth.getInstance().signOut();
+        clearUserPreference();
+        showStartingActivity();
+    }
+
+    private void showStartingActivity() {
+        Intent intent = new Intent(this, StartingActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+    private void clearUserPreference() {
+        UserPreference.clearAllPreference(this);
     }
 
     private void showBranchPage() {
@@ -148,6 +202,7 @@ public class Main2Activity extends AppCompatActivity implements IMain2ClickHandl
 
     @Override
     public void onCustomerItemClickHandler(String customerUID, String customerName) {
+        Log.e("TAG", "onCustomerItemClickHandler: " + customerUID + " " + customerName);
         fragment_customers_info = Fragment_customers_info.getInstance(customerName, customerUID);
         fragmentManager
                 .beginTransaction()

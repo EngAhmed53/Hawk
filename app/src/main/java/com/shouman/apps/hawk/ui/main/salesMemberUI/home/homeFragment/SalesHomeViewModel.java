@@ -11,22 +11,22 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.shouman.apps.hawk.data.CompanyRepo;
 import com.shouman.apps.hawk.data.FirebaseQueryLiveData;
+import com.shouman.apps.hawk.model.CustomersLogDataEntry;
 import com.shouman.apps.hawk.utils.AppExecutors;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class SalesHomeViewModel extends ViewModel {
+class SalesHomeViewModel extends ViewModel {
 
     private static final String TAG = "SalesHomeViewModel";
-    private MediatorLiveData<Map<String, Map<String, String>>> mediatorSalesLiveData = new MediatorLiveData<>();
+    private MediatorLiveData<Map<String, Map<String, CustomersLogDataEntry>>> mediatorSalesLiveData = new MediatorLiveData<>();
 
-     public SalesHomeViewModel(Context context, String salesUID) {
+    SalesHomeViewModel(Context context, String salesUID) {
 
         //set the branch uid
-        DatabaseReference salesReference = CompanyRepo.getSalesMemberCustomersList(context, salesUID);
+        DatabaseReference salesReference = CompanyRepo.getSalesMemberCustomersLog(context, salesUID);
         FirebaseQueryLiveData firebaseQueryLiveData = new FirebaseQueryLiveData(salesReference);
-
 
         mediatorSalesLiveData.addSource(firebaseQueryLiveData, new Observer<DataSnapshot>() {
             @Override
@@ -35,17 +35,17 @@ public class SalesHomeViewModel extends ViewModel {
                     AppExecutors.getsInstance().getNetworkIO().execute(new Runnable() {
                         @Override
                         public void run() {
-                            Map<String, Map<String, String>> dates_customers_map = new HashMap<>();
+                            Map<String, Map<String, CustomersLogDataEntry>> dates_customers_map = new HashMap<>();
 
                             // to get the dates values;
                             for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
                                 String parentKey = dataSnapshot1.getKey();
-                                Map<String, String> customerMap = new HashMap<>();
+                                Map<String, CustomersLogDataEntry> customerMap = new HashMap<>();
 
                                 // to get each date customers list
                                 for (DataSnapshot dataSnapshot2 : dataSnapshot1.getChildren()) {
                                     String childKey = dataSnapshot2.getKey();
-                                    String value = dataSnapshot2.getValue(String.class);
+                                    CustomersLogDataEntry value = dataSnapshot2.getValue(CustomersLogDataEntry.class);
                                     customerMap.put(childKey, value);
                                 }
 
@@ -61,7 +61,7 @@ public class SalesHomeViewModel extends ViewModel {
         });
     }
 
-    public MediatorLiveData<Map<String, Map<String, String>>> getMediatorSalesLiveData() {
+    MediatorLiveData<Map<String, Map<String, CustomersLogDataEntry>>> getMediatorSalesLiveData() {
         return mediatorSalesLiveData;
     }
 }

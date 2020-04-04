@@ -7,10 +7,12 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.shouman.apps.hawk.adapters.AllCustomersRecyclerViewAdapter;
 import com.shouman.apps.hawk.adapters.BranchRecyclerViewAdapter;
 import com.shouman.apps.hawk.adapters.CustomersRecyclerViewAdapter;
 import com.shouman.apps.hawk.adapters.DaysRecyclerViewAdapter;
 import com.shouman.apps.hawk.adapters.SalesRecyclerViewAdapter;
+import com.shouman.apps.hawk.model.CustomersLogDataEntry;
 
 import java.util.Map;
 
@@ -59,7 +61,7 @@ public class RecyclerViewDataBinding {
 
 
     @BindingAdapter("setDaysMap")
-    public static void setDaysCustomersMap(RecyclerView view, Map<String, Map<String, String>> days_customers_map) {
+    public static void setDaysCustomersMap(RecyclerView view, Map<String, Map<String, CustomersLogDataEntry>> days_customers_map) {
 
         if (days_customers_map == null) {
             Log.e(TAG, "setDaysCustomersMap: days_customersMap is null");
@@ -80,10 +82,9 @@ public class RecyclerViewDataBinding {
     }
 
     @BindingAdapter("setCustomersMap")
-    public static void setCustomersRecyclerViewMap(RecyclerView view, Map<String, String> customersList) {
+    public static void setCustomersRecyclerViewMap(RecyclerView view, Map<String, CustomersLogDataEntry> customersMap) {
 
-        if (customersList == null) {
-            Log.e(TAG, "setSalesRecyclerViewMap: customersList is null");
+        if (customersMap == null) {
             return;
         }
         if (view.getLayoutManager() == null) {
@@ -92,10 +93,29 @@ public class RecyclerViewDataBinding {
         }
         if (view.getAdapter() == null) {
             CustomersRecyclerViewAdapter adapter = new CustomersRecyclerViewAdapter(view.getContext());
-            adapter.setCustomersMap(customersList);
+            adapter.setCustomersMap(customersMap);
             view.setAdapter(adapter);
         } else {
-            ((CustomersRecyclerViewAdapter) view.getAdapter()).setCustomersMap(customersList);
+            ((CustomersRecyclerViewAdapter) view.getAdapter()).setCustomersMap(customersMap);
+
+        }
+    }
+    @BindingAdapter("setAllCustomersMap")
+    public static void setAllCustomersRecyclerViewMap(RecyclerView view, Map<String, String> customersMap) {
+
+        if (customersMap == null) {
+            return;
+        }
+        if (view.getLayoutManager() == null) {
+            view.setLayoutManager(new LinearLayoutManager(view.getContext(), LinearLayoutManager.VERTICAL, false));
+            view.setHasFixedSize(true);
+        }
+        if (view.getAdapter() == null) {
+            AllCustomersRecyclerViewAdapter adapter = new AllCustomersRecyclerViewAdapter(view.getContext());
+            adapter.setCustomersMap(customersMap);
+            view.setAdapter(adapter);
+        } else {
+            ((AllCustomersRecyclerViewAdapter) view.getAdapter()).setCustomersMap(customersMap);
 
         }
     }

@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -21,7 +22,8 @@ import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.shouman.apps.hawk.R;
 import com.shouman.apps.hawk.databinding.FragmentSalesHomeBinding;
-import com.shouman.apps.hawk.ui.main.salesMemberUI.newCustomer.AddNewCustomerActivity;
+import com.shouman.apps.hawk.model.CustomersLogDataEntry;
+import com.shouman.apps.hawk.ui.main.salesMemberUI.newAdd.AddNewActivity;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -33,6 +35,9 @@ import java.util.Objects;
 public class Fragment_sales_home extends Fragment {
     private static final String TAG = "Fragment_sales_home";
     private static final String USER_UID = "user_uid";
+    public static final int FRAGMENT_NEW_CUSTOMER = 0;
+    public static final int FRAGMENT_NEW_VISIT = 1;
+    public static final String OPEN_FRAGMENT = "open_fragment";
     private String userUID;
 
     private FragmentSalesHomeBinding mBinding;
@@ -69,9 +74,9 @@ public class Fragment_sales_home extends Fragment {
         SalesHomeViewModelFactory factory = new SalesHomeViewModelFactory(getContext(), userUID);
         SalesHomeViewModel salesHomeViewModel = new ViewModelProvider(this, factory).get(SalesHomeViewModel.class);
 
-        salesHomeViewModel.getMediatorSalesLiveData().observe(getViewLifecycleOwner(), new Observer<Map<String, Map<String, String>>>() {
+        salesHomeViewModel.getMediatorSalesLiveData().observe(getViewLifecycleOwner(), new Observer<Map<String, Map<String, CustomersLogDataEntry>>>() {
             @Override
-            public void onChanged(Map<String, Map<String, String>> dates_customers_map) {
+            public void onChanged(Map<String, Map<String, CustomersLogDataEntry>> dates_customers_map) {
                 if (dates_customers_map != null) {
                     mBinding.setDatesCustomersMap(dates_customers_map);
                 }
@@ -80,15 +85,55 @@ public class Fragment_sales_home extends Fragment {
 
 
         initializeChart();
-
-        mBinding.fabAddNewCustomer.setOnClickListener(new View.OnClickListener() {
+        mBinding.fabMenu.setOnMenuButtonClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getContext(), AddNewCustomerActivity.class);
-                startActivity(intent);
+                if (mBinding.fabMenu.isOpened()) {
+                    mBinding.protectionLayout.startAnimation(AnimationUtils.loadAnimation(getContext(), android.R.anim.fade_out));
+                    mBinding.protectionLayout.setVisibility(View.GONE);
+                    mBinding.fabMenu.close(true);
+
+                } else {
+                    mBinding.protectionLayout.setVisibility(View.VISIBLE);
+                    mBinding.protectionLayout.startAnimation(AnimationUtils.loadAnimation(getContext(), android.R.anim.fade_in));
+                    mBinding.fabMenu.open(true);
+                }
             }
         });
+
+        mBinding.fabItemAddCustomer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), AddNewActivity.class);
+                intent.putExtra(OPEN_FRAGMENT, FRAGMENT_NEW_CUSTOMER);
+                startActivity(intent);
+                closeFabMenu();
+            }
+        });
+
+        mBinding.fabItemAddVisit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), AddNewActivity.class);
+                intent.putExtra(OPEN_FRAGMENT, FRAGMENT_NEW_VISIT);
+                startActivity(intent);
+                closeFabMenu();
+            }
+        });
+
+        mBinding.protectionLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                closeFabMenu();
+            }
+        });
+
         return mBinding.getRoot();
+    }
+
+    private void closeFabMenu() {
+        mBinding.fabMenu.close(true);
+        mBinding.protectionLayout.setVisibility(View.GONE);
     }
 
     private void initializeChart() {
@@ -130,11 +175,17 @@ public class Fragment_sales_home extends Fragment {
         return entries;
     }
 
-    private class MyValueFormatter extends ValueFormatter {
+    private static class MyValueFormatter extends ValueFormatter {
         @Override
         public String getFormattedValue(float value) {
             return String.valueOf((int) value);
         }
     }
 
+
+    @Override
+    public void onDestroy() {
+        mBinding.setDatesCustomersMap(null);
+        super.onDestroy();
+    }
 }

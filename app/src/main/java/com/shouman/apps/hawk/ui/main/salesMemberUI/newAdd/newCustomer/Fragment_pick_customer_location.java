@@ -1,4 +1,4 @@
-package com.shouman.apps.hawk.ui.main.salesMemberUI.newCustomer;
+package com.shouman.apps.hawk.ui.main.salesMemberUI.newAdd.newCustomer;
 
 
 import android.content.Context;
@@ -33,6 +33,7 @@ import com.google.android.gms.tasks.Task;
 import com.shouman.apps.hawk.data.SalesRepo;
 import com.shouman.apps.hawk.databinding.FragmentPickLocationBinding;
 import com.shouman.apps.hawk.model.Customer;
+import com.shouman.apps.hawk.ui.main.salesMemberUI.newAdd.AddNewActivity;
 import com.shouman.apps.hawk.utils.AppExecutors;
 
 import java.util.Objects;
@@ -112,6 +113,7 @@ public class Fragment_pick_customer_location extends Fragment implements OnMapRe
                 AppExecutors.getsInstance().getNetworkIO().execute(new Runnable() {
                     @Override
                     public void run() {
+                        //add this new customer to database
                         SalesRepo.addNewCustomerToDatabase(getContext(), theCustomer);
                         getBaseActivity().runOnUiThread(new Runnable() {
                             @Override
@@ -129,8 +131,8 @@ public class Fragment_pick_customer_location extends Fragment implements OnMapRe
     }
 
     //get the host activity
-    private AddNewCustomerActivity getBaseActivity() {
-        return (AddNewCustomerActivity) getActivity();
+    private AddNewActivity getBaseActivity() {
+        return (AddNewActivity) getActivity();
     }
 
     //get the location

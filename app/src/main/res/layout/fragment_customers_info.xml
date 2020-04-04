@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -8,14 +10,20 @@
         <variable
             name="customer"
             type="Customer" />
+
+        <variable
+            name="notDefined"
+            type="String" />
+
+        <variable
+            name="date"
+            type="String" />
     </data>
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white"
+        android:background="@color/white2"
         android:clickable="true"
         android:focusable="true"
         tools:context=".ui.main.companyUi.customers.Fragment_customers_info">
@@ -79,7 +87,7 @@
                     android:layout_height="65dp"
                     android:layout_marginStart="10dp"
                     android:layout_marginEnd="10dp"
-                    android:layout_marginBottom="16dp"
+                    android:layout_marginBottom="8dp"
                     android:backgroundTint="@android:color/white"
                     android:focusable="true"
                     android:paddingBottom="16dp"
@@ -100,7 +108,7 @@
                         app:hintTextAppearance="@style/TextAppearance.AppCompat.Caption"
                         app:hintTextColor="@color/old_rose_dark"
                         app:startIconDrawable="@drawable/ic_person"
-                        app:startIconTint="@color/old_rose">
+                        app:startIconTint="@color/colorAccent">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/edt_customer_name"
@@ -109,9 +117,10 @@
                             android:enabled="false"
                             android:focusable="true"
                             android:inputType="text"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                             android:maxLength="100"
                             android:maxLines="1"
-                            android:text="@{customer.n}"
+                            android:text="@{customer.n != null &amp;&amp; !customer.n.empty ? customer.n : notDefined}"
                             android:textColor="@color/gray1"
                             android:textColorHint="@color/primaryTransparent" />
                     </com.google.android.material.textfield.TextInputLayout>
@@ -124,7 +133,7 @@
                     android:layout_height="65dp"
                     android:layout_marginStart="10dp"
                     android:layout_marginEnd="10dp"
-                    android:layout_marginBottom="16dp"
+                    android:layout_marginBottom="8dp"
                     android:backgroundTint="@android:color/white"
                     android:focusable="true"
                     app:cardBackgroundColor="@android:color/white"
@@ -144,7 +153,7 @@
                         app:hintTextAppearance="@style/TextAppearance.AppCompat.Caption"
                         app:hintTextColor="@color/old_rose_dark"
                         app:startIconDrawable="@drawable/ic_email"
-                        app:startIconTint="@color/old_rose">
+                        app:startIconTint="@color/colorAccent">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/edt_customer_email"
@@ -152,10 +161,11 @@
                             android:layout_height="wrap_content"
                             android:enabled="false"
                             android:focusable="true"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                             android:inputType="textEmailAddress"
                             android:maxLength="100"
                             android:maxLines="1"
-                            android:text="@{customer.e}"
+                            android:text="@{customer.e != null &amp;&amp; !customer.e.empty ? customer.e : notDefined}"
                             android:textColor="@color/gray1"
                             android:textColorHint="@color/primaryTransparent" />
                     </com.google.android.material.textfield.TextInputLayout>
@@ -168,21 +178,21 @@
                     android:layout_height="65dp"
                     android:layout_marginStart="10dp"
                     android:layout_marginEnd="10dp"
-                    android:layout_marginBottom="16dp"
+                    android:layout_marginBottom="8dp"
                     android:backgroundTint="@android:color/white"
                     android:focusable="true"
                     app:cardBackgroundColor="@android:color/white"
                     app:cardCornerRadius="0dp"
                     app:cardElevation="2dp">
 
-                    <FrameLayout
+                    <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
 
                         <com.google.android.material.textfield.TextInputLayout
                             android:id="@+id/customer_phone_textInput"
                             style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense"
-                            android:layout_width="match_parent"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:hint="@string/phone"
@@ -191,11 +201,13 @@
                             app:boxStrokeColor="@color/colorPrimaryDark"
                             app:hintTextAppearance="@style/TextAppearance.AppCompat.Caption"
                             app:hintTextColor="@color/old_rose_dark"
-                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/btn_call_customer"
+                            app:layout_constraintHorizontal_chainStyle="spread"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/constraintLayout2"
+                            app:layout_constraintTop_toTopOf="parent"
                             app:startIconDrawable="@drawable/ic_phone"
-                            app:startIconTint="@color/old_rose">
+                            app:startIconTint="@color/colorAccent">
 
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/edt_customer_phone"
@@ -205,8 +217,9 @@
                                 android:focusable="true"
                                 android:inputType="phone"
                                 android:maxLength="100"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                                 android:maxLines="1"
-                                android:text="@{customer.p}"
+                                android:text="@{customer.p != null &amp;&amp; !customer.p.empty ? customer.p : notDefined}"
                                 android:textColor="@color/gray1"
                                 android:textColorHint="@color/primaryTransparent" />
                         </com.google.android.material.textfield.TextInputLayout>
@@ -215,15 +228,18 @@
                             android:id="@+id/btn_call_customer"
                             android:layout_width="40dp"
                             android:layout_height="40dp"
-                            android:src="@drawable/ic_call"
-                            android:layout_gravity="center_vertical|end"
+                            android:layout_margin="8dp"
                             android:background="@drawable/call_btn_background"
-                            android:scaleType="center"
                             android:contentDescription="@string/call_customer_phone_number"
-                            android:layout_marginEnd="16dp"/>
+                            android:scaleType="center"
+                            android:src="@drawable/ic_call"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@id/customer_phone_textInput"
+                            app:layout_constraintTop_toTopOf="parent" />
 
 
-                    </FrameLayout>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
                 </androidx.cardview.widget.CardView>
@@ -233,7 +249,7 @@
                     android:layout_height="65dp"
                     android:layout_marginStart="10dp"
                     android:layout_marginEnd="10dp"
-                    android:layout_marginBottom="16dp"
+                    android:layout_marginBottom="8dp"
                     android:backgroundTint="@android:color/white"
                     android:focusable="true"
                     app:cardBackgroundColor="@android:color/white"
@@ -254,7 +270,7 @@
                         app:hintTextAppearance="@style/TextAppearance.AppCompat.Caption"
                         app:hintTextColor="@color/old_rose_dark"
                         app:startIconDrawable="@drawable/ic_domain"
-                        app:startIconTint="@color/old_rose">
+                        app:startIconTint="@color/colorAccent">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/edt_customer_company_name"
@@ -265,7 +281,8 @@
                             android:inputType="text"
                             android:maxLength="100"
                             android:maxLines="1"
-                            android:text="@{customer.cn}"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                            android:text="@{customer.cn != null &amp;&amp; !customer.cn.empty ? customer.cn : notDefined}"
                             android:textColor="@color/gray1"
                             android:textColorHint="@color/primaryTransparent" />
                     </com.google.android.material.textfield.TextInputLayout>
@@ -278,7 +295,7 @@
                     android:layout_height="130dp"
                     android:layout_marginStart="10dp"
                     android:layout_marginEnd="10dp"
-                    android:layout_marginBottom="16dp"
+                    android:layout_marginBottom="8dp"
                     android:backgroundTint="@android:color/white"
                     android:focusable="true"
                     app:cardBackgroundColor="@android:color/white"
@@ -298,7 +315,7 @@
                         app:hintTextAppearance="@style/TextAppearance.AppCompat.Caption"
                         app:hintTextColor="@color/old_rose_dark"
                         app:startIconDrawable="@drawable/ic_content"
-                        app:startIconTint="@color/old_rose">
+                        app:startIconTint="@color/colorAccent">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/edt_customer_notes"
@@ -306,9 +323,10 @@
                             android:layout_height="wrap_content"
                             android:enabled="false"
                             android:focusable="true"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                             android:inputType="text"
                             android:maxLength="100"
-                            android:text="@{customer.ei}"
+                            android:text="@{customer.ei != null &amp;&amp; !customer.ei.empty ? customer.ei : notDefined}"
                             android:textColor="@color/gray1"
                             android:textColorHint="@color/primaryTransparent" />
                     </com.google.android.material.textfield.TextInputLayout>
@@ -321,7 +339,7 @@
                     android:layout_height="65dp"
                     android:layout_marginStart="10dp"
                     android:layout_marginEnd="10dp"
-                    android:layout_marginBottom="16dp"
+                    android:layout_marginBottom="8dp"
                     android:backgroundTint="@android:color/white"
                     android:focusable="true"
                     app:cardBackgroundColor="@android:color/white"
@@ -340,7 +358,7 @@
                         app:hintTextAppearance="@style/TextAppearance.AppCompat.Caption"
                         app:hintTextColor="@color/old_rose_dark"
                         app:startIconDrawable="@drawable/ic_date"
-                        app:startIconTint="@color/old_rose">
+                        app:startIconTint="@color/colorAccent">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/edt_customer_date_time"
@@ -351,7 +369,8 @@
                             android:inputType="text"
                             android:maxLength="100"
                             android:maxLines="1"
-                            android:text="@{customer.cn}"
+                            android:text="@{date}"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                             android:textColor="@color/gray1"
                             android:textColorHint="@color/primaryTransparent" />
                     </com.google.android.material.textfield.TextInputLayout>
@@ -365,10 +384,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginEnd="16dp"
-                    android:layout_marginBottom="16dp"
+                    android:layout_marginBottom="8dp"
                     app:cardCornerRadius="16dp"
                     app:cardElevation="4dp"
-                    app:strokeColor="@color/white"
+                    app:strokeColor="@color/white2"
                     app:strokeWidth="1dp">
 
                     <com.shouman.apps.hawk.myCustomViews.CustomMapView

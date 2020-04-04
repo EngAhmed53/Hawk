@@ -16,7 +16,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white">
+        android:background="@color/white2">
 
 
         <androidx.appcompat.widget.Toolbar
@@ -26,18 +26,20 @@
             android:background="@color/colorPrimary"
             android:elevation="6dp"
             android:fadeScrollbars="true"
-            app:titleTextColor="@color/white"
-            app:titleTextAppearance="@style/TextAppearance.AppCompat.Title.Inverse"
+            app:layout_constraintBottom_toTopOf="@+id/scrollView3"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:navigationIcon="@drawable/ic_arrow_back"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+            app:titleTextAppearance="@style/TextAppearance.AppCompat.Title.Inverse"
+            app:titleTextColor="@color/white2" />
 
         <ScrollView
+            android:id="@+id/scrollView3"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:background="@color/white"
+            android:background="@color/white2"
             android:nestedScrollingEnabled="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -55,11 +57,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="240dp"
                     android:layout_marginTop="24dp"
+                    android:layout_marginBottom="16dp"
                     android:background="@color/fui_transparent"
                     app:layout_collapseMode="parallax"
+                    app:layout_constraintBottom_toTopOf="@+id/txt_view"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_chainStyle="packed" />
 
                 <TextView
                     android:id="@+id/txt_view"
@@ -79,6 +84,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:clipToPadding="false"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/txt_view">

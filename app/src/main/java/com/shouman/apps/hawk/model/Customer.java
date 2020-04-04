@@ -6,6 +6,10 @@ import android.os.Parcelable;
 import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
 
+import com.shouman.apps.hawk.BR;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class Customer extends BaseObservable implements Parcelable {
 
@@ -29,13 +33,19 @@ public class Customer extends BaseObservable implements Parcelable {
     private String e;
 
     //customer extra information;
-    //can be extra or null
+    //can be empty or null
     private String ei;
 
+    private long addedTime;
+
+    //list of customer visits
+    private Map<String, Visit> visitList;
+
     public Customer() {
+        visitList = new HashMap<>();
     }
 
-    public Customer(String n, double lt, double ln, String cn, String p, String e, String ei) {
+    public Customer(String n, double lt, double ln, String cn, String p, String e, String ei, long addedTime) {
         this.n = n;
         this.lt = lt;
         this.ln = ln;
@@ -43,6 +53,8 @@ public class Customer extends BaseObservable implements Parcelable {
         this.p = p;
         this.e = e;
         this.ei = ei;
+        this.visitList = new HashMap<>();
+        this.addedTime = addedTime;
     }
 
     @Bindable
@@ -115,13 +127,33 @@ public class Customer extends BaseObservable implements Parcelable {
         notifyPropertyChanged(com.shouman.apps.hawk.BR.ei);
     }
 
-    public Customer(Parcel in) {
+    public Map<String, Visit> getVisitList() {
+        return visitList;
+    }
+
+    public void setVisitList(Map<String, Visit> visitList) {
+        this.visitList = visitList;
+    }
+
+    @Bindable
+    public long getAddedTime() {
+        return addedTime;
+    }
+
+    public void setAddedTime(long addedTime) {
+        this.addedTime = addedTime;
+        notifyPropertyChanged(BR.addedTime);
+    }
+
+    protected Customer(Parcel in) {
         n = in.readString();
         lt = in.readDouble();
         ln = in.readDouble();
         cn = in.readString();
         p = in.readString();
+        e = in.readString();
         ei = in.readString();
+        addedTime = in.readLong();
     }
 
     @Override
@@ -138,8 +170,10 @@ public class Customer extends BaseObservable implements Parcelable {
         dest.writeString(p);
         dest.writeString(e);
         dest.writeString(ei);
+        dest.writeLong(addedTime);
     }
 
+    @SuppressWarnings("unused")
     public static final Parcelable.Creator<Customer> CREATOR = new Parcelable.Creator<Customer>() {
         @Override
         public Customer createFromParcel(Parcel in) {

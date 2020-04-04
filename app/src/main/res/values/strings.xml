@@ -120,6 +120,16 @@
     <string name="scan_qr_code">Scan QR Code</string>
     <string name="done">Done</string>
     <string name="scan_your_branch_qr_code">Scan your branch QR-Code</string>
+    <string name="new_customer_label">new customer label</string>
+    <string name="select_the_customer_then_press_add_new_visit">Select the customer then press add new Visit</string>
+    <string name="new_visit">New Visit</string>
+    <string name="Choose_customer">Choose Customer</string>
+    <string name="add_notes">Add Notes...</string>
+    <string name="add_visit">Add Visit</string>
+    <string name="new_customer">New Customer</string>
+    <string name="my_customers">My Customers</string>
+    <string name="not_defined">Not Defined</string>
+    <string name="cancel">Cancel</string>
 
 
 </resources>

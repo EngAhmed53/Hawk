@@ -5,17 +5,18 @@
     <data>
 
         <import type="java.util.Map" />
+        <import type="com.shouman.apps.hawk.model.CustomersLogDataEntry"/>
 
         <variable
             name="dates_customers_map"
-            type="Map&lt;String, Map&lt;String, String>>" />
+            type="Map&lt;String, Map&lt;String, CustomersLogDataEntry>>" />
     </data>
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white">
+        android:background="@color/white2">
 
 
         <androidx.appcompat.widget.Toolbar
@@ -31,12 +32,12 @@
             app:navigationIcon="@drawable/ic_arrow_back"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
             app:titleTextAppearance="@style/TextAppearance.AppCompat.Title.Inverse"
-            app:titleTextColor="@color/white" />
+            app:titleTextColor="@color/white2" />
 
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:background="@color/white"
+            android:background="@color/white2"
             android:nestedScrollingEnabled="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -60,36 +61,19 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
-                    android:id="@+id/txt_view"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="40dp"
-                    android:layout_marginTop="16dp"
-                    android:text="@string/customers_log"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-                    android:textColor="@color/gray1"
-                    android:textSize="18sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/chart_view" />
 
-                <androidx.core.widget.NestedScrollView
-                    android:id="@+id/nested_scroll"
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rec_customers"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:clipToPadding="false"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="16dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/txt_view">
+                    app:layout_constraintTop_toBottomOf="@+id/chart_view"
+                    app:setDaysMap="@{dates_customers_map}" />
 
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/rec_customers"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        app:setDaysMap="@{dates_customers_map}" />
-
-                </androidx.core.widget.NestedScrollView>
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
     </androidx.constraintlayout.widget.ConstraintLayout>

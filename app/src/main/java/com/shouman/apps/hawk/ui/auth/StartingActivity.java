@@ -137,6 +137,7 @@ public class StartingActivity extends AppCompatActivity {
             intent = new Intent(StartingActivity.this, Main2Activity.class);
             UserPreference.setBranchUID(this, user.getBuid());
             UserPreference.setCompanyUID(this, user.getCuid());
+            UserPreference.setCompanyName(this, user.getCn());
         }
         if (intent != null)
             startActivity(intent);

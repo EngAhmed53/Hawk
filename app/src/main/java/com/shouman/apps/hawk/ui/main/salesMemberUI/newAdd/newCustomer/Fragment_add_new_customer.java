@@ -1,4 +1,4 @@
-package com.shouman.apps.hawk.ui.main.salesMemberUI.newCustomer;
+package com.shouman.apps.hawk.ui.main.salesMemberUI.newAdd.newCustomer;
 
 
 import android.content.Context;
@@ -16,9 +16,12 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.textfield.TextInputLayout;
+import com.shouman.apps.hawk.R;
 import com.shouman.apps.hawk.databinding.FragmentAddNewCustomerBinding;
 import com.shouman.apps.hawk.model.Customer;
+import com.shouman.apps.hawk.ui.main.salesMemberUI.newAdd.AddNewActivity;
 
+import java.util.Date;
 import java.util.Objects;
 
 /**
@@ -86,6 +89,7 @@ public class Fragment_add_new_customer extends Fragment {
                     customer.setE(mBinding.edtCustomerEmail.getEditableText().toString().trim());
                     customer.setP(mBinding.customerPhoneEdt.getEditableText().toString().trim());
                     customer.setEi(mBinding.edtCustomerNotes.getEditableText().toString().trim());
+                    customer.setAddedTime(new Date().getTime());
                     customerViewModel.setCustomerMutableLiveData(customer);
 
                     //open the second mapFragment;
@@ -116,8 +120,8 @@ public class Fragment_add_new_customer extends Fragment {
     }
 
     //get the host activity
-    private AddNewCustomerActivity getBaseActivity() {
-        return (AddNewCustomerActivity) getActivity();
+    private AddNewActivity getBaseActivity() {
+        return (AddNewActivity) getActivity();
     }
 
 

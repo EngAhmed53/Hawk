@@ -19,7 +19,7 @@ class CustomersViewModel extends ViewModel {
     private static final String TAG = "CustomersViewModel";
     private MediatorLiveData<Customer> customerMediatorLiveData = new MediatorLiveData<>();
 
-    public CustomersViewModel(Context context, String customerUID) {
+    CustomersViewModel(Context context, String customerUID) {
         DatabaseReference customerReference = CompanyRepo.getCustomerReference(context, customerUID);
         FirebaseQueryLiveData customerQueryLiveData = new FirebaseQueryLiveData(customerReference);
 
@@ -31,14 +31,13 @@ class CustomersViewModel extends ViewModel {
                     public void run() {
                         Customer customer = dataSnapshot.getValue(Customer.class);
                         customerMediatorLiveData.postValue(customer);
-                        Log.e(TAG, "run: " + customer.getN());
                     }
                 });
             }
         });
     }
 
-    public MediatorLiveData<Customer> getCustomerMediatorLiveData() {
+    MediatorLiveData<Customer> getCustomerMediatorLiveData() {
         return customerMediatorLiveData;
     }
 }

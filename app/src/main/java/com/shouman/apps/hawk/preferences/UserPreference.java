@@ -56,4 +56,9 @@ public class UserPreference {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
         return preferences.getString(USER_BRANCH_NAME, "null");
     }
+
+    public static void clearAllPreference(Context context) {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        preferences.edit().clear().apply();
+    }
 }

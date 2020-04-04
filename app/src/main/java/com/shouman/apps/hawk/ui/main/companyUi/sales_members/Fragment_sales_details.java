@@ -2,7 +2,6 @@ package com.shouman.apps.hawk.ui.main.companyUi.sales_members;
 
 
 import android.graphics.Color;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,9 +18,9 @@ import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
-import com.google.android.material.appbar.AppBarLayout;
 import com.shouman.apps.hawk.R;
 import com.shouman.apps.hawk.databinding.FragmentSalesDetailsBinding;
+import com.shouman.apps.hawk.model.CustomersLogDataEntry;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -71,10 +70,10 @@ public class Fragment_sales_details extends Fragment {
         //setting up the viewModel
         SalesDetailsViewModelFactory factory = new SalesDetailsViewModelFactory(getContext(), salesMemberUID);
         SalesDetailsViewModel salesDetailsViewModel = new ViewModelProvider(this, factory).get(SalesDetailsViewModel.class);
-        salesDetailsViewModel.getMediatorSalesLiveData().observe(getViewLifecycleOwner(), new Observer<Map<String, Map<String, String>>>() {
+        salesDetailsViewModel.getMediatorSalesLiveData().observe(getViewLifecycleOwner(), new Observer<Map<String, Map<String, CustomersLogDataEntry>>>() {
             @Override
 
-            public void onChanged(Map<String, Map<String, String>> customersMap) {
+            public void onChanged(Map<String, Map<String, CustomersLogDataEntry>> customersMap) {
                 mBinding.setDatesCustomersMap(customersMap);
             }
         });
@@ -90,6 +89,7 @@ public class Fragment_sales_details extends Fragment {
 
         toolbarCustomization();
         initializeChart();
+        mBinding.recCustomers.setNestedScrollingEnabled(false);
 
         return mBinding.getRoot();
     }
@@ -138,7 +138,7 @@ public class Fragment_sales_details extends Fragment {
         return entries;
     }
 
-    private class MyValueFormatter extends ValueFormatter {
+    private static class MyValueFormatter extends ValueFormatter {
         @Override
         public String getFormattedValue(float value) {
             return String.valueOf((int) value);

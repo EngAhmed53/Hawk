@@ -1,7 +1,8 @@
-package com.shouman.apps.hawk.ui.main.salesMemberUI.newCustomer;
+package com.shouman.apps.hawk.ui.main.salesMemberUI.newAdd;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.view.inputmethod.InputMethodManager;
@@ -21,8 +22,15 @@ import com.karumi.dexter.listener.single.PermissionListener;
 import com.shouman.apps.hawk.R;
 import com.shouman.apps.hawk.common.Common;
 import com.shouman.apps.hawk.databinding.ActivityAddNewCustomerBinding;
+import com.shouman.apps.hawk.ui.main.salesMemberUI.newAdd.newCustomer.Fragment_add_new_customer;
+import com.shouman.apps.hawk.ui.main.salesMemberUI.newAdd.newCustomer.Fragment_pick_customer_location;
+import com.shouman.apps.hawk.ui.main.salesMemberUI.newAdd.newVisit.Fragment_Add_New_Visit;
 
-public class AddNewCustomerActivity extends AppCompatActivity implements Fragment_add_new_customer.OnContinueBtnClick, Fragment_pick_customer_location.OnAddCustomerClickHandler {
+import static com.shouman.apps.hawk.ui.main.salesMemberUI.home.homeFragment.Fragment_sales_home.FRAGMENT_NEW_CUSTOMER;
+import static com.shouman.apps.hawk.ui.main.salesMemberUI.home.homeFragment.Fragment_sales_home.FRAGMENT_NEW_VISIT;
+import static com.shouman.apps.hawk.ui.main.salesMemberUI.home.homeFragment.Fragment_sales_home.OPEN_FRAGMENT;
+
+public class AddNewActivity extends AppCompatActivity implements Fragment_add_new_customer.OnContinueBtnClick, Fragment_pick_customer_location.OnAddCustomerClickHandler {
 
     private static final String TAG = "AddNewCustomerActivity";
 
@@ -34,6 +42,8 @@ public class AddNewCustomerActivity extends AppCompatActivity implements Fragmen
 
     private Fragment_pick_customer_location fragment_pick_customer_location;
 
+    Fragment_Add_New_Visit fragment_add_new_visit;
+
     private Fragment active;
 
 
@@ -43,15 +53,24 @@ public class AddNewCustomerActivity extends AppCompatActivity implements Fragmen
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_add_new_customer);
         fragmentManager = getSupportFragmentManager();
 
+        final Intent intent = getIntent();
+
+
         Dexter.withActivity(this).withPermission(Manifest.permission.ACCESS_FINE_LOCATION).withListener(new PermissionListener() {
             @Override
             public void onPermissionGranted(PermissionGrantedResponse response) {
-                startTheFragmentsProcess(savedInstanceState);
+                if (intent != null && intent.hasExtra(OPEN_FRAGMENT)) {
+                    if (intent.getIntExtra(OPEN_FRAGMENT, FRAGMENT_NEW_CUSTOMER) == FRAGMENT_NEW_CUSTOMER) {
+                        setupAddNewCustomerFragments(savedInstanceState);
+                    } else if (intent.getIntExtra(OPEN_FRAGMENT, FRAGMENT_NEW_CUSTOMER) == FRAGMENT_NEW_VISIT) {
+                        showAddVisitFragment();
+                    }
+                }
             }
 
             @Override
             public void onPermissionDenied(PermissionDeniedResponse response) {
-                Toast.makeText(AddNewCustomerActivity.this, "Permission needed in order to continue", Toast.LENGTH_SHORT).show();
+                Toast.makeText(AddNewActivity.this, "Permission needed in order to continue", Toast.LENGTH_SHORT).show();
                 finish();
             }
 
@@ -62,35 +81,49 @@ public class AddNewCustomerActivity extends AppCompatActivity implements Fragmen
         }).check();
     }
 
-    private void startTheFragmentsProcess(Bundle savedInstanceState) {
-        if (savedInstanceState == null) {
-            fragment_add_new_customer = Fragment_add_new_customer.getInstance();
-            fragment_pick_customer_location = Fragment_pick_customer_location.getInstance();
-            active = fragment_add_new_customer;
-            addFragmentToFragmentManager();
-            showAddNewCustomerFragment();
-        } else {
-            fragment_add_new_customer =
-                    (Fragment_add_new_customer) fragmentManager.findFragmentByTag("fragment_add_new_customer");
 
-            fragment_pick_customer_location =
-                    (Fragment_pick_customer_location) fragmentManager.findFragmentByTag("fragment_pick_location");
-            active = fragmentManager.findFragmentByTag(Common.LAST_ACTIVE_FRAGMENT);
+    private void showAddVisitFragment() {
+        fragment_add_new_visit = (Fragment_Add_New_Visit) fragmentManager.findFragmentByTag("fragment_add_new_visit");
+        if (fragment_add_new_visit == null) {
+            fragment_add_new_visit = Fragment_Add_New_Visit.getInstance();
+            fragmentManager
+                    .beginTransaction()
+                    .add(R.id.sales_home_container, fragment_add_new_visit, "fragment_add_new_visit")
+                    .commit();
+        } else {
+            fragmentManager.beginTransaction().show(fragment_add_new_visit).commit();
         }
     }
 
-    private void addFragmentToFragmentManager() {
-        fragmentManager
-                .beginTransaction()
-                .add(R.id.sales_home_container, fragment_add_new_customer, "fragment_add_new_customer")
-                .hide(fragment_add_new_customer)
-                .commit();
+    private void setupAddNewCustomerFragments(Bundle savedInstanceState) {
+        if (savedInstanceState == null) {
+            fragment_add_new_customer = (Fragment_add_new_customer) fragmentManager.findFragmentByTag("fragment_add_new_customer");
+            if (fragment_add_new_customer == null) {
+                fragment_add_new_customer = Fragment_add_new_customer.getInstance();
+                fragmentManager
+                        .beginTransaction()
+                        .add(R.id.sales_home_container, fragment_add_new_customer, "fragment_add_new_customer")
+                        .hide(fragment_add_new_customer)
+                        .commit();
+            }
 
-        fragmentManager
-                .beginTransaction()
-                .add(R.id.sales_home_container, fragment_pick_customer_location, "fragment_pick_location")
-                .hide(fragment_pick_customer_location)
-                .commit();
+            fragment_pick_customer_location = (Fragment_pick_customer_location) fragmentManager.findFragmentByTag("fragment_pick_location");
+            if (fragment_pick_customer_location == null) {
+                fragment_pick_customer_location = Fragment_pick_customer_location.getInstance();
+                fragmentManager
+                        .beginTransaction()
+                        .add(R.id.sales_home_container, fragment_pick_customer_location, "fragment_pick_location")
+                        .hide(fragment_pick_customer_location)
+                        .commit();
+            }
+            active = fragment_add_new_customer;
+            showAddNewCustomerFragment();
+        } else {
+            fragment_add_new_customer = (Fragment_add_new_customer) fragmentManager.findFragmentByTag("fragment_add_new_customer");
+            fragment_pick_customer_location = (Fragment_pick_customer_location) fragmentManager.findFragmentByTag("fragment_pick_location");
+            active = fragmentManager.findFragmentByTag(Common.LAST_ACTIVE_FRAGMENT);
+            fragmentManager.beginTransaction().show(active).commit();
+        }
     }
 
     private void showAddNewCustomerFragment() {
@@ -130,7 +163,7 @@ public class AddNewCustomerActivity extends AppCompatActivity implements Fragmen
 
     @Override
     public void onBackPressed() {
-        if (active == fragment_pick_customer_location) {
+        if (active == fragment_pick_customer_location && active != null) {
             showAddNewCustomerFragment();
         } else super.onBackPressed();
     }

@@ -173,7 +173,7 @@ public class MainActivity extends AppCompatActivity implements IMainClickHandler
         Fragment_customers_info fragment_customers_info = Fragment_customers_info.getInstance(customerName, customerUID);
         fragmentManager
                 .beginTransaction()
-                .addToBackStack(null)
+                .addToBackStack("customer_info")
                 .setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right, android.R.anim.slide_in_left, android.R.anim.slide_out_right)
                 .add(R.id.full_container, fragment_customers_info, "fragment_customers_info")
                 .commit();

@@ -7,7 +7,7 @@
         android:layout_height="match_parent"
         android:clickable="true"
         android:focusable="true"
-        tools:context=".ui.main.salesMemberUI.newCustomer.Fragment_pick_customer_location">
+        tools:context=".ui.main.salesMemberUI.newAdd.newCustomer.Fragment_pick_customer_location">
 
         <com.google.android.gms.maps.MapView
             android:id="@+id/map"

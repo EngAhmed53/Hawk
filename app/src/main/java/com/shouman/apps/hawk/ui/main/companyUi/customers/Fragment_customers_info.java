@@ -4,12 +4,15 @@ package com.shouman.apps.hawk.ui.main.companyUi.customers;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -20,9 +23,15 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.shouman.apps.hawk.R;
 import com.shouman.apps.hawk.databinding.FragmentCustomersInfoBinding;
 import com.shouman.apps.hawk.model.Customer;
 
+import org.jetbrains.annotations.NotNull;
+
+import java.text.DateFormat;
+import java.util.Calendar;
+import java.util.Locale;
 import java.util.Objects;
 
 /**
@@ -59,7 +68,14 @@ public class Fragment_customers_info extends Fragment implements OnMapReadyCallb
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         mBinding = FragmentCustomersInfoBinding.inflate(inflater);
+        mBinding.setNotDefined(getString(R.string.not_defined));
         String customerUID = getArguments() != null ? getArguments().getString(CUSTOMER_UID) : null;
+        mBinding.toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         //start the map;
         mBinding.customerLocationMap.onCreate(savedInstanceState);
@@ -71,9 +87,11 @@ public class Fragment_customers_info extends Fragment implements OnMapReadyCallb
             @Override
             public void onChanged(Customer customer) {
                 if (customer != null) {
+                    Log.e("TAG", "onChanged: " + customer.getN() + " " + customer.getCn() );
                     mainCustomer = customer;
                     mBinding.setCustomer(customer);
-
+                    String date = getDateText(customer);
+                    mBinding.setDate(date);
                     if (map != null && !customerLocationSetted) {
                         setCustomerLocationOnMap(customer);
                     }
@@ -89,6 +107,15 @@ public class Fragment_customers_info extends Fragment implements OnMapReadyCallb
         });
 
         return mBinding.getRoot();
+    }
+
+    @NotNull
+    private String getDateText(Customer customer) {
+        DateFormat formatter = DateFormat.getDateTimeInstance(DateFormat.MEDIUM, DateFormat.SHORT);
+        Calendar calendar = Calendar.getInstance();
+        if (customer.getAddedTime() == 0) return getString(R.string.not_defined);
+        calendar.setTimeInMillis(customer.getAddedTime());
+        return formatter.format(calendar.getTime());
     }
 
     private void setCustomerLocationOnMap(Customer customer) {
@@ -156,5 +183,12 @@ public class Fragment_customers_info extends Fragment implements OnMapReadyCallb
     public void onLowMemory() {
         super.onLowMemory();
         mBinding.customerLocationMap.onLowMemory();
+    }
+
+    private void finish() {
+        FragmentActivity host = getActivity();
+        if (host != null) {
+            host.getSupportFragmentManager().popBackStack("customer_info", FragmentManager.POP_BACK_STACK_INCLUSIVE);
+        }
     }
 }

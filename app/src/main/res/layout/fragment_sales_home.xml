@@ -7,9 +7,11 @@
 
         <import type="java.util.Map" />
 
+        <import type="com.shouman.apps.hawk.model.CustomersLogDataEntry" />
+
         <variable
             name="dates_customers_map"
-            type="Map&lt;String, Map&lt;String, String>>" />
+            type="Map&lt;String, Map&lt;String, CustomersLogDataEntry>>" />
     </data>
 
     <FrameLayout
@@ -19,13 +21,13 @@
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/white"
+            android:background="@color/white2"
             android:nestedScrollingEnabled="true">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/white"
+                android:background="@color/white2"
                 android:clickable="true"
                 android:focusable="true"
                 tools:context=".ui.main.companyUi.company_home.Fragment_company_home">
@@ -35,43 +37,26 @@
                     android:id="@+id/chart_view"
                     android:layout_width="0dp"
                     android:layout_height="240dp"
-                    android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
+                    android:layout_marginBottom="16dp"
                     android:background="@color/fui_transparent"
+                    app:layout_constraintBottom_toTopOf="@+id/rec_customers"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-
-                <TextView
-                    android:id="@+id/textView6"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:paddingTop="8dp"
-                    android:paddingBottom="8dp"
-                    android:text="@string/customers_log"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Title"
-                    android:textColor="@color/gray1"
-                    android:textSize="18sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/chart_view" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_chainStyle="packed" />
 
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rec_customers"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="16dp"
                     android:clipToPadding="false"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView6"
+                    app:layout_constraintTop_toBottomOf="@+id/chart_view"
                     app:setDaysMap="@{dates_customers_map}" />
 
 
@@ -79,23 +64,82 @@
 
         </ScrollView>
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab_add_new_customer"
+        <FrameLayout
+            android:id="@+id/protection_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="@drawable/protection_background"
+            android:visibility="gone"/>
+
+        <com.github.clans.fab.FloatingActionMenu
+            android:id="@+id/fab_menu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
             android:layout_margin="16dp"
-            android:backgroundTint="@color/colorAccent"
-            android:src="@drawable/ic_person_add"
-            app:borderWidth="0dp"
-            app:elevation="6dp"
-            app:fabSize="normal"
-            app:hideMotionSpec="@anim/move_and_fade_animator"
-            app:layout_behavior="com.google.android.material.floatingactionbutton.FloatingActionButton$Behavior"
-            app:pressedTranslationZ="12dp"
-            app:rippleColor="@color/colorPrimaryDark"
-            app:showMotionSpec="@anim/fade_in_animation"
-            app:tint="@color/white" />
+            app:menu_animationDelayPerItem="50"
+            app:menu_buttonSpacing="0dp"
+            app:menu_colorPressed="@color/old_rose_dark"
+            app:menu_buttonToggleAnimation="@anim/fab_rotate_animation"
+            app:menu_colorNormal="@color/colorAccent"
+            app:menu_colorRipple="@color/colorPrimaryLight"
+            app:menu_fab_hide_animation="@anim/fab_scale_down"
+            app:menu_fab_show_animation="@anim/fab_scale_up"
+            app:menu_fab_size="normal"
+            app:menu_icon="@drawable/ic_plus"
+            app:menu_labels_colorNormal="@color/white"
+            app:menu_labels_cornerRadius="8dp"
+            app:menu_labels_ellipsize="end"
+            app:menu_labels_hideAnimation="@anim/fab_slide_out_to_left"
+            app:menu_labels_margin="4dp"
+            app:menu_labels_colorPressed="@color/white"
+            app:menu_labels_maxLines="1"
+            app:menu_labels_paddingRight="8dp"
+            app:menu_labels_paddingLeft="8dp"
+            app:menu_labels_paddingBottom="4dp"
+            app:menu_labels_colorRipple="@color/gray2"
+            app:menu_labels_paddingTop="4dp"
+            app:menu_labels_position="left"
+            app:menu_labels_showAnimation="@anim/fab_slide_in_from_right"
+            app:menu_labels_showShadow="true"
+            app:menu_labels_textColor="@color/gray1"
+            app:menu_labels_textSize="16sp"
+            app:menu_openDirection="up"
+            app:menu_shadowColor="@color/shadow_color"
+            app:menu_shadowRadius="4dp"
+            app:menu_shadowXOffset="1dp"
+            app:menu_shadowYOffset="3dp"
+            app:menu_showShadow="true">
+
+
+            <com.github.clans.fab.FloatingActionButton
+                android:id="@+id/fab_item_add_customer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:fab_colorPressed="@color/colorPrimaryDark"
+                android:src="@drawable/ic_person_add"
+                app:fab_colorNormal="@color/colorPrimary"
+                app:fab_label="Add Customer"
+                app:fab_size="mini"
+                app:pressedTranslationZ="6dp"
+                app:rippleColor="@color/colorPrimaryLight" />
+
+            <com.github.clans.fab.FloatingActionButton
+                android:id="@+id/fab_item_add_visit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_redo"
+                app:fab_colorPressed="@color/colorPrimaryDark"
+                app:pressedTranslationZ="6dp"
+                app:fab_colorNormal="@color/colorPrimary"
+                app:fab_label="Add Visit"
+                app:fab_size="mini"
+                app:rippleColor="@color/colorPrimaryLight" />
+
+
+        </com.github.clans.fab.FloatingActionMenu>
 
 
     </FrameLayout>

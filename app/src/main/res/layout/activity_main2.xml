@@ -28,7 +28,7 @@
                 android:elevation="4dp"
                 android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-                app:titleTextColor="@color/white" />
+                app:titleTextColor="@color/white2" />
 
             <FrameLayout
                 android:id="@+id/fragment_container_drw"
@@ -43,7 +43,6 @@
             android:layout_height="match_parent" />
 
 
-
         <com.google.android.material.navigation.NavigationView
             android:id="@+id/drawer_nav"
             android:layout_width="wrap_content"
@@ -52,9 +51,9 @@
             android:background="@color/primaryTransparent"
             app:itemIconPadding="8dp"
             app:itemIconSize="28dp"
-            app:itemIconTint="@color/white"
+            app:itemIconTint="@color/white2"
             app:itemMaxLines="1"
-            app:itemTextColor="@color/white">
+            app:itemTextColor="@color/white2">
 
 
             <LinearLayout
@@ -63,6 +62,7 @@
                 android:orientation="vertical">
 
                 <include
+                    android:id="@+id/header_layout"
                     layout="@layout/drawer_header_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -81,7 +81,7 @@
                             android:id="@+id/nav_home"
                             android:layout_width="match_parent"
                             android:layout_height="48dp"
-                            android:background="@drawable/nav_selector"
+                            android:background="@color/old_rose"
                             android:clickable="true"
                             android:focusable="true"
                             android:onClick="onDrawerItemClick"
@@ -96,18 +96,18 @@
                                 android:layout_marginRight="8dp"
                                 android:adjustViewBounds="true"
                                 android:src="@drawable/ic_home"
-                                android:tint="@color/white" />
+                                android:tint="@color/white2" />
 
                             <TextView
-                                android:layout_width="match_parent"
+                                android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
                                 android:layout_gravity="center_vertical"
                                 android:layout_marginLeft="8dp"
                                 android:layout_marginRight="8dp"
                                 android:gravity="center_vertical"
                                 android:text="@string/home"
-                                android:textColor="@color/white"
-                                android:textSize="20sp" />
+                                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                                android:textColor="@color/white2" />
 
                         </LinearLayout>
 
@@ -115,7 +115,7 @@
                             android:id="@+id/nav_personal_page"
                             android:layout_width="match_parent"
                             android:layout_height="48dp"
-                            android:layout_marginTop="18dp"
+                            android:layout_marginTop="16dp"
                             android:background="@drawable/nav_selector"
                             android:clickable="true"
                             android:focusable="true"
@@ -131,18 +131,18 @@
                                 android:layout_marginRight="8dp"
                                 android:adjustViewBounds="true"
                                 android:src="@drawable/ic_person"
-                                android:tint="@color/white" />
+                                android:tint="@color/white2" />
 
                             <TextView
-                                android:layout_width="match_parent"
+                                android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
                                 android:layout_gravity="center_vertical"
                                 android:layout_marginLeft="8dp"
                                 android:layout_marginRight="8dp"
                                 android:gravity="center_vertical"
                                 android:text="@string/personal_page"
-                                android:textColor="@color/white"
-                                android:textSize="20sp" />
+                                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                                android:textColor="@color/white2" />
 
                         </LinearLayout>
 
@@ -153,7 +153,85 @@
                             android:layout_marginTop="16dp"
                             android:layout_marginEnd="24dp"
                             android:layout_marginBottom="16dp"
-                            android:background="@color/white" />
+                            android:background="@color/white2" />
+
+                        <LinearLayout
+                            android:id="@+id/nav_chang_branch"
+                            android:layout_width="match_parent"
+                            android:layout_height="48dp"
+                            android:background="@drawable/nav_selector"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:onClick="onDrawerItemClick"
+                            android:orientation="horizontal"
+                            android:padding="8dp">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginLeft="8dp"
+                                android:layout_marginRight="8dp"
+                                android:adjustViewBounds="true"
+                                android:src="@drawable/ic_subdirectory_arrow"
+                                android:tint="@color/white2" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginLeft="8dp"
+                                android:layout_marginRight="8dp"
+                                android:gravity="center_vertical"
+                                android:text="@string/my_branch"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                                android:textColor="@color/white2" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/nav_allCustomers_list"
+                            android:layout_width="match_parent"
+                            android:layout_height="48dp"
+                            android:layout_marginTop="16dp"
+                            android:background="@drawable/nav_selector"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:onClick="onDrawerItemClick"
+                            android:orientation="horizontal"
+                            android:padding="8dp">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginLeft="8dp"
+                                android:layout_marginRight="8dp"
+                                android:adjustViewBounds="true"
+                                android:src="@drawable/ic_view_list"
+                                android:tint="@color/white2" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginLeft="8dp"
+                                android:layout_marginRight="8dp"
+                                android:gravity="center_vertical"
+                                android:text="@string/my_customers"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                                android:textColor="@color/white2" />
+
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginStart="24dp"
+                            android:layout_marginTop="16dp"
+                            android:layout_marginEnd="24dp"
+                            android:layout_marginBottom="16dp"
+                            android:background="@color/white2" />
 
                         <LinearLayout
                             android:id="@+id/nav_settings"
@@ -174,64 +252,21 @@
                                 android:layout_marginRight="8dp"
                                 android:adjustViewBounds="true"
                                 android:src="@drawable/ic_settings"
-                                android:tint="@color/white" />
+                                android:tint="@color/white2" />
 
                             <TextView
-                                android:layout_width="match_parent"
+                                android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
                                 android:layout_gravity="center_vertical"
                                 android:layout_marginLeft="8dp"
                                 android:layout_marginRight="8dp"
                                 android:gravity="center_vertical"
                                 android:text="@string/settings"
-                                android:textColor="@color/white"
-                                android:textSize="20sp" />
+                                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                                android:textColor="@color/white2" />
 
                         </LinearLayout>
 
-                        <LinearLayout
-                            android:id="@+id/nav_chang_branch"
-                            android:layout_width="match_parent"
-                            android:layout_height="48dp"
-                            android:layout_marginTop="18dp"
-                            android:background="@drawable/nav_selector"
-                            android:clickable="true"
-                            android:focusable="true"
-                            android:onClick="onDrawerItemClick"
-                            android:orientation="horizontal"
-                            android:padding="8dp">
-
-                            <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center_vertical"
-                                android:layout_marginLeft="8dp"
-                                android:layout_marginRight="8dp"
-                                android:adjustViewBounds="true"
-                                android:src="@drawable/ic_subdirectory_arrow"
-                                android:tint="@color/white" />
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_gravity="center_vertical"
-                                android:layout_marginLeft="8dp"
-                                android:layout_marginRight="8dp"
-                                android:gravity="center_vertical"
-                                android:text="@string/my_branch"
-                                android:textColor="@color/white"
-                                android:textSize="20sp" />
-
-                        </LinearLayout>
-
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="1dp"
-                            android:layout_marginStart="24dp"
-                            android:layout_marginTop="16dp"
-                            android:layout_marginEnd="24dp"
-                            android:layout_marginBottom="16dp"
-                            android:background="@color/white" />
 
                         <LinearLayout
                             android:id="@+id/nav_terms_and_conditions"
@@ -252,18 +287,18 @@
                                 android:layout_marginRight="8dp"
                                 android:adjustViewBounds="true"
                                 android:src="@drawable/ic_info"
-                                android:tint="@color/white" />
+                                android:tint="@color/white2" />
 
                             <TextView
-                                android:layout_width="match_parent"
+                                android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
                                 android:layout_gravity="center_vertical"
                                 android:layout_marginLeft="8dp"
                                 android:layout_marginRight="8dp"
                                 android:gravity="center_vertical"
                                 android:text="@string/terms_and_condition"
-                                android:textColor="@color/white"
-                                android:textSize="20sp" />
+                                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                                android:textColor="@color/white2" />
 
                         </LinearLayout>
 
@@ -271,38 +306,7 @@
                             android:id="@+id/nav_sign_out"
                             android:layout_width="match_parent"
                             android:layout_height="48dp"
-                            android:layout_marginTop="18dp"
-                            android:orientation="horizontal"
-                            android:padding="8dp">
-
-                            <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center_vertical"
-                                android:layout_marginLeft="8dp"
-                                android:layout_marginRight="8dp"
-                                android:adjustViewBounds="true"
-                                android:src="@drawable/ic_logout"
-                                android:tint="@color/white" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:layout_gravity="center_vertical"
-                                android:layout_marginLeft="8dp"
-                                android:layout_marginRight="8dp"
-                                android:gravity="center_vertical"
-                                android:text="@string/sign_out"
-                                android:textColor="@color/white"
-                                android:textSize="20sp" />
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:id="@+id/nav_exit"
-                            android:layout_width="match_parent"
-                            android:layout_height="48dp"
-                            android:layout_marginTop="18dp"
+                            android:layout_marginTop="16dp"
                             android:background="@drawable/nav_selector"
                             android:clickable="true"
                             android:focusable="true"
@@ -316,21 +320,56 @@
                                 android:layout_gravity="center_vertical"
                                 android:layout_marginLeft="8dp"
                                 android:layout_marginRight="8dp"
-                                android:contentDescription="@string/user_photo"
                                 android:adjustViewBounds="true"
-                                android:src="@drawable/ic_exit"
-                                android:tint="@color/white" />
+                                android:src="@drawable/ic_logout"
+                                android:tint="@color/white2" />
 
                             <TextView
-                                android:layout_width="match_parent"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginLeft="8dp"
+                                android:layout_marginRight="8dp"
+                                android:gravity="center_vertical"
+                                android:text="@string/sign_out"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                                android:textColor="@color/white2" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/nav_exit"
+                            android:layout_width="match_parent"
+                            android:layout_height="48dp"
+                            android:layout_marginTop="16dp"
+                            android:background="@drawable/nav_selector"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:onClick="onDrawerItemClick"
+                            android:orientation="horizontal"
+                            android:padding="8dp">
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginLeft="8dp"
+                                android:layout_marginRight="8dp"
+                                android:adjustViewBounds="true"
+                                android:contentDescription="@string/user_photo"
+                                android:src="@drawable/ic_exit"
+                                android:tint="@color/white2" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
                                 android:layout_gravity="center_vertical"
                                 android:layout_marginLeft="8dp"
                                 android:layout_marginRight="8dp"
                                 android:gravity="center_vertical"
                                 android:text="@string/exit"
-                                android:textColor="@color/white"
-                                android:textSize="20sp" />
+                                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                                android:textColor="@color/white2" />
 
                         </LinearLayout>
                     </LinearLayout>
