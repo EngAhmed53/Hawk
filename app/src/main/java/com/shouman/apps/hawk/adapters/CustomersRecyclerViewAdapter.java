@@ -78,7 +78,7 @@ public class CustomersRecyclerViewAdapter extends RecyclerView.Adapter<Customers
         holder.mBinding.setOnCustomerClickListener(onCustomerItemClickHandler);
 
         //set the 2 letters
-        setThe2Letters(holder, customerData.getCustomerName());
+        //setThe2Letters(holder, customerData.getCustomerName());
 
         //set company name
         holder.mBinding.companyNameTxt.setText(customerData.getCustomerCompanyName());
@@ -91,27 +91,28 @@ public class CustomersRecyclerViewAdapter extends RecyclerView.Adapter<Customers
 
         //show the label if the customer is new and this is not just a visit
         if (customerData.isNewCustomer()) {
-            holder.mBinding.labelView.setBackgroundColor(mContext.getResources().getColor(R.color.colorPrimaryLight));
+            holder.mBinding.labelView.setBackgroundColor(mContext.getResources().getColor(R.color.green));
             holder.mBinding.imgNewLabel.setVisibility(View.VISIBLE);
+            holder.mBinding.customerImage.setImageResource(R.drawable.ic_ceo);
         }
     }
 
-    private void setThe2Letters(@NonNull CustomersViewHolder holder, String customerName) {
-        char c1 = customerName.charAt(0);
-        Character c2 = null;
-        int spaceIndex = customerName.lastIndexOf(" ");
-        if (spaceIndex != -1 && customerName.length() > spaceIndex) {
-            for (int i = spaceIndex + 1; i < customerName.length(); i++) {
-                if (customerName.charAt(i) != ' ') {
-                    c2 = customerName.charAt(i);
-                    break;
-                }
-            }
-        }
-        String s = String.valueOf(c1) + (c2 != null ? c2 : "");
-        holder.mBinding.first2Letters.setText(s);
-        holder.mBinding.first2Letters.setTypeface(Typeface.createFromAsset(mContext.getAssets(), "varela_round_regular.ttf"));
-    }
+//    private void setThe2Letters(@NonNull CustomersViewHolder holder, String customerName) {
+//        char c1 = customerName.charAt(0);
+//        Character c2 = null;
+//        int spaceIndex = customerName.lastIndexOf(" ");
+//        if (spaceIndex != -1 && customerName.length() > spaceIndex) {
+//            for (int i = spaceIndex + 1; i < customerName.length(); i++) {
+//                if (customerName.charAt(i) != ' ') {
+//                    c2 = customerName.charAt(i);
+//                    break;
+//                }
+//            }
+//        }
+//        String s = String.valueOf(c1) + (c2 != null ? c2 : "");
+//        holder.mBinding.first2Letters.setText(s);
+//        holder.mBinding.first2Letters.setTypeface(Typeface.createFromAsset(mContext.getAssets(), "varela_round_regular.ttf"));
+   // }
 
     @Override
     public int getItemCount() {

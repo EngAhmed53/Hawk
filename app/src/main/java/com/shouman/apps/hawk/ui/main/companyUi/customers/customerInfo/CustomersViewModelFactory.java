@@ -1,4 +1,4 @@
-package com.shouman.apps.hawk.ui.main.companyUi.customers;
+package com.shouman.apps.hawk.ui.main.companyUi.customers.customerInfo;
 
 import android.content.Context;
 

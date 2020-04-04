@@ -102,7 +102,7 @@ public class AllCustomersRecyclerViewAdapter extends RecyclerView.Adapter<AllCus
         holder.mBinding.setOnCustomerClickListener(onCustomerItemClickHandler);
 
         //set the 2 letters
-        setThe2Letters(holder, customerData[0]);
+        //setThe2Letters(holder, customerData[0]);
 
         //set company name
         holder.mBinding.companyNameTxt.setText(customerData[1]);
@@ -110,22 +110,22 @@ public class AllCustomersRecyclerViewAdapter extends RecyclerView.Adapter<AllCus
         holder.mBinding.imgNewLabel.setVisibility(View.INVISIBLE);
     }
 
-    private void setThe2Letters(@NonNull CustomersViewHolder holder, String customerName) {
-        char c1 = customerName.charAt(0);
-        Character c2 = null;
-        int spaceIndex = customerName.lastIndexOf(" ");
-        if (spaceIndex != -1 && customerName.length() > spaceIndex) {
-            for (int i = spaceIndex + 1; i < customerName.length(); i++) {
-                if (customerName.charAt(i) != ' ') {
-                    c2 = customerName.charAt(i);
-                    break;
-                }
-            }
-        }
-        String s = String.valueOf(c1) + (c2 != null ? c2 : "");
-        holder.mBinding.first2Letters.setText(s);
-        holder.mBinding.first2Letters.setTypeface(Typeface.createFromAsset(mContext.getAssets(), "varela_round_regular.ttf"));
-    }
+//    private void setThe2Letters(@NonNull CustomersViewHolder holder, String customerName) {
+//        char c1 = customerName.charAt(0);
+//        Character c2 = null;
+//        int spaceIndex = customerName.lastIndexOf(" ");
+//        if (spaceIndex != -1 && customerName.length() > spaceIndex) {
+//            for (int i = spaceIndex + 1; i < customerName.length(); i++) {
+//                if (customerName.charAt(i) != ' ') {
+//                    c2 = customerName.charAt(i);
+//                    break;
+//                }
+//            }
+//        }
+//        String s = String.valueOf(c1) + (c2 != null ? c2 : "");
+//        holder.mBinding.first2Letters.setText(s);
+//        holder.mBinding.first2Letters.setTypeface(Typeface.createFromAsset(mContext.getAssets(), "varela_round_regular.ttf"));
+ //   }
 
     @Override
     public int getItemCount() {

@@ -15,7 +15,7 @@ import com.shouman.apps.hawk.ui.main.companyUi.branches.branches_home.Fragment_b
 import com.shouman.apps.hawk.ui.main.companyUi.company_home.Fragment_company_home;
 import com.shouman.apps.hawk.ui.main.companyUi.company_notification.Fragment_company_notification;
 import com.shouman.apps.hawk.ui.main.companyUi.company_profile.Fragment_company_profile;
-import com.shouman.apps.hawk.ui.main.companyUi.customers.Fragment_customers_info;
+import com.shouman.apps.hawk.ui.main.companyUi.customers.customerInfo.Fragment_customers_info;
 import com.shouman.apps.hawk.ui.main.companyUi.sales_members.Fragment_sales_details;
 
 import org.jetbrains.annotations.NotNull;

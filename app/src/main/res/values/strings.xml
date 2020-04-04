@@ -130,6 +130,9 @@
     <string name="my_customers">My Customers</string>
     <string name="not_defined">Not Defined</string>
     <string name="cancel">Cancel</string>
+    <string name="customer_image">customer image</string>
+    <string name="visits_log_sub_title">Visits Log</string>
+    <string name="visits_log">Visits Log</string>
 
 
 </resources>

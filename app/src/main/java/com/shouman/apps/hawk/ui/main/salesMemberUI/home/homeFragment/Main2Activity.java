@@ -19,7 +19,7 @@ import com.shouman.apps.hawk.R;
 import com.shouman.apps.hawk.databinding.ActivityMain2Binding;
 import com.shouman.apps.hawk.preferences.UserPreference;
 import com.shouman.apps.hawk.ui.auth.StartingActivity;
-import com.shouman.apps.hawk.ui.main.companyUi.customers.Fragment_customers_info;
+import com.shouman.apps.hawk.ui.main.companyUi.customers.customerInfo.Fragment_customers_info;
 import com.shouman.apps.hawk.ui.main.salesMemberUI.home.allCustomersPage.AllCustomersActivity;
 import com.shouman.apps.hawk.ui.main.salesMemberUI.home.personalPage.PersonalPageActivity;
 

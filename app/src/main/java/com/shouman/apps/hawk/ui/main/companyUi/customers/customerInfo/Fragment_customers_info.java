@@ -1,4 +1,4 @@
-package com.shouman.apps.hawk.ui.main.companyUi.customers;
+package com.shouman.apps.hawk.ui.main.companyUi.customers.customerInfo;
 
 
 import android.content.Intent;
@@ -24,15 +24,18 @@ import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.shouman.apps.hawk.R;
+import com.shouman.apps.hawk.databinding.DialogFragmentVisitLogBinding;
 import com.shouman.apps.hawk.databinding.FragmentCustomersInfoBinding;
 import com.shouman.apps.hawk.model.Customer;
+import com.shouman.apps.hawk.model.Visit;
+import com.shouman.apps.hawk.ui.main.companyUi.customers.visitsLog.DialogFragment_Visits_Log;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.text.DateFormat;
 import java.util.Calendar;
-import java.util.Locale;
 import java.util.Objects;
+import java.util.TreeMap;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -70,6 +73,7 @@ public class Fragment_customers_info extends Fragment implements OnMapReadyCallb
         mBinding = FragmentCustomersInfoBinding.inflate(inflater);
         mBinding.setNotDefined(getString(R.string.not_defined));
         String customerUID = getArguments() != null ? getArguments().getString(CUSTOMER_UID) : null;
+
         mBinding.toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -77,17 +81,48 @@ public class Fragment_customers_info extends Fragment implements OnMapReadyCallb
             }
         });
 
+        startMap(savedInstanceState);
+
+        initViewModel(customerUID);
+
+        mBinding.btnCallCustomer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onCallPhoneNumberClick();
+            }
+        });
+
+        mBinding.showVisitsLog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openDialogFragment();
+            }
+        });
+
+        return mBinding.getRoot();
+    }
+
+    private void openDialogFragment() {
+        FragmentManager fragmentManager = getChildFragmentManager();
+        DialogFragment_Visits_Log dialogFragment_visits_log =
+                DialogFragment_Visits_Log.getInstance(new TreeMap<String, Visit>(mainCustomer.getVisitList()), mainCustomer.getN());
+
+        dialogFragment_visits_log.showNow(fragmentManager, "visits_log");
+    }
+
+    private void startMap(Bundle savedInstanceState) {
         //start the map;
         mBinding.customerLocationMap.onCreate(savedInstanceState);
         mBinding.customerLocationMap.getMapAsync(this);
+    }
 
+    private void initViewModel(String customerUID) {
         CustomersViewModelFactory factory = new CustomersViewModelFactory(getContext(), customerUID);
         CustomersViewModel customersViewModel = new ViewModelProvider(this, factory).get(CustomersViewModel.class);
         customersViewModel.getCustomerMediatorLiveData().observe(getViewLifecycleOwner(), new Observer<Customer>() {
             @Override
             public void onChanged(Customer customer) {
                 if (customer != null) {
-                    Log.e("TAG", "onChanged: " + customer.getN() + " " + customer.getCn() );
                     mainCustomer = customer;
                     mBinding.setCustomer(customer);
                     String date = getDateText(customer);
@@ -98,15 +133,6 @@ public class Fragment_customers_info extends Fragment implements OnMapReadyCallb
                 }
             }
         });
-
-        mBinding.btnCallCustomer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onCallPhoneNumberClick();
-            }
-        });
-
-        return mBinding.getRoot();
     }
 
     @NotNull

@@ -26,11 +26,12 @@
         android:layout_height="wrap_content"
         android:backgroundTint="@color/white2"
         android:backgroundTintMode="src_over"
+        app:rippleColor="@color/colorAccent"
         android:clickable="true"
-        app:cardCornerRadius="0dp"
         android:focusable="true"
         android:onClick="@{() -> onCustomerClickListener.onCustomerItemClickHandler(customerUID, customerName)}"
-        android:stateListAnimator="@animator/branch_list_item_anim">
+        android:stateListAnimator="@animator/branch_list_item_anim"
+        app:cardCornerRadius="0dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -51,8 +52,8 @@
                 app:layout_constraintEnd_toStartOf="@+id/guideline4"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintHorizontal_chainStyle="packed"
-                app:layout_constraintStart_toEndOf="@+id/first_2_letters"
-                app:layout_constraintTop_toTopOf="@+id/first_2_letters"
+                app:layout_constraintStart_toEndOf="@+id/customer_image"
+                app:layout_constraintTop_toTopOf="@+id/customer_image"
                 app:layout_constraintVertical_chainStyle="packed"
                 tools:text="Ahmed Shouman" />
 
@@ -65,14 +66,14 @@
                 android:maxLines="1"
                 android:paddingStart="8dp"
                 android:paddingEnd="8dp"
-                tools:text="Qebaa Company"
                 android:textAppearance="@style/TextAppearance.AppCompat.Small"
                 android:textColor="@color/gray1"
-                app:layout_constraintBottom_toBottomOf="@+id/first_2_letters"
+                app:layout_constraintBottom_toBottomOf="@+id/customer_image"
                 app:layout_constraintEnd_toEndOf="@+id/customer_name_txt"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/customer_name_txt"
-                app:layout_constraintTop_toBottomOf="@+id/customer_name_txt" />
+                app:layout_constraintTop_toBottomOf="@+id/customer_name_txt"
+                tools:text="Qebaa Company" />
 
             <TextView
                 android:id="@+id/time_added"
@@ -83,14 +84,14 @@
                 android:maxLines="1"
                 android:paddingStart="8dp"
                 android:paddingEnd="8dp"
-                tools:text="12:00 PM"
                 android:textAppearance="@style/TextAppearance.AppCompat.Caption"
                 android:textColor="@color/gray1"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toEndOf="@+id/customer_name_txt"
-                app:layout_constraintTop_toBottomOf="@+id/img_new_label" />
+                app:layout_constraintTop_toBottomOf="@+id/img_new_label"
+                tools:text="12:00 PM" />
 
 
             <ImageView
@@ -98,33 +99,28 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_marginBottom="8dp"
-                android:visibility="gone"
-                android:contentDescription="@string/new_customer_label"
                 android:adjustViewBounds="true"
+                android:contentDescription="@string/new_customer_label"
                 android:src="@drawable/ic_new_label"
+                android:visibility="gone"
                 app:layout_constraintBottom_toTopOf="@+id/time_added"
                 app:layout_constraintEnd_toEndOf="@+id/time_added"
                 app:layout_constraintStart_toStartOf="@+id/time_added"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_chainStyle="packed" />
 
-            <TextView
-                android:id="@+id/first_2_letters"
+            <ImageView
+                android:id="@+id/customer_image"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
                 android:background="@drawable/two_letters_background"
-                android:backgroundTint="@color/colorPrimary"
-                android:ellipsize="end"
-                android:gravity="center"
-                android:maxLines="1"
-                android:paddingLeft="6dp"
-                android:paddingRight="6dp"
-                android:textAllCaps="true"
-                android:textColor="@color/white2"
-                android:textSize="18sp"
+                android:backgroundTint="@color/colorAccent"
+                android:contentDescription="@string/customer_image"
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_pin"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/label_view"
                 app:layout_constraintTop_toTopOf="parent"
@@ -135,7 +131,7 @@
                 android:id="@+id/label_view"
                 android:layout_width="4dp"
                 android:layout_height="0dp"
-                android:background="@color/old_rose_light"
+                android:background="@color/gray1"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintHorizontal_chainStyle="packed"
                 app:layout_constraintStart_toStartOf="parent"

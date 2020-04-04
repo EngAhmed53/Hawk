@@ -1,18 +1,14 @@
 package com.shouman.apps.hawk.ui.main.salesMemberUI.home.allCustomersPage;
 
 import android.os.Bundle;
-import android.view.ContextMenu;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Filter;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
-import androidx.core.view.MenuItemCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Observer;
@@ -22,7 +18,7 @@ import com.shouman.apps.hawk.R;
 import com.shouman.apps.hawk.adapters.AllCustomersRecyclerViewAdapter;
 import com.shouman.apps.hawk.databinding.ActivityAllCustomersBinding;
 import com.shouman.apps.hawk.ui.main.OnCustomerItemClickHandler;
-import com.shouman.apps.hawk.ui.main.companyUi.customers.Fragment_customers_info;
+import com.shouman.apps.hawk.ui.main.companyUi.customers.customerInfo.Fragment_customers_info;
 
 import java.util.Map;
 import java.util.Objects;

@@ -26,7 +26,7 @@
         android:background="@color/white2"
         android:clickable="true"
         android:focusable="true"
-        tools:context=".ui.main.companyUi.customers.Fragment_customers_info">
+        tools:context=".ui.main.companyUi.customers.customerInfo.Fragment_customers_info">
 
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/app_bar"
@@ -43,15 +43,23 @@
                 app:collapsedTitleTextAppearance="@style/TextAppearance.MaterialComponents.Headline6"
                 app:expandedTitleGravity="bottom"
                 app:expandedTitleMarginStart="16dp"
+                app:contentScrim="@color/colorPrimary"
                 app:expandedTitleMarginTop="8dp"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed"
                 app:titleEnabled="true">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:contentDescription="@string/customer_photo"
+                    android:src="@drawable/ic_ceo"
+                    android:fadeScrollbars="true"
+                    app:layout_collapseMode="parallax" />
 
                 <androidx.appcompat.widget.Toolbar
                     android:id="@+id/toolbar"
                     android:layout_width="match_parent"
                     android:layout_height="?actionBarSize"
-                    android:background="@color/fui_transparent"
                     android:elevation="6dp"
                     android:fadeScrollbars="true"
                     android:fitsSystemWindows="true"
@@ -59,12 +67,6 @@
                     app:navigationIcon="@drawable/ic_arrow_back"
                     app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
                     app:title="@{customer.n}" />
-
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:contentDescription="@string/customer_photo"
-                    app:layout_collapseMode="parallax" />
 
             </com.google.android.material.appbar.CollapsingToolbarLayout>
         </com.google.android.material.appbar.AppBarLayout>
@@ -141,6 +143,52 @@
                     app:cardElevation="2dp">
 
                     <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/customer_company_name_textInput"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:hint="@string/company_name"
+                        android:textColorHint="@color/old_rose_dark"
+                        app:boxBackgroundColor="@android:color/white"
+                        app:boxStrokeColor="@color/colorPrimaryDark"
+                        app:boxStrokeWidth="1dp"
+                        app:hintTextAppearance="@style/TextAppearance.AppCompat.Caption"
+                        app:hintTextColor="@color/old_rose_dark"
+                        app:startIconDrawable="@drawable/ic_domain"
+                        app:startIconTint="@color/colorAccent">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edt_customer_company_name"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:enabled="false"
+                            android:focusable="true"
+                            android:inputType="text"
+                            android:maxLength="100"
+                            android:maxLines="1"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                            android:text="@{customer.cn != null &amp;&amp; !customer.cn.empty ? customer.cn : notDefined}"
+                            android:textColor="@color/gray1"
+                            android:textColorHint="@color/primaryTransparent" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </androidx.cardview.widget.CardView>
+
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="65dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="8dp"
+                    android:backgroundTint="@android:color/white"
+                    android:focusable="true"
+                    app:cardBackgroundColor="@android:color/white"
+                    app:cardCornerRadius="0dp"
+                    app:cardElevation="2dp">
+
+                    <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/customer_email_textInput"
                         style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense"
                         android:layout_width="match_parent"
@@ -171,7 +219,6 @@
                     </com.google.android.material.textfield.TextInputLayout>
 
                 </androidx.cardview.widget.CardView>
-
 
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
@@ -243,52 +290,6 @@
 
 
                 </androidx.cardview.widget.CardView>
-
-                <androidx.cardview.widget.CardView
-                    android:layout_width="match_parent"
-                    android:layout_height="65dp"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_marginBottom="8dp"
-                    android:backgroundTint="@android:color/white"
-                    android:focusable="true"
-                    app:cardBackgroundColor="@android:color/white"
-                    app:cardCornerRadius="0dp"
-                    app:cardElevation="2dp">
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/customer_company_name_textInput"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.Dense"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:hint="@string/company_name"
-                        android:textColorHint="@color/old_rose_dark"
-                        app:boxBackgroundColor="@android:color/white"
-                        app:boxStrokeColor="@color/colorPrimaryDark"
-                        app:boxStrokeWidth="1dp"
-                        app:hintTextAppearance="@style/TextAppearance.AppCompat.Caption"
-                        app:hintTextColor="@color/old_rose_dark"
-                        app:startIconDrawable="@drawable/ic_domain"
-                        app:startIconTint="@color/colorAccent">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/edt_customer_company_name"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:enabled="false"
-                            android:focusable="true"
-                            android:inputType="text"
-                            android:maxLength="100"
-                            android:maxLines="1"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                            android:text="@{customer.cn != null &amp;&amp; !customer.cn.empty ? customer.cn : notDefined}"
-                            android:textColor="@color/gray1"
-                            android:textColorHint="@color/primaryTransparent" />
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                </androidx.cardview.widget.CardView>
-
 
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
@@ -377,6 +378,33 @@
 
 
                 </androidx.cardview.widget.CardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/show_visits_log"
+                    android:layout_width="match_parent"
+                    android:layout_height="65dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="8dp"
+                    android:backgroundTint="@android:color/white"
+                    android:focusable="true"
+                    app:rippleColor="@color/colorAccent"
+                    app:cardBackgroundColor="@android:color/white"
+                    app:cardCornerRadius="0dp"
+                    app:cardElevation="2dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:drawablePadding="16dp"
+                        android:layout_marginStart="16dp"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                        android:text="@string/visits_log"
+                        android:textColor="@color/old_rose_dark"
+                        android:drawableStart="@drawable/ic_list" />
+
+                </com.google.android.material.card.MaterialCardView>
 
 
                 <com.google.android.material.card.MaterialCardView

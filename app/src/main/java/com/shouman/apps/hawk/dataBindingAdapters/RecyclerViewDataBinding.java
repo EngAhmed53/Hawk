@@ -12,8 +12,11 @@ import com.shouman.apps.hawk.adapters.BranchRecyclerViewAdapter;
 import com.shouman.apps.hawk.adapters.CustomersRecyclerViewAdapter;
 import com.shouman.apps.hawk.adapters.DaysRecyclerViewAdapter;
 import com.shouman.apps.hawk.adapters.SalesRecyclerViewAdapter;
+import com.shouman.apps.hawk.adapters.VisitsRecyclerViewAdapter;
 import com.shouman.apps.hawk.model.CustomersLogDataEntry;
+import com.shouman.apps.hawk.model.Visit;
 
+import java.util.List;
 import java.util.Map;
 
 public class RecyclerViewDataBinding {
@@ -43,7 +46,6 @@ public class RecyclerViewDataBinding {
     public static void setSalesRecyclerViewMap(RecyclerView view, Map<String, String> salesList) {
 
         if (salesList == null) {
-            Log.e(TAG, "setSalesRecyclerViewMap: salesList is null");
             return;
         }
         if (view.getLayoutManager() == null) {
@@ -64,7 +66,6 @@ public class RecyclerViewDataBinding {
     public static void setDaysCustomersMap(RecyclerView view, Map<String, Map<String, CustomersLogDataEntry>> days_customers_map) {
 
         if (days_customers_map == null) {
-            Log.e(TAG, "setDaysCustomersMap: days_customersMap is null");
             return;
         }
         if (view.getLayoutManager() == null) {
@@ -100,6 +101,7 @@ public class RecyclerViewDataBinding {
 
         }
     }
+
     @BindingAdapter("setAllCustomersMap")
     public static void setAllCustomersRecyclerViewMap(RecyclerView view, Map<String, String> customersMap) {
 
@@ -116,6 +118,27 @@ public class RecyclerViewDataBinding {
             view.setAdapter(adapter);
         } else {
             ((AllCustomersRecyclerViewAdapter) view.getAdapter()).setCustomersMap(customersMap);
+
+        }
+    }
+
+
+    @BindingAdapter("setVisitsLog")
+    public static void setVisitsLog(RecyclerView view, List<Visit> visitsLog) {
+
+        if (visitsLog == null) {
+            return;
+        }
+        if (view.getLayoutManager() == null) {
+            view.setLayoutManager(new LinearLayoutManager(view.getContext(), LinearLayoutManager.VERTICAL, false));
+            view.setHasFixedSize(false);
+        }
+        if (view.getAdapter() == null) {
+            VisitsRecyclerViewAdapter adapter = new VisitsRecyclerViewAdapter(view.getContext());
+            adapter.setVisitsLog(visitsLog);
+            view.setAdapter(adapter);
+        } else {
+            ((VisitsRecyclerViewAdapter) view.getAdapter()).setVisitsLog(visitsLog);
 
         }
     }
