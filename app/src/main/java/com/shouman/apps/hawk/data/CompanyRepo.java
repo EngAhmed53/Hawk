@@ -70,4 +70,8 @@ public class CompanyRepo {
     public static void addNewCompanyToDatabase(String cUID) {
         companiesReference.child(cUID).setValue(null);
     }
+
+    public static DatabaseReference getSalesMemberInfo(String salesUID) {
+        return usersReference.child(salesUID);
+    }
 }

@@ -88,7 +88,7 @@ public class Fragment_branch_details extends Fragment {
 
     private void toolbarCustomization() {
         mBinding.toolbar.setTitle(branchName);
-        mBinding.toolbar.inflateMenu(R.menu.branch_ui_menu);
+        mBinding.toolbar.inflateMenu(R.menu.branch_toolbar_menu);
 
         mBinding.toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -167,7 +167,7 @@ public class Fragment_branch_details extends Fragment {
         return entries;
     }
 
-    private class MyValueFormatter extends ValueFormatter {
+    private static class MyValueFormatter extends ValueFormatter {
         @Override
         public String getFormattedValue(float value) {
             return String.valueOf((int) value);

@@ -19,19 +19,20 @@
         android:background="@color/white2">
 
 
-        <Toolbar
+        <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?actionBarSize"
             android:background="@color/colorPrimary"
             android:elevation="6dp"
             android:fadeScrollbars="true"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:navigationIcon="@drawable/ic_arrow_back"
-            android:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-            android:titleTextAppearance="@style/TextAppearance.AppCompat.Title.Inverse" />
+            app:navigationIcon="@drawable/ic_arrow_back"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+            app:titleTextAppearance="@style/TextAppearance.AppCompat.Title.Inverse" />
 
         <ScrollView
             android:layout_width="match_parent"

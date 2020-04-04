@@ -25,6 +25,8 @@ import com.shouman.apps.hawk.ui.main.salesMemberUI.home.personalPage.PersonalPag
 
 import java.util.Objects;
 
+import static com.shouman.apps.hawk.ui.main.salesMemberUI.home.allCustomersPage.AllCustomersActivity.SALES_UID;
+
 public class Main2Activity extends AppCompatActivity implements IMain2ClickHandler {
 
     private ActivityMain2Binding mainBinding;
@@ -112,6 +114,8 @@ public class Main2Activity extends AppCompatActivity implements IMain2ClickHandl
 
     private void showAllCustomersActivity() {
         Intent intent = new Intent(this, AllCustomersActivity.class);
+        String userUID = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
+        intent.putExtra(SALES_UID, userUID);
         startActivity(intent);
     }
 

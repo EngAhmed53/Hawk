@@ -1,5 +1,6 @@
 package com.shouman.apps.hawk.ui.main.salesMemberUI.home.allCustomersPage;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -27,21 +28,27 @@ public class AllCustomersActivity extends AppCompatActivity implements OnCustome
     private ActivityAllCustomersBinding mBinding;
     private FragmentManager fragmentManager;
     private Fragment_customers_info fragment_customers_info;
+    public static final String SALES_UID = "salesUID";
+    private String salesUID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_all_customers);
-        setSupportActionBar(mBinding.toolbar);
-        Objects.requireNonNull(getSupportActionBar()).setTitle("All Customers");
-        initToolbar();
-
         fragmentManager = getSupportFragmentManager();
+
+        initToolbar();
+        Intent intent = getIntent();
+        if (intent != null) {
+            salesUID = intent.getStringExtra(SALES_UID);
+        }
 
         initViewModel();
     }
 
     private void initToolbar() {
+        setSupportActionBar(mBinding.toolbar);
+        Objects.requireNonNull(getSupportActionBar()).setTitle("All Customers");
         mBinding.toolbar.inflateMenu(R.menu.all_customers_search_bar);
         mBinding.toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,7 +59,8 @@ public class AllCustomersActivity extends AppCompatActivity implements OnCustome
     }
 
     private void initViewModel() {
-        AllCustomersViewModel allCustomersViewModel = new ViewModelProvider(this).get(AllCustomersViewModel.class);
+        AllCustomersViewModelFactory factory = new AllCustomersViewModelFactory(this, salesUID);
+        AllCustomersViewModel allCustomersViewModel = new ViewModelProvider(this, factory).get(AllCustomersViewModel.class);
         allCustomersViewModel.getMapMediatorLiveData().observe(this, new Observer<Map<String, String>>() {
             @Override
             public void onChanged(Map<String, String> allSalesCustomersMap) {

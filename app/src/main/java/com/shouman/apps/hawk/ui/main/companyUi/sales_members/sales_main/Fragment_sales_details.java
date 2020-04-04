@@ -1,14 +1,19 @@
-package com.shouman.apps.hawk.ui.main.companyUi.sales_members;
+package com.shouman.apps.hawk.ui.main.companyUi.sales_members.sales_main;
 
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -21,10 +26,15 @@ import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.shouman.apps.hawk.R;
 import com.shouman.apps.hawk.databinding.FragmentSalesDetailsBinding;
 import com.shouman.apps.hawk.model.CustomersLogDataEntry;
+import com.shouman.apps.hawk.ui.main.companyUi.MainActivity;
+import com.shouman.apps.hawk.ui.main.companyUi.sales_members.sales_info.Fragment_sales_info;
+import com.shouman.apps.hawk.ui.main.salesMemberUI.home.allCustomersPage.AllCustomersActivity;
 
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.Objects;
+
+import static com.shouman.apps.hawk.ui.main.salesMemberUI.home.allCustomersPage.AllCustomersActivity.SALES_UID;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -66,7 +76,15 @@ public class Fragment_sales_details extends Fragment {
             salesMemberUID = arguments.getString(SALES_MEMBER_UID);
             salesMemberName = arguments.getString(SALES_MEMBER_NAME);
         }
+        initViewModel();
+        toolbarCustomization();
+        initializeChart();
+        mBinding.recCustomers.setNestedScrollingEnabled(false);
 
+        return mBinding.getRoot();
+    }
+
+    private void initViewModel() {
         //setting up the viewModel
         SalesDetailsViewModelFactory factory = new SalesDetailsViewModelFactory(getContext(), salesMemberUID);
         SalesDetailsViewModel salesDetailsViewModel = new ViewModelProvider(this, factory).get(SalesDetailsViewModel.class);
@@ -77,27 +95,63 @@ public class Fragment_sales_details extends Fragment {
                 mBinding.setDatesCustomersMap(customersMap);
             }
         });
-
-
-//        BranchDetailsViewModel branchDetailsViewModel = new ViewModelProvider(this, factory).get(BranchDetailsViewModel.class);
-//        branchDetailsViewModel.getMediatorSalesLiveData().observe(getViewLifecycleOwner(), new Observer<Map<String, String>>() {
-//            @Override
-//            public void onChanged(Map<String, String> salesMap) {
-//                mBinding.setCustomersMap(salesMap);
-//            }
-//        });
-
-        toolbarCustomization();
-        initializeChart();
-        mBinding.recCustomers.setNestedScrollingEnabled(false);
-
-        return mBinding.getRoot();
     }
 
 
     private void toolbarCustomization() {
         mBinding.toolbar.setTitle(salesMemberName);
+        mBinding.toolbar.inflateMenu(R.menu.sales_toolbar_menu);
+        mBinding.toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                backToPrevious();
+            }
+        });
+
+
+        mBinding.toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.action_sales_info:
+                        openSalesInfoFragment();
+                        return true;
+                    case R.id.action_all_customers:
+                        openAllCustomersActivity();
+                    default:
+                        return false;
+                }
+            }
+        });
     }
+
+    private void openAllCustomersActivity() {
+        Intent intent = new Intent(getContext(), AllCustomersActivity.class);
+        intent.putExtra(SALES_UID, salesMemberUID);
+        startActivity(intent);
+    }
+
+    private void openSalesInfoFragment() {
+        getHostActivity()
+                .fragmentManager
+                .beginTransaction()
+                .setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out, android.R.anim.fade_in, android.R.anim.fade_out)
+                .addToBackStack("sales_info")
+                .add(R.id.full_container, Fragment_sales_info.getInstance(salesMemberUID))
+                .commit();
+
+    }
+
+    private void backToPrevious() {
+        getHostActivity()
+                .fragmentManager
+                .popBackStack("sales_details", FragmentManager.POP_BACK_STACK_INCLUSIVE);
+    }
+
+    private MainActivity getHostActivity() {
+        return (MainActivity) getActivity();
+    }
+
 
     private void initializeChart() {
         LineDataSet dataSet = new LineDataSet(getChartEntries(), "Total Customers");
