@@ -22,11 +22,12 @@
             android:scaleType="centerCrop"
             android:src="@drawable/app_logo"
             android:transitionName="@string/logo_image"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/app_name_text"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintVertical_bias="0.0"
+            app:layout_constraintVertical_chainStyle="packed" />
 
         <TextView
             android:id="@+id/app_name_text"
@@ -53,9 +54,11 @@
             android:text="@string/slogan"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
             android:textColor="@color/white2"
+            app:layout_constraintBottom_toTopOf="@+id/btn_create_account"
             app:layout_constraintEnd_toStartOf="@id/app_name_text"
             app:layout_constraintStart_toEndOf="@+id/app_name_text"
-            app:layout_constraintTop_toBottomOf="@+id/app_name_text" />
+            app:layout_constraintTop_toBottomOf="@+id/app_name_text"
+            app:layout_constraintVertical_chainStyle="spread_inside" />
 
         <Button
             android:id="@+id/btn_create_account"

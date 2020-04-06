@@ -62,7 +62,7 @@ public class Fragment_Add_New_Visit extends Fragment {
     private double currentLongitude;
     private FusedLocationProviderClient fusedLocation;
     private final float MINIMUM_DISTANCE = 0f;
-    private final float MAXIMUM_DISTANCE = 50f;
+    private final float MAXIMUM_DISTANCE = 1000f;
     private String companyName;
     private String customerName;
 

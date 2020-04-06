@@ -1,13 +1,7 @@
 <resources>
 
     <string-array name="positions_array">
-        <item>Company Manager</item>
-        <item>Sales Member</item>
+        <item>حساب شركة</item>
+        <item>حساب مندوب</item>
     </string-array>
-
-    <string-array name="days_array">
-        <item>Today</item>
-        <item>Yesterday</item>
-    </string-array>
-
 </resources>

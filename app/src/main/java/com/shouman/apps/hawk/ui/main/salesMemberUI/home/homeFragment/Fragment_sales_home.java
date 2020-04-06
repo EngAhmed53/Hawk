@@ -4,6 +4,7 @@ package com.shouman.apps.hawk.ui.main.salesMemberUI.home.homeFragment;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -180,12 +181,5 @@ public class Fragment_sales_home extends Fragment {
         public String getFormattedValue(float value) {
             return String.valueOf((int) value);
         }
-    }
-
-
-    @Override
-    public void onDestroy() {
-        mBinding.setDatesCustomersMap(null);
-        super.onDestroy();
     }
 }

@@ -84,12 +84,11 @@ public class RecyclerViewDataBinding {
 
     @BindingAdapter("setCustomersMap")
     public static void setCustomersRecyclerViewMap(RecyclerView view, Map<String, CustomersLogDataEntry> customersMap) {
-
         if (customersMap == null) {
             return;
         }
         if (view.getLayoutManager() == null) {
-            view.setLayoutManager(new LinearLayoutManager(view.getContext(), LinearLayoutManager.VERTICAL, false));
+            view.setLayoutManager(new LinearLayoutManager(view.getContext().getApplicationContext(), LinearLayoutManager.VERTICAL, false));
             view.setHasFixedSize(true);
         }
         if (view.getAdapter() == null) {

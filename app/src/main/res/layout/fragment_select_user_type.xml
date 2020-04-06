@@ -248,7 +248,7 @@
                         app:boxStrokeWidth="1dp"
                         app:errorEnabled="true"
                         app:errorTextColor="@android:color/holo_red_dark"
-                        app:helperText="Please type your company UID"
+                        app:helperText="@string/please_type_company_uid"
                         app:helperTextEnabled="true"
                         app:helperTextTextAppearance="@style/TextAppearance.MaterialComponents.Caption"
                         app:helperTextTextColor="@color/white2"

@@ -3,12 +3,14 @@ package com.shouman.apps.hawk.ui.main.salesMemberUI.newAdd;
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -55,7 +57,16 @@ public class AddNewActivity extends AppCompatActivity implements Fragment_add_ne
 
         final Intent intent = getIntent();
 
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_CALENDAR)
+                != PackageManager.PERMISSION_GRANTED) {
+            getPermission(savedInstanceState, intent);
+        } else {
+            Toast.makeText(this, "permission needed in order to continue", Toast.LENGTH_SHORT).show();
+        }
 
+    }
+
+    private void getPermission(final Bundle savedInstanceState, final Intent intent) {
         Dexter.withActivity(this).withPermission(Manifest.permission.ACCESS_FINE_LOCATION).withListener(new PermissionListener() {
             @Override
             public void onPermissionGranted(PermissionGrantedResponse response) {

@@ -86,7 +86,7 @@ public class Fragment_branch_info extends Fragment {
         AppExecutors.getsInstance().getDiskIO().execute(new Runnable() {
             @Override
             public void run() {
-               final Bitmap scaledBitMap = Bitmap.createScaledBitmap(qrBitMap, 200, 200, false);
+               final Bitmap scaledBitMap = Bitmap.createScaledBitmap(qrBitMap, 600, 600, false);
                AppExecutors.getsInstance().getMainThread().execute(new Runnable() {
                    @Override
                    public void run() {

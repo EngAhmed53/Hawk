@@ -68,7 +68,7 @@ public class DaysRecyclerViewAdapter extends RecyclerView.Adapter<DaysRecyclerVi
         DateFormat format = SimpleDateFormat.getDateInstance(DateFormat.MEDIUM, Locale.ENGLISH);
         String currentDate = format.format(new Date());
         if (date.equals(currentDate)) {
-            date = "Today";
+            date = mContext.getString(R.string.today);
 
         } else {
             Date d1 = null;
@@ -79,7 +79,7 @@ public class DaysRecyclerViewAdapter extends RecyclerView.Adapter<DaysRecyclerVi
             }
             Date d2 = new Date();
             long seconds = (d2.getTime() - Objects.requireNonNull(d1).getTime()) / 1000;
-            if (seconds > 86400 && seconds < 172800) date = "Yesterday";
+            if (seconds > 86400 && seconds < 172800) date = mContext.getString(R.string.yesterday);
         }
 
         holder.mBinding.setDate(date);

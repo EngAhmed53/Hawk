@@ -138,6 +138,11 @@
     <string name="sales_uid">UID</string>
     <string name="sales_qrcode">Salesman QR-Code</string>
     <string name="sales_qr_code">Salesman qr-code</string>
+    <string name="please_type_company_uid">Please type your company UID</string>
+    <string name="add_customer_fab">Add Customer</string>
+    <string name="add_visit_fab">Add Visit</string>
+    <string name="today">Today</string>
+    <string name="yesterday">Yesterday</string>
 
 
 </resources>

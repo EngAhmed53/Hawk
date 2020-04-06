@@ -4,10 +4,4 @@
         <item>Company Manager</item>
         <item>Sales Member</item>
     </string-array>
-
-    <string-array name="days_array">
-        <item>Today</item>
-        <item>Yesterday</item>
-    </string-array>
-
 </resources>

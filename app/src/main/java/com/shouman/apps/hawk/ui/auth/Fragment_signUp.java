@@ -4,7 +4,6 @@ package com.shouman.apps.hawk.ui.auth;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -144,6 +143,7 @@ public class Fragment_signUp extends Fragment {
             @Override
             public void onCancel() {
                 Toast.makeText(getContext(), "Log in cancelled", Toast.LENGTH_SHORT).show();
+                hideTheSigningUPProgressBarLayout();
             }
 
             @Override
@@ -261,16 +261,14 @@ public class Fragment_signUp extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
         if (requestCode == RC_SIGN_IN) {
-
             if (resultCode == RESULT_OK) {
-
                 authViewModel.setupMediatorLiveData();
 
             } else if (resultCode == RESULT_CANCELED) {
                 Toast.makeText(getContext(), "Sign up cancelled !", Toast.LENGTH_SHORT).show();
             }
+            hideTheSigningUPProgressBarLayout();
         } else {
             callbackManager.onActivityResult(requestCode, resultCode, data);
         }

@@ -307,8 +307,8 @@
 
                         <ImageView
                             android:id="@+id/branch_qr_code"
-                            android:layout_width="150dp"
-                            android:layout_height="150dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:layout_marginTop="8dp"
                             android:layout_marginBottom="8dp"
                             android:contentDescription="@string/branch_qr_code"

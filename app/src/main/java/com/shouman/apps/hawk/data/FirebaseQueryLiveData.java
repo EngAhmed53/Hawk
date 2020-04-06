@@ -36,7 +36,6 @@ public class FirebaseQueryLiveData extends LiveData<DataSnapshot> {
 
     @Override
     protected void onActive() {
-        Log.e(TAG, "onActive: ");
         if (listenerRemovePending) {
             handler.removeCallbacks(removeListener);
         } else {
@@ -47,8 +46,7 @@ public class FirebaseQueryLiveData extends LiveData<DataSnapshot> {
 
     @Override
     protected void onInactive() {
-        Log.e(TAG, "onInactive: ");
-        handler.postDelayed(removeListener, 3000);
+        handler.postDelayed(removeListener, 2000);
         listenerRemovePending = true;
     }
 

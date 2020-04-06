@@ -184,34 +184,6 @@ public class StartingActivity extends AppCompatActivity {
 
     }
 
-    //@Override
-    //public void onBackPressed() {
-    //if (count > 0) {
-//            Fragment_signUp fragment_signUp = (Fragment_signUp) fragmentManager.findFragmentByTag("sign_up_fragment");
-//            if (fragment_signUp != null && fragment_signUp.isVisible()) {
-//                Log.e(TAG, "onBackPressed here fragment != null ");
-//                try {
-//                    onBackButtonPressed = (OnBackButtonPressed) fragment_signUp;
-//                    if (fragment_signUp.count > 0) {
-//                        Log.e(TAG, "onBackPressed here fragment.count > 0");
-//                        onBackButtonPressed.doBack();
-//                    } else {
-//                        Log.e(TAG, "onBackPressed: " + fragment_signUp.count);
-//                        fragmentManager.beginTransaction().show(fragment_entry_screen).commit();
-//                        super.onBackPressed();
-//                    }
-//                } catch (ClassCastException e) {
-//                    e.printStackTrace();
-//                }
-//
-//            } else {
-//                fragmentManager.beginTransaction().show(fragment_entry_screen).commit();
-//                super.onBackPressed();
-//            }
-//
-//        } else {
-    //    super.onBackPressed();
-    //}
 
     public void showSignInFragment(String email) {
         Fragment_signIn fragment_signIn = Fragment_signIn.getInstance(email);

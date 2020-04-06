@@ -1,7 +1,6 @@
 package com.shouman.apps.hawk.ui.main.companyUi.company_home;
 
 import android.app.Application;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -32,28 +31,25 @@ public class CompanyHomeViewModel extends AndroidViewModel {
             @Override
             public void onChanged(final DataSnapshot dataSnapshot) {
                 if (dataSnapshot != null) {
-
                     AppExecutors.getsInstance().getNetworkIO().execute(new Runnable() {
                         @Override
                         public void run() {
                             Map<String, String> values = new HashMap<>();
                             for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
                                 values.put(dataSnapshot1.getKey(), dataSnapshot1.getValue(String.class));
-                                Log.e(TAG, "onChanged: " + dataSnapshot1.getValue(String.class));
                             }
                             mapMediatorLiveData.postValue(values);
                         }
                     });
                 } else {
                     mapMediatorLiveData.setValue(null);
-                    Log.e(TAG, "onChanged: " + "dataSnapshot is null");
                 }
             }
         });
     }
 
     //getter for mapMediatorLiveData
-    public MediatorLiveData<Map<String, String>> getMapMediatorLiveData() {
+    MediatorLiveData<Map<String, String>> getMapMediatorLiveData() {
         return mapMediatorLiveData;
     }
 
