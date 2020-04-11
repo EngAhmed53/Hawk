@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+    <FrameLayout xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clickable="true"
@@ -28,22 +27,19 @@
             android:text="@string/add_customer"
             android:textAllCaps="false" />
 
-        <com.makeramen.roundedimageview.RoundedImageView
+        <ImageView
             android:id="@+id/my_location"
             android:layout_width="56dp"
             android:layout_height="56dp"
-            android:src="@drawable/ic_my_location"
-            app:riv_corner_radius="16dp"
-            app:riv_border_width="0dp"
-            android:scaleType="center"
-            android:clickable="true"
-            android:focusable="true"
-            android:layout_marginEnd="16dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginBottom="14dp"
-            app:riv_mutate_background="true"
             android:layout_gravity="bottom|end"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="14dp"
             android:background="@drawable/my_location_btn_background"
-            app:riv_oval="true"/>
+            android:clickable="true"
+            android:contentDescription="@string/my_location"
+            android:focusable="true"
+            android:scaleType="center"
+            android:src="@drawable/ic_my_location" />
     </FrameLayout>
 </layout>

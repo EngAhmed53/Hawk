@@ -197,7 +197,7 @@ public class Fragment_pick_customer_location extends Fragment implements OnMapRe
     //if the location is not available we Request it
     private void requestCurrentLocationUpdate() {
         LocationRequest mLocationRequest = new LocationRequest();
-        mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+        mLocationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
         mLocationRequest.setInterval(0);
         mLocationRequest.setFastestInterval(0);
         mLocationRequest.setNumUpdates(1);

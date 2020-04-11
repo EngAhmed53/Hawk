@@ -216,7 +216,6 @@ public class Fragment_select_user_type extends Fragment {
 
                     } else {
                         openScanFragment();
-
                     }
                 }
             }
@@ -250,6 +249,7 @@ public class Fragment_select_user_type extends Fragment {
                         mBinding.btnScan.setEnabled(false);
                         mBinding.edtCompanyUid.setText(parameters[4]);
                         mBinding.edtBranchId.setText(parameters[2]);
+                        mBinding.btnScan.setBackgroundColor(getResources().getColor(R.color.gray2));
                         UserPreference.setCompanyName(getHostActivity(), parameters[3]);
                         UserPreference.setBranchName(getHostActivity(), parameters[1]);
 

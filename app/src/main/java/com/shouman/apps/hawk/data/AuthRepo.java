@@ -9,8 +9,8 @@ public class AuthRepo {
     private static FirebaseDatabase database = FirebaseDatabase.getInstance();
     private static DatabaseReference usersReference = database.getReference().child("users");
 
-    public static DatabaseReference getUserReference() {
-        return usersReference;
+    public static DatabaseReference getUserReference(String userUID) {
+        return usersReference.child(userUID);
     }
 
     //create new user and push it to database
@@ -34,7 +34,6 @@ public class AuthRepo {
                } else if (mainUser.getUt().equals("sales_account")) {
                    SalesRepo.addNewSalesMemberToDatabase(userUID, mainUser);
                }
-
             }
         });
     }

@@ -18,18 +18,15 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ScrollView
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/white2"
-            android:nestedScrollingEnabled="true">
+            android:background="@color/white2">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white2"
-                android:clickable="true"
-                android:focusable="true"
                 tools:context=".ui.main.companyUi.company_home.Fragment_company_home">
 
 
@@ -52,17 +49,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="16dp"
-                    android:clipToPadding="false"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/chart_view"
                     app:setDaysMap="@{dates_customers_map}" />
 
-
             </androidx.constraintlayout.widget.ConstraintLayout>
-
-        </ScrollView>
+        </androidx.core.widget.NestedScrollView>
 
         <FrameLayout
             android:id="@+id/protection_layout"
@@ -137,10 +131,6 @@
                 app:fab_label="@string/add_visit_fab"
                 app:fab_size="mini"
                 app:rippleColor="@color/colorPrimaryLight" />
-
-
         </com.github.clans.fab.FloatingActionMenu>
-
-
     </FrameLayout>
 </layout>

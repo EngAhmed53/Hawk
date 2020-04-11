@@ -2,7 +2,6 @@ package com.shouman.apps.hawk.ui.auth;
 
 import android.app.Application;
 import android.util.Log;
-import android.util.SparseArray;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -31,29 +30,26 @@ public class AuthViewModel extends AndroidViewModel {
 
     public AuthViewModel(@NonNull Application application) {
         super(application);
-
     }
 
 
     void setupMediatorLiveData() {
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-        FirebaseQueryLiveData firebaseQueryLiveData = new FirebaseQueryLiveData(AuthRepo.getUserReference());
         if (firebaseUser != null) {
             Log.e(TAG, "setupMediatorLiveData: ");
             final String userUID = firebaseUser.getUid();
+            FirebaseQueryLiveData firebaseQueryLiveData = new FirebaseQueryLiveData(AuthRepo.getUserReference(userUID));
             userMediatorLiveData.addSource(firebaseQueryLiveData, new Observer<DataSnapshot>() {
                 @Override
                 public void onChanged(final DataSnapshot dataSnapshot) {
                     AppExecutors.getsInstance().getNetworkIO().execute(new Runnable() {
                         @Override
                         public void run() {
-                            User user;
-                            if (dataSnapshot.hasChild(userUID)) {
-                                Log.e(TAG, "run: " + "user exist");
-                                user = dataSnapshot.child(userUID).getValue(User.class);
+                            User user = dataSnapshot.getValue(User.class);
+                            if (user == null || user.getE() == null) {
+                                user = AuthRepo.CreateNewUser(userUID, firebaseUser.getEmail());
                             } else {
-                                Log.e(TAG, "run: " + "create new user");
-                                user = AuthRepo.CreateNewUser(firebaseUser.getUid(), firebaseUser.getEmail());
+                                Log.e(TAG, "run: " + "user is exist");
                             }
                             userMediatorLiveData.postValue(user);
                         }
@@ -75,7 +71,7 @@ public class AuthViewModel extends AndroidViewModel {
         barCodesMediatorLiveData.postValue(barCode);
     }
 
-    public MutableLiveData<Barcode> getBarCodesMediatorLiveData() {
+    MutableLiveData<Barcode> getBarCodesMediatorLiveData() {
         return barCodesMediatorLiveData;
     }
 }

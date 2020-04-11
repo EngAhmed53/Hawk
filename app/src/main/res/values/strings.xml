@@ -143,6 +143,8 @@
     <string name="add_visit_fab">Add Visit</string>
     <string name="today">Today</string>
     <string name="yesterday">Yesterday</string>
+    <string name="my_location">my location</string>
+    <string name="create_new_account_progress_bar_text">Creating new Account</string>
 
 
 </resources>

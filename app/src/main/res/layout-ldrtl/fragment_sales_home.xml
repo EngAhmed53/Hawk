@@ -6,7 +6,6 @@
     <data>
 
         <import type="java.util.Map" />
-
         <import type="com.shouman.apps.hawk.model.CustomersLogDataEntry" />
 
         <variable
@@ -18,11 +17,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ScrollView
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/white2"
-            android:nestedScrollingEnabled="true">
+            android:background="@color/white2">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -62,7 +60,7 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-        </ScrollView>
+        </androidx.core.widget.NestedScrollView>
 
         <FrameLayout
             android:id="@+id/protection_layout"

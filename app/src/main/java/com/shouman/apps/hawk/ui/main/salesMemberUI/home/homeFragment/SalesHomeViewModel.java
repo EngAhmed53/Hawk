@@ -27,7 +27,6 @@ class SalesHomeViewModel extends ViewModel {
         //set the branch uid
         DatabaseReference salesReference = CompanyRepo.getSalesMemberCustomersLog(context, salesUID);
         FirebaseQueryLiveData firebaseQueryLiveData = new FirebaseQueryLiveData(salesReference);
-
         mediatorSalesLiveData.addSource(firebaseQueryLiveData, new Observer<DataSnapshot>() {
             @Override
             public void onChanged(final DataSnapshot dataSnapshot) {

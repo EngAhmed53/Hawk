@@ -4,7 +4,6 @@ package com.shouman.apps.hawk.ui.main.salesMemberUI.home.homeFragment;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -72,18 +71,7 @@ public class Fragment_sales_home extends Fragment {
             userUID = args.getString(USER_UID);
         }
 
-        SalesHomeViewModelFactory factory = new SalesHomeViewModelFactory(getContext(), userUID);
-        SalesHomeViewModel salesHomeViewModel = new ViewModelProvider(this, factory).get(SalesHomeViewModel.class);
-
-        salesHomeViewModel.getMediatorSalesLiveData().observe(getViewLifecycleOwner(), new Observer<Map<String, Map<String, CustomersLogDataEntry>>>() {
-            @Override
-            public void onChanged(Map<String, Map<String, CustomersLogDataEntry>> dates_customers_map) {
-                if (dates_customers_map != null) {
-                    mBinding.setDatesCustomersMap(dates_customers_map);
-                }
-            }
-        });
-
+        initViewModel();
 
         initializeChart();
         mBinding.fabMenu.setOnMenuButtonClickListener(new View.OnClickListener() {
@@ -130,6 +118,20 @@ public class Fragment_sales_home extends Fragment {
         });
 
         return mBinding.getRoot();
+    }
+
+    private void initViewModel() {
+        SalesHomeViewModelFactory factory = new SalesHomeViewModelFactory(getContext(), userUID);
+        SalesHomeViewModel salesHomeViewModel = new ViewModelProvider(this, factory).get(SalesHomeViewModel.class);
+
+        salesHomeViewModel.getMediatorSalesLiveData().observe(getViewLifecycleOwner(), new Observer<Map<String, Map<String, CustomersLogDataEntry>>>() {
+            @Override
+            public void onChanged(Map<String, Map<String, CustomersLogDataEntry>> dates_customers_map) {
+                if (dates_customers_map != null) {
+                    mBinding.setDatesCustomersMap(dates_customers_map);
+                }
+            }
+        });
     }
 
     private void closeFabMenu() {

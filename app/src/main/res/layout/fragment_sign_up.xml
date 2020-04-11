@@ -9,7 +9,7 @@
             type="String" />
     </data>
 
-    <ScrollView
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/photo_background_protection">
@@ -90,9 +90,9 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="8dp"
                             android:layout_marginEnd="8dp"
-                            android:padding="4dp"
                             android:background="@color/white2"
                             android:contentDescription="@string/facebook_logo"
+                            android:padding="4dp"
                             android:src="@drawable/ic_google_logo"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toStartOf="@+id/textView4"
@@ -117,8 +117,8 @@
                             android:id="@+id/dump_view"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginEnd="8dp"
                             android:layout_marginStart="8dp"
+                            android:layout_marginEnd="8dp"
                             android:contentDescription="@string/facebook_logo"
                             android:paddingTop="12dp"
                             android:paddingBottom="12dp"
@@ -151,8 +151,8 @@
                             android:layout_marginStart="8dp"
                             android:layout_marginEnd="8dp"
                             android:background="@color/white2"
-                            android:padding="4dp"
                             android:contentDescription="@string/facebook_logo"
+                            android:padding="4dp"
                             android:src="@drawable/ic_facebook_logo"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toStartOf="@+id/textView5"
@@ -178,8 +178,8 @@
                             android:id="@+id/dump_view_2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginEnd="8dp"
                             android:layout_marginStart="8dp"
+                            android:layout_marginEnd="8dp"
                             android:contentDescription="@string/facebook_logo"
                             android:paddingTop="12dp"
                             android:paddingBottom="12dp"
@@ -330,10 +330,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="56dp"
                     android:layout_marginTop="12dp"
-                    android:paddingRight="24dp"
-                    android:paddingLeft="24dp"
                     android:backgroundTint="@color/colorPrimary"
                     android:elevation="6dp"
+                    android:paddingLeft="24dp"
+                    android:paddingRight="24dp"
                     android:text="@string/sign_up"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -349,6 +349,7 @@
                 android:clickable="true"
                 android:focusable="true"
                 android:visibility="gone"
+                android:elevation="40dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -397,6 +398,6 @@
         </FrameLayout>
 
 
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>
 
 </layout>

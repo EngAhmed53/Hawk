@@ -1,6 +1,7 @@
 package com.shouman.apps.hawk.ui.main.companyUi.customers.customerInfo;
 
 
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -32,6 +33,7 @@ import com.shouman.apps.hawk.ui.main.companyUi.customers.visitsLog.DialogFragmen
 
 import org.jetbrains.annotations.NotNull;
 
+import java.lang.ref.WeakReference;
 import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.Objects;
@@ -47,10 +49,10 @@ public class Fragment_customers_info extends Fragment implements OnMapReadyCallb
     private GoogleMap map;
     private Customer mainCustomer;
     private boolean customerLocationSetted = false;
-
     public static Fragment_customers_info getInstance() {
         return new Fragment_customers_info();
     }
+    private WeakReference<Context> contextWeakReference;
 
     public static Fragment_customers_info getInstance(String customerName, String customerUID) {
         Bundle bundle = new Bundle();
@@ -65,6 +67,11 @@ public class Fragment_customers_info extends Fragment implements OnMapReadyCallb
         // Required empty public constructor
     }
 
+    @Override
+    public void onAttach(@NonNull Context context) {
+        contextWeakReference = new WeakReference<>(context);
+        super.onAttach(context);
+    }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, final ViewGroup container,
@@ -117,7 +124,7 @@ public class Fragment_customers_info extends Fragment implements OnMapReadyCallb
     }
 
     private void initViewModel(String customerUID) {
-        CustomersViewModelFactory factory = new CustomersViewModelFactory(getContext(), customerUID);
+        CustomersViewModelFactory factory = new CustomersViewModelFactory(contextWeakReference.get(), customerUID);
         CustomersViewModel customersViewModel = new ViewModelProvider(this, factory).get(CustomersViewModel.class);
         customersViewModel.getCustomerMediatorLiveData().observe(getViewLifecycleOwner(), new Observer<Customer>() {
             @Override
@@ -203,6 +210,7 @@ public class Fragment_customers_info extends Fragment implements OnMapReadyCallb
     public void onDestroy() {
         super.onDestroy();
         mBinding.customerLocationMap.onDestroy();
+        mBinding = null;
     }
 
     @Override

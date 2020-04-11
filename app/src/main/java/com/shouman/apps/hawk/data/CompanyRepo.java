@@ -35,7 +35,7 @@ public class CompanyRepo {
         return companiesReference.child(companyUID).child("ST").child(salesUID).child("cList");
     }
 
-    //return sales member customers list reference
+    //return sales member customers log reference
     public static DatabaseReference getSalesMemberCustomersLog(Context context, String salesUID) {
         String companyUID = UserPreference.getCompanyUID(context);
         return companiesReference.child(companyUID).child("ST").child(salesUID).child("cLog");

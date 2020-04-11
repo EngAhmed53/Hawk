@@ -102,7 +102,7 @@
                 android:adjustViewBounds="true"
                 android:contentDescription="@string/new_customer_label"
                 android:src="@drawable/ic_new_label"
-                android:visibility="gone"
+                android:visibility="visible"
                 app:layout_constraintBottom_toTopOf="@+id/time_added"
                 app:layout_constraintEnd_toEndOf="@+id/time_added"
                 app:layout_constraintStart_toStartOf="@+id/time_added"
@@ -117,7 +117,6 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
                 android:background="@drawable/two_letters_background"
-                android:backgroundTint="@color/colorAccent"
                 android:contentDescription="@string/customer_image"
                 android:scaleType="centerInside"
                 android:src="@drawable/ic_pin"
@@ -129,7 +128,7 @@
 
             <View
                 android:id="@+id/label_view"
-                android:layout_width="4dp"
+                android:layout_width="2dp"
                 android:layout_height="0dp"
                 android:background="@color/gray1"
                 app:layout_constraintBottom_toBottomOf="parent"

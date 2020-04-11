@@ -23,6 +23,7 @@ import com.shouman.apps.hawk.ui.main.companyUi.customers.customerInfo.Fragment_c
 import com.shouman.apps.hawk.ui.main.salesMemberUI.home.allCustomersPage.AllCustomersActivity;
 import com.shouman.apps.hawk.ui.main.salesMemberUI.home.personalPage.PersonalPageActivity;
 
+import java.lang.ref.WeakReference;
 import java.util.Objects;
 
 import static com.shouman.apps.hawk.ui.main.salesMemberUI.home.allCustomersPage.AllCustomersActivity.SALES_UID;
@@ -34,11 +35,13 @@ public class Main2Activity extends AppCompatActivity implements IMain2ClickHandl
     Fragment_customers_info fragment_customers_info;
     private FragmentManager fragmentManager;
     private String userUID;
+    private WeakReference<Main2Activity> contextWeakReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main2);
+        contextWeakReference = new WeakReference<>(this);
+        mainBinding = DataBindingUtil.setContentView(contextWeakReference.get(), R.layout.activity_main2);
         fragmentManager = getSupportFragmentManager();
 
         FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -56,7 +59,7 @@ public class Main2Activity extends AppCompatActivity implements IMain2ClickHandl
         setSupportActionBar(mainBinding.toolbar);
 
         //set the actionBarToggle
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(contextWeakReference.get(),
                 mainBinding.drawerLayout,
                 mainBinding.toolbar,
                 R.string.nav_drawer_open,
@@ -73,8 +76,8 @@ public class Main2Activity extends AppCompatActivity implements IMain2ClickHandl
 
     private void setDrawerInfo() {
         String userName = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getDisplayName();
-        String companyName = UserPreference.getUserCompanyName(this);
-        String branchName = UserPreference.getBranchName(this);
+        String companyName = UserPreference.getUserCompanyName(contextWeakReference.get());
+        String branchName = UserPreference.getBranchName(contextWeakReference.get());
 
         mainBinding.headerLayout.txtBranchName.setText(branchName);
         mainBinding.headerLayout.txtCompanyName.setText(companyName);
@@ -113,7 +116,7 @@ public class Main2Activity extends AppCompatActivity implements IMain2ClickHandl
     }
 
     private void showAllCustomersActivity() {
-        Intent intent = new Intent(this, AllCustomersActivity.class);
+        Intent intent = new Intent(contextWeakReference.get(), AllCustomersActivity.class);
         String userUID = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
         intent.putExtra(SALES_UID, userUID);
         startActivity(intent);
@@ -124,7 +127,7 @@ public class Main2Activity extends AppCompatActivity implements IMain2ClickHandl
     }
 
     private void signOut() {
-        new MaterialAlertDialogBuilder(this)
+        new MaterialAlertDialogBuilder(contextWeakReference.get())
                 .setPositiveButton(getString(R.string.sign_out), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -152,13 +155,13 @@ public class Main2Activity extends AppCompatActivity implements IMain2ClickHandl
     }
 
     private void showStartingActivity() {
-        Intent intent = new Intent(this, StartingActivity.class);
+        Intent intent = new Intent(contextWeakReference.get(), StartingActivity.class);
         startActivity(intent);
         finish();
     }
 
     private void clearUserPreference() {
-        UserPreference.clearAllPreference(this);
+        UserPreference.clearAllPreference(contextWeakReference.get());
     }
 
     private void showBranchPage() {
@@ -174,7 +177,7 @@ public class Main2Activity extends AppCompatActivity implements IMain2ClickHandl
     }
 
     private void showPersonalPage() {
-        Intent intent = new Intent(this, PersonalPageActivity.class);
+        Intent intent = new Intent(contextWeakReference.get(), PersonalPageActivity.class);
         startActivity(intent);
     }
 
@@ -206,14 +209,26 @@ public class Main2Activity extends AppCompatActivity implements IMain2ClickHandl
 
     @Override
     public void onCustomerItemClickHandler(String customerUID, String customerName) {
-        Log.e("TAG", "onCustomerItemClickHandler: " + customerUID + " " + customerName);
-        fragment_customers_info = Fragment_customers_info.getInstance(customerName, customerUID);
-        fragmentManager
-                .beginTransaction()
-                .addToBackStack("customer_info")
-                .setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right, android.R.anim.slide_in_left, android.R.anim.slide_out_right)
-                .add(R.id.full_customer_info_container, fragment_customers_info, "fragment_customer_info")
-                .commit();
+        fragment_customers_info = (Fragment_customers_info) fragmentManager.findFragmentByTag("fragment_customer_info");
+        if (fragment_customers_info != null && fragment_customers_info.isAdded()) {
+            fragment_customers_info = null;
+            fragment_customers_info = Fragment_customers_info.getInstance(customerName, customerUID);
+            fragmentManager.beginTransaction().replace(R.id.full_customer_info_container, fragment_customers_info).commit();
+        } else {
+            Log.e("TAG", "onCustomerItemClickHandler: " + "customer fragment is null");
+            fragment_customers_info = Fragment_customers_info.getInstance(customerName, customerUID);
+            fragmentManager
+                    .beginTransaction()
+                    .addToBackStack("customer_info")
+                    .setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right, android.R.anim.slide_in_left, android.R.anim.slide_out_right)
+                    .add(R.id.full_customer_info_container, fragment_customers_info, "fragment_customer_info")
+                    .commit();
+        }
+    }
 
+    @Override
+    protected void onDestroy() {
+        mainBinding = null;
+        super.onDestroy();
     }
 }

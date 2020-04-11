@@ -47,19 +47,14 @@ public class StartingActivity extends AppCompatActivity {
             if (firebaseUser == null) {
                 //new user or user wes logged out
                 showEntryFragment();
-
             } else {
                 Log.e(TAG, "onAuthStateChanged: " + "user is not null");
                 //reload firebase user
                 firebaseUser.reload();
-                authViewModel.setupMediatorLiveData();
-
-
                 authViewModel.getUserMediatorLiveData().observe(StartingActivity.this, new Observer<User>() {
                     @Override
                     public void onChanged(User user) {
                         if (user.getUt() == null) {
-
                             showSelectUserTypeFragment();
                         } else {
                             showMainActivity(user);
@@ -85,11 +80,8 @@ public class StartingActivity extends AppCompatActivity {
 
         initViewModel();
 
-
-        //check if the user is exist or not
+        authViewModel.setupMediatorLiveData();
         firebaseAuth.addAuthStateListener(firebaseAuthListener);
-
-
     }
 
     private void initViewModel() {
@@ -107,7 +99,6 @@ public class StartingActivity extends AppCompatActivity {
                 .beginTransaction()
                 .replace(R.id.starting_container, fragment_signUp, "fragment_sign_up")
                 .commit();
-
     }
 
 

@@ -49,11 +49,11 @@ dependencies {
     implementation "androidx.preference:preference:1.1.0"
 
 
-    //room
-    def room_version = "2.2.4"
-    implementation "androidx.room:room-runtime:$room_version"
-    annotationProcessor "androidx.room:room-compiler:$room_version"
-    implementation "androidx.room:room-ktx:$room_version"
+//    //room
+//    def room_version = "2.2.4"
+//    implementation "androidx.room:room-runtime:$room_version"
+//    annotationProcessor "androidx.room:room-compiler:$room_version"
+//    implementation "androidx.room:room-ktx:$room_version"
 
 
     // life cycle
@@ -81,10 +81,7 @@ dependencies {
     // google services
     implementation 'com.google.android.gms:play-services-maps:17.0.0'
     implementation 'com.google.android.gms:play-services-location:17.0.0'
-
-    // rounded image view
-    implementation 'com.makeramen:roundedimageview:2.3.0'
-
+    
     // animated bottom nav bar
     implementation 'nl.joery.animatedbottombar:library:1.0.4'
 

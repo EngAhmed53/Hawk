@@ -1,7 +1,7 @@
 package com.shouman.apps.hawk.adapters;
 
 import android.content.Context;
-import android.graphics.Typeface;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,27 +20,44 @@ import com.shouman.apps.hawk.ui.main.salesMemberUI.home.homeFragment.IMain2Click
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.TreeMap;
 
-public class CustomersRecyclerViewAdapter extends RecyclerView.Adapter<CustomersRecyclerViewAdapter.CustomersViewHolder> {
+public class CustomersLogRecyclerViewAdapter extends RecyclerView.Adapter<CustomersLogRecyclerViewAdapter.CustomersViewHolder> {
 
-    private Map<String, CustomersLogDataEntry> customersMap;
+    private TreeMap<String, CustomersLogDataEntry> customersMap;
     private List<CustomersLogDataEntry> customersData;
     private List<String> customersUIDs;
     private Context mContext;
 
-    public CustomersRecyclerViewAdapter(Context mContext) {
+    public CustomersLogRecyclerViewAdapter(Context mContext) {
         this.mContext = mContext;
     }
 
-    public void setCustomersMap(Map<String, CustomersLogDataEntry> customersMap) {
-        this.customersMap = customersMap;
+    public void setCustomersMap(final Map<String, CustomersLogDataEntry> customersMap) {
+        this.customersMap = new TreeMap<>(new Comparator<String>() {
+            @Override
+            public int compare(String o1, String o2) {
+                CustomersLogDataEntry dataEntry1 = customersMap.get(o1);
+                CustomersLogDataEntry dataEntry2 = customersMap.get(o2);
+
+                assert dataEntry1 != null;
+                Long time1 = dataEntry1.getTimeMillieSeconds();
+
+                assert dataEntry2 != null;
+                Long time2 = dataEntry2.getTimeMillieSeconds();
+
+                return time2.compareTo(time1);
+            }
+        });
+        this.customersMap.putAll(customersMap);
         this.customersData = new ArrayList<>();
-        this.customersData.addAll(customersMap.values());
+        this.customersData.addAll(this.customersMap.values());
         this.customersUIDs = new ArrayList<>();
-        this.customersUIDs.addAll(customersMap.keySet());
+        this.customersUIDs.addAll(this.customersMap.keySet());
         notifyDataSetChanged();
     }
 
@@ -91,7 +108,7 @@ public class CustomersRecyclerViewAdapter extends RecyclerView.Adapter<Customers
 
         //show the label if the customer is new and this is not just a visit
         if (customerData.isNewCustomer()) {
-            holder.mBinding.labelView.setBackgroundColor(mContext.getResources().getColor(R.color.green));
+            holder.mBinding.labelView.setBackgroundColor(mContext.getResources().getColor(R.color.com_facebook_blue));
             holder.mBinding.imgNewLabel.setVisibility(View.VISIBLE);
             holder.mBinding.customerImage.setImageResource(R.drawable.ic_ceo);
         }

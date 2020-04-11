@@ -16,18 +16,16 @@ import com.shouman.apps.hawk.utils.AppExecutors;
 import java.util.HashMap;
 import java.util.Map;
 
-public class BranchDetailsViewModel extends ViewModel {
+class BranchDetailsViewModel extends ViewModel {
     private static final String TAG = "BranchDetailsViewModel";
     private MediatorLiveData<Map<String, String>> mediatorBranchLiveData = new MediatorLiveData<>();
 
 
-    public BranchDetailsViewModel(Context context, String branchUID) {
+    BranchDetailsViewModel(Context context, String branchUID) {
 
         //set the branch uid
         DatabaseReference branchReference = CompanyRepo.getBranchSalesMembersList(context, branchUID);
         FirebaseQueryLiveData firebaseQueryLiveData = new FirebaseQueryLiveData(branchReference);
-
-
         mediatorBranchLiveData.addSource(firebaseQueryLiveData, new Observer<DataSnapshot>() {
             @Override
             public void onChanged(final DataSnapshot dataSnapshot) {
@@ -51,7 +49,7 @@ public class BranchDetailsViewModel extends ViewModel {
         });
     }
 
-    public MediatorLiveData<Map<String, String>> getMediatorBranchLiveData() {
+    MediatorLiveData<Map<String, String>> getMediatorBranchLiveData() {
         return mediatorBranchLiveData;
     }
 }

@@ -129,5 +129,7 @@
     <string name="add_visit_fab">اضافة زيارة لعميل حالي</string>
     <string name="today">اليوم</string>
     <string name="yesterday">الأمس</string>
+    <string name="my_location">موقعي</string>
+    <string name="create_new_account_progress_bar_text">انشاء حساب جديد</string>
 
 </resources>

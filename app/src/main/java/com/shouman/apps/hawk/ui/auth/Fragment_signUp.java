@@ -4,6 +4,7 @@ package com.shouman.apps.hawk.ui.auth;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -184,6 +185,7 @@ public class Fragment_signUp extends Fragment {
         //the intent to open the google sign up
         final Intent googleIntent = AuthUI.getInstance()
                 .createSignInIntentBuilder()
+                .setIsSmartLockEnabled(false)
                 .setAuthMethodPickerLayout(customLayout)
                 .setAvailableProviders(Collections.singletonList(
                         new AuthUI.IdpConfig.GoogleBuilder().build()))
@@ -263,12 +265,14 @@ public class Fragment_signUp extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == RC_SIGN_IN) {
             if (resultCode == RESULT_OK) {
+                Log.e(TAG, "onActivityResult: " + "result ok" );
                 authViewModel.setupMediatorLiveData();
+                mBinding.signingUpText.setText(R.string.create_new_account_progress_bar_text);
 
             } else if (resultCode == RESULT_CANCELED) {
                 Toast.makeText(getContext(), "Sign up cancelled !", Toast.LENGTH_SHORT).show();
+                hideTheSigningUPProgressBarLayout();
             }
-            hideTheSigningUPProgressBarLayout();
         } else {
             callbackManager.onActivityResult(requestCode, resultCode, data);
         }
@@ -332,5 +336,11 @@ public class Fragment_signUp extends Fragment {
         super.onPause();
         accessTokenTracker.stopTracking();
 
+    }
+
+    @Override
+    public void onDestroyView() {
+        hideTheSigningUPProgressBarLayout();
+        super.onDestroyView();
     }
 }
