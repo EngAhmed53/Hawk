@@ -250,6 +250,9 @@ public class Fragment_select_user_type extends Fragment {
                         mBinding.edtCompanyUid.setText(parameters[4]);
                         mBinding.edtBranchId.setText(parameters[2]);
                         mBinding.btnScan.setBackgroundColor(getResources().getColor(R.color.gray2));
+                        mBinding.btnScan.setElevation(0);
+
+                        //there is an error here i cant get the company and branch name
                         UserPreference.setCompanyName(getHostActivity(), parameters[3]);
                         UserPreference.setBranchName(getHostActivity(), parameters[1]);
 

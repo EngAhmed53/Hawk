@@ -146,16 +146,15 @@ public class Fragment_add_new_customer extends Fragment {
 
     private void requestCompanyNameFocus() {
         // handler to open the keyboard and request focus
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
+        mBinding.customerNameTxtInput.post(new Runnable() {
             @Override
             public void run() {
-                Objects.requireNonNull(mBinding.customerCompanyNameTxtInput.getEditText()).requestFocus();
+                Objects.requireNonNull(mBinding.customerNameTxtInput.getEditText()).requestFocus();
                 InputMethodManager inputMethodManager = (InputMethodManager) Objects.requireNonNull(getActivity()).getSystemService(Context.INPUT_METHOD_SERVICE);
                 assert inputMethodManager != null;
                 inputMethodManager.showSoftInput(mBinding.edtCustomerName, InputMethodManager.SHOW_IMPLICIT);
             }
-        }, 100);
+        });
     }
 
     @Override

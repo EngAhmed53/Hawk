@@ -2,7 +2,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <androidx.core.widget.NestedScrollView
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/main_background"
@@ -43,18 +43,56 @@
                 android:text="@string/type_the_new_customer_information_then_press_continue"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
                 android:textColor="@color/white2"
-                app:layout_constraintBottom_toTopOf="@+id/customer_company_name_txtInput"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/header" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/customer_name_txtInput"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="50dp"
+                android:hint="@string/customer_name"
+                android:textColorHint="@color/white2"
+                app:boxCornerRadiusBottomEnd="6dp"
+                app:boxCornerRadiusBottomStart="6dp"
+                app:boxCornerRadiusTopEnd="6dp"
+                app:boxCornerRadiusTopStart="6dp"
+                app:boxStrokeColor="@color/white2"
+                app:boxStrokeWidth="1dp"
+                app:errorEnabled="true"
+                app:errorTextColor="@android:color/holo_red_dark"
+                app:hintTextAppearance="@style/TextAppearance.AppCompat.Caption"
+                app:hintTextColor="@color/white2"
+                app:layout_constraintBottom_toTopOf="@+id/customer_company_name_txtInput"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/headline"
+                app:startIconDrawable="@drawable/ic_person"
+                app:startIconTint="@color/white">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edt_customer_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:inputType="text"
+                    android:maxLength="100"
+                    android:maxLines="1"
+                    android:textColor="@color/white2"
+                    android:textColorHint="@color/white2" />
+            </com.google.android.material.textfield.TextInputLayout>
+
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/customer_company_name_txtInput"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="50dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginEnd="50dp"
                 android:hint="@string/company_name"
                 android:textColorHint="@color/white2"
@@ -68,10 +106,12 @@
                 app:errorTextColor="@android:color/holo_red_dark"
                 app:hintTextAppearance="@style/TextAppearance.AppCompat.Caption"
                 app:hintTextColor="@color/white2"
-                app:layout_constraintBottom_toTopOf="@+id/customer_name_txtInput"
+                app:layout_constraintBottom_toTopOf="@+id/customer_phone_txtInput"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/headline">
+                app:layout_constraintTop_toBottomOf="@+id/customer_name_txtInput"
+                app:startIconDrawable="@drawable/ic_branch"
+                app:startIconTint="@color/white">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/customer_company_name_edt"
@@ -89,8 +129,8 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="50dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginEnd="50dp"
                 android:hint="@string/phone"
                 android:textColorHint="@color/white2"
@@ -107,7 +147,9 @@
                 app:layout_constraintBottom_toTopOf="@+id/customer_email_txtInput"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/customer_name_txtInput">
+                app:layout_constraintTop_toBottomOf="@+id/customer_company_name_txtInput"
+                app:startIconDrawable="@drawable/ic_phone"
+                app:startIconTint="@color/white">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/customer_phone_edt"
@@ -125,8 +167,8 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="50dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginEnd="50dp"
                 android:hint="@string/customer_email"
                 android:textColorHint="@color/white2"
@@ -143,7 +185,9 @@
                 app:layout_constraintBottom_toTopOf="@+id/customer_extra_info_txtInput"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/customer_phone_txtInput">
+                app:layout_constraintTop_toBottomOf="@+id/customer_phone_txtInput"
+                app:startIconDrawable="@drawable/ic_email"
+                app:startIconTint="@color/white">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/edt_customer_email"
@@ -161,8 +205,8 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="50dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginEnd="50dp"
                 android:hint="@string/notes"
                 android:textColorHint="@color/white2"
@@ -189,41 +233,6 @@
                     android:textColorHint="@color/white2" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/customer_name_txtInput"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="50dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="50dp"
-                android:hint="@string/customer_name"
-                android:textColorHint="@color/white2"
-                app:boxCornerRadiusBottomEnd="6dp"
-                app:boxCornerRadiusBottomStart="6dp"
-                app:boxCornerRadiusTopEnd="6dp"
-                app:boxCornerRadiusTopStart="6dp"
-                app:boxStrokeColor="@color/white2"
-                app:boxStrokeWidth="1dp"
-                app:errorEnabled="true"
-                app:errorTextColor="@android:color/holo_red_dark"
-                app:hintTextAppearance="@style/TextAppearance.AppCompat.Caption"
-                app:hintTextColor="@color/white2"
-                app:layout_constraintBottom_toTopOf="@+id/customer_phone_txtInput"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/customer_company_name_txtInput">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edt_customer_name"
-                    android:layout_width="match_parent"
-                    android:layout_height="56dp"
-                    android:inputType="text"
-                    android:maxLength="100"
-                    android:maxLines="1"
-                    android:textColor="@color/white2"
-                    android:textColorHint="@color/white2" />
-            </com.google.android.material.textfield.TextInputLayout>
 
             <Button
                 android:id="@+id/btc_continue"
@@ -231,7 +240,7 @@
                 android:layout_height="56dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="8dp"
-                android:backgroundTint="@color/colorPrimaryDark"
+                android:backgroundTint="@color/colorAccent"
                 android:elevation="6dp"
                 android:paddingLeft="64dp"
                 android:paddingRight="64dp"
@@ -245,6 +254,6 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </androidx.core.widget.NestedScrollView>
+    </ScrollView>
 
 </layout>
