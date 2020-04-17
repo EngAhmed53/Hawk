@@ -145,6 +145,11 @@
     <string name="yesterday">Yesterday</string>
     <string name="my_location">my location</string>
     <string name="create_new_account_progress_bar_text">Creating new Account</string>
+    <string name="open_branches_section">open branches section</string>
+    <string name="branches_title">Branches</string>
+    <string name="customers_title">Customers</string>
+    <string name="sales_team_title">Sales Team</string>
+    <string name="reports_title">Reports</string>
 
 
 </resources>

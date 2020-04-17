@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.shouman.apps.hawk.R;
 import com.shouman.apps.hawk.databinding.VisitLogListItemBinding;
-import com.shouman.apps.hawk.model.Visit;
+import com.shouman.apps.hawk.data.model.Visit;
 
 import java.text.DateFormat;
 import java.util.Date;

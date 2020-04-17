@@ -5,7 +5,7 @@
 
     <data>
 
-        <import type="com.shouman.apps.hawk.model.Customer" />
+        <import type="com.shouman.apps.hawk.data.model.Customer" />
 
         <variable
             name="customer"

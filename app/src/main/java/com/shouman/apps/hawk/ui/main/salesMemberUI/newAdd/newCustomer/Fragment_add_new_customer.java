@@ -3,7 +3,6 @@ package com.shouman.apps.hawk.ui.main.salesMemberUI.newAdd.newCustomer;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.os.Handler;
 import android.os.IBinder;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,9 +15,8 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.textfield.TextInputLayout;
-import com.shouman.apps.hawk.R;
 import com.shouman.apps.hawk.databinding.FragmentAddNewCustomerBinding;
-import com.shouman.apps.hawk.model.Customer;
+import com.shouman.apps.hawk.data.model.Customer;
 import com.shouman.apps.hawk.ui.main.salesMemberUI.newAdd.AddNewActivity;
 
 import java.util.Date;

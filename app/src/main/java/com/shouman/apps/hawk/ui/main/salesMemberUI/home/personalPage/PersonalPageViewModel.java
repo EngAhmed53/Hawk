@@ -10,8 +10,8 @@ import androidx.lifecycle.Observer;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.shouman.apps.hawk.data.FirebaseQueryLiveData;
-import com.shouman.apps.hawk.data.SalesRepo;
-import com.shouman.apps.hawk.model.User;
+import com.shouman.apps.hawk.data.database.firebaseRepo.FirebaseSalesRepo;
+import com.shouman.apps.hawk.data.model.User;
 import com.shouman.apps.hawk.utils.AppExecutors;
 
 public class PersonalPageViewModel extends AndroidViewModel {
@@ -20,7 +20,8 @@ public class PersonalPageViewModel extends AndroidViewModel {
 
     public PersonalPageViewModel(@NonNull Application application) {
         super(application);
-        DatabaseReference salesUserReference = SalesRepo.getCustomerInfoReference();
+        FirebaseSalesRepo salesRepo = FirebaseSalesRepo.getInstance();
+        DatabaseReference salesUserReference = salesRepo.getCustomerInfoReference();
         FirebaseQueryLiveData firebaseQueryLiveData = new FirebaseQueryLiveData(salesUserReference);
         userMediatorLiveData.addSource(firebaseQueryLiveData, new Observer<DataSnapshot>() {
             @Override

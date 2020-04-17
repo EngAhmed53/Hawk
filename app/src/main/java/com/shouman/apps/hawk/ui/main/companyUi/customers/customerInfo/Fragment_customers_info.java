@@ -24,16 +24,12 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.database.annotations.NotNull;
 import com.shouman.apps.hawk.R;
-import com.shouman.apps.hawk.databinding.DialogFragmentVisitLogBinding;
+import com.shouman.apps.hawk.data.model.Customer;
 import com.shouman.apps.hawk.databinding.FragmentCustomersInfoBinding;
-import com.shouman.apps.hawk.model.Customer;
-import com.shouman.apps.hawk.model.Visit;
 import com.shouman.apps.hawk.ui.main.companyUi.customers.visitsLog.DialogFragment_Visits_Log;
 
-import org.jetbrains.annotations.NotNull;
-
-import java.lang.ref.WeakReference;
 import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.Objects;
@@ -49,10 +45,12 @@ public class Fragment_customers_info extends Fragment implements OnMapReadyCallb
     private GoogleMap map;
     private Customer mainCustomer;
     private boolean customerLocationSetted = false;
+
     public static Fragment_customers_info getInstance() {
         return new Fragment_customers_info();
     }
-    private WeakReference<Context> contextWeakReference;
+
+    private Context context;
 
     public static Fragment_customers_info getInstance(String customerName, String customerUID) {
         Bundle bundle = new Bundle();
@@ -69,7 +67,7 @@ public class Fragment_customers_info extends Fragment implements OnMapReadyCallb
 
     @Override
     public void onAttach(@NonNull Context context) {
-        contextWeakReference = new WeakReference<>(context);
+        this.context = context;
         super.onAttach(context);
     }
 
@@ -80,6 +78,7 @@ public class Fragment_customers_info extends Fragment implements OnMapReadyCallb
         mBinding = FragmentCustomersInfoBinding.inflate(inflater);
         mBinding.setNotDefined(getString(R.string.not_defined));
         String customerUID = getArguments() != null ? getArguments().getString(CUSTOMER_UID) : null;
+        Log.e("TAG", "onCreateView: " + customerUID);
 
         mBinding.toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -112,7 +111,7 @@ public class Fragment_customers_info extends Fragment implements OnMapReadyCallb
     private void openDialogFragment() {
         FragmentManager fragmentManager = getChildFragmentManager();
         DialogFragment_Visits_Log dialogFragment_visits_log =
-                DialogFragment_Visits_Log.getInstance(new TreeMap<String, Visit>(mainCustomer.getVisitList()), mainCustomer.getN());
+                DialogFragment_Visits_Log.getInstance(new TreeMap<>(mainCustomer.getVisitList()), mainCustomer.getN());
 
         dialogFragment_visits_log.showNow(fragmentManager, "visits_log");
     }
@@ -124,7 +123,7 @@ public class Fragment_customers_info extends Fragment implements OnMapReadyCallb
     }
 
     private void initViewModel(String customerUID) {
-        CustomersViewModelFactory factory = new CustomersViewModelFactory(contextWeakReference.get(), customerUID);
+        CustomersViewModelFactory factory = new CustomersViewModelFactory(context, customerUID);
         CustomersViewModel customersViewModel = new ViewModelProvider(this, factory).get(CustomersViewModel.class);
         customersViewModel.getCustomerMediatorLiveData().observe(getViewLifecycleOwner(), new Observer<Customer>() {
             @Override

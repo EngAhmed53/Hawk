@@ -3,7 +3,7 @@ package com.shouman.apps.hawk.ui.main.salesMemberUI.newAdd.newCustomer;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.shouman.apps.hawk.model.Customer;
+import com.shouman.apps.hawk.data.model.Customer;
 
 public class NewCustomerSharedViewModel extends ViewModel {
     public NewCustomerSharedViewModel() {

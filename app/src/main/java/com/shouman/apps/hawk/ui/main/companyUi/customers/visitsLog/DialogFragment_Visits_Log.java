@@ -10,7 +10,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
 import com.shouman.apps.hawk.databinding.DialogFragmentVisitLogBinding;
-import com.shouman.apps.hawk.model.Visit;
+import com.shouman.apps.hawk.data.model.Visit;
 
 import java.util.ArrayList;
 import java.util.List;

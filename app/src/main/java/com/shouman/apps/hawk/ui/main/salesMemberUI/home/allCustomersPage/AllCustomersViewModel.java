@@ -7,19 +7,24 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModel;
 
 import com.google.firebase.database.DataSnapshot;
-import com.shouman.apps.hawk.data.CompanyRepo;
 import com.shouman.apps.hawk.data.FirebaseQueryLiveData;
+import com.shouman.apps.hawk.data.database.firebaseRepo.FirebaseCompanyRepo;
 import com.shouman.apps.hawk.utils.AppExecutors;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class AllCustomersViewModel extends ViewModel {
+class AllCustomersViewModel extends ViewModel {
 
     private MediatorLiveData<Map<String, String>> mapMediatorLiveData;
 
-    public AllCustomersViewModel(Context context, String salesUID) {
-        FirebaseQueryLiveData allCustomersLiveData = new FirebaseQueryLiveData(CompanyRepo.getSalesMemberCustomersList(context, salesUID));
+    AllCustomersViewModel(Context context, String salesUID) {
+
+        FirebaseCompanyRepo firebaseCompanyRepo = FirebaseCompanyRepo.getInstance();
+
+        FirebaseQueryLiveData allCustomersLiveData =
+                new FirebaseQueryLiveData(firebaseCompanyRepo.getSalesMemberCustomersList(context, salesUID));
+
         mapMediatorLiveData = new MediatorLiveData<>();
         mapMediatorLiveData.addSource(allCustomersLiveData, new Observer<DataSnapshot>() {
             @Override

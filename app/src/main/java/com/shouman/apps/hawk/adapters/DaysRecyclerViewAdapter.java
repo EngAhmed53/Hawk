@@ -11,16 +11,16 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.shouman.apps.hawk.R;
 import com.shouman.apps.hawk.databinding.DayListItemLayoutBinding;
-import com.shouman.apps.hawk.model.CustomersLogDataEntry;
+import com.shouman.apps.hawk.data.model.CustomersLogDataEntry;
 
 import java.lang.ref.WeakReference;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -36,10 +36,6 @@ public class DaysRecyclerViewAdapter extends RecyclerView.Adapter<DaysRecyclerVi
 
     public DaysRecyclerViewAdapter(Context mContext) {
         this.mContext = new WeakReference<>(mContext);
-    }
-
-    public void setDate_customersMap(Map<String, Map<String, CustomersLogDataEntry>> date_customersMap) {
-
         //sorting the map using treeMap in descending order
         this.date_customersTMap = new TreeMap<>(new Comparator<String>() {
             @Override
@@ -53,7 +49,29 @@ public class DaysRecyclerViewAdapter extends RecyclerView.Adapter<DaysRecyclerVi
                 return day2Num - day1Num;
             }
         });
-        this.date_customersTMap.putAll(date_customersMap);
+    }
+
+    public void setDate_customersMap(Map<String, Map<String, CustomersLogDataEntry>> date_customersMap) {
+
+        if (this.date_customersTMap.isEmpty()) {
+            this.date_customersTMap.putAll(date_customersMap);
+        } else {
+            for (String day : date_customersMap.keySet()) {
+                if (this.date_customersTMap.containsKey(day)) {
+                    Map<String, CustomersLogDataEntry> dayLog = this.date_customersTMap.get(day);
+                    if (dayLog == null) dayLog = new HashMap<>();
+
+                    Map<String, CustomersLogDataEntry> newDayLog = date_customersMap.get(day);
+                    if (newDayLog == null) newDayLog = new HashMap<>();
+
+                    dayLog.putAll(newDayLog);
+                    this.date_customersTMap.put(day, dayLog);
+                } else {
+                  this.date_customersTMap.put(day, date_customersMap.get(day));
+                }
+            }
+        }
+
 
         //get the dates in array list
         this.dates = new ArrayList<>();

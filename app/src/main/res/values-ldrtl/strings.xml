@@ -131,5 +131,9 @@
     <string name="yesterday">الأمس</string>
     <string name="my_location">موقعي</string>
     <string name="create_new_account_progress_bar_text">انشاء حساب جديد</string>
+    <string name="reports_title">التقارير</string>
+    <string name="branches_title">الافرع</string>
+    <string name="customers_title">العملاء</string>
+    <string name="sales_team_title">فريق المبيعات</string>
 
 </resources>

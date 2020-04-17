@@ -7,10 +7,11 @@ import androidx.preference.PreferenceManager;
 
 public class UserPreference {
 
-    public static final String USER_CUID = "company_uid";
-    public static final String USER_BUID = "sales_member_branch_uid";
+    private static final String USER_CUID = "company_uid";
+    private static final String USER_BUID = "sales_member_branch_uid";
     private static final String USER_COMPANY_NAME = "company_name";
     private static final String USER_BRANCH_NAME = "branch_name";
+    private static final String FIRST_START = "first_start";
 
 
     public static void setBranchUID(Context context, String branchUID) {
@@ -23,6 +24,15 @@ public class UserPreference {
         return preferences.getString(USER_BUID, "null");
     }
 
+    public static void setFirstStart(Context context) {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        preferences.edit().putBoolean(FIRST_START, false).apply();
+    }
+
+    public static boolean isFirstStart(Context context) {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        return preferences.getBoolean(FIRST_START, true);
+    }
 
 
     public static void setCompanyUID(Context context, String CUID) {
@@ -34,7 +44,6 @@ public class UserPreference {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
         return preferences.getString(USER_CUID, "null");
     }
-
 
 
     public static void setCompanyName(Context context, String cName) {

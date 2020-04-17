@@ -12,18 +12,40 @@ import com.shouman.apps.hawk.adapters.AllCustomersRecyclerViewAdapter;
 import com.shouman.apps.hawk.adapters.BranchRecyclerViewAdapter;
 import com.shouman.apps.hawk.adapters.CustomersLogRecyclerViewAdapter;
 import com.shouman.apps.hawk.adapters.DaysRecyclerViewAdapter;
+import com.shouman.apps.hawk.adapters.HomeMenuRecyclerAdapter;
 import com.shouman.apps.hawk.adapters.SalesRecyclerViewAdapter;
 import com.shouman.apps.hawk.adapters.VisitsRecyclerViewAdapter;
-import com.shouman.apps.hawk.model.CustomersLogDataEntry;
-import com.shouman.apps.hawk.model.Visit;
+import com.shouman.apps.hawk.data.model.CustomersLogDataEntry;
+import com.shouman.apps.hawk.data.model.MenuItem;
+import com.shouman.apps.hawk.data.model.Visit;
 
 import java.lang.ref.WeakReference;
 import java.util.List;
 import java.util.Map;
-import java.util.TreeMap;
 
 public class RecyclerViewDataBinding {
     private static final String TAG = "RecyclerViewDataBinding";
+
+
+    @BindingAdapter("setMenuItems")
+    public static void setRecyclerMenuItems(RecyclerView view,List<MenuItem> menuItems) {
+
+        if (menuItems == null) {
+            return;
+        }
+        if (view.getLayoutManager() == null) {
+            view.setLayoutManager(new GridLayoutManager(view.getContext(), 2));
+            view.setHasFixedSize(true);
+        }
+        if (view.getAdapter() == null) {
+            HomeMenuRecyclerAdapter adapter = new HomeMenuRecyclerAdapter(view.getContext());
+            adapter.setMenuItems(menuItems);
+            view.setAdapter(adapter);
+        } else {
+            ((HomeMenuRecyclerAdapter) view.getAdapter()).setMenuItems(menuItems);
+        }
+    }
+
 
     @BindingAdapter("setBranchesMap")
     public static void setRecyclerViewMap(RecyclerView view, Map<String, String> branches) {

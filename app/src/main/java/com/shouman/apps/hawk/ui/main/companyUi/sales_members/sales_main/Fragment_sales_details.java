@@ -4,7 +4,6 @@ package com.shouman.apps.hawk.ui.main.companyUi.sales_members.sales_main;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,8 +24,8 @@ import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.shouman.apps.hawk.R;
 import com.shouman.apps.hawk.databinding.FragmentSalesDetailsBinding;
-import com.shouman.apps.hawk.model.CustomersLogDataEntry;
-import com.shouman.apps.hawk.ui.main.companyUi.MainActivity;
+import com.shouman.apps.hawk.data.model.CustomersLogDataEntry;
+import com.shouman.apps.hawk.ui.main.companyUi.FragmentContainerActivity;
 import com.shouman.apps.hawk.ui.main.companyUi.sales_members.sales_info.Fragment_sales_info;
 import com.shouman.apps.hawk.ui.main.salesMemberUI.home.allCustomersPage.AllCustomersActivity;
 
@@ -137,7 +136,7 @@ public class Fragment_sales_details extends Fragment {
                 .beginTransaction()
                 .setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out, android.R.anim.fade_in, android.R.anim.fade_out)
                 .addToBackStack("sales_info")
-                .add(R.id.full_container, Fragment_sales_info.getInstance(salesMemberUID))
+                .add(R.id.home_container, Fragment_sales_info.getInstance(salesMemberUID))
                 .commit();
 
     }
@@ -148,8 +147,8 @@ public class Fragment_sales_details extends Fragment {
                 .popBackStack("sales_details", FragmentManager.POP_BACK_STACK_INCLUSIVE);
     }
 
-    private MainActivity getHostActivity() {
-        return (MainActivity) getActivity();
+    private FragmentContainerActivity getHostActivity() {
+        return (FragmentContainerActivity) getActivity();
     }
 
 

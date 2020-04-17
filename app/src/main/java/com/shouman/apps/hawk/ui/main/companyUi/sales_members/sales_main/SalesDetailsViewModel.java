@@ -9,9 +9,9 @@ import androidx.lifecycle.ViewModel;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
-import com.shouman.apps.hawk.data.CompanyRepo;
 import com.shouman.apps.hawk.data.FirebaseQueryLiveData;
-import com.shouman.apps.hawk.model.CustomersLogDataEntry;
+import com.shouman.apps.hawk.data.database.firebaseRepo.FirebaseCompanyRepo;
+import com.shouman.apps.hawk.data.model.CustomersLogDataEntry;
 import com.shouman.apps.hawk.utils.AppExecutors;
 
 import java.util.HashMap;
@@ -24,8 +24,9 @@ class SalesDetailsViewModel extends ViewModel {
 
      SalesDetailsViewModel(Context context, String salesUID) {
 
+         FirebaseCompanyRepo companyRepo = FirebaseCompanyRepo.getInstance();
         //set the branch uid
-        DatabaseReference salesReference = CompanyRepo.getSalesMemberCustomersLog(context, salesUID);
+        DatabaseReference salesReference = companyRepo.getSalesMemberCustomersLog(context, salesUID);
         FirebaseQueryLiveData firebaseQueryLiveData = new FirebaseQueryLiveData(salesReference);
 
 

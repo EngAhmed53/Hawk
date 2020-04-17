@@ -16,7 +16,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.main.salesMemberUI.home.allCustomersPage.AllCustomersActivity" android:theme="@style/no_action_bar"/>
+        <activity android:name=".ui.main.companyUi.home.MainActivity" android:theme="@style/no_action_bar"/>
+        <activity
+            android:name=".ui.main.salesMemberUI.home.allCustomersPage.AllCustomersActivity"
+            android:theme="@style/no_action_bar" />
         <activity
             android:name=".ui.main.salesMemberUI.home.personalPage.PersonalPageActivity"
             android:theme="@style/no_action_bar" />
@@ -36,7 +39,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.main.companyUi.MainActivity"
+            android:name=".ui.main.companyUi.FragmentContainerActivity"
             android:theme="@style/no_action_bar" />
 
         <meta-data

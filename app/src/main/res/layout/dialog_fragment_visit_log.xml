@@ -5,7 +5,7 @@
 
     <data>
 
-        <import type="com.shouman.apps.hawk.model.Visit" />
+        <import type="com.shouman.apps.hawk.data.model.Visit" />
 
         <import type="java.util.List" />
 

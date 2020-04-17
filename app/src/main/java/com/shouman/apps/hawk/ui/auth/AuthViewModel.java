@@ -13,9 +13,9 @@ import com.google.android.gms.vision.barcode.Barcode;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
-import com.shouman.apps.hawk.data.AuthRepo;
 import com.shouman.apps.hawk.data.FirebaseQueryLiveData;
-import com.shouman.apps.hawk.model.User;
+import com.shouman.apps.hawk.data.database.firebaseRepo.FirebaseAuthRepo;
+import com.shouman.apps.hawk.data.model.User;
 import com.shouman.apps.hawk.utils.AppExecutors;
 
 public class AuthViewModel extends AndroidViewModel {
@@ -25,11 +25,14 @@ public class AuthViewModel extends AndroidViewModel {
 
     private MediatorLiveData<User> userMediatorLiveData = new MediatorLiveData<>();
 
+    private FirebaseAuthRepo firebaseAuthRepo;
+
     //this is for the barCode captured from the scanner;
     private MutableLiveData<Barcode> barCodesMediatorLiveData = new MutableLiveData<>();
 
     public AuthViewModel(@NonNull Application application) {
         super(application);
+        firebaseAuthRepo = FirebaseAuthRepo.getInstance();
     }
 
 
@@ -38,7 +41,8 @@ public class AuthViewModel extends AndroidViewModel {
         if (firebaseUser != null) {
             Log.e(TAG, "setupMediatorLiveData: ");
             final String userUID = firebaseUser.getUid();
-            FirebaseQueryLiveData firebaseQueryLiveData = new FirebaseQueryLiveData(AuthRepo.getUserReference(userUID));
+            Log.e(TAG, "setupMediatorLiveData: " + userUID);
+            FirebaseQueryLiveData firebaseQueryLiveData = new FirebaseQueryLiveData(firebaseAuthRepo.getUserReference(userUID));
             userMediatorLiveData.addSource(firebaseQueryLiveData, new Observer<DataSnapshot>() {
                 @Override
                 public void onChanged(final DataSnapshot dataSnapshot) {
@@ -47,7 +51,7 @@ public class AuthViewModel extends AndroidViewModel {
                         public void run() {
                             User user = dataSnapshot.getValue(User.class);
                             if (user == null || user.getE() == null) {
-                                user = AuthRepo.CreateNewUser(userUID, firebaseUser.getEmail());
+                                user = firebaseAuthRepo.createNewUser(userUID, firebaseUser.getEmail());
                             } else {
                                 Log.e(TAG, "run: " + "user is exist");
                             }
@@ -64,7 +68,7 @@ public class AuthViewModel extends AndroidViewModel {
     }
 
     void updateTheUserInDatabase(User mainUser) {
-        AuthRepo.updateTheUserInDatabase(firebaseUser.getUid(), mainUser);
+        firebaseAuthRepo.updateTheUserInDatabase(firebaseUser.getUid(), mainUser);
     }
 
     void setBarCodesArray(Barcode barCode) {

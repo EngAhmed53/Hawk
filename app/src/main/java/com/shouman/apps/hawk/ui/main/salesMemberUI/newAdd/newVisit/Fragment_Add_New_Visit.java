@@ -16,8 +16,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
-import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -29,20 +27,18 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.common.collect.BiMap;
-import com.google.common.collect.HashBiMap;
 import com.google.firebase.auth.FirebaseAuth;
 import com.shouman.apps.hawk.R;
 import com.shouman.apps.hawk.adapters.CustomersDropDownArrayAdapter;
-import com.shouman.apps.hawk.data.SalesRepo;
+import com.shouman.apps.hawk.data.database.firebaseRepo.FirebaseSalesRepo;
+import com.shouman.apps.hawk.data.model.Visit;
 import com.shouman.apps.hawk.databinding.FragmentAddNewVisitBinding;
-import com.shouman.apps.hawk.model.Visit;
 import com.shouman.apps.hawk.ui.main.salesMemberUI.newAdd.AddNewActivity;
 import com.shouman.apps.hawk.utils.AppExecutors;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -65,6 +61,7 @@ public class Fragment_Add_New_Visit extends Fragment {
     private final float MAXIMUM_DISTANCE = 1000f;
     private String companyName;
     private String customerName;
+    private FirebaseSalesRepo salesRepo;
 
 
     public Fragment_Add_New_Visit() {
@@ -78,6 +75,7 @@ public class Fragment_Add_New_Visit extends Fragment {
     @Override
     public void onAttach(@NonNull Context context) {
         fusedLocation = LocationServices.getFusedLocationProviderClient(context);
+        salesRepo = FirebaseSalesRepo.getInstance();
         super.onAttach(context);
     }
 
@@ -118,7 +116,7 @@ public class Fragment_Add_New_Visit extends Fragment {
                         @Override
                         public void run() {
                             if (!isCustomerIsAlreadyExitInThisDayLog(selectedCustomerUID)) {
-                                SalesRepo.addNewVisitReport(getContext(), visit, selectedCustomerUID, customerName, companyName);
+                                salesRepo.addNewVisitReport(getContext(), visit, selectedCustomerUID, customerName, companyName);
                                 showToastInMainThread("Visit added Successfully");
                                 closeHostActivity();
                             } else {
@@ -129,7 +127,7 @@ public class Fragment_Add_New_Visit extends Fragment {
 
                 } else {
                     Toast.makeText(getContext(),
-                            "You should be in the customer place to add a visit report" ,
+                            "You should be in the customer place to add a visit report",
                             Toast.LENGTH_SHORT)
                             .show();
                 }
@@ -142,10 +140,10 @@ public class Fragment_Add_New_Visit extends Fragment {
 
     private void closeHostActivity() {
         AddNewActivity hostActivity = (AddNewActivity) getActivity();
-                if(hostActivity != null) {
-                    hostActivity.getSupportFragmentManager().beginTransaction().remove(this).commit();
-                    hostActivity.finish();
-                }
+        if (hostActivity != null) {
+            hostActivity.getSupportFragmentManager().beginTransaction().remove(this).commit();
+            hostActivity.finish();
+        }
     }
 
     private void showToastInMainThread(final String toastMessage) {

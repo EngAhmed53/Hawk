@@ -9,9 +9,9 @@ import androidx.lifecycle.ViewModel;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 import com.google.firebase.database.DataSnapshot;
-import com.shouman.apps.hawk.data.CompanyRepo;
 import com.shouman.apps.hawk.data.FirebaseQueryLiveData;
-import com.shouman.apps.hawk.data.SalesRepo;
+import com.shouman.apps.hawk.data.database.firebaseRepo.FirebaseCompanyRepo;
+import com.shouman.apps.hawk.data.database.firebaseRepo.FirebaseSalesRepo;
 import com.shouman.apps.hawk.utils.AppExecutors;
 
 import java.text.DateFormat;
@@ -28,10 +28,15 @@ class VisitsViewModel extends ViewModel {
 
 
     VisitsViewModel(Context mContext, String salesUID) {
-        FirebaseQueryLiveData customersMapLiveData = new FirebaseQueryLiveData(CompanyRepo.getSalesMemberCustomersList(mContext, salesUID));
+
+        FirebaseSalesRepo salesRepo = FirebaseSalesRepo.getInstance();
+
+        FirebaseCompanyRepo firebaseCompanyRepo = FirebaseCompanyRepo.getInstance();
+        FirebaseQueryLiveData customersMapLiveData =
+                new FirebaseQueryLiveData(firebaseCompanyRepo.getSalesMemberCustomersList(mContext, salesUID));
 
         String date = SimpleDateFormat.getDateInstance(DateFormat.MEDIUM, Locale.ENGLISH).format(new Date());
-        FirebaseQueryLiveData allCurrentDayLogLiveData = new FirebaseQueryLiveData(SalesRepo.getCurrentDayLog(mContext, salesUID, date));
+        FirebaseQueryLiveData allCurrentDayLogLiveData = new FirebaseQueryLiveData(salesRepo.getCurrentDayLog(mContext, salesUID, date));
         currentDayLogMediatorLiveData = new MediatorLiveData<>();
         currentDayLogMediatorLiveData.addSource(allCurrentDayLogLiveData, new Observer<DataSnapshot>() {
             @Override

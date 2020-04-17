@@ -7,7 +7,7 @@
 
         <variable
             name="user"
-            type="com.shouman.apps.hawk.model.User" />
+            type="com.shouman.apps.hawk.data.model.User" />
 
         <variable
             name="uid"

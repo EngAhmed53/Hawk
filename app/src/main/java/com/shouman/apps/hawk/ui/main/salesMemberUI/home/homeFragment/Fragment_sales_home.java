@@ -21,8 +21,8 @@ import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.shouman.apps.hawk.R;
+import com.shouman.apps.hawk.data.model.CustomersLogDataEntry;
 import com.shouman.apps.hawk.databinding.FragmentSalesHomeBinding;
-import com.shouman.apps.hawk.model.CustomersLogDataEntry;
 import com.shouman.apps.hawk.ui.main.salesMemberUI.newAdd.AddNewActivity;
 
 import java.util.ArrayList;

@@ -10,7 +10,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.shouman.apps.hawk.R;
 import com.shouman.apps.hawk.databinding.ActivityPersonalPageBinding;
-import com.shouman.apps.hawk.model.User;
+import com.shouman.apps.hawk.data.model.User;
 
 public class PersonalPageActivity extends AppCompatActivity {
 

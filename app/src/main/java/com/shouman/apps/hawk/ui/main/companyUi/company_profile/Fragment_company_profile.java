@@ -12,7 +12,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.shouman.apps.hawk.databinding.FragmentCompanyProfileBinding;
-import com.shouman.apps.hawk.model.User;
+import com.shouman.apps.hawk.data.model.User;
 
 /**
  * A simple {@link Fragment} subclass.

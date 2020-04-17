@@ -1,7 +1,6 @@
 package com.shouman.apps.hawk.adapters;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.shouman.apps.hawk.R;
 import com.shouman.apps.hawk.databinding.CustomersListItemLayoutBinding;
-import com.shouman.apps.hawk.model.CustomersLogDataEntry;
+import com.shouman.apps.hawk.data.model.CustomersLogDataEntry;
 import com.shouman.apps.hawk.ui.main.OnCustomerItemClickHandler;
 import com.shouman.apps.hawk.ui.main.companyUi.IMainClickHandler;
 import com.shouman.apps.hawk.ui.main.salesMemberUI.home.homeFragment.IMain2ClickHandler;

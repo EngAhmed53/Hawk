@@ -1,4 +1,6 @@
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-android'
 apply plugin: 'com.google.gms.google-services'
 
 android {
@@ -81,12 +83,12 @@ dependencies {
     // google services
     implementation 'com.google.android.gms:play-services-maps:17.0.0'
     implementation 'com.google.android.gms:play-services-location:17.0.0'
-    
-    // animated bottom nav bar
-    implementation 'nl.joery.animatedbottombar:library:1.0.4'
 
-    // view pager 2
-    implementation 'androidx.viewpager2:viewpager2:1.0.0'
+//    // animated bottom nav bar
+//    implementation 'nl.joery.animatedbottombar:library:1.0.4'
+//
+//    // view pager 2
+//    implementation 'androidx.viewpager2:viewpager2:1.0.0'
 
     //dexter lib
     implementation 'com.karumi:dexter:6.0.1'
@@ -94,11 +96,20 @@ dependencies {
     //QR gen
     implementation 'com.github.kenglxn.QRGen:android:2.6.0'
     //QR vision
-    implementation 'com.google.android.gms:play-services-vision:19.0.0'
+    implementation 'com.google.android.gms:play-services-vision:20.0.0'
 
     //multi action fab
     implementation 'com.github.clans:fab:1.6.4'
 
     //guava lib
     implementation("com.google.guava:guava:28.2-android")
+    implementation "androidx.core:core-ktx:+"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
+//    //paper.io local storage
+//    implementation 'io.paperdb:paperdb:2.6'
+}
+repositories {
+    mavenCentral()
 }

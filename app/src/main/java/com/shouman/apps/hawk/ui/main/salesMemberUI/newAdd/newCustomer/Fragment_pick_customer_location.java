@@ -8,6 +8,7 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Looper;
 import android.provider.Settings;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,9 +31,9 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.shouman.apps.hawk.data.SalesRepo;
+import com.shouman.apps.hawk.data.database.firebaseRepo.FirebaseSalesRepo;
+import com.shouman.apps.hawk.data.model.Customer;
 import com.shouman.apps.hawk.databinding.FragmentPickLocationBinding;
-import com.shouman.apps.hawk.model.Customer;
 import com.shouman.apps.hawk.ui.main.salesMemberUI.newAdd.AddNewActivity;
 import com.shouman.apps.hawk.utils.AppExecutors;
 
@@ -51,6 +52,8 @@ public class Fragment_pick_customer_location extends Fragment implements OnMapRe
     private double longitude;
     private OnAddCustomerClickHandler onAddCustomerClickHandler;
     private FragmentPickLocationBinding mBinding;
+    private FirebaseSalesRepo salesRepo;
+    private Context context;
 
     public interface OnAddCustomerClickHandler {
         void finishHostActivity();
@@ -67,6 +70,7 @@ public class Fragment_pick_customer_location extends Fragment implements OnMapRe
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
+        this.context = context;
         //set the location
         fusedLocation = LocationServices.getFusedLocationProviderClient(context);
         try {
@@ -74,6 +78,7 @@ public class Fragment_pick_customer_location extends Fragment implements OnMapRe
         } catch (ClassCastException e) {
             e.printStackTrace();
         }
+        salesRepo = FirebaseSalesRepo.getInstance();
     }
 
     @Override
@@ -114,11 +119,11 @@ public class Fragment_pick_customer_location extends Fragment implements OnMapRe
                     @Override
                     public void run() {
                         //add this new customer to database
-                        SalesRepo.addNewCustomerToDatabase(getContext(), theCustomer);
+                        salesRepo.addNewCustomerToDatabase(context, theCustomer);
                         getBaseActivity().runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                Toast.makeText(getContext(), theCustomer.getCn() + "added to database", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(context, theCustomer.getCn() + "added to database", Toast.LENGTH_SHORT).show();
                                 onAddCustomerClickHandler.finishHostActivity();
                             }
                         });

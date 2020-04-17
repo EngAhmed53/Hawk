@@ -215,7 +215,6 @@ public class Main2Activity extends AppCompatActivity implements IMain2ClickHandl
             fragment_customers_info = Fragment_customers_info.getInstance(customerName, customerUID);
             fragmentManager.beginTransaction().replace(R.id.full_customer_info_container, fragment_customers_info).commit();
         } else {
-            Log.e("TAG", "onCustomerItemClickHandler: " + "customer fragment is null");
             fragment_customers_info = Fragment_customers_info.getInstance(customerName, customerUID);
             fragmentManager
                     .beginTransaction()

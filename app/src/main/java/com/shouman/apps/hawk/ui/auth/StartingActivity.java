@@ -23,9 +23,9 @@ import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.single.PermissionListener;
 import com.shouman.apps.hawk.R;
 import com.shouman.apps.hawk.databinding.ActivityStartingBinding;
-import com.shouman.apps.hawk.model.User;
+import com.shouman.apps.hawk.data.model.User;
 import com.shouman.apps.hawk.preferences.UserPreference;
-import com.shouman.apps.hawk.ui.main.companyUi.MainActivity;
+import com.shouman.apps.hawk.ui.main.companyUi.home.MainActivity;
 import com.shouman.apps.hawk.ui.main.salesMemberUI.home.homeFragment.Main2Activity;
 
 public class StartingActivity extends AppCompatActivity {

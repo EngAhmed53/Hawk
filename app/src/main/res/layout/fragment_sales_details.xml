@@ -6,7 +6,7 @@
 
         <import type="java.util.Map" />
         <import type="java.util.TreeMap"/>
-        <import type="com.shouman.apps.hawk.model.CustomersLogDataEntry"/>
+        <import type="com.shouman.apps.hawk.data.model.CustomersLogDataEntry"/>
 
         <variable
             name="dates_customers_map"

@@ -23,7 +23,7 @@ import com.google.android.gms.vision.barcode.Barcode;
 import com.shouman.apps.hawk.R;
 import com.shouman.apps.hawk.common.Common;
 import com.shouman.apps.hawk.databinding.FragmentSelectUserTypeBinding;
-import com.shouman.apps.hawk.model.User;
+import com.shouman.apps.hawk.data.model.User;
 import com.shouman.apps.hawk.preferences.UserPreference;
 
 import java.util.Objects;
