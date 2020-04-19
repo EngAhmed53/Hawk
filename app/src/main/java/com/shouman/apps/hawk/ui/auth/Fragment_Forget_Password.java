@@ -98,7 +98,7 @@ public class Fragment_Forget_Password extends Fragment {
                 .setPositiveButton("ok", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        //no action to do just dismiss
+                        dialog.dismiss();
                     }
                 })
                 .setIcon(R.drawable.ic_report_problem);

@@ -5,12 +5,15 @@
 
     <data>
 
-        <import type="java.util.Map"/>
-        <import type="com.shouman.apps.hawk.data.model.CustomersLogDataEntry"/>
+        <import type="java.util.Map" />
+
+        <import type="java.util.List" />
+
+        <import type="com.shouman.apps.hawk.data.model.DailyLogEntry" />
 
         <variable
-            name="dates_customers_map"
-            type="Map&lt;String, Map&lt;String, CustomersLogDataEntry>>" />
+            name="logEntriesMap"
+            type="Map&lt; String, List &lt;DailyLogEntry>>" />
     </data>
 
     <FrameLayout
@@ -55,7 +58,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/chart_view"
-                    app:setDaysMap="@{dates_customers_map}" />
+                    app:setLogMap="@{logEntriesMap}" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>

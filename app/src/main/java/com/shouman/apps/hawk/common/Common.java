@@ -4,6 +4,9 @@ import android.content.Context;
 
 import com.shouman.apps.hawk.R;
 
+import java.util.Calendar;
+import java.util.Date;
+
 
 public class Common {
     private static final String TAG = "Common class";
@@ -37,5 +40,15 @@ public class Common {
             position = position % 10;
             return colors[position];
         }
+    }
+
+    public static Date getCurrentDateWithoutTime() {
+        Calendar calendar=Calendar.getInstance();
+        calendar.setTime(new Date());
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+        return calendar.getTime();
     }
 }

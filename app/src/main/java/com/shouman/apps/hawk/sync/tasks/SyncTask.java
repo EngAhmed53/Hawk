@@ -1,0 +1,70 @@
+package com.shouman.apps.hawk.sync.tasks;
+
+import android.content.Context;
+import android.util.Log;
+
+import com.google.firebase.database.FirebaseDatabase;
+import com.shouman.apps.hawk.data.database.firebaseRepo.FirebaseSalesRepo;
+import com.shouman.apps.hawk.data.model.Customer;
+import com.shouman.apps.hawk.data.model.DailyLogEntry;
+import com.shouman.apps.hawk.data.model.Visit;
+
+import java.util.Map;
+
+import io.paperdb.Book;
+import io.paperdb.Paper;
+
+public class SyncTask {
+    private static final String TAG = "UploadLocalDataTask";
+
+    synchronized public static void syncData(Context context) {
+        FirebaseDatabase.getInstance().goOffline();
+        FirebaseDatabase.getInstance().goOnline();
+        uploadLocalLog(context);
+        uploadNewCustomers(context);
+        uploadNewVisits(context);
+    }
+
+    synchronized private static void uploadNewCustomers(Context context) {
+        Book allNewCustomersBook = Paper.book("New_Customers");
+        if (allNewCustomersBook.getAllKeys().isEmpty()) return;
+
+        FirebaseSalesRepo salesRepo = FirebaseSalesRepo.getInstance();
+        for (String key : allNewCustomersBook.getAllKeys()) {
+            Customer customer = allNewCustomersBook.read(key);
+            salesRepo.uploadCustomers(context, customer, key);
+            allNewCustomersBook.delete(key);
+            Log.e(TAG, "uploadNewCustomers: upload customer" + customer.getN());
+        }
+    }
+
+    synchronized private static void uploadNewVisits(Context context) {
+        Book allNewVisitsBook = Paper.book("visits_list");
+        if (allNewVisitsBook.getAllKeys().isEmpty()) return;
+
+        FirebaseSalesRepo salesRepo = FirebaseSalesRepo.getInstance();
+        for (String key : allNewVisitsBook.getAllKeys()) {
+            String customerUID = key.substring(0, key.indexOf(", "));
+            Visit visit = allNewVisitsBook.read(key);
+            salesRepo.uploadVisits(context, visit, customerUID);
+            allNewVisitsBook.delete(key);
+            Log.e(TAG, "uploadNewCustomers: upload visit" + customerUID);
+        }
+    }
+
+    synchronized private static void uploadLocalLog(Context context) {
+        Book allLocalLog = Paper.book("Daily_Log");
+        if (allLocalLog.getAllKeys().isEmpty()) return;
+
+        FirebaseSalesRepo salesRepo = FirebaseSalesRepo.getInstance();
+        for (String date : allLocalLog.getAllKeys()) {
+            Map<String, DailyLogEntry> customerUIDLogEntryMap = Paper.book("Daily_Log").read(date);
+            for (String customerUID : customerUIDLogEntryMap.keySet()) {
+                DailyLogEntry dailyLogEntry = customerUIDLogEntryMap.get(customerUID);
+                salesRepo.uploadLocalLog(context, date, dailyLogEntry);
+            }
+            allLocalLog.delete(date);
+            Log.e(TAG, "uploadLocalLog: upload log" + date);
+        }
+    }
+}

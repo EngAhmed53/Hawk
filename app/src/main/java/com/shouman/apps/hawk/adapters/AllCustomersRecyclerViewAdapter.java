@@ -107,7 +107,6 @@ public class AllCustomersRecyclerViewAdapter extends RecyclerView.Adapter<AllCus
         //set company name
         holder.mBinding.companyNameTxt.setText(customerData[1]);
         holder.mBinding.timeAdded.setVisibility(View.INVISIBLE);
-        holder.mBinding.imgNewLabel.setVisibility(View.INVISIBLE);
         holder.mBinding.customerImage.setImageResource(R.drawable.ic_ceo);
     }
 

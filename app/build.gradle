@@ -1,8 +1,5 @@
 apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android-extensions'
-apply plugin: 'kotlin-android'
 apply plugin: 'com.google.gms.google-services'
-
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.2"
@@ -103,12 +100,17 @@ dependencies {
 
     //guava lib
     implementation("com.google.guava:guava:28.2-android")
-    implementation "androidx.core:core-ktx:+"
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0"
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
-//    //paper.io local storage
-//    implementation 'io.paperdb:paperdb:2.6'
+    //paper.io local storage
+    implementation 'io.paperdb:paperdb:2.6'
+
+    //work manager
+    def work_version = "2.3.4"
+    implementation "androidx.work:work-runtime:$work_version"
+
+    //Joda-time
+    implementation 'joda-time:joda-time:2.10.5'
+
 }
 repositories {
     mavenCentral()

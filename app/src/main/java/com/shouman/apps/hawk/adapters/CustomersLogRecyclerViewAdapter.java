@@ -10,53 +10,35 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.shouman.apps.hawk.R;
+import com.shouman.apps.hawk.data.model.DailyLogEntry;
 import com.shouman.apps.hawk.databinding.CustomersListItemLayoutBinding;
-import com.shouman.apps.hawk.data.model.CustomersLogDataEntry;
 import com.shouman.apps.hawk.ui.main.OnCustomerItemClickHandler;
 import com.shouman.apps.hawk.ui.main.companyUi.IMainClickHandler;
-import com.shouman.apps.hawk.ui.main.salesMemberUI.home.homeFragment.IMain2ClickHandler;
+import com.shouman.apps.hawk.ui.main.salesUI.main.home.IMain2ClickHandler;
 
 import java.text.DateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
-import java.util.TreeMap;
 
 public class CustomersLogRecyclerViewAdapter extends RecyclerView.Adapter<CustomersLogRecyclerViewAdapter.CustomersViewHolder> {
 
-    private TreeMap<String, CustomersLogDataEntry> customersMap;
-    private List<CustomersLogDataEntry> customersData;
-    private List<String> customersUIDs;
+    private List<DailyLogEntry> logEntries;
+
     private Context mContext;
+
+    private DateFormat formatter;
+
+    private Calendar calendar;
 
     public CustomersLogRecyclerViewAdapter(Context mContext) {
         this.mContext = mContext;
+        formatter = DateFormat.getTimeInstance(DateFormat.SHORT, Locale.ENGLISH);
+        calendar = Calendar.getInstance();
     }
 
-    public void setCustomersMap(final Map<String, CustomersLogDataEntry> customersMap) {
-        this.customersMap = new TreeMap<>(new Comparator<String>() {
-            @Override
-            public int compare(String o1, String o2) {
-                CustomersLogDataEntry dataEntry1 = customersMap.get(o1);
-                CustomersLogDataEntry dataEntry2 = customersMap.get(o2);
-
-                assert dataEntry1 != null;
-                Long time1 = dataEntry1.getTimeMillieSeconds();
-
-                assert dataEntry2 != null;
-                Long time2 = dataEntry2.getTimeMillieSeconds();
-
-                return time2.compareTo(time1);
-            }
-        });
-        this.customersMap.putAll(customersMap);
-        this.customersData = new ArrayList<>();
-        this.customersData.addAll(this.customersMap.values());
-        this.customersUIDs = new ArrayList<>();
-        this.customersUIDs.addAll(this.customersMap.keySet());
+    public void setLogEntriesList(List<DailyLogEntry> logEntries) {
+        this.logEntries = logEntries;
         notifyDataSetChanged();
     }
 
@@ -72,14 +54,19 @@ public class CustomersLogRecyclerViewAdapter extends RecyclerView.Adapter<Custom
 
     @Override
     public void onBindViewHolder(@NonNull CustomersViewHolder holder, int position) {
-        CustomersLogDataEntry customerData = customersData.get(position);
-        holder.mBinding.customerNameTxt.setText(customerData.getCustomerName());
-        //set on clickHandler
-
-        String customerUID = customersUIDs.get(position);
+        DailyLogEntry dailyLogEntry = logEntries.get(position);
+        holder.mBinding.customerNameTxt.setText(dailyLogEntry.getCustomerName());
+        //show the label if the customer is new and this is not just a visit
+        if (dailyLogEntry.isNewCustomer()) {
+            holder.mBinding.customerImage.setImageResource(R.drawable.ic_ceo);
+        } else {
+            holder.mBinding.customerImage.setImageResource(R.drawable.ic_pin);
+        }
+        String customerUID = dailyLogEntry.getCUID();
         holder.mBinding.setCustomerUID(customerUID);
-        holder.mBinding.setCustomerName(customerData.getCustomerName());
+        holder.mBinding.setCustomerName(dailyLogEntry.getCustomerName());
 
+        //set on clickHandler
         OnCustomerItemClickHandler onCustomerItemClickHandler;
 
         try {
@@ -93,47 +80,19 @@ public class CustomersLogRecyclerViewAdapter extends RecyclerView.Adapter<Custom
         }
         holder.mBinding.setOnCustomerClickListener(onCustomerItemClickHandler);
 
-        //set the 2 letters
-        //setThe2Letters(holder, customerData.getCustomerName());
-
         //set company name
-        holder.mBinding.companyNameTxt.setText(customerData.getCustomerCompanyName());
+        holder.mBinding.companyNameTxt.setText(dailyLogEntry.getCustomerCompanyName());
 
         //set the time
-        DateFormat formatter = DateFormat.getTimeInstance(DateFormat.SHORT, Locale.ENGLISH);
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(customerData.getTimeMillieSeconds());
+
+        calendar.setTimeInMillis(dailyLogEntry.getTimeMillieSeconds());
         holder.mBinding.timeAdded.setText(formatter.format(calendar.getTime()));
-
-        //show the label if the customer is new and this is not just a visit
-        if (customerData.isNewCustomer()) {
-            holder.mBinding.labelView.setBackgroundColor(mContext.getResources().getColor(R.color.com_facebook_blue));
-            holder.mBinding.imgNewLabel.setVisibility(View.VISIBLE);
-            holder.mBinding.customerImage.setImageResource(R.drawable.ic_ceo);
-        }
     }
-
-//    private void setThe2Letters(@NonNull CustomersViewHolder holder, String customerName) {
-//        char c1 = customerName.charAt(0);
-//        Character c2 = null;
-//        int spaceIndex = customerName.lastIndexOf(" ");
-//        if (spaceIndex != -1 && customerName.length() > spaceIndex) {
-//            for (int i = spaceIndex + 1; i < customerName.length(); i++) {
-//                if (customerName.charAt(i) != ' ') {
-//                    c2 = customerName.charAt(i);
-//                    break;
-//                }
-//            }
-//        }
-//        String s = String.valueOf(c1) + (c2 != null ? c2 : "");
-//        holder.mBinding.first2Letters.setText(s);
-//        holder.mBinding.first2Letters.setTypeface(Typeface.createFromAsset(mContext.getAssets(), "varela_round_regular.ttf"));
-   // }
 
     @Override
     public int getItemCount() {
-        if (customersMap != null) {
-            return customersMap.size();
+        if (logEntries != null) {
+            return logEntries.size();
         }
         return 0;
     }

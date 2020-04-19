@@ -135,5 +135,8 @@
     <string name="branches_title">الافرع</string>
     <string name="customers_title">العملاء</string>
     <string name="sales_team_title">فريق المبيعات</string>
+    <string name="offline_data_title">البيانات المحلية</string>
+    <string name="offline_data_msg">جميع بيانات العملاء المحلية يتم رفعها تلقائيا عند وجود اتصال بشبكة الانترنت. اذا كنت متصل بالانترنت يمكنك الضغط علي ايقونة السحابه لرفع البيانات يدويا.</string>
+    <string name="upload_data">رفع بيانات العملاء</string>
 
 </resources>

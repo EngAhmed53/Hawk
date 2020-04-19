@@ -6,7 +6,7 @@
         android:id="@+id/sales_home_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.main.salesMemberUI.newAdd.AddNewActivity">
+        tools:context=".ui.main.salesUI.add.AddNewActivity">
 
     </FrameLayout>
 </layout>

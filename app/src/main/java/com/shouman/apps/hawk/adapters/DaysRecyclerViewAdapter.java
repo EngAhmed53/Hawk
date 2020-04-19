@@ -10,77 +10,43 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.shouman.apps.hawk.R;
+import com.shouman.apps.hawk.common.Common;
+import com.shouman.apps.hawk.data.model.DailyLogEntry;
 import com.shouman.apps.hawk.databinding.DayListItemLayoutBinding;
-import com.shouman.apps.hawk.data.model.CustomersLogDataEntry;
 
 import java.lang.ref.WeakReference;
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.Date;
-import java.util.HashMap;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Objects;
 import java.util.TreeMap;
 
 public class DaysRecyclerViewAdapter extends RecyclerView.Adapter<DaysRecyclerViewAdapter.DaysViewHolder> {
 
-    private TreeMap<String, Map<String, CustomersLogDataEntry>> date_customersTMap;
+    private TreeMap<String, List<DailyLogEntry>> date_logEntries_TMap;
     private WeakReference<Context> mContext;
     private List<String> dates;
-    private List<Map<String, CustomersLogDataEntry>> customersMapsList;
+    private DateFormat dateFormat;
+    private Calendar calendar;
+    private long currentDateMillisecond;
+
 
     public DaysRecyclerViewAdapter(Context mContext) {
         this.mContext = new WeakReference<>(mContext);
-        //sorting the map using treeMap in descending order
-        this.date_customersTMap = new TreeMap<>(new Comparator<String>() {
-            @Override
-            public int compare(String date1, String date2) {
-                int mark1 = date1.indexOf(',');
-                int day1Num = Integer.parseInt(date1.substring(4, mark1));
-
-                int mark2 = date2.indexOf(',');
-                int day2Num = Integer.parseInt(date2.substring(4, mark2));
-
-                return day2Num - day1Num;
-            }
-        });
+        this.date_logEntries_TMap = new TreeMap<>();
+        dateFormat = SimpleDateFormat.getDateInstance(DateFormat.MEDIUM, Locale.getDefault());
+        calendar = Calendar.getInstance(Locale.getDefault());
+        currentDateMillisecond = Common.getCurrentDateWithoutTime().getTime();
     }
 
-    public void setDate_customersMap(Map<String, Map<String, CustomersLogDataEntry>> date_customersMap) {
-
-        if (this.date_customersTMap.isEmpty()) {
-            this.date_customersTMap.putAll(date_customersMap);
-        } else {
-            for (String day : date_customersMap.keySet()) {
-                if (this.date_customersTMap.containsKey(day)) {
-                    Map<String, CustomersLogDataEntry> dayLog = this.date_customersTMap.get(day);
-                    if (dayLog == null) dayLog = new HashMap<>();
-
-                    Map<String, CustomersLogDataEntry> newDayLog = date_customersMap.get(day);
-                    if (newDayLog == null) newDayLog = new HashMap<>();
-
-                    dayLog.putAll(newDayLog);
-                    this.date_customersTMap.put(day, dayLog);
-                } else {
-                  this.date_customersTMap.put(day, date_customersMap.get(day));
-                }
-            }
-        }
-
-
+    public void setDate_logEntries_map(Map<String, List<DailyLogEntry>> date_logEntries_map) {
+        this.date_logEntries_TMap.putAll(date_logEntries_map);
         //get the dates in array list
         this.dates = new ArrayList<>();
-        this.dates.addAll(date_customersTMap.keySet());
-
-        //get the customers map
-        customersMapsList = new ArrayList<>();
-        customersMapsList.addAll(date_customersTMap.values());
-
+        this.dates.addAll(date_logEntries_TMap.keySet());
         //notify the adapter changes
         notifyDataSetChanged();
     }
@@ -95,31 +61,28 @@ public class DaysRecyclerViewAdapter extends RecyclerView.Adapter<DaysRecyclerVi
 
     @Override
     public void onBindViewHolder(@NonNull DaysViewHolder holder, int position) {
-        String date = dates.get(position);
-        DateFormat format = SimpleDateFormat.getDateInstance(DateFormat.MEDIUM, Locale.ENGLISH);
-        String currentDate = format.format(new Date());
-        if (date.equals(currentDate)) {
-            date = mContext.get().getString(R.string.today);
+        long dateMillisecond = Long.parseLong(dates.get(position));
 
+        String dateText;
+        if (dateMillisecond == currentDateMillisecond) {
+            dateText = mContext.get().getString(R.string.today);
         } else {
-            Date d1 = null;
-            try {
-                d1 = SimpleDateFormat.getDateInstance(DateFormat.MEDIUM, Locale.ENGLISH).parse(date);
-            } catch (ParseException e) {
-                e.printStackTrace();
+            long seconds = Math.abs(currentDateMillisecond - dateMillisecond) / 1000;
+            if (seconds > 86400 && seconds < 172800)
+                dateText = mContext.get().getString(R.string.yesterday);
+            else {
+                calendar.setTimeInMillis(dateMillisecond);
+                dateText = dateFormat.format(calendar.getTime());
             }
-            Date d2 = new Date();
-            long seconds = (d2.getTime() - Objects.requireNonNull(d1).getTime()) / 1000;
-            if (seconds > 86400 && seconds < 172800) date = mContext.get().getString(R.string.yesterday);
         }
 
-        holder.mBinding.setDate(date);
-        holder.mBinding.setCustomersMap(customersMapsList.get(position));
+        holder.mBinding.setDate(dateText);
+        holder.mBinding.setLogEntriesList(date_logEntries_TMap.get(dates.get(position)));
     }
 
     @Override
     public int getItemCount() {
-        if (date_customersTMap != null) return date_customersTMap.size();
+        if (date_logEntries_TMap != null) return date_logEntries_TMap.size();
         return 0;
     }
 

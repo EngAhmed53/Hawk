@@ -1,22 +1,19 @@
 package com.shouman.apps.hawk.data.database.firebaseRepo;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.shouman.apps.hawk.common.Common;
 import com.shouman.apps.hawk.data.model.Customer;
-import com.shouman.apps.hawk.data.model.CustomersLogDataEntry;
+import com.shouman.apps.hawk.data.model.DailyLogEntry;
 import com.shouman.apps.hawk.data.model.User;
 import com.shouman.apps.hawk.data.model.Visit;
 import com.shouman.apps.hawk.preferences.UserPreference;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 
@@ -42,6 +39,47 @@ public class FirebaseSalesRepo {
         return firebaseSalesRepo;
     }
 
+    synchronized public void uploadCustomers(Context context, Customer customer, String key) {
+        String companyUID = UserPreference.getCompanyUID(context);
+        String userUID = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
+
+        DatabaseReference salesMemberCustomersListReference =
+                companiesReference
+                        .child(companyUID)
+                        .child("ST")
+                        .child(userUID)
+                        .child("cList");
+
+        DatabaseReference customersReference =
+                companiesReference.child(companyUID).child("C");
+
+        customersReference.child(key).setValue(customer);
+
+
+        Map<String, Object> newValue = new HashMap<>();
+        String value = customer.getN() + ", " + customer.getCn() + ", " + customer.getLt() + ", " + customer.getLn();
+        newValue.put(key, value);
+
+        salesMemberCustomersListReference
+                .updateChildren(newValue);
+    }
+
+    synchronized public void uploadVisits(Context context, Visit visit, String customerUID) {
+        String companyUID = UserPreference.getCompanyUID(context);
+        //add this visit to customer visits list
+        DatabaseReference customerReference = companiesReference.child(companyUID).child("C").child(customerUID);
+        customerReference.child("visitList").push().setValue(visit);
+    }
+
+
+    synchronized public void uploadLocalLog(Context context, String date, DailyLogEntry dailyLogEntry) {
+        String companyUID = UserPreference.getCompanyUID(context);
+        String userUID = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
+
+        DatabaseReference salesMemberCustomersLogReference = companiesReference.child(companyUID).child("ST").child(userUID).child("cLog");
+        salesMemberCustomersLogReference.child(date).push().setValue(dailyLogEntry);
+    }
+
     //add new customer to database
     synchronized public void addNewCustomerToDatabase(Context context, Customer customer) {
         String companyUID = UserPreference.getCompanyUID(context);
@@ -59,14 +97,19 @@ public class FirebaseSalesRepo {
         //add this new customer to salesMember customersLog
         //get the date
         Date date = new Date();
-        String dateText = SimpleDateFormat.getDateInstance(DateFormat.DEFAULT, Locale.ENGLISH).format(date);
-        Log.e("date", "addNewCustomerToDatabase: " + dateText);
-        CustomersLogDataEntry customersLogDataEntry = new CustomersLogDataEntry(customer.getN(),
-                customer.getCn(),
-                true,
-                date.getTime());
-        salesMemberCustomersLogReference.child(dateText).child(newCustomerKey).setValue(customersLogDataEntry);
+        Date dateOnly = Common.getCurrentDateWithoutTime();
 
+        DailyLogEntry dailyLogEntry =
+                new DailyLogEntry(customer.getN(),
+                        customer.getCn(),
+                        true,
+                        date.getTime(),
+                        newCustomerKey);
+
+        salesMemberCustomersLogReference
+                .child(String.valueOf(dateOnly.getTime()))
+                .push()
+                .setValue(dailyLogEntry);
 
         //add this new customer to sales member customersList
         Map<String, Object> newValue = new HashMap<>();
@@ -109,15 +152,20 @@ public class FirebaseSalesRepo {
         customerReference.child("visitList").push().setValue(visit);
 
         //add this visit as a logDataEntry to the sales member day log
-        CustomersLogDataEntry customersLogDataEntry = new CustomersLogDataEntry();
-        customersLogDataEntry.setCustomerCompanyName(companyName);
-        customersLogDataEntry.setCustomerName(customerName);
-        customersLogDataEntry.setNewCustomer(false);
-        customersLogDataEntry.setTimeMillieSeconds(new Date().getTime());
+        DailyLogEntry dailyLogEntry =
+                new DailyLogEntry(customerName,
+                        companyName,
+                        false,
+                        new Date().getTime(),
+                        customerUID);
 
+        Date currentDate = Common.getCurrentDateWithoutTime();
         DatabaseReference salesMemberCustomersLogReference = companiesReference.child(companyUID).child("ST").child(userUID).child("cLog");
-        String date = SimpleDateFormat.getDateInstance(DateFormat.MEDIUM, Locale.ENGLISH).format(new Date());
-        salesMemberCustomersLogReference.child(date).child(customerUID).setValue(customersLogDataEntry);
+
+        salesMemberCustomersLogReference
+                .child(String.valueOf(currentDate.getTime()))
+                .push()
+                .setValue(dailyLogEntry);
     }
 
     synchronized public DatabaseReference getCurrentDayLog(Context context, String salesUID, String date) {

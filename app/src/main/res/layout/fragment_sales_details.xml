@@ -5,12 +5,14 @@
     <data>
 
         <import type="java.util.Map" />
-        <import type="java.util.TreeMap"/>
-        <import type="com.shouman.apps.hawk.data.model.CustomersLogDataEntry"/>
+
+        <import type="java.util.List" />
+
+        <import type="com.shouman.apps.hawk.data.model.DailyLogEntry" />
 
         <variable
-            name="dates_customers_map"
-            type="Map&lt;String, Map&lt;String, CustomersLogDataEntry>>" />
+            name="dates_logEntries_map"
+            type="Map&lt; String, List&lt;DailyLogEntry>>" />
     </data>
 
 
@@ -72,7 +74,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/chart_view"
-                    app:setDaysMap="@{dates_customers_map}" />
+                    app:setLogMap="@{dates_logEntries_map}" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.core.widget.NestedScrollView>

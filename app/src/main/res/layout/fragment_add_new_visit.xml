@@ -9,7 +9,7 @@
         android:background="@drawable/main_background"
         android:clickable="true"
         android:focusable="true"
-        tools:context=".ui.main.salesMemberUI.newAdd.newVisit.Fragment_Add_New_Visit">
+        tools:context=".ui.main.salesUI.add.newVisit.Fragment_Add_New_Visit">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"

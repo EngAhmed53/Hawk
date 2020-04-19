@@ -2,6 +2,7 @@ package com.shouman.apps.hawk.dataBindingAdapters;
 
 import android.content.Context;
 import android.util.Log;
+import android.view.View;
 
 import androidx.databinding.BindingAdapter;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -15,7 +16,7 @@ import com.shouman.apps.hawk.adapters.DaysRecyclerViewAdapter;
 import com.shouman.apps.hawk.adapters.HomeMenuRecyclerAdapter;
 import com.shouman.apps.hawk.adapters.SalesRecyclerViewAdapter;
 import com.shouman.apps.hawk.adapters.VisitsRecyclerViewAdapter;
-import com.shouman.apps.hawk.data.model.CustomersLogDataEntry;
+import com.shouman.apps.hawk.data.model.DailyLogEntry;
 import com.shouman.apps.hawk.data.model.MenuItem;
 import com.shouman.apps.hawk.data.model.Visit;
 
@@ -28,7 +29,7 @@ public class RecyclerViewDataBinding {
 
 
     @BindingAdapter("setMenuItems")
-    public static void setRecyclerMenuItems(RecyclerView view,List<MenuItem> menuItems) {
+    public static void setRecyclerMenuItems(RecyclerView view, List<MenuItem> menuItems) {
 
         if (menuItems == null) {
             return;
@@ -87,40 +88,42 @@ public class RecyclerViewDataBinding {
     }
 
 
-    @BindingAdapter("setDaysMap")
-    public static void setDaysCustomersMap(RecyclerView view, Map<String, Map<String, CustomersLogDataEntry>> days_customers_map) {
-        WeakReference<Context> contextWeakReference;
-        if (view != null) {
-            contextWeakReference = new WeakReference<>(view.getContext());
-        } else {
-            return;
-        }
-        if (days_customers_map == null) {
+    @BindingAdapter("setLogMap")
+    public static void setLogMap(final RecyclerView view, final Map<String, List<DailyLogEntry>> date_logEntries_map) {
+        if (date_logEntries_map == null) {
             return;
         }
         if (view.getLayoutManager() == null) {
-            view.setLayoutManager(new LinearLayoutManager(contextWeakReference.get(), LinearLayoutManager.VERTICAL, false));
+            view.setLayoutManager(new LinearLayoutManager(view.getContext(), LinearLayoutManager.VERTICAL, false));
             view.setHasFixedSize(true);
         }
         if (view.getAdapter() == null) {
-            DaysRecyclerViewAdapter adapter = new DaysRecyclerViewAdapter(contextWeakReference.get());
-            adapter.setDate_customersMap(days_customers_map);
-            view.setAdapter(adapter);
-        } else {
-            ((DaysRecyclerViewAdapter) view.getAdapter()).setDate_customersMap(days_customers_map);
 
+            DaysRecyclerViewAdapter adapter = new DaysRecyclerViewAdapter(view.getContext());
+            adapter.setDate_logEntries_map(date_logEntries_map);
+            view.setAdapter(adapter);
+
+        } else {
+
+            ((DaysRecyclerViewAdapter) view.getAdapter()).setDate_logEntries_map(date_logEntries_map);
         }
+        view.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                view.setVisibility(View.VISIBLE);
+            }
+        }, 800);
     }
 
-    @BindingAdapter("setCustomersMap")
-    public static void setCustomersRecyclerViewMap(RecyclerView view, Map<String, CustomersLogDataEntry> customersMap) {
+    @BindingAdapter("setLogList")
+    public static void setLogList(RecyclerView view, List<DailyLogEntry> logEntries) {
         WeakReference<Context> contextWeakReference;
         if (view != null) {
             contextWeakReference = new WeakReference<>(view.getContext());
         } else {
             return;
         }
-        if (customersMap == null) {
+        if (logEntries == null) {
             return;
         }
         if (view.getLayoutManager() == null) {
@@ -129,10 +132,10 @@ public class RecyclerViewDataBinding {
         }
         if (view.getAdapter() == null) {
             CustomersLogRecyclerViewAdapter adapter = new CustomersLogRecyclerViewAdapter(contextWeakReference.get());
-            adapter.setCustomersMap(customersMap);
+            adapter.setLogEntriesList(logEntries);
             view.setAdapter(adapter);
         } else {
-            ((CustomersLogRecyclerViewAdapter) view.getAdapter()).setCustomersMap(customersMap);
+            ((CustomersLogRecyclerViewAdapter) view.getAdapter()).setLogEntriesList(logEntries);
 
         }
     }

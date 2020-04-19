@@ -1,105 +1,169 @@
 package com.shouman.apps.hawk.data.database.localRepo;
 
+import android.content.Context;
+import android.util.Log;
+
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
+
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.shouman.apps.hawk.common.Common;
+import com.shouman.apps.hawk.data.model.Customer;
+import com.shouman.apps.hawk.data.model.DailyLogEntry;
+import com.shouman.apps.hawk.data.model.Visit;
+import com.shouman.apps.hawk.preferences.UserPreference;
+import com.shouman.apps.hawk.utils.AppExecutors;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import io.paperdb.Book;
+import io.paperdb.Paper;
+
 public class LocalSalesRepo {
-//    private static final String TAG = "LocalSalesRepo";
-//    private static LocalSalesRepo localSalesRepo;
-//    private static final Object LOCK = new Object();
-//    private MutableLiveData<Map<String, Customer>> customersLocalLiveData;
-//    private MutableLiveData<Map<String, Map<String, CustomersLogDataEntry>>> customersDailyLogLocalLiveData;
-//    private DatabaseReference companiesReference;
-//
-//
-//    private LocalSalesRepo() {
-//        Log.e(TAG, "LocalSalesRepo: start setting live data");
-//        FirebaseDatabase database = FirebaseDatabase.getInstance();
-//        companiesReference = database.getReference().child("data");
-//        customersLocalLiveData = new MutableLiveData<>();
-//        customersDailyLogLocalLiveData = new MutableLiveData<>();
-//
-//        AppExecutors.getsInstance().getDiskIO().execute(new Runnable() {
-//            @Override
-//            public void run() {
-//                Map<String, Customer> customersList = new HashMap<>();
-//                Book newCustomersBook = Paper.book("New_Customers");
-//                for (String key : newCustomersBook.getAllKeys()) {
-//                    Log.e(TAG, "key: " + key );
-//                }
-//                customersLocalLiveData.postValue(customersList);
-//                Map<String, Map<String, CustomersLogDataEntry>> allDaysLog = new HashMap<>();
-//
-//                Book dailyLocalBook = Paper.book("Daily_Log");
-//                for (String day : dailyLocalBook.getAllKeys()) {
-//                    Map<String, CustomersLogDataEntry> dayLog = dailyLocalBook.read(day);
-//                    allDaysLog.put(day, dayLog);
-//                }
-//                customersDailyLogLocalLiveData.postValue(allDaysLog);
-//                Log.e(TAG, "run: finished setting the liveData");
-//            }
-//        });
-//    }
-//
-//    public static LocalSalesRepo getInstance() {
-//
-//        if (localSalesRepo == null) {
-//            synchronized (LOCK) {
-//                localSalesRepo = new LocalSalesRepo();
-//            }
-//        }
-//        return localSalesRepo;
-//    }
-//
-//    synchronized public void addNewCustomerToLocalDatabase(Context context, Customer customer) {
-//        Log.d(TAG, "addNewCustomerToLocalDatabase: in method");
-//        Map<String, Customer> pendingCustomersList = customersLocalLiveData.getValue();
-//        if (pendingCustomersList == null) {
-//            pendingCustomersList = new HashMap<>();
-//        }
-//
-//        String companyUID = UserPreference.getCompanyUID(context);
-//        DatabaseReference customersReference = companiesReference.child(companyUID).child("C");
-//        String newCustomerKey = customersReference.push().getKey();
-//
-//        //add customer to the the local database
-//        assert newCustomerKey != null;
-//        pendingCustomersList.put(newCustomerKey, customer);
-//        Paper.book("New_Customers").write(newCustomerKey, customer);
-//        customersLocalLiveData.postValue(pendingCustomersList);
-//        Log.d(TAG, "addNewCustomerToLocalDatabase: pending customers list setted in paper");
-//
-//
-//        // days log
-//        Date date = new Date();
-//        String dateText = SimpleDateFormat.getDateInstance(DateFormat.DEFAULT, Locale.ENGLISH).format(date);
-//        CustomersLogDataEntry customersLogDataEntry = new CustomersLogDataEntry(customer.getN(),
-//                customer.getCn(),
-//                true,
-//                date.getTime());
-//
-//        Map<String, Map<String, CustomersLogDataEntry>> allDaysLog = customersDailyLogLocalLiveData.getValue();
-//        if (allDaysLog == null) {
-//            Log.d(TAG, "addNewCustomerToLocalDatabase: all days log is null");
-//            allDaysLog = new HashMap<>();
-//        }
-//
-//        Map<String, CustomersLogDataEntry> currentDayLog = allDaysLog.get(dateText);
-//        if (currentDayLog == null) {
-//            Log.d(TAG, "addNewCustomerToLocalDatabase: current day log is null");
-//            currentDayLog = new HashMap<>();
-//        } else {
-//            Log.d(TAG, "addNewCustomerToLocalDatabase: current day log is not null size = " + currentDayLog.size());
-//        }
-//
-//        currentDayLog.put(newCustomerKey, customersLogDataEntry);
-//        allDaysLog.put(dateText, currentDayLog);
-//        Paper.book("Daily_Log").write(dateText, currentDayLog);
-//        customersDailyLogLocalLiveData.postValue(allDaysLog);
-//    }
-//
-//    public MutableLiveData<Map<String, Customer>> getCustomersLocalLiveData() {
-//        return customersLocalLiveData;
-//    }
-//
-//    public MutableLiveData<Map<String, Map<String, CustomersLogDataEntry>>> getCustomersDailyLogLocalLiveData() {
-//        return customersDailyLogLocalLiveData;
-//    }
+    private static final String TAG = "LocalSalesRepo";
+    private static LocalSalesRepo localSalesRepo;
+    private static final Object LOCK = new Object();
+    private MutableLiveData<Map<String, Map<String, DailyLogEntry>>> customersDailyLogLocalLiveData;
+    private DatabaseReference companiesReference;
+
+
+    private LocalSalesRepo() {
+        Log.e(TAG, "LocalSalesRepo: start setting live data");
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        companiesReference = database.getReference().child("data");
+        customersDailyLogLocalLiveData = new MutableLiveData<>();
+
+        AppExecutors.getsInstance().getDiskIO().execute(new Runnable() {
+            @Override
+            public void run() {
+                Map<String, Map<String, DailyLogEntry>> allDaysLog = new HashMap<>();
+
+                Book dailyLocalBook = Paper.book("Daily_Log");
+                for (String day : dailyLocalBook.getAllKeys()) {
+                    Map<String, DailyLogEntry> dayLog = dailyLocalBook.read(day);
+                    allDaysLog.put(day, dayLog);
+                }
+                customersDailyLogLocalLiveData.postValue(allDaysLog);
+            }
+        });
+    }
+
+    public static LocalSalesRepo getInstance() {
+
+        if (localSalesRepo == null) {
+            synchronized (LOCK) {
+                localSalesRepo = new LocalSalesRepo();
+            }
+        }
+        return localSalesRepo;
+    }
+
+    synchronized public void addNewCustomerToLocalDatabase(Context context, Customer customer) {
+        String companyUID = UserPreference.getCompanyUID(context);
+        DatabaseReference customersReference = companiesReference.child(companyUID).child("C");
+        String newCustomerKey = customersReference.push().getKey();
+
+        //add customer to the the local database
+        assert newCustomerKey != null;
+        Paper.book("New_Customers").write(newCustomerKey, customer);
+
+        // days log
+        Date date = new Date();
+        Date currentDateOnly = Common.getCurrentDateWithoutTime();
+        String currentDateMillSecond = String.valueOf(currentDateOnly.getTime());
+        DailyLogEntry dailyLogEntry = new DailyLogEntry(customer.getN(),
+                customer.getCn(),
+                true,
+                date.getTime(),
+                newCustomerKey);
+
+        Map<String, Map<String, DailyLogEntry>> allDaysLog = customersDailyLogLocalLiveData.getValue();
+        if (allDaysLog == null) {
+            allDaysLog = new HashMap<>();
+        }
+
+        Map<String, DailyLogEntry> currentDayLog = allDaysLog.get(currentDateMillSecond);
+        if (currentDayLog == null) currentDayLog = new HashMap<>();
+
+        currentDayLog.put(newCustomerKey, dailyLogEntry);
+        allDaysLog.put(currentDateMillSecond, currentDayLog);
+        Paper.book("Daily_Log").write(currentDateMillSecond, currentDayLog);
+        customersDailyLogLocalLiveData.postValue(allDaysLog);
+    }
+
+
+    synchronized public void addNewVisitReportToLocalDatabase(Visit visit, String customerUID, String customerName, String companyName) {
+        //add this visit to customer visits local data
+        Date date = new Date();
+        Date currentDate = Common.getCurrentDateWithoutTime();
+        String currentDateMillisecond = String.valueOf(currentDate.getTime());
+
+        String visitKey = customerUID + ", " + date.getTime();
+        Paper.book("visits_list").write(visitKey, visit);
+
+        //add this visit as a logDataEntry to the sales member day log
+        DailyLogEntry dailyLogEntry =
+                new DailyLogEntry(customerName,
+                        companyName,
+                        false,
+                        date.getTime(),
+                        customerUID);
+
+        Map<String, Map<String, DailyLogEntry>> allDaysLog = customersDailyLogLocalLiveData.getValue();
+        if (allDaysLog == null) {
+            allDaysLog = new HashMap<>();
+        }
+
+        Map<String, DailyLogEntry> currentDayLog = allDaysLog.get(currentDateMillisecond);
+        if (currentDayLog == null) currentDayLog = new HashMap<>();
+
+        currentDayLog.put(customerUID, dailyLogEntry);
+        allDaysLog.put(currentDateMillisecond, currentDayLog);
+        Paper.book("Daily_Log").write(currentDateMillisecond, currentDayLog);
+        customersDailyLogLocalLiveData.postValue(allDaysLog);
+    }
+
+    synchronized public LiveData<List<String>> getCurrentDayLocalLog(final String date) {
+        final MutableLiveData<List<String>> currentDayLocalLogMutableLiveData = new MutableLiveData<>();
+        final List<String> currentDayLog = new ArrayList<>();
+        final Book allLocalLogBook = Paper.book("Daily_Log");
+        if (allLocalLogBook.contains(date)) {
+            AppExecutors.getsInstance().getDiskIO().execute(new Runnable() {
+                @Override
+                public void run() {
+                    currentDayLog.addAll(((Map<String, DailyLogEntry>) allLocalLogBook.read(date)).keySet());
+                    currentDayLocalLogMutableLiveData.postValue(currentDayLog);
+                }
+            });
+        }
+        return currentDayLocalLogMutableLiveData;
+    }
+
+    public LiveData<Map<String, List<DailyLogEntry>>> getCustomersDailyLogLocalLiveData() {
+        final Map<String, Map<String, DailyLogEntry>> savedLogEntries = customersDailyLogLocalLiveData.getValue();
+        final MutableLiveData<Map<String, List<DailyLogEntry>>> localDatesLogEntriesLivData = new MutableLiveData<>();
+        AppExecutors.getsInstance().getDiskIO().execute(new Runnable() {
+            @Override
+            public void run() {
+                if (savedLogEntries != null) {
+                    Map<String, List<DailyLogEntry>> localEntries = new HashMap<>();
+                    for (String date : savedLogEntries.keySet()) {
+                        List<Da0>0
+                        localEntries.put(date, )
+                    }
+                    localDatesLogEntriesLivData.postValue(localEntries);
+                }
+            }
+        });
+        return localDatesLogEntriesLivData;
+    }
+
+    public void notifyAllLogDataUploaded() {
+        customersDailyLogLocalLiveData.setValue(null);
+    }
 }

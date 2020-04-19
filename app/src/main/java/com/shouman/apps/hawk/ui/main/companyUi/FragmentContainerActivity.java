@@ -14,7 +14,7 @@ import com.shouman.apps.hawk.ui.main.companyUi.add_new_branch.Fragment_add_new_b
 import com.shouman.apps.hawk.ui.main.companyUi.all_branches.Fragment_all_branches;
 import com.shouman.apps.hawk.ui.main.companyUi.branch_details.branch_home.Fragment_branch;
 import com.shouman.apps.hawk.ui.main.companyUi.customers.customerInfo.Fragment_customers_info;
-import com.shouman.apps.hawk.ui.main.companyUi.sales_members.sales_main.Fragment_sales_details;
+import com.shouman.apps.hawk.ui.main.companyUi.sales_members.sales_main.Fragment_sales_main;
 
 
 public class FragmentContainerActivity extends AppCompatActivity implements IMainClickHandler {
@@ -104,12 +104,12 @@ public class FragmentContainerActivity extends AppCompatActivity implements IMai
 
     @Override
     public void onSalesItemClickHandler(String salesUID, String salesName) {
-        Fragment_sales_details fragment_sales_details = Fragment_sales_details.getInstance(salesUID, salesName);
+        Fragment_sales_main fragment_sales_main = Fragment_sales_main.getInstance(salesUID, salesName);
         fragmentManager
                 .beginTransaction()
                 .addToBackStack(null)
                 .setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right, android.R.anim.slide_in_left, android.R.anim.slide_out_right)
-                .add(R.id.home_container, fragment_sales_details, "fragment_branch_details")
+                .add(R.id.home_container, fragment_sales_main, "fragment_branch_details")
                 .commit();
     }
 

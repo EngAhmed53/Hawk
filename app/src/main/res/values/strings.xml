@@ -150,6 +150,11 @@
     <string name="customers_title">Customers</string>
     <string name="sales_team_title">Sales Team</string>
     <string name="reports_title">Reports</string>
+    <string name="offline_data">offline data</string>
+
+    <string name="offline_data_title">Offline Data</string>
+    <string name="offline_data_msg">All your local data will upload to company server when you back online, or you can press on upload icon if you have a stable internet connection.</string>
+    <string name="upload_data">upload data</string>
 
 
 </resources>

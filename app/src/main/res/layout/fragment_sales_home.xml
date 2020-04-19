@@ -5,12 +5,15 @@
 
     <data>
 
-        <import type="java.util.Map"/>
-        <import type="com.shouman.apps.hawk.data.model.CustomersLogDataEntry"/>
+        <import type="java.util.Map" />
+
+        <import type="java.util.List" />
+
+        <import type="com.shouman.apps.hawk.data.model.DailyLogEntry" />
 
         <variable
-            name="dates_customers_map"
-            type="Map&lt;String, Map&lt;String, CustomersLogDataEntry>>" />
+            name="logEntriesMap"
+            type="Map&lt; String, List &lt;DailyLogEntry>>" />
     </data>
 
     <FrameLayout
@@ -42,17 +45,28 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_chainStyle="packed" />
 
+                <ProgressBar
+                    android:id="@+id/progress_bar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:visibility="visible"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/chart_view" />
+
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rec_customers"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="16dp"
+                    android:visibility="gone"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/chart_view"
-                    app:setDaysMap="@{dates_customers_map}" />
+                    app:setLogMap="@{logEntriesMap}" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.core.widget.NestedScrollView>
