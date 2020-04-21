@@ -18,7 +18,7 @@ public class OfflineDataViewModel extends ViewModel {
         localLogLiveData = localSalesRepo.getCustomersDailyLogLocalLiveData();
     }
 
-    public LiveData<Map<String, List<DailyLogEntry>>> getLocalLogLiveData() {
+    LiveData<Map<String, List<DailyLogEntry>>> getLocalLogLiveData() {
         return localLogLiveData;
     }
 }

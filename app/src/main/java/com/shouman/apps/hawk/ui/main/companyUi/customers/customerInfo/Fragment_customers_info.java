@@ -39,9 +39,9 @@ import java.util.TreeMap;
  * A simple {@link Fragment} subclass.
  */
 public class Fragment_customers_info extends Fragment implements OnMapReadyCallback {
-    private static final String CUSTOMER_NAME = "customer_name";
     private static final String CUSTOMER_UID = "customer_uid";
     public FragmentCustomersInfoBinding mBinding;
+    public String customerUID;
     private GoogleMap map;
     private Customer mainCustomer;
     private boolean customerLocationSetted = false;
@@ -52,9 +52,8 @@ public class Fragment_customers_info extends Fragment implements OnMapReadyCallb
 
     private Context context;
 
-    public static Fragment_customers_info getInstance(String customerName, String customerUID) {
+    public static Fragment_customers_info getInstance(String customerUID) {
         Bundle bundle = new Bundle();
-        bundle.putString(CUSTOMER_NAME, customerName);
         bundle.putString(CUSTOMER_UID, customerUID);
         Fragment_customers_info customers_info = Fragment_customers_info.getInstance();
         customers_info.setArguments(bundle);
@@ -77,7 +76,7 @@ public class Fragment_customers_info extends Fragment implements OnMapReadyCallb
         // Inflate the layout for this fragment
         mBinding = FragmentCustomersInfoBinding.inflate(inflater);
         mBinding.setNotDefined(getString(R.string.not_defined));
-        String customerUID = getArguments() != null ? getArguments().getString(CUSTOMER_UID) : null;
+        customerUID = getArguments() != null ? getArguments().getString(CUSTOMER_UID) : null;
         Log.e("TAG", "onCreateView: " + customerUID);
 
         mBinding.toolbar.setNavigationOnClickListener(new View.OnClickListener() {

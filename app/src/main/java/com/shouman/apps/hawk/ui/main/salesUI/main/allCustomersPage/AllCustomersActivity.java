@@ -70,8 +70,8 @@ public class AllCustomersActivity extends AppCompatActivity implements OnCustome
     }
 
     @Override
-    public void onCustomerItemClickHandler(String customerUID, String customerName) {
-        fragment_customers_info = Fragment_customers_info.getInstance(customerName, customerUID);
+    public void onCustomerItemClickHandler(String customerUID) {
+        fragment_customers_info = Fragment_customers_info.getInstance(customerUID);
 
         fragmentManager
                 .beginTransaction()

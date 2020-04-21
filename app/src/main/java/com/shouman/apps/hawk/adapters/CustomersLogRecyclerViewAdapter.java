@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.shouman.apps.hawk.R;
 import com.shouman.apps.hawk.data.model.DailyLogEntry;
 import com.shouman.apps.hawk.databinding.CustomersListItemLayoutBinding;
@@ -58,13 +59,13 @@ public class CustomersLogRecyclerViewAdapter extends RecyclerView.Adapter<Custom
         holder.mBinding.customerNameTxt.setText(dailyLogEntry.getCustomerName());
         //show the label if the customer is new and this is not just a visit
         if (dailyLogEntry.isNewCustomer()) {
-            holder.mBinding.customerImage.setImageResource(R.drawable.ic_ceo);
+            Glide.with(mContext).load(R.drawable.ic_ceo).useAnimationPool(true).into(holder.mBinding.customerImage);
+
         } else {
-            holder.mBinding.customerImage.setImageResource(R.drawable.ic_pin);
+            Glide.with(mContext).load(R.drawable.ic_pin).useAnimationPool(true).into(holder.mBinding.customerImage);
         }
-        String customerUID = dailyLogEntry.getCUID();
-        holder.mBinding.setCustomerUID(customerUID);
-        holder.mBinding.setCustomerName(dailyLogEntry.getCustomerName());
+
+        holder.mBinding.setCustomerUID(dailyLogEntry.getCUID());
 
         //set on clickHandler
         OnCustomerItemClickHandler onCustomerItemClickHandler;
@@ -82,9 +83,7 @@ public class CustomersLogRecyclerViewAdapter extends RecyclerView.Adapter<Custom
 
         //set company name
         holder.mBinding.companyNameTxt.setText(dailyLogEntry.getCustomerCompanyName());
-
         //set the time
-
         calendar.setTimeInMillis(dailyLogEntry.getTimeMillieSeconds());
         holder.mBinding.timeAdded.setText(formatter.format(calendar.getTime()));
     }

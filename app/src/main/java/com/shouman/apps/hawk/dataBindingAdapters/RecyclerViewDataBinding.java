@@ -1,14 +1,19 @@
 package com.shouman.apps.hawk.dataBindingAdapters;
 
+import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import androidx.databinding.BindingAdapter;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.shouman.apps.hawk.R;
 import com.shouman.apps.hawk.adapters.AllCustomersRecyclerViewAdapter;
 import com.shouman.apps.hawk.adapters.BranchRecyclerViewAdapter;
 import com.shouman.apps.hawk.adapters.CustomersLogRecyclerViewAdapter;
@@ -111,8 +116,10 @@ public class RecyclerViewDataBinding {
             @Override
             public void run() {
                 view.setVisibility(View.VISIBLE);
+               ProgressBar progressBar =  view.getRootView().findViewById(R.id.progress_bar);
+               if (progressBar != null) progressBar.setVisibility(View.GONE);
             }
-        }, 800);
+        }, 1);
     }
 
     @BindingAdapter("setLogList")

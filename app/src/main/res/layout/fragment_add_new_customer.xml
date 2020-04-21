@@ -2,258 +2,272 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <ScrollView
+
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/main_background"
-        android:clickable="true"
-        android:focusable="true">
+        android:layout_height="match_parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <ScrollView
+            android:id="@+id/scroll_view"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent"
+            android:background="@drawable/main_background"
+            android:clickable="true"
+            android:focusable="true">
 
-
-            <TextView
-                android:id="@+id/header"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
-                android:fontFamily="sans-serif"
-                android:text="@string/new_customer"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"
-                android:textColor="@color/white2"
-                app:layout_constraintBottom_toTopOf="@+id/headline"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.2"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_chainStyle="packed" />
-
-
-            <TextView
-                android:id="@+id/headline"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:fontFamily="sans-serif-light"
-                android:text="@string/type_the_new_customer_information_then_press_continue"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
-                android:textColor="@color/white2"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/header" />
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/customer_name_txtInput"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="50dp"
-                android:hint="@string/customer_name"
-                android:textColorHint="@color/white2"
-                app:boxCornerRadiusBottomEnd="6dp"
-                app:boxCornerRadiusBottomStart="6dp"
-                app:boxCornerRadiusTopEnd="6dp"
-                app:boxCornerRadiusTopStart="6dp"
-                app:boxStrokeColor="@color/white2"
-                app:boxStrokeWidth="1dp"
-                app:errorEnabled="true"
-                app:errorTextColor="@android:color/holo_red_dark"
-                app:hintTextAppearance="@style/TextAppearance.AppCompat.Caption"
-                app:hintTextColor="@color/white2"
-                app:layout_constraintBottom_toTopOf="@+id/customer_company_name_txtInput"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/headline"
-                app:startIconDrawable="@drawable/ic_person"
-                app:startIconTint="@color/white">
+                android:layout_height="wrap_content">
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edt_customer_name"
+
+                <TextView
+                    android:id="@+id/header"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:fontFamily="sans-serif"
+                    android:text="@string/new_customer"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"
+                    android:textColor="@color/white2"
+                    app:layout_constraintBottom_toTopOf="@+id/headline"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.2"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_chainStyle="packed" />
+
+
+                <TextView
+                    android:id="@+id/headline"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:fontFamily="sans-serif-light"
+                    android:text="@string/type_the_new_customer_information_then_press_continue"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
+                    android:textColor="@color/white2"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/header" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/customer_name_txtInput"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="50dp"
+                    android:hint="@string/customer_name"
+                    android:textColorHint="@color/white2"
+                    app:boxCornerRadiusBottomEnd="6dp"
+                    app:boxCornerRadiusBottomStart="6dp"
+                    app:boxCornerRadiusTopEnd="6dp"
+                    app:boxCornerRadiusTopStart="6dp"
+                    app:boxStrokeColor="@color/white2"
+                    app:boxStrokeWidth="1dp"
+                    app:errorEnabled="true"
+                    app:errorTextColor="@android:color/holo_red_dark"
+                    app:hintTextAppearance="@style/TextAppearance.AppCompat.Caption"
+                    app:hintTextColor="@color/white2"
+                    app:layout_constraintBottom_toTopOf="@+id/customer_company_name_txtInput"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/headline"
+                    app:startIconDrawable="@drawable/ic_person"
+                    app:startIconTint="@color/white">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edt_customer_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="56dp"
+                        android:inputType="text"
+                        android:maxLength="100"
+                        android:maxLines="1"
+                        android:textColor="@color/white2"
+                        android:textColorHint="@color/white2" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/customer_company_name_txtInput"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="50dp"
+                    android:hint="@string/company_name"
+                    android:textColorHint="@color/white2"
+                    app:boxCornerRadiusBottomEnd="6dp"
+                    app:boxCornerRadiusBottomStart="6dp"
+                    app:boxCornerRadiusTopEnd="6dp"
+                    app:boxCornerRadiusTopStart="6dp"
+                    app:boxStrokeColor="@color/white2"
+                    app:boxStrokeWidth="1dp"
+                    app:errorEnabled="true"
+                    app:errorTextColor="@android:color/holo_red_dark"
+                    app:hintTextAppearance="@style/TextAppearance.AppCompat.Caption"
+                    app:hintTextColor="@color/white2"
+                    app:layout_constraintBottom_toTopOf="@+id/customer_phone_txtInput"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/customer_name_txtInput"
+                    app:startIconDrawable="@drawable/ic_branch"
+                    app:startIconTint="@color/white">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/customer_company_name_edt"
+                        android:layout_width="match_parent"
+                        android:layout_height="56dp"
+                        android:inputType="text"
+                        android:maxLength="100"
+                        android:maxLines="1"
+                        android:textColor="@color/white2"
+                        android:textColorHint="@color/white2" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/customer_phone_txtInput"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="50dp"
+                    android:hint="@string/phone"
+                    android:textColorHint="@color/white2"
+                    app:boxCornerRadiusBottomEnd="6dp"
+                    app:boxCornerRadiusBottomStart="6dp"
+                    app:boxCornerRadiusTopEnd="6dp"
+                    app:boxCornerRadiusTopStart="6dp"
+                    app:boxStrokeColor="@color/white2"
+                    app:boxStrokeWidth="1dp"
+                    app:errorEnabled="true"
+                    app:errorTextColor="@android:color/holo_red_dark"
+                    app:hintTextAppearance="@style/TextAppearance.AppCompat.Caption"
+                    app:hintTextColor="@color/white2"
+                    app:layout_constraintBottom_toTopOf="@+id/customer_email_txtInput"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/customer_company_name_txtInput"
+                    app:startIconDrawable="@drawable/ic_phone"
+                    app:startIconTint="@color/white">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/customer_phone_edt"
+                        android:layout_width="match_parent"
+                        android:layout_height="56dp"
+                        android:inputType="phone"
+                        android:maxLength="100"
+                        android:maxLines="1"
+                        android:textColor="@color/white2"
+                        android:textColorHint="@color/white2" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/customer_email_txtInput"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="50dp"
+                    android:hint="@string/customer_email"
+                    android:textColorHint="@color/white2"
+                    app:boxCornerRadiusBottomEnd="6dp"
+                    app:boxCornerRadiusBottomStart="6dp"
+                    app:boxCornerRadiusTopEnd="6dp"
+                    app:boxCornerRadiusTopStart="6dp"
+                    app:boxStrokeColor="@color/white2"
+                    app:boxStrokeWidth="1dp"
+                    app:errorEnabled="true"
+                    app:errorTextColor="@android:color/holo_red_dark"
+                    app:hintTextAppearance="@style/TextAppearance.AppCompat.Caption"
+                    app:hintTextColor="@color/white2"
+                    app:layout_constraintBottom_toTopOf="@+id/customer_extra_info_txtInput"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/customer_phone_txtInput"
+                    app:startIconDrawable="@drawable/ic_email"
+                    app:startIconTint="@color/white">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edt_customer_email"
+                        android:layout_width="match_parent"
+                        android:layout_height="56dp"
+                        android:inputType="textEmailAddress"
+                        android:maxLength="100"
+                        android:maxLines="1"
+                        android:textColor="@color/white2"
+                        android:textColorHint="@color/white2" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/customer_extra_info_txtInput"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="50dp"
+                    android:hint="@string/notes"
+                    android:textColorHint="@color/white2"
+                    app:boxCornerRadiusBottomEnd="6dp"
+                    app:boxCornerRadiusBottomStart="6dp"
+                    app:boxCornerRadiusTopEnd="6dp"
+                    app:boxCornerRadiusTopStart="6dp"
+                    app:boxStrokeColor="@color/white2"
+                    app:boxStrokeWidth="1dp"
+                    app:hintTextAppearance="@style/TextAppearance.AppCompat.Caption"
+                    app:hintTextColor="@color/white2"
+                    app:layout_constraintBottom_toTopOf="@+id/btc_continue"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/customer_email_txtInput">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edt_customer_notes"
+                        android:layout_width="match_parent"
+                        android:layout_height="150dp"
+                        android:gravity="top"
+                        android:inputType="text"
+                        android:textColor="@color/white2"
+                        android:textColorHint="@color/white2" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+                <Button
+                    android:id="@+id/btc_continue"
+                    android:layout_width="wrap_content"
                     android:layout_height="56dp"
-                    android:inputType="text"
-                    android:maxLength="100"
-                    android:maxLines="1"
-                    android:textColor="@color/white2"
-                    android:textColorHint="@color/white2" />
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="8dp"
+                    android:backgroundTint="@color/colorAccent"
+                    android:elevation="6dp"
+                    android:paddingLeft="64dp"
+                    android:paddingRight="64dp"
+                    android:text="@string/continue_sign_up"
+                    android:textAllCaps="false"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/customer_extra_info_txtInput"
+                    app:layout_constraintVertical_bias="0.0" />
 
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/customer_company_name_txtInput"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="50dp"
-                android:hint="@string/company_name"
-                android:textColorHint="@color/white2"
-                app:boxCornerRadiusBottomEnd="6dp"
-                app:boxCornerRadiusBottomStart="6dp"
-                app:boxCornerRadiusTopEnd="6dp"
-                app:boxCornerRadiusTopStart="6dp"
-                app:boxStrokeColor="@color/white2"
-                app:boxStrokeWidth="1dp"
-                app:errorEnabled="true"
-                app:errorTextColor="@android:color/holo_red_dark"
-                app:hintTextAppearance="@style/TextAppearance.AppCompat.Caption"
-                app:hintTextColor="@color/white2"
-                app:layout_constraintBottom_toTopOf="@+id/customer_phone_txtInput"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/customer_name_txtInput"
-                app:startIconDrawable="@drawable/ic_branch"
-                app:startIconTint="@color/white">
+        </ScrollView>
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/customer_company_name_edt"
-                    android:layout_width="match_parent"
-                    android:layout_height="56dp"
-                    android:inputType="text"
-                    android:maxLength="100"
-                    android:maxLines="1"
-                    android:textColor="@color/white2"
-                    android:textColorHint="@color/white2" />
-            </com.google.android.material.textfield.TextInputLayout>
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/map_fragment_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/customer_phone_txtInput"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="50dp"
-                android:hint="@string/phone"
-                android:textColorHint="@color/white2"
-                app:boxCornerRadiusBottomEnd="6dp"
-                app:boxCornerRadiusBottomStart="6dp"
-                app:boxCornerRadiusTopEnd="6dp"
-                app:boxCornerRadiusTopStart="6dp"
-                app:boxStrokeColor="@color/white2"
-                app:boxStrokeWidth="1dp"
-                app:errorEnabled="true"
-                app:errorTextColor="@android:color/holo_red_dark"
-                app:hintTextAppearance="@style/TextAppearance.AppCompat.Caption"
-                app:hintTextColor="@color/white2"
-                app:layout_constraintBottom_toTopOf="@+id/customer_email_txtInput"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/customer_company_name_txtInput"
-                app:startIconDrawable="@drawable/ic_phone"
-                app:startIconTint="@color/white">
+    </FrameLayout>
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/customer_phone_edt"
-                    android:layout_width="match_parent"
-                    android:layout_height="56dp"
-                    android:inputType="phone"
-                    android:maxLength="100"
-                    android:maxLines="1"
-                    android:textColor="@color/white2"
-                    android:textColorHint="@color/white2" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/customer_email_txtInput"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="50dp"
-                android:hint="@string/customer_email"
-                android:textColorHint="@color/white2"
-                app:boxCornerRadiusBottomEnd="6dp"
-                app:boxCornerRadiusBottomStart="6dp"
-                app:boxCornerRadiusTopEnd="6dp"
-                app:boxCornerRadiusTopStart="6dp"
-                app:boxStrokeColor="@color/white2"
-                app:boxStrokeWidth="1dp"
-                app:errorEnabled="true"
-                app:errorTextColor="@android:color/holo_red_dark"
-                app:hintTextAppearance="@style/TextAppearance.AppCompat.Caption"
-                app:hintTextColor="@color/white2"
-                app:layout_constraintBottom_toTopOf="@+id/customer_extra_info_txtInput"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/customer_phone_txtInput"
-                app:startIconDrawable="@drawable/ic_email"
-                app:startIconTint="@color/white">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edt_customer_email"
-                    android:layout_width="match_parent"
-                    android:layout_height="56dp"
-                    android:inputType="textEmailAddress"
-                    android:maxLength="100"
-                    android:maxLines="1"
-                    android:textColor="@color/white2"
-                    android:textColorHint="@color/white2" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/customer_extra_info_txtInput"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="50dp"
-                android:hint="@string/notes"
-                android:textColorHint="@color/white2"
-                app:boxCornerRadiusBottomEnd="6dp"
-                app:boxCornerRadiusBottomStart="6dp"
-                app:boxCornerRadiusTopEnd="6dp"
-                app:boxCornerRadiusTopStart="6dp"
-                app:boxStrokeColor="@color/white2"
-                app:boxStrokeWidth="1dp"
-                app:hintTextAppearance="@style/TextAppearance.AppCompat.Caption"
-                app:hintTextColor="@color/white2"
-                app:layout_constraintBottom_toTopOf="@+id/btc_continue"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/customer_email_txtInput">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edt_customer_notes"
-                    android:layout_width="match_parent"
-                    android:layout_height="150dp"
-                    android:gravity="top"
-                    android:inputType="text"
-                    android:textColor="@color/white2"
-                    android:textColorHint="@color/white2" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-
-            <Button
-                android:id="@+id/btc_continue"
-                android:layout_width="wrap_content"
-                android:layout_height="56dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="8dp"
-                android:backgroundTint="@color/colorAccent"
-                android:elevation="6dp"
-                android:paddingLeft="64dp"
-                android:paddingRight="64dp"
-                android:text="@string/continue_sign_up"
-                android:textAllCaps="false"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/customer_extra_info_txtInput"
-                app:layout_constraintVertical_bias="0.0" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </ScrollView>
 
 </layout>

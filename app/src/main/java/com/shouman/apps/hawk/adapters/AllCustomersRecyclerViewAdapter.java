@@ -93,7 +93,6 @@ public class AllCustomersRecyclerViewAdapter extends RecyclerView.Adapter<AllCus
 
         String customerUID = customersUIDs.get(position);
         holder.mBinding.setCustomerUID(customerUID);
-        holder.mBinding.setCustomerName(customerData[0]);
 
         OnCustomerItemClickHandler onCustomerItemClickHandler;
 

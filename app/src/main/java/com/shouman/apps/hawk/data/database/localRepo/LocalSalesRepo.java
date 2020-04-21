@@ -28,7 +28,7 @@ public class LocalSalesRepo {
     private static final String TAG = "LocalSalesRepo";
     private static LocalSalesRepo localSalesRepo;
     private static final Object LOCK = new Object();
-    private MutableLiveData<Map<String, Map<String, DailyLogEntry>>> customersDailyLogLocalLiveData;
+    private MutableLiveData<Map<String, List<DailyLogEntry>>> customersDailyLogLocalLiveData;
     private DatabaseReference companiesReference;
 
 
@@ -41,11 +41,11 @@ public class LocalSalesRepo {
         AppExecutors.getsInstance().getDiskIO().execute(new Runnable() {
             @Override
             public void run() {
-                Map<String, Map<String, DailyLogEntry>> allDaysLog = new HashMap<>();
+                Map<String, List<DailyLogEntry>> allDaysLog = new HashMap<>();
 
                 Book dailyLocalBook = Paper.book("Daily_Log");
                 for (String day : dailyLocalBook.getAllKeys()) {
-                    Map<String, DailyLogEntry> dayLog = dailyLocalBook.read(day);
+                    List<DailyLogEntry> dayLog = dailyLocalBook.read(day);
                     allDaysLog.put(day, dayLog);
                 }
                 customersDailyLogLocalLiveData.postValue(allDaysLog);
@@ -82,15 +82,15 @@ public class LocalSalesRepo {
                 date.getTime(),
                 newCustomerKey);
 
-        Map<String, Map<String, DailyLogEntry>> allDaysLog = customersDailyLogLocalLiveData.getValue();
+        Map<String, List<DailyLogEntry>> allDaysLog = customersDailyLogLocalLiveData.getValue();
         if (allDaysLog == null) {
             allDaysLog = new HashMap<>();
         }
 
-        Map<String, DailyLogEntry> currentDayLog = allDaysLog.get(currentDateMillSecond);
-        if (currentDayLog == null) currentDayLog = new HashMap<>();
+        List<DailyLogEntry> currentDayLog = allDaysLog.get(currentDateMillSecond);
+        if (currentDayLog == null) currentDayLog = new ArrayList<>();
 
-        currentDayLog.put(newCustomerKey, dailyLogEntry);
+        currentDayLog.add(dailyLogEntry);
         allDaysLog.put(currentDateMillSecond, currentDayLog);
         Paper.book("Daily_Log").write(currentDateMillSecond, currentDayLog);
         customersDailyLogLocalLiveData.postValue(allDaysLog);
@@ -114,15 +114,15 @@ public class LocalSalesRepo {
                         date.getTime(),
                         customerUID);
 
-        Map<String, Map<String, DailyLogEntry>> allDaysLog = customersDailyLogLocalLiveData.getValue();
+        Map<String, List<DailyLogEntry>> allDaysLog = customersDailyLogLocalLiveData.getValue();
         if (allDaysLog == null) {
             allDaysLog = new HashMap<>();
         }
 
-        Map<String, DailyLogEntry> currentDayLog = allDaysLog.get(currentDateMillisecond);
-        if (currentDayLog == null) currentDayLog = new HashMap<>();
+        List<DailyLogEntry> currentDayLog = allDaysLog.get(currentDateMillisecond);
+        if (currentDayLog == null) currentDayLog = new ArrayList<>();
 
-        currentDayLog.put(customerUID, dailyLogEntry);
+        currentDayLog.add(dailyLogEntry);
         allDaysLog.put(currentDateMillisecond, currentDayLog);
         Paper.book("Daily_Log").write(currentDateMillisecond, currentDayLog);
         customersDailyLogLocalLiveData.postValue(allDaysLog);
@@ -130,14 +130,17 @@ public class LocalSalesRepo {
 
     synchronized public LiveData<List<String>> getCurrentDayLocalLog(final String date) {
         final MutableLiveData<List<String>> currentDayLocalLogMutableLiveData = new MutableLiveData<>();
-        final List<String> currentDayLog = new ArrayList<>();
+        final List<String> currentDayLogCustomersKey = new ArrayList<>();
         final Book allLocalLogBook = Paper.book("Daily_Log");
         if (allLocalLogBook.contains(date)) {
             AppExecutors.getsInstance().getDiskIO().execute(new Runnable() {
                 @Override
                 public void run() {
-                    currentDayLog.addAll(((Map<String, DailyLogEntry>) allLocalLogBook.read(date)).keySet());
-                    currentDayLocalLogMutableLiveData.postValue(currentDayLog);
+                    List<DailyLogEntry> currentDayLog = allLocalLogBook.read(date);
+                    for (DailyLogEntry logEntry : currentDayLog) {
+                        if (logEntry != null) currentDayLogCustomersKey.add(logEntry.getCUID());
+                    }
+                    currentDayLocalLogMutableLiveData.postValue(currentDayLogCustomersKey);
                 }
             });
         }
@@ -145,22 +148,7 @@ public class LocalSalesRepo {
     }
 
     public LiveData<Map<String, List<DailyLogEntry>>> getCustomersDailyLogLocalLiveData() {
-        final Map<String, Map<String, DailyLogEntry>> savedLogEntries = customersDailyLogLocalLiveData.getValue();
-        final MutableLiveData<Map<String, List<DailyLogEntry>>> localDatesLogEntriesLivData = new MutableLiveData<>();
-        AppExecutors.getsInstance().getDiskIO().execute(new Runnable() {
-            @Override
-            public void run() {
-                if (savedLogEntries != null) {
-                    Map<String, List<DailyLogEntry>> localEntries = new HashMap<>();
-                    for (String date : savedLogEntries.keySet()) {
-                        List<Da0>0
-                        localEntries.put(date, )
-                    }
-                    localDatesLogEntriesLivData.postValue(localEntries);
-                }
-            }
-        });
-        return localDatesLogEntriesLivData;
+        return customersDailyLogLocalLiveData;
     }
 
     public void notifyAllLogDataUploaded() {

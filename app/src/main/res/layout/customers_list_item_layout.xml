@@ -14,11 +14,6 @@
         <variable
             name="customerUID"
             type="String" />
-
-        <variable
-            name="customerName"
-            type="String" />
-
     </data>
 
     <com.google.android.material.card.MaterialCardView
@@ -28,7 +23,7 @@
         android:backgroundTintMode="src_over"
         android:clickable="true"
         android:focusable="true"
-        android:onClick="@{() -> onCustomerClickListener.onCustomerItemClickHandler(customerUID, customerName)}"
+        android:onClick="@{() -> onCustomerClickListener.onCustomerItemClickHandler(customerUID)}"
         android:stateListAnimator="@animator/branch_list_item_anim"
         app:cardCornerRadius="0dp"
         app:rippleColor="@color/white_ripple_color"

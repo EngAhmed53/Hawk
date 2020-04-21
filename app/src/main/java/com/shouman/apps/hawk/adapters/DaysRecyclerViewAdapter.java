@@ -19,6 +19,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -32,14 +33,17 @@ public class DaysRecyclerViewAdapter extends RecyclerView.Adapter<DaysRecyclerVi
     private DateFormat dateFormat;
     private Calendar calendar;
     private long currentDateMillisecond;
+    private RecyclerView.RecycledViewPool viewPool;
 
 
     public DaysRecyclerViewAdapter(Context mContext) {
         this.mContext = new WeakReference<>(mContext);
-        this.date_logEntries_TMap = new TreeMap<>();
+        this.date_logEntries_TMap = new TreeMap<>(Collections.<String>reverseOrder());
         dateFormat = SimpleDateFormat.getDateInstance(DateFormat.MEDIUM, Locale.getDefault());
         calendar = Calendar.getInstance(Locale.getDefault());
         currentDateMillisecond = Common.getCurrentDateWithoutTime().getTime();
+        viewPool = new RecyclerView.RecycledViewPool();
+
     }
 
     public void setDate_logEntries_map(Map<String, List<DailyLogEntry>> date_logEntries_map) {
@@ -77,6 +81,7 @@ public class DaysRecyclerViewAdapter extends RecyclerView.Adapter<DaysRecyclerVi
         }
 
         holder.mBinding.setDate(dateText);
+        holder.mBinding.childRecView.setRecycledViewPool(viewPool);
         holder.mBinding.setLogEntriesList(date_logEntries_TMap.get(dates.get(position)));
     }
 

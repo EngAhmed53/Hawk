@@ -3,13 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.core.widget.NestedScrollView
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/main_background"
         android:clickable="true"
         android:focusable="true"
-        tools:context=".ui.main.salesUI.add.newVisit.Fragment_Add_New_Visit">
+        tools:context=".ui.main.salesUI.add.newVisitFragment.Fragment_Add_New_Visit">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -118,7 +118,7 @@
                 android:layout_height="56dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="8dp"
-                android:backgroundTint="@color/colorPrimaryDark"
+                android:backgroundTint="@color/colorAccent"
                 android:elevation="6dp"
                 android:paddingLeft="64dp"
                 android:paddingRight="64dp"
@@ -131,5 +131,5 @@
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.core.widget.NestedScrollView>
+    </ScrollView>
 </layout>

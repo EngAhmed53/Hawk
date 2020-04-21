@@ -1,4 +1,4 @@
-package com.shouman.apps.hawk.ui.main.salesUI.add.newCustomer;
+package com.shouman.apps.hawk.ui.main.salesUI.add.newCustomerFragments;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;

@@ -1,4 +1,4 @@
-package com.shouman.apps.hawk.ui.main.salesUI.add.newVisit;
+package com.shouman.apps.hawk.ui.main.salesUI.add.newVisitFragment;
 
 import android.content.Context;
 

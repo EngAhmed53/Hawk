@@ -1,12 +1,8 @@
-package com.shouman.apps.hawk.ui.main.salesUI.add.newVisit;
+package com.shouman.apps.hawk.ui.main.salesUI.add.newVisitFragment;
 
 import android.content.Context;
-import android.content.Intent;
 import android.location.Location;
-import android.location.LocationManager;
 import android.os.Bundle;
-import android.os.Looper;
-import android.provider.Settings;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,13 +15,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationCallback;
-import com.google.android.gms.location.LocationRequest;
-import com.google.android.gms.location.LocationResult;
-import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.common.collect.BiMap;
 import com.google.firebase.auth.FirebaseAuth;
 import com.shouman.apps.hawk.R;
@@ -33,7 +23,8 @@ import com.shouman.apps.hawk.adapters.CustomersDropDownArrayAdapter;
 import com.shouman.apps.hawk.data.database.mainRepo.MainRepo;
 import com.shouman.apps.hawk.data.model.Visit;
 import com.shouman.apps.hawk.databinding.FragmentAddNewVisitBinding;
-import com.shouman.apps.hawk.ui.main.salesUI.add.AddNewActivity;
+import com.shouman.apps.hawk.ui.main.salesUI.add.addActivity.AddNewActivity;
+import com.shouman.apps.hawk.ui.main.salesUI.add.addActivity.LocationViewModel;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -55,14 +46,13 @@ public class Fragment_Add_New_Visit extends Fragment {
     private double customerLongitude;
     private double currentLatitude;
     private double currentLongitude;
-    private FusedLocationProviderClient fusedLocation;
     private String companyName;
     private String customerName;
     private MainRepo mainRepo;
 
     private enum DistanceLimits {
-        MINIMUM_DISTANCE (0f),
-        MAXIMUM_DISTANCE (1000f);
+        MINIMUM_DISTANCE(0f),
+        MAXIMUM_DISTANCE(1000f);
 
         public final float distance;
 
@@ -70,7 +60,6 @@ public class Fragment_Add_New_Visit extends Fragment {
             this.distance = distance;
         }
     }
-
 
 
     public Fragment_Add_New_Visit() {
@@ -83,7 +72,6 @@ public class Fragment_Add_New_Visit extends Fragment {
 
     @Override
     public void onAttach(@NonNull Context context) {
-        fusedLocation = LocationServices.getFusedLocationProviderClient(context);
         mainRepo = MainRepo.getInstance();
         super.onAttach(context);
     }
@@ -94,8 +82,9 @@ public class Fragment_Add_New_Visit extends Fragment {
         // Inflate the layout for this fragment
         mBinding = FragmentAddNewVisitBinding.inflate(inflater);
 
-        initViewModel();
+        getSalesMemberLocation();
 
+        initViewModel();
 
         mBinding.filledExposedDropdown.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -124,7 +113,7 @@ public class Fragment_Add_New_Visit extends Fragment {
                     if (!isCustomerIsAlreadyExitInThisDayLog(selectedCustomerUID)) {
                         mainRepo.addVisitToCustomer(getContext(), visit, selectedCustomerUID, customerName, companyName);
                         Toast.makeText(getContext(), "Visit added Successfully", Toast.LENGTH_SHORT).show();
-                        closeHostActivity();
+                        getBaseActivity().finish();
                     } else {
                         Toast.makeText(getContext(), "This user is already exist in this day log", Toast.LENGTH_SHORT).show();
                     }
@@ -138,30 +127,8 @@ public class Fragment_Add_New_Visit extends Fragment {
 
             }
         });
-
         return mBinding.getRoot();
     }
-
-    private void closeHostActivity() {
-        AddNewActivity hostActivity = (AddNewActivity) getActivity();
-        if (hostActivity != null) {
-            hostActivity.getSupportFragmentManager().beginTransaction().remove(this).commit();
-            hostActivity.finish();
-        }
-    }
-
-//    private void showToastInMainThread(final String toastMessage) {
-//
-//        AppExecutors.getsInstance().getMainThread().execute(new Runnable() {
-//            @Override
-//            public void run() {
-//                Toast.makeText(getActivity(),
-//                        toastMessage,
-//                        Toast.LENGTH_SHORT)
-//                        .show();
-//            }
-//        });
-//    }
 
     private boolean isCustomerIsAlreadyExitInThisDayLog(String selectedCustomerUID) {
         return (customersDayLog.contains(selectedCustomerUID));
@@ -215,68 +182,19 @@ public class Fragment_Add_New_Visit extends Fragment {
     }
 
     private void getSalesMemberLocation() {
-
-        if (isLocationEnabled()) {
-            //if the location is not enabled
-            fusedLocation.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
-                @Override
-                public void onComplete(@NonNull Task<Location> task) {
-                    if (task.isSuccessful()) {
-                        //get the current location
-                        Location location = task.getResult();
-                        if (location != null) {
-                            //get the longitude and latitude
-                            currentLatitude = location.getLatitude();
-                            currentLongitude = location.getLongitude();
-                            //show the location on mab;
-                        }
-                    } else {
-
-                        //location is not enabled so we have to ask user to enable it
-                        requestCurrentLocationUpdate();
-                    }
-                }
-            });
-
-        } else {
-            //location is not enabled so we need to enable it
-            Toast.makeText(getContext(), "Turn on location", Toast.LENGTH_LONG).show();
-            Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-            startActivity(intent);
-        }
-    }
-
-    private void requestCurrentLocationUpdate() {
-        LocationRequest mLocationRequest = new LocationRequest();
-        mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-        mLocationRequest.setInterval(0);
-        mLocationRequest.setFastestInterval(0);
-        mLocationRequest.setNumUpdates(1);
-        LocationCallback mLocationCallback = new LocationCallback() {
+        LocationViewModel locationViewModel = new ViewModelProvider(getBaseActivity()).get(LocationViewModel.class);
+        locationViewModel.requestCurrentLocationUpdate();
+        locationViewModel.getLatLongMutableLiveData().observe(getViewLifecycleOwner(), new Observer<LatLng>() {
             @Override
-            public void onLocationResult(LocationResult locationResult) {
-                Location mLastLocation = locationResult.getLastLocation();
-                currentLatitude = mLastLocation.getLatitude();
-                currentLongitude = mLastLocation.getLongitude();
+            public void onChanged(LatLng latLng) {
+                currentLatitude = latLng.latitude;
+                currentLongitude = latLng.longitude;
             }
-        };
-        fusedLocation.requestLocationUpdates(
-                mLocationRequest, mLocationCallback,
-                Looper.myLooper()
-        );
+        });
     }
 
-    private boolean isLocationEnabled() {
-        LocationManager locationManager = (LocationManager) Objects.requireNonNull(getContext()).getSystemService(Context.LOCATION_SERVICE);
-        assert locationManager != null;
-        return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager.isProviderEnabled(
-                LocationManager.NETWORK_PROVIDER
-        );
+    private AddNewActivity getBaseActivity() {
+        return (AddNewActivity) getActivity();
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        getSalesMemberLocation();
-    }
 }

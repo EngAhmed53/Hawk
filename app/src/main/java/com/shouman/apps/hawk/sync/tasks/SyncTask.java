@@ -9,7 +9,7 @@ import com.shouman.apps.hawk.data.model.Customer;
 import com.shouman.apps.hawk.data.model.DailyLogEntry;
 import com.shouman.apps.hawk.data.model.Visit;
 
-import java.util.Map;
+import java.util.List;
 
 import io.paperdb.Book;
 import io.paperdb.Paper;
@@ -58,9 +58,8 @@ public class SyncTask {
 
         FirebaseSalesRepo salesRepo = FirebaseSalesRepo.getInstance();
         for (String date : allLocalLog.getAllKeys()) {
-            Map<String, DailyLogEntry> customerUIDLogEntryMap = Paper.book("Daily_Log").read(date);
-            for (String customerUID : customerUIDLogEntryMap.keySet()) {
-                DailyLogEntry dailyLogEntry = customerUIDLogEntryMap.get(customerUID);
+            List<DailyLogEntry> logEntries = Paper.book("Daily_Log").read(date);
+            for (DailyLogEntry dailyLogEntry : logEntries) {
                 salesRepo.uploadLocalLog(context, date, dailyLogEntry);
             }
             allLocalLog.delete(date);

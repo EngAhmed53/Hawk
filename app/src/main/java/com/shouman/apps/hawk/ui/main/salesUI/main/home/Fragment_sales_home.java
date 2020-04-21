@@ -25,7 +25,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.shouman.apps.hawk.R;
 import com.shouman.apps.hawk.data.model.DailyLogEntry;
 import com.shouman.apps.hawk.databinding.FragmentSalesHomeBinding;
-import com.shouman.apps.hawk.ui.main.salesUI.add.AddNewActivity;
+import com.shouman.apps.hawk.ui.main.salesUI.add.addActivity.AddNewActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -119,13 +119,7 @@ public class Fragment_sales_home extends Fragment {
             public void onChanged(final Map<String, List<DailyLogEntry>> dates_customers_map) {
                 if (dates_customers_map != null) {
                     mBinding.setLogEntriesMap(dates_customers_map);
-
-                    mBinding.progressBar.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            mBinding.progressBar.setVisibility(View.INVISIBLE);
-                        }
-                    }, 800);
+                    mBinding.progressBar.setVisibility(View.GONE);
                 }
             }
         });

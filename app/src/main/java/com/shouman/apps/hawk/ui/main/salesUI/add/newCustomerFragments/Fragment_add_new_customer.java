@@ -1,8 +1,9 @@
-package com.shouman.apps.hawk.ui.main.salesUI.add.newCustomer;
+package com.shouman.apps.hawk.ui.main.salesUI.add.newCustomerFragments;
 
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.IBinder;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,12 +13,14 @@ import android.view.inputmethod.InputMethodManager;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.textfield.TextInputLayout;
-import com.shouman.apps.hawk.databinding.FragmentAddNewCustomerBinding;
+import com.shouman.apps.hawk.R;
 import com.shouman.apps.hawk.data.model.Customer;
-import com.shouman.apps.hawk.ui.main.salesUI.add.AddNewActivity;
+import com.shouman.apps.hawk.databinding.FragmentAddNewCustomerBinding;
+import com.shouman.apps.hawk.ui.main.salesUI.add.addActivity.AddNewActivity;
 
 import java.util.Date;
 import java.util.Objects;
@@ -28,14 +31,8 @@ import java.util.Objects;
 public class Fragment_add_new_customer extends Fragment {
     private static final String TAG = "Fragment_add_new_custom";
     private static final String NEW_CUSTOMER = "new_customer";
-
-    public interface OnContinueBtnClick {
-        void continueToMapFragment(IBinder iBinder);
-    }
-
-    private OnContinueBtnClick onContinueBtnClick;
     private Customer customer;
-    private FragmentAddNewCustomerBinding mBinding;
+    public FragmentAddNewCustomerBinding mBinding;
 
     public static Fragment_add_new_customer getInstance() {
         return new Fragment_add_new_customer();
@@ -44,18 +41,6 @@ public class Fragment_add_new_customer extends Fragment {
 
     public Fragment_add_new_customer() {
         // Required empty public constructor
-    }
-
-
-    @Override
-    public void onAttach(@NonNull Context context) {
-        super.onAttach(context);
-        try {
-            onContinueBtnClick = (OnContinueBtnClick) context;
-        } catch (ClassCastException e) {
-            e.printStackTrace();
-            Log.e(TAG, "onAttach: " + "The Host activity must implement OnContinueBtnClick interface");
-        }
     }
 
     @Override
@@ -70,7 +55,8 @@ public class Fragment_add_new_customer extends Fragment {
         }
 
         //viewModel
-        final NewCustomerSharedViewModel customerViewModel = new ViewModelProvider(getBaseActivity()).get(NewCustomerSharedViewModel.class);
+        final NewCustomerSharedViewModel customerViewModel =
+                new ViewModelProvider(getBaseActivity()).get(NewCustomerSharedViewModel.class);
 
         //on Continue btn clicked
         mBinding.btcContinue.setOnClickListener(new View.OnClickListener() {
@@ -90,8 +76,9 @@ public class Fragment_add_new_customer extends Fragment {
                     customer.setAddedTime(new Date().getTime());
                     customerViewModel.setCustomerMutableLiveData(customer);
 
+                    Log.e(TAG, "onClick: on click");
                     //open the second mapFragment;
-                    openTheMapFragment(v.getApplicationWindowToken());
+                    openTheMapFragment();
 
                 } else {
                     if (mBinding.customerNameTxtInput.getError() != null ||
@@ -113,8 +100,27 @@ public class Fragment_add_new_customer extends Fragment {
                 }
             }
         });
-
+        requestCompanyNameFocus();
         return mBinding.getRoot();
+    }
+
+    private void openTheMapFragment() {
+        hideKeyboard(mBinding.btcContinue.getApplicationWindowToken());
+        mBinding.scrollView.setVisibility(View.GONE);
+        final FragmentManager fragmentManager;
+        fragmentManager = getChildFragmentManager();
+        final Fragment_pick_customer_location pick_customer_location = new Fragment_pick_customer_location();
+        fragmentManager.
+                beginTransaction().
+                addToBackStack(null).
+                add(R.id.map_fragment_container, pick_customer_location, "fragment_customer_location").
+                commit();
+    }
+
+    private void hideKeyboard(IBinder iBinder) {
+        InputMethodManager inputMethodManager = (InputMethodManager) getBaseActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        assert inputMethodManager != null;
+        inputMethodManager.hideSoftInputFromWindow(iBinder, 0);
     }
 
     //get the host activity
@@ -122,10 +128,6 @@ public class Fragment_add_new_customer extends Fragment {
         return (AddNewActivity) getActivity();
     }
 
-
-    private void openTheMapFragment(IBinder iBinder) {
-        onContinueBtnClick.continueToMapFragment(iBinder);
-    }
 
     private boolean checkInputTextErrors(TextInputLayout inputLayout) {
         String text = Objects.requireNonNull(inputLayout.getEditText()).getText().toString();
@@ -138,8 +140,6 @@ public class Fragment_add_new_customer extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        requestCompanyNameFocus();
-
     }
 
     private void requestCompanyNameFocus() {

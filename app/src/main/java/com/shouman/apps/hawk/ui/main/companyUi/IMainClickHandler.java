@@ -6,5 +6,5 @@ public interface IMainClickHandler extends OnCustomerItemClickHandler {
     void onBranchItemClickHandler(String branchUID, String branchName);
     void onSalesItemClickHandler(String salesUID, String salesName);
     @Override
-    void onCustomerItemClickHandler(String customerUID, String customerName);
+    void onCustomerItemClickHandler(String customerUID);
 }

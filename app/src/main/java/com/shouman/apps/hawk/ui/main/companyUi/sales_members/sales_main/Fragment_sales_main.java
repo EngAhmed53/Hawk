@@ -91,8 +91,8 @@ public class Fragment_sales_main extends Fragment {
         salesViewModel.getMediatorSalesLiveData().observe(getViewLifecycleOwner(), new Observer<Map<String, List<DailyLogEntry>>>() {
             @Override
 
-            public void onChanged(Map<String,List<DailyLogEntry>> date_logEntries_map) {
-               mBinding.setDatesLogEntriesMap(date_logEntries_map);
+            public void onChanged(Map<String, List<DailyLogEntry>> date_logEntries_map) {
+                mBinding.setDatesLogEntriesMap(date_logEntries_map);
             }
         });
     }
@@ -198,6 +198,5 @@ public class Fragment_sales_main extends Fragment {
             return String.valueOf((int) value);
         }
     }
-
 
 }

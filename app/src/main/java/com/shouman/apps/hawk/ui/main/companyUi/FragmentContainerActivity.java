@@ -9,7 +9,6 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.FragmentManager;
 
 import com.shouman.apps.hawk.R;
-import com.shouman.apps.hawk.databinding.ActivityFragmentContainerBinding;
 import com.shouman.apps.hawk.ui.main.companyUi.add_new_branch.Fragment_add_new_branch;
 import com.shouman.apps.hawk.ui.main.companyUi.all_branches.Fragment_all_branches;
 import com.shouman.apps.hawk.ui.main.companyUi.branch_details.branch_home.Fragment_branch;
@@ -21,15 +20,15 @@ public class FragmentContainerActivity extends AppCompatActivity implements IMai
 
     private static final String TAG = "MainActivity";
     public static final String SELECTED_MENU_ITEM = "selected_fragment";
-    private ActivityFragmentContainerBinding mainBinding;
     public FragmentManager fragmentManager;
     private Fragment_add_new_branch fragment_add_new_branch;
+    private Fragment_branch fragment_branch;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mainBinding = DataBindingUtil.setContentView(this, R.layout.activity_fragment_container);
+        com.shouman.apps.hawk.databinding.ActivityFragmentContainerBinding mainBinding = DataBindingUtil.setContentView(this, R.layout.activity_fragment_container);
         fragmentManager = getSupportFragmentManager();
 
         Intent intent = getIntent();
@@ -38,7 +37,6 @@ public class FragmentContainerActivity extends AppCompatActivity implements IMai
             assert action != null;
             if (action.equals(getString(R.string.branches_title))) {
                 showBranchesFragment();
-                Toast.makeText(this, "branches", Toast.LENGTH_SHORT).show();
             } else if (action.equals(getString(R.string.sales_team_title))) {
                 showAllSalesFragment();
             } else if (action.equals(getString(R.string.customers_title))) {
@@ -93,7 +91,10 @@ public class FragmentContainerActivity extends AppCompatActivity implements IMai
     @Override
     public void onBranchItemClickHandler(String branchUID, String branchName) {
         //show branch fragment
-        Fragment_branch fragment_branch = Fragment_branch.getInstance(branchUID, branchName);
+        if (fragment_branch != null && fragment_branch.isAdded()) {
+            return;
+        }
+        fragment_branch = Fragment_branch.getInstance(branchUID, branchName);
         fragmentManager
                 .beginTransaction()
                 .addToBackStack("branch_details")
@@ -105,17 +106,17 @@ public class FragmentContainerActivity extends AppCompatActivity implements IMai
     @Override
     public void onSalesItemClickHandler(String salesUID, String salesName) {
         Fragment_sales_main fragment_sales_main = Fragment_sales_main.getInstance(salesUID, salesName);
+
         fragmentManager
                 .beginTransaction()
                 .addToBackStack(null)
-                .setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right, android.R.anim.slide_in_left, android.R.anim.slide_out_right)
                 .add(R.id.home_container, fragment_sales_main, "fragment_branch_details")
                 .commit();
     }
 
     @Override
-    public void onCustomerItemClickHandler(String customerUID, String customerName) {
-        Fragment_customers_info fragment_customers_info = Fragment_customers_info.getInstance(customerName, customerUID);
+    public void onCustomerItemClickHandler(String customerUID) {
+        Fragment_customers_info fragment_customers_info = Fragment_customers_info.getInstance(customerUID);
         fragmentManager
                 .beginTransaction()
                 .addToBackStack("customer_info")
@@ -123,4 +124,5 @@ public class FragmentContainerActivity extends AppCompatActivity implements IMai
                 .add(R.id.home_container, fragment_customers_info, "fragment_customers_info")
                 .commit();
     }
+
 }

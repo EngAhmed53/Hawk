@@ -238,8 +238,8 @@ public class Main2Activity extends AppCompatActivity implements IMain2ClickHandl
     }
 
     @Override
-    public void onCustomerItemClickHandler(String customerUID, String customerName) {
-        fragment_customers_info = Fragment_customers_info.getInstance(customerName, customerUID);
+    public void onCustomerItemClickHandler(String customerUID) {
+        fragment_customers_info = Fragment_customers_info.getInstance(customerUID);
         fragmentManager
                 .beginTransaction()
                 .addToBackStack("customer_info")
@@ -252,9 +252,9 @@ public class Main2Activity extends AppCompatActivity implements IMain2ClickHandl
     public boolean onCreateOptionsMenu(Menu menu) {
         new MenuInflater(this).inflate(R.menu.sales_ui_home_menu, menu);
         final MenuItem offlineDataMenuItem = menu.findItem(R.id.action_offline_data);
-        localSalesRepo.getCustomersDailyLogLocalLiveData().observe(this, new Observer<Map<String, Map<String, DailyLogEntry>>>() {
+        localSalesRepo.getCustomersDailyLogLocalLiveData().observe(this, new Observer<Map<String, List<DailyLogEntry>>>() {
             @Override
-            public void onChanged(Map<String, Map<String, DailyLogEntry>> localLog) {
+            public void onChanged(Map<String, List<DailyLogEntry>> localLog) {
                 if (localLog != null) {
                     if (localLog.isEmpty()) {
                         offlineDataMenuItem.setVisible(false);

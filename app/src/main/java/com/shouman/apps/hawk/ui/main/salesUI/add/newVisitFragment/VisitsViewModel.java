@@ -1,4 +1,4 @@
-package com.shouman.apps.hawk.ui.main.salesUI.add.newVisit;
+package com.shouman.apps.hawk.ui.main.salesUI.add.newVisitFragment;
 
 import android.content.Context;
 
@@ -15,6 +15,7 @@ import com.shouman.apps.hawk.data.FirebaseQueryLiveData;
 import com.shouman.apps.hawk.data.database.firebaseRepo.FirebaseCompanyRepo;
 import com.shouman.apps.hawk.data.database.firebaseRepo.FirebaseSalesRepo;
 import com.shouman.apps.hawk.data.database.localRepo.LocalSalesRepo;
+import com.shouman.apps.hawk.data.model.DailyLogEntry;
 import com.shouman.apps.hawk.utils.AppExecutors;
 
 import java.util.ArrayList;
@@ -49,12 +50,12 @@ class VisitsViewModel extends ViewModel {
                 AppExecutors.getsInstance().getNetworkIO().execute(new Runnable() {
                     @Override
                     public void run() {
-                        List<String> allDayLog = new ArrayList<>();
-                        for (DataSnapshot d :
-                                dataSnapshot.getChildren()) {
-                            allDayLog.add(d.getKey());
+                        List<String> currentDayLogCustomersKey = new ArrayList<>();
+                        for (DataSnapshot d : dataSnapshot.getChildren()) {
+                            DailyLogEntry logEntry = d.getValue(DailyLogEntry.class);
+                            if (logEntry != null) currentDayLogCustomersKey.add(logEntry.getCUID());
                         }
-                        currentDayLogMediatorLiveData.postValue(allDayLog);
+                        currentDayLogMediatorLiveData.postValue(currentDayLogCustomersKey);
                     }
                 });
             }
