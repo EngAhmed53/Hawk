@@ -1,6 +1,5 @@
-<resources>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_name">Sales Eagle</string>
-
     <string name="email_address_edit_text">Email address</string>
     <string name="password_edit_text">Password</string>
     <string name="app_logo_dsc">app_logo</string>
@@ -26,7 +25,7 @@
     <string name="google_logo">google_logo</string>
     <string name="facebook_logo">facebook_logo</string>
     <string name="logo_image">logo_image</string>
-    <string name="continue_sign_up">Continue</string>
+    <string name="continue_btn">Continue</string>
     <string name="it_seems_this_your_first_time_using_easyhr_app_please_specify_your_position_and_all_information_needed">It Seems this your first time using EasyHR app, Please Specify your position and all information needed.</string>
     <string name="please_type_company_name">Please type your Company name</string>
     <string name="company_name">Company name</string>
@@ -48,7 +47,7 @@
     <string name="email_verification_title">Email Verification</string>
     <string name="sign_up_with_facebook">Sign up with Facebook</string>
     <string name="sign_up_with_google">Sign up with Google</string>
-    <string name="create_account">Create account</string>
+    <string name="create_account">Sign Up</string>
     <string name="sign_in">Sign in</string>
     <string name="sign_in_with_google">Sign in with Google</string>
     <string name="sign_in_with_facebook">Sign in with Facebook</string>
@@ -155,6 +154,27 @@
     <string name="offline_data_title">Offline Data</string>
     <string name="offline_data_msg">All your local data will upload to company server when you back online, or you can press on upload icon if you have a stable internet connection.</string>
     <string name="upload_data">upload data</string>
+    <string name="all_branches_header_text">Long click on any sales member name to view actions</string>
+    <string name="branch_menu">branch menu</string>
+    <string name="delete_sales_member">Delete Sales Member</string>
+    <string name="disable_sales_member">disable sales member</string>
+    <string name="move_to">Move To</string>
+    <string name="delete">Delete</string>
+    <string name="disable">Disable</string>
+    <string name="choose_branch">Choose new branch</string>
+    <string name="move">Move</string>
+    <string name="move_sales_member_to_another_branch">Move %1$s to :</string>
+    <string name="check_mark">check mark</string>
+    <string name="status">status</string>
+    <string name="status_enabled">Enabled</string>
+    <string name="status_disabled">Disabled</string>
+    <string name="disable_sales_msg">Disabled sales members can\'t add new customers or visits to existing customers, are you sure you want to continue ?</string>
+    <string name="disable_sales_title">Disable Sales Member</string>
+    <string name="enable">Enable</string>
+    <string name="your_account_has_been_disabled">Your Account Has Been Disabled</string>
+    <string name="disabled_msg">Your account has been disabled, connect your manager for more information.</string>
+    <string name="sales_member_delete_failed_msg">You can\'t delete any sales member that has one or more customers, you should move or delete any customer belong to this sales member before deletion process</string>
+
 
 
 </resources>

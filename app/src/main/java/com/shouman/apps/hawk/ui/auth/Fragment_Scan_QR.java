@@ -122,7 +122,7 @@ public class Fragment_Scan_QR extends Fragment {
     }
 
     private void finishScanFragment() {
-        getHostActivity().fragmentManager.popBackStack("qr_scan", FragmentManager.POP_BACK_STACK_INCLUSIVE);
+        //getHostActivity().fragmentManager.popBackStack("qr_scan", FragmentManager.POP_BACK_STACK_INCLUSIVE);
     }
 
 }

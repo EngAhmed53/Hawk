@@ -25,7 +25,7 @@ import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.shouman.apps.hawk.R;
 import com.shouman.apps.hawk.data.model.DailyLogEntry;
 import com.shouman.apps.hawk.databinding.FragmentSalesDetailsBinding;
-import com.shouman.apps.hawk.ui.main.companyUi.FragmentContainerActivity;
+import com.shouman.apps.hawk.ui.main.companyUi.ContainerActivity;
 import com.shouman.apps.hawk.ui.main.companyUi.sales_members.sales_info.Fragment_sales_info;
 import com.shouman.apps.hawk.ui.main.salesUI.main.allCustomersPage.AllCustomersActivity;
 
@@ -148,8 +148,8 @@ public class Fragment_sales_main extends Fragment {
                 .popBackStack("sales_details", FragmentManager.POP_BACK_STACK_INCLUSIVE);
     }
 
-    private FragmentContainerActivity getHostActivity() {
-        return (FragmentContainerActivity) getActivity();
+    private ContainerActivity getHostActivity() {
+        return (ContainerActivity) getActivity();
     }
 
 

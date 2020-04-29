@@ -1,4 +1,4 @@
-package com.shouman.apps.hawk.ui.main.companyUi.branch_details.branch_home;
+package com.shouman.apps.hawk.ui.main.companyUi.all_branches.branch_details.branch_home;
 
 
 import android.graphics.Color;
@@ -22,8 +22,8 @@ import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 import com.shouman.apps.hawk.R;
 import com.shouman.apps.hawk.databinding.FragmentBranchDetailsBinding;
-import com.shouman.apps.hawk.ui.main.companyUi.FragmentContainerActivity;
-import com.shouman.apps.hawk.ui.main.companyUi.branch_details.branch_info.Fragment_branch_info;
+import com.shouman.apps.hawk.ui.main.companyUi.ContainerActivity;
+import com.shouman.apps.hawk.ui.main.companyUi.all_branches.branch_details.branch_info.Fragment_branch_info;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -128,8 +128,8 @@ public class Fragment_branch extends Fragment {
                 .commit();
     }
 
-    private FragmentContainerActivity getHostActivity() {
-        return (FragmentContainerActivity) getActivity();
+    private ContainerActivity getHostActivity() {
+        return (ContainerActivity) getActivity();
     }
 
     private void initializeChart() {

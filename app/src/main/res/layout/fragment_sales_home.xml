@@ -20,7 +20,50 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/block_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="visible"
+            android:layout_gravity="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="112dp"
+                android:layout_height="112dp"
+                android:src="@drawable/ic_lock"
+                app:layout_constraintBottom_toTopOf="@+id/disabled_msg"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_chainStyle="packed" />
+
+            <TextView
+                android:id="@+id/disabled_msg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="24dp"
+                android:gravity="center"
+                android:paddingBottom="4dp"
+                android:text="@string/disabled_msg"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                android:textColor="@color/gray1"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
         <androidx.core.widget.NestedScrollView
+            android:id="@+id/info_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/white2">
@@ -85,15 +128,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
-            android:layout_margin="16dp"
             app:menu_animationDelayPerItem="50"
             app:menu_buttonSpacing="0dp"
-            app:menu_buttonToggleAnimation="@anim/fab_rotate_animation"
+            app:menu_buttonToggleAnimation="@anim/rotate_animation"
             app:menu_colorNormal="@color/colorAccent"
             app:menu_colorPressed="@color/old_rose_dark"
             app:menu_colorRipple="@color/colorPrimaryLight"
             app:menu_fab_hide_animation="@anim/fab_scale_down"
-            app:menu_fab_show_animation="@anim/fab_scale_up"
+            app:menu_fab_show_animation="@anim/fab_slide_in_from_right"
             app:menu_fab_size="normal"
             app:menu_icon="@drawable/ic_plus"
             app:menu_labels_colorNormal="@color/white"

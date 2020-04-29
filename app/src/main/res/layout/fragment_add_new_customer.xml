@@ -250,7 +250,7 @@
                     android:elevation="6dp"
                     android:paddingLeft="64dp"
                     android:paddingRight="64dp"
-                    android:text="@string/continue_sign_up"
+                    android:text="@string/continue_btn"
                     android:textAllCaps="false"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"

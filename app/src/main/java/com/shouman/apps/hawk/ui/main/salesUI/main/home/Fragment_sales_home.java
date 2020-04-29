@@ -4,6 +4,7 @@ package com.shouman.apps.hawk.ui.main.salesUI.main.home;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +26,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.shouman.apps.hawk.R;
 import com.shouman.apps.hawk.data.model.DailyLogEntry;
 import com.shouman.apps.hawk.databinding.FragmentSalesHomeBinding;
+import com.shouman.apps.hawk.preferences.UserPreference;
 import com.shouman.apps.hawk.ui.main.salesUI.add.addActivity.AddNewActivity;
 
 import java.util.ArrayList;
@@ -55,6 +57,14 @@ public class Fragment_sales_home extends Fragment {
                              Bundle savedInstanceState) {
         mBinding = FragmentSalesHomeBinding.inflate(inflater);
         mBinding.recCustomers.setNestedScrollingEnabled(false);
+
+        //check if the user is disabled
+        if (!UserPreference.getSalesmanStatus(getContext())) {
+            mBinding.fabItemAddCustomer.setEnabled(false);
+            mBinding.fabItemAddVisit.setEnabled(false);
+            mBinding.infoLayout.setVisibility(View.GONE);
+            mBinding.blockLayout.setVisibility(View.VISIBLE);
+        }
 
         FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         if (firebaseUser != null) {

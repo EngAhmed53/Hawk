@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_name">Sales Eagle</string>
 
     <string name="email_address_edit_text">البريد الاليكتروني</string>
@@ -23,7 +23,7 @@
     <string name="google_logo">شعار جوجل</string>
     <string name="facebook_logo">شعار فيسبوك</string>
     <string name="logo_image">شعار البرنامج</string>
-    <string name="continue_sign_up">الاستمرار</string>
+    <string name="continue_btn">الاستمرار</string>
     <string name="please_type_company_name">ادخل اسم شركتك</string>
     <string name="company_name">اسم الشركة</string>
     <string name="password_min_6_characters">كلمة المرور (لا تقل عن 6 احرف)</string>
@@ -137,5 +137,20 @@
     <string name="offline_data_title">البيانات المحلية</string>
     <string name="offline_data_msg">جميع بيانات العملاء المحلية يتم رفعها تلقائيا عند وجود اتصال بشبكة الانترنت. اذا كنت متصل بالانترنت يمكنك الضغط علي ايقونة السحابه لرفع البيانات يدويا.</string>
     <string name="upload_data">رفع بيانات العملاء</string>
+    <string name="move_to">Move To</string>
+    <string name="delete">Delete</string>
+    <string name="disable">Disable</string>
+    <string name="choose_branch">Choose new branch</string>
+    <string name="move">Move</string>
+    <string name="move_sales_member_to_another_branch">Move %1$s to :</string>
+    <string name="check_mark">check mark</string>
+    <string name="status_enabled">Enabled</string>
+    <string name="status_disabled">Disabled</string>
+    <string name="disable_sales_msg">Disabled sales members can\'t add new customers or visits to existing customers, are you sure you want to continue ?</string>
+    <string name="disable_sales_title">Disable Sales Member</string>
+    <string name="enable">Enable</string>
+    <string name="your_account_has_been_disabled">Your Account Has Been Disabled</string>
+    <string name="disabled_msg">Your account has been disabled, connect your manager for more information.</string>
+    <string name="sales_member_delete_failed_msg">You can\'t delete any sales member that has one or more customers, you should move or delete any customer belong to this sales member before deletion process</string>
 
 </resources>

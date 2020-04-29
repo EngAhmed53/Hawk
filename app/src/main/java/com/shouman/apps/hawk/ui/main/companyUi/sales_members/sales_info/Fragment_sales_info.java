@@ -16,7 +16,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.shouman.apps.hawk.R;
 import com.shouman.apps.hawk.databinding.FragmentSalesInfoBinding;
 import com.shouman.apps.hawk.data.model.User;
-import com.shouman.apps.hawk.ui.main.companyUi.FragmentContainerActivity;
+import com.shouman.apps.hawk.ui.main.companyUi.ContainerActivity;
 import com.shouman.apps.hawk.utils.AppExecutors;
 
 import net.glxn.qrgen.android.QRCode;
@@ -120,7 +120,7 @@ public class Fragment_sales_info extends Fragment {
                 .popBackStack("sales_info", FragmentManager.POP_BACK_STACK_INCLUSIVE);
     }
 
-    private FragmentContainerActivity getHostActivity() {
-        return (FragmentContainerActivity) getActivity();
+    private ContainerActivity getHostActivity() {
+        return (ContainerActivity) getActivity();
     }
 }

@@ -9,7 +9,7 @@
             type="String" />
     </data>
 
-    <androidx.core.widget.NestedScrollView
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/photo_background_protection">
@@ -75,6 +75,7 @@
                         android:background="@drawable/google_btn_ripple_effect"
                         android:clickable="true"
                         android:elevation="6dp"
+                        android:focusable="true"
                         android:stateListAnimator="@animator/social_icon_state_list_anim"
                         app:layout_constraintBottom_toTopOf="@+id/facebook_sign_up_layout"
                         app:layout_constraintEnd_toEndOf="@+id/facebook_sign_up_layout"
@@ -133,7 +134,7 @@
                         android:id="@+id/facebook_sign_up_layout"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
+                        android:layout_marginTop="8dp"
                         android:background="@drawable/facebook_btn_ripple_effect"
                         android:clickable="true"
                         android:elevation="6dp"
@@ -347,9 +348,9 @@
                 android:layout_height="match_parent"
                 android:background="@color/fui_transparent"
                 android:clickable="true"
+                android:elevation="40dp"
                 android:focusable="true"
                 android:visibility="gone"
-                android:elevation="40dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -398,6 +399,6 @@
         </FrameLayout>
 
 
-    </androidx.core.widget.NestedScrollView>
+    </ScrollView>
 
 </layout>

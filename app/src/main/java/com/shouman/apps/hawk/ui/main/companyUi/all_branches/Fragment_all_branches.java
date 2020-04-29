@@ -17,7 +17,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.shouman.apps.hawk.R;
 import com.shouman.apps.hawk.databinding.FragmentAllBranchesBinding;
-import com.shouman.apps.hawk.ui.main.companyUi.FragmentContainerActivity;
+import com.shouman.apps.hawk.ui.main.companyUi.ContainerActivity;
 
 import java.util.Map;
 
@@ -92,7 +92,7 @@ public class Fragment_all_branches extends Fragment {
     }
 
     private void openAddNewBranchFragment() {
-        FragmentContainerActivity host = (FragmentContainerActivity) getActivity();
+        ContainerActivity host = (ContainerActivity) getActivity();
         if (host != null) {
             host.showAddNewBranchFragment();
         }

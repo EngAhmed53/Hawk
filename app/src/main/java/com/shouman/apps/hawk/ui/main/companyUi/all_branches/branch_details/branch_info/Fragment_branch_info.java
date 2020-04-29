@@ -1,4 +1,4 @@
-package com.shouman.apps.hawk.ui.main.companyUi.branch_details.branch_info;
+package com.shouman.apps.hawk.ui.main.companyUi.all_branches.branch_details.branch_info;
 
 
 import android.graphics.Bitmap;
@@ -14,7 +14,7 @@ import androidx.fragment.app.FragmentManager;
 import com.shouman.apps.hawk.R;
 import com.shouman.apps.hawk.databinding.FragmentBranchInfoBinding;
 import com.shouman.apps.hawk.preferences.UserPreference;
-import com.shouman.apps.hawk.ui.main.companyUi.FragmentContainerActivity;
+import com.shouman.apps.hawk.ui.main.companyUi.ContainerActivity;
 import com.shouman.apps.hawk.utils.AppExecutors;
 
 import net.glxn.qrgen.android.QRCode;
@@ -112,7 +112,7 @@ public class Fragment_branch_info extends Fragment {
                 .popBackStack("branch_info", FragmentManager.POP_BACK_STACK_INCLUSIVE);
     }
 
-    private FragmentContainerActivity getHostActivity() {
-        return (FragmentContainerActivity) getActivity();
+    private ContainerActivity getHostActivity() {
+        return (ContainerActivity) getActivity();
     }
 }

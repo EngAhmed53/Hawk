@@ -13,6 +13,7 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.databinding.DataBindingUtil;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Observer;
 import androidx.work.Constraints;
@@ -54,21 +55,32 @@ public class Main2Activity extends AppCompatActivity implements IMain2ClickHandl
     private FragmentManager fragmentManager;
     private WeakReference<Main2Activity> contextWeakReference;
     private LocalSalesRepo localSalesRepo;
+    private ActionBarDrawerToggle toggle;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Paper.init(getApplicationContext());
-        localSalesRepo = LocalSalesRepo.getInstance();
-        initWorkManagerSyc();
-
         contextWeakReference = new WeakReference<>(this);
         mainBinding = DataBindingUtil.setContentView(contextWeakReference.get(), R.layout.activity_main2);
+
+        Paper.init(getApplicationContext());
+
+        localSalesRepo = LocalSalesRepo.getInstance();
+
+        initWorkManagerSyc();
+
         fragmentManager = getSupportFragmentManager();
 
         //set the actionBar
         initToolbar();
+
+        //check user is enabled or not
+        if (!UserPreference.getSalesmanStatus(this)) {
+            mainBinding.disabledHint.setVisibility(View.VISIBLE);
+            mainBinding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+            toggle.setDrawerIndicatorEnabled(false);
+        }
 
         setDrawerInfo();
     }
@@ -107,12 +119,13 @@ public class Main2Activity extends AppCompatActivity implements IMain2ClickHandl
     private void initToolbar() {
         setSupportActionBar(mainBinding.toolbar);
         //set the actionBarToggle
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(contextWeakReference.get(),
+        toggle = new ActionBarDrawerToggle(contextWeakReference.get(),
                 mainBinding.drawerLayout,
                 mainBinding.toolbar,
                 R.string.nav_drawer_open,
                 R.string.nav_drawer_closed);
         toggle.getDrawerArrowDrawable().setColor(getResources().getColor(R.color.white));
+
         mainBinding.drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
     }

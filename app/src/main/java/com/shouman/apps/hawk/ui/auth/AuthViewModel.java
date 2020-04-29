@@ -39,27 +39,18 @@ public class AuthViewModel extends AndroidViewModel {
     void setupMediatorLiveData() {
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         if (firebaseUser != null) {
-            Log.e(TAG, "setupMediatorLiveData: ");
             final String userUID = firebaseUser.getUid();
             Log.e(TAG, "setupMediatorLiveData: " + userUID);
             FirebaseQueryLiveData firebaseQueryLiveData = new FirebaseQueryLiveData(firebaseAuthRepo.getUserReference(userUID));
-            userMediatorLiveData.addSource(firebaseQueryLiveData, new Observer<DataSnapshot>() {
-                @Override
-                public void onChanged(final DataSnapshot dataSnapshot) {
-                    AppExecutors.getsInstance().getNetworkIO().execute(new Runnable() {
-                        @Override
-                        public void run() {
-                            User user = dataSnapshot.getValue(User.class);
-                            if (user == null || user.getE() == null) {
-                                user = firebaseAuthRepo.createNewUser(userUID, firebaseUser.getEmail());
-                            } else {
-                                Log.e(TAG, "run: " + "user is exist");
-                            }
-                            userMediatorLiveData.postValue(user);
-                        }
-                    });
+            userMediatorLiveData.addSource(firebaseQueryLiveData, dataSnapshot -> AppExecutors.getsInstance().getNetworkIO().execute(() -> {
+                User user = dataSnapshot.getValue(User.class);
+                if (user == null || user.getE() == null) {
+                    user = firebaseAuthRepo.createNewUser(userUID, firebaseUser.getEmail());
+                } else {
+                    Log.e(TAG, "run: " + "user is exist");
                 }
-            });
+                userMediatorLiveData.postValue(user);
+            }));
         }
     }
 

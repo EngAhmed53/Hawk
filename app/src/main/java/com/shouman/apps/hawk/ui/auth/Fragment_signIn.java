@@ -1,7 +1,6 @@
 package com.shouman.apps.hawk.ui.auth;
 
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,12 +8,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-
+import androidx.navigation.NavDirections;
+import androidx.navigation.Navigation;
+import androidx.transition.Transition;
+import androidx.transition.TransitionInflater;
 import com.facebook.AccessToken;
 import com.facebook.AccessTokenTracker;
 import com.facebook.CallbackManager;
@@ -24,16 +25,15 @@ import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.firebase.ui.auth.AuthMethodPickerLayout;
 import com.firebase.ui.auth.AuthUI;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthCredential;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.shouman.apps.hawk.R;
-import com.shouman.apps.hawk.databinding.FragmnetSignInBinding;
+import com.shouman.apps.hawk.data.model.User;
+import com.shouman.apps.hawk.databinding.FragmentSignInBinding;
 
 import java.util.Collections;
 import java.util.Objects;
@@ -42,9 +42,7 @@ import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_OK;
 
 public class Fragment_signIn extends Fragment {
-    private static final String TAG = "Fragment_signIn";
     private static final int RC_SIGN_IN = 2525;
-    private static final String USER_EMAIL = "user_email";
 
     private FirebaseAuth firebaseAuth;
 
@@ -52,53 +50,69 @@ public class Fragment_signIn extends Fragment {
 
     private AccessTokenTracker accessTokenTracker;
 
-    public FragmnetSignInBinding mBinding;
+    public FragmentSignInBinding mBinding;
 
     private AuthViewModel authViewModel;
+
+    private FirebaseAuth.AuthStateListener firebaseAuthListener = firebaseAuth -> {
+        FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+        if (firebaseUser != null) {
+
+            //reload firebase user
+
+            firebaseUser.reload();
+
+            authViewModel.getUserMediatorLiveData().observe(getViewLifecycleOwner(), user -> {
+                if (user.getUt() != null) {
+                    showMainActivity(user);
+                } else {
+                    navigateToSelectUserType();
+                }
+            });
+        }
+    };
+
+    private void showMainActivity(User user) {
+        Toast.makeText(requireContext(), "user logged in", Toast.LENGTH_SHORT).show();
+    }
+
+    private void navigateToSelectUserType() {
+        Navigation.findNavController(mBinding.btnEmailSignIn).navigate(R.id.action_fragment_signIn_to_fragment_select_user_type2);
+    }
 
     public Fragment_signIn() {
 
     }
 
-    public static Fragment_signIn getInstance(String email) {
-        Fragment_signIn fragment_signIn = new Fragment_signIn();
-        Bundle bundle = new Bundle();
-        bundle.putString(USER_EMAIL, email);
-        fragment_signIn.setArguments(bundle);
-        return fragment_signIn;
-    }
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
-    public static Fragment_signIn getInstance() {
-        return new Fragment_signIn();
+        Transition customTransition = TransitionInflater.from(getActivity()).inflateTransition(R.transition.logo_curve_transition);
+
+        setSharedElementEnterTransition(customTransition);
+
+        setSharedElementReturnTransition(customTransition);
+
+        firebaseAuth = FirebaseAuth.getInstance();
+
+        initViewModel();
+
+        initGoogleSignIn();
+
+        initFacebookSignIn();
+
+        initEmailPasswordSignIn();
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        mBinding = FragmnetSignInBinding.inflate(inflater);
-        firebaseAuth = FirebaseAuth.getInstance();
-
-        //get the email if the user coming from sign up activity
-        Bundle bundle = getArguments();
-        if (bundle != null) {
-            String email = bundle.getString(USER_EMAIL);
-            if (email != null) {
-                mBinding.edtEmailSignIn.setText(email);
-            }
-        }
-
-        initViewModel();
-        initGoogleSignIn();
-        initFacebookSignIn();
-        initEmailPasswordSignIn();
-
+        mBinding = FragmentSignInBinding.inflate(inflater);
         //open forget password fragment
-        mBinding.forgetPassword.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String email = Objects.requireNonNull(mBinding.edtEmailSignIn.getText()).toString();
-                openForgetPasswordFragment(email);
-            }
+        mBinding.forgetPassword.setOnClickListener(v -> {
+            String email = Objects.requireNonNull(mBinding.edtEmailSignIn.getText()).toString();
+            openForgetPasswordFragment(email);
         });
 
         return mBinding.getRoot();
@@ -111,32 +125,29 @@ public class Fragment_signIn extends Fragment {
 
     private void initEmailPasswordSignIn() {
         //email and password sign up button
-        mBinding.btnEmailSignIn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        mBinding.btnEmailSignIn.setOnClickListener(v -> {
 
-                if (checkInputTextErrors(mBinding.emailInputLayout)
-                        && checkInputTextErrors(mBinding.passwordInputLayout)) {
+            if (checkInputTextErrors(mBinding.emailInputLayout)
+                    && checkInputTextErrors(mBinding.passwordInputLayout)) {
 
-                    showTheSigningINProgressBarLayout();
+                showTheSigningINProgressBarLayout();
 
-                    final String email =
-                            Objects.requireNonNull(mBinding.emailInputLayout.getEditText()).getText().toString().trim();
-                    final String password =
-                            Objects.requireNonNull(mBinding.passwordInputLayout.getEditText()).getText().toString().trim();
+                final String email =
+                        Objects.requireNonNull(mBinding.emailInputLayout.getEditText()).getText().toString().trim();
+                final String password =
+                        Objects.requireNonNull(mBinding.passwordInputLayout.getEditText()).getText().toString().trim();
 
-                    handelEmailPasswordSignIn(email, password);
+                handelEmailPasswordSignIn(email, password);
 
-                } else {
-                    if (mBinding.emailInputLayout.getError() != null ||
-                            Objects.requireNonNull(mBinding.emailInputLayout.getEditText()).getText().toString().isEmpty()) {
-                        mBinding.emailInputLayout.requestFocus();
+            } else {
+                if (mBinding.emailInputLayout.getError() != null ||
+                        Objects.requireNonNull(mBinding.emailInputLayout.getEditText()).getText().toString().isEmpty()) {
+                    mBinding.emailInputLayout.requestFocus();
 
-                    } else if (mBinding.passwordInputLayout.getError() != null ||
-                            Objects.requireNonNull(mBinding.passwordInputLayout.getEditText()).getText().toString().isEmpty()) {
-                        mBinding.passwordInputLayout.requestFocus();
+                } else if (mBinding.passwordInputLayout.getError() != null ||
+                        Objects.requireNonNull(mBinding.passwordInputLayout.getEditText()).getText().toString().isEmpty()) {
+                    mBinding.passwordInputLayout.requestFocus();
 
-                    }
                 }
             }
         });
@@ -178,12 +189,9 @@ public class Fragment_signIn extends Fragment {
         };
 
         //perform the facebook login button click _ i did this to keep the custom layout and the ripple effect
-        mBinding.facebookSignInLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mBinding.facebookLoginButton.performClick();
-                showTheSigningINProgressBarLayout();
-            }
+        mBinding.facebookSignInLayout.setOnClickListener(v -> {
+            mBinding.facebookLoginButton.performClick();
+            showTheSigningINProgressBarLayout();
         });
     }
 
@@ -199,20 +207,19 @@ public class Fragment_signIn extends Fragment {
         final Intent googleIntent = AuthUI.getInstance()
                 .createSignInIntentBuilder()
                 .setAuthMethodPickerLayout(customLayout)
-                .setAvailableProviders(Collections.singletonList(
-                        new AuthUI.IdpConfig.GoogleBuilder().build()))
+                .setAvailableProviders(
+                        Collections.singletonList(
+                                new AuthUI.IdpConfig.GoogleBuilder().build()
+                        )
+                )
                 .build();
 
-
         //open the google sign up
-        mBinding.googleSignInLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivityForResult(
-                        googleIntent,
-                        RC_SIGN_IN);
-                showTheSigningINProgressBarLayout();
-            }
+        mBinding.googleSignInLayout.setOnClickListener(v -> {
+            startActivityForResult(
+                    googleIntent,
+                    RC_SIGN_IN);
+            showTheSigningINProgressBarLayout();
         });
     }
 
@@ -220,25 +227,24 @@ public class Fragment_signIn extends Fragment {
 
         AuthCredential credential = FacebookAuthProvider.getCredential(accessToken.getToken());
 
-        firebaseAuth.signInWithCredential(credential).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()) {
+        firebaseAuth.signInWithCredential(credential).addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
 
-                    authViewModel.setupMediatorLiveData();
+                authViewModel.setupMediatorLiveData();
 
-                } else {
+                firebaseAuth.addAuthStateListener(firebaseAuthListener);
 
-                    try {
-                        throw Objects.requireNonNull(task.getException());
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                        showErrorDialog(e.getMessage());
-                    }
-                    hideTheSigningINProgressBarLayout();
-                    //sign out from facebook account because there was an erroe
-                    LoginManager.getInstance().logOut();
+            } else {
+
+                try {
+                    throw Objects.requireNonNull(task.getException());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    showErrorDialog(e.getMessage());
                 }
+                hideTheSigningINProgressBarLayout();
+                //sign out from facebook account because there was an erroe
+                LoginManager.getInstance().logOut();
             }
         });
     }
@@ -246,26 +252,24 @@ public class Fragment_signIn extends Fragment {
     private void handelEmailPasswordSignIn(final String email, String password) {
         firebaseAuth
                 .signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
 
-                            authViewModel.setupMediatorLiveData();
-                            //hide progressBar
-                            hideTheSigningINProgressBarLayout();
+                        authViewModel.setupMediatorLiveData();
+                        firebaseAuth.addAuthStateListener(firebaseAuthListener);
+                        //hide progressBar
+                        hideTheSigningINProgressBarLayout();
 
-                        } else {
-                            //there is an error
-                            //show error dialog
-                            //hide progressBar
-                            hideTheSigningINProgressBarLayout();
-                            try {
-                                throw Objects.requireNonNull(task.getException());
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                                showErrorDialog(e.getMessage());
-                            }
+                    } else {
+                        //there is an error
+                        //show error dialog
+                        //hide progressBar
+                        hideTheSigningINProgressBarLayout();
+                        try {
+                            throw Objects.requireNonNull(task.getException());
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            showErrorDialog(e.getMessage());
                         }
                     }
                 });
@@ -280,6 +284,7 @@ public class Fragment_signIn extends Fragment {
             if (resultCode == RESULT_OK) {
 
                 authViewModel.setupMediatorLiveData();
+                firebaseAuth.addAuthStateListener(firebaseAuthListener);
 
             } else if (resultCode == RESULT_CANCELED) {
                 Toast.makeText(getContext(), "Sign up cancelled !", Toast.LENGTH_SHORT).show();
@@ -310,26 +315,15 @@ public class Fragment_signIn extends Fragment {
                 .setTitle("Error")
                 .setMessage(message)
                 .setCancelable(true)
-                .setPositiveButton("ok", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                })
+                .setPositiveButton("ok", (dialog, which) -> dialog.dismiss())
                 .setIcon(R.drawable.ic_report_problem);
+
         builder.create().show();
     }
 
     private void openForgetPasswordFragment(String email) {
-        StartingActivity host = (StartingActivity) getActivity();
-        if (host != null) host.showForgetPasswordFragment(email);
-    }
-
-    private void openSignUpFragment(String email) {
-        StartingActivity host = (StartingActivity) getActivity();
-        if (host != null) {
-            host.showSignUpFragment(email);
-        }
+        NavDirections signInToForgetPassword = Fragment_signInDirections.actionFragmentSignInToFragmentForgetPassword(email);
+        Navigation.findNavController(mBinding.forgetPassword).navigate(signInToForgetPassword);
     }
 
     //check if the InputText is not empty and did not has an error
@@ -341,20 +335,21 @@ public class Fragment_signIn extends Fragment {
         return false;
     }
 
-
     @Override
     public void onResume() {
         super.onResume();
         accessTokenTracker.startTracking();
-//        if (SELECTED_POSITION != -1) {
-//            mBinding.filledExposedDropdown.setText(Common.getAllPositions(getContext())[SELECTED_POSITION], false);
-//        }
     }
 
     @Override
     public void onPause() {
         super.onPause();
         accessTokenTracker.stopTracking();
+    }
 
+    @Override
+    public void onDestroy() {
+        firebaseAuth.removeAuthStateListener(firebaseAuthListener);
+        super.onDestroy();
     }
 }

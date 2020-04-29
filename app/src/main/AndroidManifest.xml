@@ -28,7 +28,8 @@
             android:theme="@style/no_action_bar" />
         <activity
             android:name=".ui.main.salesUI.main.home.Main2Activity"
-            android:theme="@style/no_action_bar" />
+            android:theme="@style/no_action_bar"
+            android:launchMode="singleTop"/>
         <activity
             android:name=".ui.auth.StartingActivity"
             android:theme="@style/no_action_bar">
@@ -39,7 +40,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.main.companyUi.FragmentContainerActivity"
+            android:name=".ui.main.companyUi.ContainerActivity"
             android:theme="@style/no_action_bar" />
 
         <meta-data

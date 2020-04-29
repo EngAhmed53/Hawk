@@ -8,7 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fitsSystemWindows="true"
-        tools:openDrawer="start">
+        tools:openDrawer="end">
 
 
         <LinearLayout
@@ -22,11 +22,27 @@
                 android:layout_height="?attr/actionBarSize"
                 android:background="@color/colorPrimary"
                 android:elevation="4dp"
-                app:titleMargin="0dp"
-                app:title="@string/home"
                 android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-                app:titleTextColor="@color/white2" />
+                app:title="@string/home"
+                app:titleMargin="0dp"
+                app:titleTextAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
+                app:titleTextColor="@color/white">
+            </androidx.appcompat.widget.Toolbar>
+
+            <TextView
+                android:id="@+id/disabled_hint"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimary"
+                android:textColor="@color/white"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+                android:gravity="center"
+                android:elevation="4dp"
+                android:visibility="gone"
+                android:textStyle="bold"
+                android:paddingBottom="4dp"
+                android:text="@string/your_account_has_been_disabled"/>
 
             <fragment
                 android:id="@+id/sales_home_fragment"

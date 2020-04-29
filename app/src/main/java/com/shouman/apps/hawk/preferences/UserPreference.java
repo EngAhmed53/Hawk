@@ -12,6 +12,7 @@ public class UserPreference {
     private static final String USER_COMPANY_NAME = "company_name";
     private static final String USER_BRANCH_NAME = "branch_name";
     private static final String FIRST_START = "first_start";
+    private static final String SALESMAN_STATUS = "salesman_status";
 
 
     public static void setBranchUID(Context context, String branchUID) {
@@ -64,6 +65,17 @@ public class UserPreference {
     public static String getBranchName(Context context) {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
         return preferences.getString(USER_BRANCH_NAME, "null");
+    }
+
+    public static void setSalesmanStatus(Context context, boolean status) {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        preferences.edit().putBoolean(SALESMAN_STATUS, status).apply();
+    }
+
+    public static boolean getSalesmanStatus(Context context) {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        return preferences.getBoolean(SALESMAN_STATUS, true);
+
     }
 
     public static void clearAllPreference(Context context) {

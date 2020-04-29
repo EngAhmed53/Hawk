@@ -1,10 +1,8 @@
 package com.shouman.apps.hawk.ui.auth;
 
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +13,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
+import androidx.transition.Transition;
+import androidx.transition.TransitionInflater;
 
 import com.facebook.AccessToken;
 import com.facebook.AccessTokenTracker;
@@ -25,12 +26,9 @@ import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.firebase.ui.auth.AuthMethodPickerLayout;
 import com.firebase.ui.auth.AuthUI;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthCredential;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.shouman.apps.hawk.R;
@@ -48,7 +46,6 @@ public class Fragment_signUp extends Fragment {
     private static final String TAG = "Fragment_signUp";
 
     private static final int RC_SIGN_IN = 122;
-    private static final String USER_EMAIL = "user_email";
 
     public FragmentSignUpBinding mBinding;
 
@@ -64,22 +61,14 @@ public class Fragment_signUp extends Fragment {
         // Required empty public constructor
     }
 
-    public static Fragment_signUp getInstance() {
-        return new Fragment_signUp();
-    }
-
-    public static Fragment_signUp getInstance(String email) {
-        Fragment_signUp fragmentSignUp = new Fragment_signUp();
-        Bundle bundle = new Bundle();
-        bundle.putString(USER_EMAIL, email);
-        fragmentSignUp.setArguments(bundle);
-        return fragmentSignUp;
-    }
-
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        mBinding = FragmentSignUpBinding.inflate(inflater);
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        Transition customTransition = TransitionInflater.from(getActivity()).inflateTransition(R.transition.logo_curve_transition);
+        setSharedElementEnterTransition(customTransition);
+        setSharedElementReturnTransition(customTransition);
+
         firebaseAuth = FirebaseAuth.getInstance();
 
         initViewModel();
@@ -87,6 +76,12 @@ public class Fragment_signUp extends Fragment {
         initFacebookSignIn();
         initEmailPasswordSignIn();
 
+    }
+
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        mBinding = FragmentSignUpBinding.inflate(inflater);
         return mBinding.getRoot();
     }
 
@@ -97,32 +92,29 @@ public class Fragment_signUp extends Fragment {
 
     private void initEmailPasswordSignIn() {
         //email and password sign up button
-        mBinding.btnEmailSignUp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        mBinding.btnEmailSignUp.setOnClickListener(v -> {
 
-                if (checkInputTextErrors(mBinding.emailTextField)
-                        && checkInputTextErrors(mBinding.passwordTextField)) {
+            if (checkInputTextErrors(mBinding.emailTextField)
+                    && checkInputTextErrors(mBinding.passwordTextField)) {
 
-                    showTheSigningUPProgressBarLayout();
+                showTheSigningUPProgressBarLayout();
 
-                    final String email =
-                            Objects.requireNonNull(mBinding.emailTextField.getEditText()).getText().toString().trim();
-                    final String password =
-                            Objects.requireNonNull(mBinding.passwordTextField.getEditText()).getText().toString().trim();
+                final String email =
+                        Objects.requireNonNull(mBinding.emailTextField.getEditText()).getText().toString().trim();
+                final String password =
+                        Objects.requireNonNull(mBinding.passwordTextField.getEditText()).getText().toString().trim();
 
-                    handelEmailPasswordSignIn(email, password);
+                handelEmailPasswordSignIn(email, password);
 
-                } else {
-                    if (mBinding.emailTextField.getError() != null ||
-                            Objects.requireNonNull(mBinding.emailTextField.getEditText()).getText().toString().isEmpty()) {
-                        mBinding.emailTextField.requestFocus();
+            } else {
+                if (mBinding.emailTextField.getError() != null ||
+                        Objects.requireNonNull(mBinding.emailTextField.getEditText()).getText().toString().isEmpty()) {
+                    mBinding.emailTextField.requestFocus();
 
-                    } else if (mBinding.passwordTextField.getError() != null ||
-                            Objects.requireNonNull(mBinding.passwordTextField.getEditText()).getText().toString().isEmpty()) {
-                        mBinding.passwordTextField.requestFocus();
+                } else if (mBinding.passwordTextField.getError() != null ||
+                        Objects.requireNonNull(mBinding.passwordTextField.getEditText()).getText().toString().isEmpty()) {
+                    mBinding.passwordTextField.requestFocus();
 
-                    }
                 }
             }
         });
@@ -165,12 +157,9 @@ public class Fragment_signUp extends Fragment {
         };
 
         //perform the facebook login button click _ i did this to keep the custom layout and the ripple effect
-        mBinding.facebookSignUpLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mBinding.facebookLoginButton.performClick();
-                showTheSigningUPProgressBarLayout();
-            }
+        mBinding.facebookSignUpLayout.setOnClickListener(v -> {
+            mBinding.facebookLoginButton.performClick();
+            showTheSigningUPProgressBarLayout();
         });
     }
 
@@ -193,14 +182,11 @@ public class Fragment_signUp extends Fragment {
 
 
         //open the google sign up
-        mBinding.googleSignUpLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivityForResult(
-                        googleIntent,
-                        RC_SIGN_IN);
-                showTheSigningUPProgressBarLayout();
-            }
+        mBinding.googleSignUpLayout.setOnClickListener(v -> {
+            startActivityForResult(
+                    googleIntent,
+                    RC_SIGN_IN);
+            showTheSigningUPProgressBarLayout();
         });
     }
 
@@ -208,25 +194,23 @@ public class Fragment_signUp extends Fragment {
 
         AuthCredential credential = FacebookAuthProvider.getCredential(accessToken.getToken());
 
-        firebaseAuth.signInWithCredential(credential).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()) {
+        firebaseAuth.signInWithCredential(credential).addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
 
-                    authViewModel.setupMediatorLiveData();
+                authViewModel.setupMediatorLiveData();
 
-                } else {
+                navigateToSelectUserType();
 
-                    try {
-                        throw Objects.requireNonNull(task.getException());
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                        showErrorDialog(e.getMessage());
-                    }
-                    hideTheSigningUPProgressBarLayout();
-                    //sign out from facebook account because there was an erroe
-                    LoginManager.getInstance().logOut();
+            } else {
+                try {
+                    throw Objects.requireNonNull(task.getException());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    showErrorDialog(e.getMessage());
                 }
+                hideTheSigningUPProgressBarLayout();
+                //sign out from facebook account because there was an error
+                LoginManager.getInstance().logOut();
             }
         });
     }
@@ -234,43 +218,46 @@ public class Fragment_signUp extends Fragment {
     private void handelEmailPasswordSignIn(final String email, String password) {
         firebaseAuth
                 .createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
 
-                            authViewModel.setupMediatorLiveData();
-                            //hide progressBar
-                            hideTheSigningUPProgressBarLayout();
+                        authViewModel.setupMediatorLiveData();
+                        //hide progressBar
+                        hideTheSigningUPProgressBarLayout();
+                        navigateToSelectUserType();
 
-                        } else {
-                            //there is an error
-                            //show error dialog
-                            //hide progressBar
-                            hideTheSigningUPProgressBarLayout();
-                            try {
-                                throw Objects.requireNonNull(task.getException());
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                                showErrorDialog(e.getMessage());
-                            }
+                    } else {
+                        //there is an error
+                        //show error dialog
+                        //hide progressBar
+                        hideTheSigningUPProgressBarLayout();
+                        try {
+                            throw Objects.requireNonNull(task.getException());
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            showErrorDialog(e.getMessage());
                         }
                     }
                 });
     }
 
-
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == RC_SIGN_IN) {
+
             if (resultCode == RESULT_OK) {
-                Log.e(TAG, "onActivityResult: " + "result ok" );
+
                 authViewModel.setupMediatorLiveData();
+
                 mBinding.signingUpText.setText(R.string.create_new_account_progress_bar_text);
 
+                navigateToSelectUserType();
+
             } else if (resultCode == RESULT_CANCELED) {
+
                 Toast.makeText(getContext(), "Sign up cancelled !", Toast.LENGTH_SHORT).show();
+
                 hideTheSigningUPProgressBarLayout();
             }
         } else {
@@ -312,12 +299,7 @@ public class Fragment_signUp extends Fragment {
                 .setTitle("Error")
                 .setMessage(message)
                 .setCancelable(true)
-                .setPositiveButton("ok", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                })
+                .setPositiveButton("ok", (dialog, which) -> dialog.dismiss())
                 .setIcon(R.drawable.ic_report_problem);
         builder.create().show();
     }
@@ -329,6 +311,10 @@ public class Fragment_signUp extends Fragment {
 //        if (SELECTED_POSITION != -1) {
 //            mBinding.filledExposedDropdown.setText(Common.getAllPositions(getContext())[SELECTED_POSITION], false);
 //        }
+    }
+
+    private void navigateToSelectUserType() {
+        Navigation.findNavController(mBinding.btnEmailSignUp).navigate(R.id.action_fragment_signUp_to_fragment_select_user_type2);
     }
 
     @Override

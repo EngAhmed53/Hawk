@@ -106,35 +106,32 @@ public class Fragment_select_user_type extends Fragment {
     }
 
     private void initDropdown() {
-        ArrayAdapter<String> positionsAdapter = new ArrayAdapter<>(Objects.requireNonNull(getContext()),
+        ArrayAdapter<String> positionsAdapter = new ArrayAdapter<>(requireContext(),
                 R.layout.select_type_dropdown_list_item,
-                Common.getAllPositions(getContext()));
+                Common.getAllPositions(requireContext()));
         mBinding.filledExposedDropdown.setAdapter(positionsAdapter);
 
-        mBinding.filledExposedDropdown.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        mBinding.filledExposedDropdown.setOnItemClickListener((parent, view, position, id) -> {
 
-                InputMethodManager in = (InputMethodManager) Objects.requireNonNull(getActivity()).getSystemService(Context.INPUT_METHOD_SERVICE);
-                assert in != null;
-                in.hideSoftInputFromWindow(view.getApplicationWindowToken(), 0);
+            InputMethodManager in = (InputMethodManager) requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            assert in != null;
+            in.hideSoftInputFromWindow(view.getApplicationWindowToken(), 0);
 
-                switch (position) {
-                    case 0:
-                        SELECTED_POSITION = Common.MANAGER_POSITION;
-                        companyNameTextWatcher = getCompanyAccountTextWatcher();
-                        mBinding.edtCompanyName.addTextChangedListener(companyNameTextWatcher);
-                        showCompanyFields();
-                        break;
-                    case 1:
-                        SELECTED_POSITION = Common.SALES_POSITION;
-                        //remove company name textWatcher
-                        if (companyNameTextWatcher != null) {
-                            mBinding.edtCompanyName.removeTextChangedListener(companyNameTextWatcher);
-                        }
-                        showSalesFields();
-                        break;
-                }
+            switch (position) {
+                case 0:
+                    SELECTED_POSITION = Common.MANAGER_POSITION;
+                    companyNameTextWatcher = getCompanyAccountTextWatcher();
+                    mBinding.edtCompanyName.addTextChangedListener(companyNameTextWatcher);
+                    showCompanyFields();
+                    break;
+                case 1:
+                    SELECTED_POSITION = Common.SALES_POSITION;
+                    //remove company name textWatcher
+                    if (companyNameTextWatcher != null) {
+                        mBinding.edtCompanyName.removeTextChangedListener(companyNameTextWatcher);
+                    }
+                    showSalesFields();
+                    break;
             }
         });
     }
@@ -326,7 +323,7 @@ public class Fragment_select_user_type extends Fragment {
     }
 
     private void openScanFragment() {
-        getHostActivity().requestCameraPermission();
+       // getHostActivity().requestCameraPermission();
     }
 
     @Override

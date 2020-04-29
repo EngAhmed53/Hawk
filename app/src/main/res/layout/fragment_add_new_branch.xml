@@ -10,7 +10,7 @@
         android:focusable="true"
         android:layout_height="match_parent"
         android:background="@drawable/main_background"
-        tools:context=".ui.main.companyUi.add_new_branch.Fragment_add_new_branch">
+        tools:context=".ui.main.companyUi.all_branches.add_new_branch.Fragment_add_new_branch">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"

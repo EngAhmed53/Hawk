@@ -1,14 +1,11 @@
 package com.shouman.apps.hawk.dataBindingAdapters;
 
-import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
 import androidx.databinding.BindingAdapter;
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -16,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.shouman.apps.hawk.R;
 import com.shouman.apps.hawk.adapters.AllCustomersRecyclerViewAdapter;
 import com.shouman.apps.hawk.adapters.BranchRecyclerViewAdapter;
+import com.shouman.apps.hawk.adapters.BranchSalesRecyclerAdapter;
 import com.shouman.apps.hawk.adapters.CustomersLogRecyclerViewAdapter;
 import com.shouman.apps.hawk.adapters.DaysRecyclerViewAdapter;
 import com.shouman.apps.hawk.adapters.HomeMenuRecyclerAdapter;
@@ -23,6 +21,7 @@ import com.shouman.apps.hawk.adapters.SalesRecyclerViewAdapter;
 import com.shouman.apps.hawk.adapters.VisitsRecyclerViewAdapter;
 import com.shouman.apps.hawk.data.model.DailyLogEntry;
 import com.shouman.apps.hawk.data.model.MenuItem;
+import com.shouman.apps.hawk.data.model.SalesListItem;
 import com.shouman.apps.hawk.data.model.Visit;
 
 import java.lang.ref.WeakReference;
@@ -73,8 +72,8 @@ public class RecyclerViewDataBinding {
         }
     }
 
-    @BindingAdapter("setSalesMap")
-    public static void setSalesRecyclerViewMap(RecyclerView view, Map<String, String> salesList) {
+    @BindingAdapter({"setSalesMap", "branchName"})
+    public static void setSalesRecyclerViewMap(RecyclerView view, Map<String, SalesListItem> salesList, String branchName) {
 
         if (salesList == null) {
             return;
@@ -84,7 +83,7 @@ public class RecyclerViewDataBinding {
             view.setHasFixedSize(true);
         }
         if (view.getAdapter() == null) {
-            SalesRecyclerViewAdapter adapter = new SalesRecyclerViewAdapter(view.getContext());
+            SalesRecyclerViewAdapter adapter = new SalesRecyclerViewAdapter(view.getContext(), branchName);
             adapter.setSalesMap(salesList);
             view.setAdapter(adapter);
         } else {
@@ -116,8 +115,8 @@ public class RecyclerViewDataBinding {
             @Override
             public void run() {
                 view.setVisibility(View.VISIBLE);
-               ProgressBar progressBar =  view.getRootView().findViewById(R.id.progress_bar);
-               if (progressBar != null) progressBar.setVisibility(View.GONE);
+                ProgressBar progressBar = view.getRootView().findViewById(R.id.progress_bar);
+                if (progressBar != null) progressBar.setVisibility(View.GONE);
             }
         }, 1);
     }
@@ -176,7 +175,7 @@ public class RecyclerViewDataBinding {
         }
         if (view.getLayoutManager() == null) {
             view.setLayoutManager(new LinearLayoutManager(view.getContext(), LinearLayoutManager.VERTICAL, false));
-            view.setHasFixedSize(false);
+            view.setHasFixedSize(true);
         }
         if (view.getAdapter() == null) {
             VisitsRecyclerViewAdapter adapter = new VisitsRecyclerViewAdapter(view.getContext());
@@ -185,6 +184,24 @@ public class RecyclerViewDataBinding {
         } else {
             ((VisitsRecyclerViewAdapter) view.getAdapter()).setVisitsLog(visitsLog);
 
+        }
+    }
+
+    @BindingAdapter("setBranchesSalesMap")
+    public static void setBranchSalesMemberMap(RecyclerView view, Map<String, Map<String, SalesListItem>> branch_salesMember_map) {
+        if (branch_salesMember_map == null) {
+            return;
+        }
+        if (view.getLayoutManager() == null) {
+            view.setLayoutManager(new LinearLayoutManager(view.getContext(), LinearLayoutManager.VERTICAL, false));
+            view.setHasFixedSize(true);
+        }
+        if (view.getAdapter() == null) {
+            BranchSalesRecyclerAdapter adapter = new BranchSalesRecyclerAdapter(view.getContext());
+            adapter.setBranch_salesMembers_map(branch_salesMember_map);
+            view.setAdapter(adapter);
+        } else {
+            ((BranchSalesRecyclerAdapter) view.getAdapter()).setBranch_salesMembers_map(branch_salesMember_map);
         }
     }
 }

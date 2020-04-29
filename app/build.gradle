@@ -1,5 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.google.gms.google-services'
+apply plugin: "androidx.navigation.safeargs"
+
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.2"
@@ -19,6 +21,11 @@ android {
     }
     dataBinding {
         enabled true
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 }
 
@@ -45,7 +52,7 @@ dependencies {
     implementation 'com.google.android.material:material:1.1.0'
 
     //preference
-    implementation "androidx.preference:preference:1.1.0"
+    implementation "androidx.preference:preference:1.1.1"
 
 
 //    //room
@@ -74,8 +81,8 @@ dependencies {
     // chart lib
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
 
-    // expandable layout
-    implementation 'net.cachapa.expandablelayout:expandablelayout:2.9.2'
+//    // expandable layout
+//    implementation 'net.cachapa.expandablelayout:expandablelayout:2.9.2'
 
     // google services
     implementation 'com.google.android.gms:play-services-maps:17.0.0'
@@ -111,6 +118,13 @@ dependencies {
     //Glide
     implementation 'com.github.bumptech.glide:glide:4.11.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
+
+    //navigation component
+    def nav_version = "2.3.0-alpha05"
+    implementation "androidx.navigation:navigation-fragment:$nav_version"
+    implementation "androidx.navigation:navigation-ui:$nav_version"
+    implementation "androidx.navigation:navigation-dynamic-features-fragment:$nav_version"
+
 }
 repositories {
     mavenCentral()

@@ -14,7 +14,10 @@ public class User {
     //company name
     private String cn;
 
+    private boolean status;
+
     public User() {
+        status = true;
     }
 
     public User(String un, String e, String buid, String cuid, String ut, String cn) {
@@ -24,6 +27,7 @@ public class User {
         this.cuid = cuid;
         this.ut = ut;
         this.cn = cn;
+        status = true;
     }
 
     public String getUn() {
@@ -72,5 +76,13 @@ public class User {
 
     public void setCn(String cn) {
         this.cn = cn;
+    }
+
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
     }
 }

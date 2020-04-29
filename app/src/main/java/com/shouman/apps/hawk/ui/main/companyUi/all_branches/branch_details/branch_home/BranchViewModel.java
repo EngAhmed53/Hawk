@@ -1,4 +1,4 @@
-package com.shouman.apps.hawk.ui.main.companyUi.branch_details.branch_home;
+package com.shouman.apps.hawk.ui.main.companyUi.all_branches.branch_details.branch_home;
 
 import android.content.Context;
 import android.util.Log;

@@ -10,9 +10,9 @@ import androidx.databinding.DataBindingUtil;
 
 import com.shouman.apps.hawk.R;
 import com.shouman.apps.hawk.databinding.ActivityMainBinding;
-import com.shouman.apps.hawk.ui.main.companyUi.FragmentContainerActivity;
+import com.shouman.apps.hawk.ui.main.companyUi.ContainerActivity;
 
-import static com.shouman.apps.hawk.ui.main.companyUi.FragmentContainerActivity.SELECTED_MENU_ITEM;
+import static com.shouman.apps.hawk.ui.main.companyUi.ContainerActivity.SELECTED_MENU_ITEM;
 
 public class MainActivity extends AppCompatActivity implements OnMenuItemClick {
 
@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity implements OnMenuItemClick {
 
     @Override
     public void onMenuItemClickHandler(String selectedItem) {
-        Intent intent = new Intent(this, FragmentContainerActivity.class);
+        Intent intent = new Intent(this, ContainerActivity.class);
         intent.putExtra(SELECTED_MENU_ITEM, selectedItem);
         startActivity(intent);
     }

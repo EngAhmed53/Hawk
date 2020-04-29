@@ -33,18 +33,18 @@ public class HAWKApplication extends Application {
             UserPreference.setFirstStart(getApplicationContext());
             Log.e(TAG, "onCreate: first time setting app ");
         }
-        Log.e(TAG, "onCreate: " + SimpleDateFormat.getDateInstance(DateFormat.MEDIUM, Locale.ENGLISH).format(new Date()));
-
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(new Date());
-        calendar.set(Calendar.HOUR_OF_DAY, 0);
-        calendar.set(Calendar.MINUTE, 0);
-        calendar.set(Calendar.SECOND, 0);
-        calendar.set(Calendar.MILLISECOND, 0);
-
-        Date date = calendar.getTime();
-        Log.e(TAG, "onCreate: " + date.getTime());
-        Log.e(TAG, "onCreate: " + SimpleDateFormat.getDateInstance(DateFormat.MEDIUM, Locale.ENGLISH).format(date));
+//        Log.e(TAG, "onCreate: " + SimpleDateFormat.getDateInstance(DateFormat.MEDIUM, Locale.ENGLISH).format(new Date()));
+//
+//        Calendar calendar = Calendar.getInstance();
+//        calendar.setTime(new Date());
+//        calendar.set(Calendar.HOUR_OF_DAY, 0);
+//        calendar.set(Calendar.MINUTE, 0);
+//        calendar.set(Calendar.SECOND, 0);
+//        calendar.set(Calendar.MILLISECOND, 0);
+//
+//        Date date = calendar.getTime();
+//        Log.e(TAG, "onCreate: " + date.getTime());
+//        Log.e(TAG, "onCreate: " + SimpleDateFormat.getDateInstance(DateFormat.MEDIUM, Locale.ENGLISH).format(date));
 
     }
 }

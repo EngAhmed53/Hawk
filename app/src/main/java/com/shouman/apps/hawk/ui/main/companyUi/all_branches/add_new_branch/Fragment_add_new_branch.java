@@ -1,4 +1,4 @@
-package com.shouman.apps.hawk.ui.main.companyUi.add_new_branch;
+package com.shouman.apps.hawk.ui.main.companyUi.all_branches.add_new_branch;
 
 
 import android.content.Context;
