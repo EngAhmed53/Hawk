@@ -6,13 +6,9 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MediatorLiveData;
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.Observer;
 
-import com.google.android.gms.vision.barcode.Barcode;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
 import com.shouman.apps.hawk.data.FirebaseQueryLiveData;
 import com.shouman.apps.hawk.data.database.firebaseRepo.FirebaseAuthRepo;
 import com.shouman.apps.hawk.data.model.User;
@@ -26,9 +22,6 @@ public class AuthViewModel extends AndroidViewModel {
     private MediatorLiveData<User> userMediatorLiveData = new MediatorLiveData<>();
 
     private FirebaseAuthRepo firebaseAuthRepo;
-
-    //this is for the barCode captured from the scanner;
-    private MutableLiveData<Barcode> barCodesMediatorLiveData = new MutableLiveData<>();
 
     public AuthViewModel(@NonNull Application application) {
         super(application);
@@ -62,11 +55,4 @@ public class AuthViewModel extends AndroidViewModel {
         firebaseAuthRepo.updateTheUserInDatabase(firebaseUser.getUid(), mainUser);
     }
 
-    void setBarCodesArray(Barcode barCode) {
-        barCodesMediatorLiveData.postValue(barCode);
-    }
-
-    MutableLiveData<Barcode> getBarCodesMediatorLiveData() {
-        return barCodesMediatorLiveData;
-    }
 }

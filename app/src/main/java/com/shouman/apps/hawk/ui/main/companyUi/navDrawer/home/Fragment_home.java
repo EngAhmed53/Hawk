@@ -1,4 +1,4 @@
-package com.shouman.apps.hawk.ui.main.companyUi.all_sales_members;
+package com.shouman.apps.hawk.ui.main.companyUi.navDrawer.home;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -12,24 +12,24 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.shouman.apps.hawk.data.model.SalesListItem;
-import com.shouman.apps.hawk.databinding.FragmentAllSalesMembersBinding;
+import com.shouman.apps.hawk.databinding.FragmentHomeBinding;
 
 import java.util.Map;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class Fragment_All_SalesMembers extends Fragment {
+public class Fragment_home extends Fragment {
     private static final String TAG = "FragmentAllSalesMember";
-    private FragmentAllSalesMembersBinding mBinding;
+    private FragmentHomeBinding mBinding;
 
 
-    public Fragment_All_SalesMembers() {
+    public Fragment_home() {
         // Required empty public constructor
     }
 
-    public static Fragment_All_SalesMembers getInstance() {
-        return new Fragment_All_SalesMembers();
+    public static Fragment_home getInstance() {
+        return new Fragment_home();
     }
 
 
@@ -37,15 +37,15 @@ public class Fragment_All_SalesMembers extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         Log.e(TAG, "onCreateView: ");
-        mBinding = FragmentAllSalesMembersBinding.inflate(inflater);
+        mBinding = FragmentHomeBinding.inflate(inflater);
         initViewModel();
 
         return mBinding.getRoot();
     }
 
     private void initViewModel() {
-        AllSalesMembersViewModel allSalesMembersViewModel = new ViewModelProvider(this).get(AllSalesMembersViewModel.class);
-        allSalesMembersViewModel.getAllSalesMembersMediatorLiveData().observe(getViewLifecycleOwner(), new Observer<Map<String, Map<String, SalesListItem>>>() {
+        HomeViewModel homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
+        homeViewModel.getAllSalesMembersMediatorLiveData().observe(getViewLifecycleOwner(), new Observer<Map<String, Map<String, SalesListItem>>>() {
             @Override
             public void onChanged(Map<String, Map<String, SalesListItem>> branch_sales_map) {
                 Log.e(TAG, "onChanged: " + branch_sales_map.keySet().toString());

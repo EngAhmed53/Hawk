@@ -22,7 +22,6 @@ import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 import com.shouman.apps.hawk.R;
 import com.shouman.apps.hawk.databinding.FragmentBranchDetailsBinding;
-import com.shouman.apps.hawk.ui.main.companyUi.ContainerActivity;
 import com.shouman.apps.hawk.ui.main.companyUi.all_branches.branch_details.branch_info.Fragment_branch_info;
 
 import java.util.ArrayList;
@@ -93,7 +92,7 @@ public class Fragment_branch extends Fragment {
         mBinding.toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                backToHomeFragment();
+                //backToHomeFragment();
             }
         });
 
@@ -102,7 +101,7 @@ public class Fragment_branch extends Fragment {
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.action_branch_info:
-                        openBranchInfoFragment();
+                       // openBranchInfoFragment();
                         return true;
                     default:
                         return false;
@@ -112,25 +111,22 @@ public class Fragment_branch extends Fragment {
 
     }
 
-    private void backToHomeFragment() {
-        getHostActivity()
-                .fragmentManager
-                .popBackStack("branch_details", FragmentManager.POP_BACK_STACK_INCLUSIVE);
-    }
+//    private void backToHomeFragment() {
+//        getHostActivity()
+//                .fragmentManager
+//                .popBackStack("branch_details", FragmentManager.POP_BACK_STACK_INCLUSIVE);
+//    }
+//
+//    private void openBranchInfoFragment() {
+//        getHostActivity()
+//                .fragmentManager
+//                .beginTransaction()
+//                .setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out, android.R.anim.fade_in, android.R.anim.fade_out)
+//                .addToBackStack("branch_info")
+//                .add(R.id.home_container, Fragment_branch_info.getInstance(branchUID, branchName))
+//                .commit();
+//    }
 
-    private void openBranchInfoFragment() {
-        getHostActivity()
-                .fragmentManager
-                .beginTransaction()
-                .setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out, android.R.anim.fade_in, android.R.anim.fade_out)
-                .addToBackStack("branch_info")
-                .add(R.id.home_container, Fragment_branch_info.getInstance(branchUID, branchName))
-                .commit();
-    }
-
-    private ContainerActivity getHostActivity() {
-        return (ContainerActivity) getActivity();
-    }
 
     private void initializeChart() {
         BarDataSet dataSet = new BarDataSet(getChartEntries(), "Total Customers");

@@ -100,7 +100,6 @@
     <string name="city">المدينة</string>
     <string name="branch_qr_code">رمز الفرع السريع</string>
     <string name="branch_qrcode">رمز الفرع السريع</string>
-    <string name="qr_code_key">this is Hawk QR_CODE</string>
     <string name="scan_qr_code">مسح الرمز السريع</string>
     <string name="done">تم</string>
     <string name="scan_your_branch_qr_code">مسح الرمز السريع الخاص بالفرع</string>
@@ -152,5 +151,7 @@
     <string name="your_account_has_been_disabled">Your Account Has Been Disabled</string>
     <string name="disabled_msg">Your account has been disabled, connect your manager for more information.</string>
     <string name="sales_member_delete_failed_msg">You can\'t delete any sales member that has one or more customers, you should move or delete any customer belong to this sales member before deletion process</string>
+    <string name="invitation_request">Please ask your supervisor or your manager for the invitation link, we need this invitation link in order to connect you with the company profile.</string>
+    <string name="all_customers">Customers</string>
 
 </resources>

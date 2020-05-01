@@ -1,7 +1,7 @@
 <resources>
 
     <string-array name="positions_array">
-        <item>Company Manager</item>
-        <item>Sales Member</item>
+        <item>Company Account</item>
+        <item>Salesman Account</item>
     </string-array>
 </resources>

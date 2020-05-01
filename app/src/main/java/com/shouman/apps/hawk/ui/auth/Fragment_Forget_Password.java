@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -18,28 +19,26 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.shouman.apps.hawk.R;
 import com.shouman.apps.hawk.databinding.FragmentForgetPasswordBinding;
 
+import java.util.Objects;
+
 /**
  * A simple {@link Fragment} subclass.
  */
 public class Fragment_Forget_Password extends Fragment {
 
-    private static final String USER_EMAIL = "user_email";
     private FragmentForgetPasswordBinding mBinding;
     private FirebaseAuth auth;
-    private String email;
-
+    private String userEmail;
     public Fragment_Forget_Password() {
         // Required empty public constructor
     }
 
-    public static Fragment_Forget_Password getInstance(String email) {
-        Fragment_Forget_Password fragment_forget_password = new Fragment_Forget_Password();
-        Bundle bundle = new Bundle();
-        bundle.putString(USER_EMAIL, email);
-        fragment_forget_password.setArguments(bundle);
-        return fragment_forget_password;
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        assert getArguments() != null;
+        userEmail = Fragment_Forget_PasswordArgs.fromBundle(getArguments()).getArgEmail();
     }
-
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -48,43 +47,31 @@ public class Fragment_Forget_Password extends Fragment {
 
         auth = FirebaseAuth.getInstance();
 
-        Bundle bundle = getArguments();
-        if (bundle != null) {
-            if (bundle.containsKey(USER_EMAIL)) {
-                email = bundle.getString(USER_EMAIL);
-                if (email != null && !email.isEmpty()) {
-                    mBinding.edtEmailSignUp.setText(email);
-                } else {
-                    mBinding.edtEmailSignUp.setText("");
-                }
-            }
-        }
+        if (userEmail!= null) Objects.requireNonNull(mBinding.emailTextField.getEditText()).setText(userEmail);
 
-        mBinding.btnSendPasswordEmail.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                final String email = mBinding.edtEmailSignUp.getText().toString();
-                if (email != null && !email.isEmpty()) {
-                    auth.sendPasswordResetEmail(email).addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            if (task.isSuccessful()) {
-                                Toast.makeText(getContext(), "email send to " + email, Toast.LENGTH_SHORT).show();
-                            } else {
-                                try {
-                                    throw task.getException();
-                                } catch (Exception e) {
-                                    e.printStackTrace();
-                                    String message = e.getMessage();
-                                    showErrorDialog(message);
-                                }
-                            }
+        mBinding.btnSendPasswordEmail.setOnClickListener(v -> {
+            final String email = Objects.requireNonNull(mBinding.edtEmailSignUp.getText()).toString();
+
+            if (!email.isEmpty()) {
+
+                auth.sendPasswordResetEmail(email).addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+
+                        Toast.makeText(getContext(), "email send to " + email, Toast.LENGTH_SHORT).show();
+
+                    } else {
+                        try {
+                            throw Objects.requireNonNull(task.getException());
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            String message = e.getMessage();
+                            showErrorDialog(message);
                         }
-                    });
+                    }
+                });
 
-                } else {
-                    Toast.makeText(getContext(), "Please type your email address", Toast.LENGTH_SHORT).show();
-                }
+            } else {
+                Toast.makeText(getContext(), "Please type your email address", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -92,15 +79,10 @@ public class Fragment_Forget_Password extends Fragment {
     }
 
     private void showErrorDialog(String message) {
-        final MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(getActivity(), R.style.ThemeOverlay_MaterialComponents_MaterialAlertDialog)
+        final MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(requireContext(), R.style.ThemeOverlay_MaterialComponents_MaterialAlertDialog)
                 .setTitle("Error")
                 .setMessage(message)
-                .setPositiveButton("ok", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                })
+                .setPositiveButton("ok", (dialog, which) -> dialog.dismiss())
                 .setIcon(R.drawable.ic_report_problem);
         builder.create().show();
     }

@@ -1,7 +1,6 @@
 package com.shouman.apps.hawk.ui.main.companyUi.sales_members.sales_info;
 
 
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,17 +8,11 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.shouman.apps.hawk.R;
-import com.shouman.apps.hawk.databinding.FragmentSalesInfoBinding;
 import com.shouman.apps.hawk.data.model.User;
-import com.shouman.apps.hawk.ui.main.companyUi.ContainerActivity;
-import com.shouman.apps.hawk.utils.AppExecutors;
-
-import net.glxn.qrgen.android.QRCode;
+import com.shouman.apps.hawk.databinding.FragmentSalesInfoBinding;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -76,51 +69,15 @@ public class Fragment_sales_info extends Fragment {
     private void setUI(User user) {
         mBinding.setUid(salesUID);
         mBinding.setUser(user);
-        StringBuilder qrInfo = new StringBuilder(getString(R.string.qr_code_key))
-                .append(", ")
-                .append(user.getUn())
-                .append(", ")
-                .append(salesUID)
-                .append(", ")
-                .append(user.getCuid())
-                .append(", ")
-                .append(user.getBuid());
-
-        setTheQRCode(qrInfo.toString());
-    }
-
-    private void setTheQRCode(String qrInfo) {
-        final Bitmap qrBitMap = QRCode.from(qrInfo).bitmap();
-        AppExecutors.getsInstance().getDiskIO().execute(new Runnable() {
-            @Override
-            public void run() {
-                final Bitmap scaledBitMap = Bitmap.createScaledBitmap(qrBitMap, 600, 600, false);
-                AppExecutors.getsInstance().getMainThread().execute(new Runnable() {
-                    @Override
-                    public void run() {
-                        mBinding.salesQrCode.setImageBitmap(scaledBitMap);
-                    }
-                });
-            }
-        });
     }
 
     private void initToolbar() {
         mBinding.toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                backToBranchHome();
             }
         });
     }
 
-    private void backToBranchHome() {
-        getHostActivity()
-                .fragmentManager
-                .popBackStack("sales_info", FragmentManager.POP_BACK_STACK_INCLUSIVE);
-    }
 
-    private ContainerActivity getHostActivity() {
-        return (ContainerActivity) getActivity();
-    }
 }

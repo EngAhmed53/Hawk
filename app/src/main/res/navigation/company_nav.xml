@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/company_nav"
+    app:startDestination="@id/fragment_home">
+
+    <fragment
+        android:id="@+id/fragment_home"
+        android:name="com.shouman.apps.hawk.ui.main.companyUi.navDrawer.home.Fragment_home"
+        android:label="Fragment_Home"
+        tools:layout="@layout/fragment_home" />
+    <fragment
+        android:id="@+id/fragment_customers"
+        android:name="com.shouman.apps.hawk.ui.main.companyUi.navDrawer.customers.Fragment_customers"
+        android:label="fragment_all_customers"
+        tools:layout="@layout/fragment_customers" />
+    <fragment
+        android:id="@+id/fragment_notification"
+        android:name="com.shouman.apps.hawk.ui.main.companyUi.navDrawer.notification.Fragment_notification"
+        android:label="fragment_notification"
+        tools:layout="@layout/fragment_notification" />
+    <fragment
+        android:id="@+id/fragment_reports"
+        android:name="com.shouman.apps.hawk.ui.main.companyUi.navDrawer.reports.Fragment_reports"
+        android:label="fragment_reports"
+        tools:layout="@layout/fragment_reports" />
+    <fragment
+        android:id="@+id/fragment_profile"
+        android:name="com.shouman.apps.hawk.ui.main.companyUi.navDrawer.profile.Fragment_profile"
+        android:label="Fragment_profile" />
+    <fragment
+        android:id="@+id/fragment_settings"
+        android:name="com.shouman.apps.hawk.ui.main.companyUi.navDrawer.settings.Fragment_settings"
+        android:label="fragment_settings"
+        tools:layout="@layout/fragment_settings" />
+    <fragment
+        android:id="@+id/fragment_terms_condition"
+        android:name="com.shouman.apps.hawk.ui.main.companyUi.navDrawer.termsAndCondition.Fragment_terms_condition"
+        android:label="fragment_terms_condition"
+        tools:layout="@layout/fragment_terms_condition" />
+</navigation>

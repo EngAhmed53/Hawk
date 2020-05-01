@@ -1,4 +1,4 @@
-package com.shouman.apps.hawk.ui.main.companyUi.notification;
+package com.shouman.apps.hawk.ui.main.companyUi.navDrawer.notification;
 
 
 import android.os.Bundle;
@@ -13,17 +13,17 @@ import com.shouman.apps.hawk.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class Fragment_company_notification extends Fragment {
+public class Fragment_notification extends Fragment {
 
-    public static Fragment_company_notification getInstance() {
-        return new Fragment_company_notification();
+    public static Fragment_notification getInstance() {
+        return new Fragment_notification();
     }
 
-//    public static Fragment_company_notification getInstance(String companyUID) {
-//         Fragment_company_notification fragment_company_notification = Fragment_company_notification.getInstance();
+//    public static Fragment_notification getInstance(String companyUID) {
+//         Fragment_notification fragment_company_notification = Fragment_notification.getInstance();
 //    }
 
-    public Fragment_company_notification() {
+    public Fragment_notification() {
         // Required empty public constructor
     }
 

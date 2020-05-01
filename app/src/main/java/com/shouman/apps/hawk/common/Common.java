@@ -10,11 +10,8 @@ import java.util.Date;
 
 public class Common {
     private static final String TAG = "Common class";
-    public static int MANAGER_POSITION = 0;
-    public static int SALES_POSITION = 1;
-
-    //last visible fragment in companyMainActivity;
-    public static String LAST_ACTIVE_FRAGMENT = "";
+    public static int COMPANY_ACCOUNT = 0;
+    public static int SALES_ACCOUNT = 1;
 
     public static String[] getAllPositions(Context context) {
         return context.getResources().getStringArray(R.array.positions_array);

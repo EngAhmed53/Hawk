@@ -1,4 +1,4 @@
-package com.shouman.apps.hawk.ui.main.companyUi.company_profile;
+package com.shouman.apps.hawk.ui.main.companyUi.navDrawer.profile;
 
 import android.app.Application;
 

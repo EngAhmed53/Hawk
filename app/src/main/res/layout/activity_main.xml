@@ -14,385 +14,229 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/colorPrimary">
+            android:layout_height="match_parent">
 
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/materialCardView"
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="8dp"
-                app:cardCornerRadius="8dp"
-                app:cardElevation="8dp"
-                app:layout_constraintBottom_toTopOf="@+id/fragment_home"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@color/colorPrimary"
+                android:elevation="4dp"
+                android:theme="@style/Widget.MaterialComponents.Toolbar.Surface"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_chainStyle="packed"
-                app:strokeColor="@color/white"
-                app:strokeWidth="1dp">
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+                app:titleMarginStart="0dp"
+                app:titleTextColor="@color/white2" />
 
-                <com.google.android.material.appbar.MaterialToolbar
-                    android:id="@+id/toolbar"
-                    android:layout_width="match_parent"
-                    android:layout_height="?attr/actionBarSize"
-                    android:background="@color/colorPrimary"
-                    android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-                    app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-                    app:title="@string/app_name"
-                    app:titleMarginStart="0dp"
-                    app:titleTextColor="@color/white2" />
-            </com.google.android.material.card.MaterialCardView>
-
-
-            <androidx.fragment.app.FragmentContainerView
-                android:id="@+id/fragment_home"
-                android:name="com.shouman.apps.hawk.ui.main.companyUi.home.Fragment_home"
+            <fragment
+                android:id="@+id/company_container"
+                android:name="androidx.navigation.fragment.NavHostFragment"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
+                app:defaultNavHost="true"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/materialCardView" />
+                app:layout_constraintTop_toBottomOf="@id/toolbar"
+                app:navGraph="@navigation/company_nav"
+                tools:ignore="FragmentTagUsage" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <com.google.android.material.navigation.NavigationView
-            android:id="@+id/drawer_nav"
+            android:id="@+id/nav_view"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="start"
-            android:background="@color/primaryTransparent"
+            android:background="@color/white"
             app:itemIconPadding="8dp"
             app:itemIconSize="28dp"
             app:itemIconTint="@color/white2"
             app:itemMaxLines="1"
             app:itemTextColor="@color/white2">
 
-
-            <LinearLayout
+            <androidx.core.widget.NestedScrollView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:layout_height="wrap_content">
 
-                <include
-                    android:id="@+id/header_layout"
-                    layout="@layout/drawer_header_layout"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="top" />
+                    android:orientation="vertical">
 
-                <androidx.core.widget.NestedScrollView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
 
-                    <LinearLayout
+                    <TextView
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
-
-                        <LinearLayout
-                            android:id="@+id/nav_home"
-                            android:layout_width="match_parent"
-                            android:layout_height="48dp"
-                            android:background="@color/old_rose"
-                            android:clickable="true"
-                            android:focusable="true"
-                            android:onClick="onDrawerItemClick"
-                            android:orientation="horizontal"
-                            android:padding="8dp">
-
-                            <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center_vertical"
-                                android:layout_marginLeft="8dp"
-                                android:layout_marginRight="8dp"
-                                android:adjustViewBounds="true"
-                                android:src="@drawable/ic_home"
-                                android:tint="@color/white2" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:layout_gravity="center_vertical"
-                                android:layout_marginLeft="8dp"
-                                android:layout_marginRight="8dp"
-                                android:gravity="center_vertical"
-                                android:text="@string/home"
-                                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                                android:textColor="@color/white2" />
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:id="@+id/nav_personal_page"
-                            android:layout_width="match_parent"
-                            android:layout_height="48dp"
-                            android:layout_marginTop="16dp"
-                            android:background="@drawable/nav_selector"
-                            android:clickable="true"
-                            android:focusable="true"
-                            android:onClick="onDrawerItemClick"
-                            android:orientation="horizontal"
-                            android:padding="8dp">
-
-                            <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center_vertical"
-                                android:layout_marginLeft="8dp"
-                                android:layout_marginRight="8dp"
-                                android:adjustViewBounds="true"
-                                android:src="@drawable/ic_person"
-                                android:tint="@color/white2" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:layout_gravity="center_vertical"
-                                android:layout_marginLeft="8dp"
-                                android:layout_marginRight="8dp"
-                                android:gravity="center_vertical"
-                                android:text="@string/personal_page"
-                                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                                android:textColor="@color/white2" />
-
-                        </LinearLayout>
-
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="1dp"
-                            android:layout_marginStart="24dp"
-                            android:layout_marginTop="16dp"
-                            android:layout_marginEnd="24dp"
-                            android:layout_marginBottom="16dp"
-                            android:background="@color/white2" />
-
-                        <LinearLayout
-                            android:id="@+id/nav_chang_branch"
-                            android:layout_width="match_parent"
-                            android:layout_height="48dp"
-                            android:background="@drawable/nav_selector"
-                            android:clickable="true"
-                            android:focusable="true"
-                            android:onClick="onDrawerItemClick"
-                            android:orientation="horizontal"
-                            android:padding="8dp">
-
-                            <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center_vertical"
-                                android:layout_marginLeft="8dp"
-                                android:layout_marginRight="8dp"
-                                android:adjustViewBounds="true"
-                                android:src="@drawable/ic_subdirectory_arrow"
-                                android:tint="@color/white2" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:layout_gravity="center_vertical"
-                                android:layout_marginLeft="8dp"
-                                android:layout_marginRight="8dp"
-                                android:gravity="center_vertical"
-                                android:text="@string/my_branch"
-                                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                                android:textColor="@color/white2" />
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:id="@+id/nav_allCustomers_list"
-                            android:layout_width="match_parent"
-                            android:layout_height="48dp"
-                            android:layout_marginTop="16dp"
-                            android:background="@drawable/nav_selector"
-                            android:clickable="true"
-                            android:focusable="true"
-                            android:onClick="onDrawerItemClick"
-                            android:orientation="horizontal"
-                            android:padding="8dp">
-
-                            <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center_vertical"
-                                android:layout_marginLeft="8dp"
-                                android:layout_marginRight="8dp"
-                                android:adjustViewBounds="true"
-                                android:src="@drawable/ic_view_list"
-                                android:tint="@color/white2" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:layout_gravity="center_vertical"
-                                android:layout_marginLeft="8dp"
-                                android:layout_marginRight="8dp"
-                                android:gravity="center_vertical"
-                                android:text="@string/my_customers"
-                                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                                android:textColor="@color/white2" />
-
-                        </LinearLayout>
-
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="1dp"
-                            android:layout_marginStart="24dp"
-                            android:layout_marginTop="16dp"
-                            android:layout_marginEnd="24dp"
-                            android:layout_marginBottom="16dp"
-                            android:background="@color/white2" />
-
-                        <LinearLayout
-                            android:id="@+id/nav_settings"
-                            android:layout_width="match_parent"
-                            android:layout_height="48dp"
-                            android:background="@drawable/nav_selector"
-                            android:clickable="true"
-                            android:focusable="true"
-                            android:onClick="onDrawerItemClick"
-                            android:orientation="horizontal"
-                            android:padding="8dp">
-
-                            <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center_vertical"
-                                android:layout_marginLeft="8dp"
-                                android:layout_marginRight="8dp"
-                                android:adjustViewBounds="true"
-                                android:src="@drawable/ic_settings"
-                                android:tint="@color/white2" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:layout_gravity="center_vertical"
-                                android:layout_marginLeft="8dp"
-                                android:layout_marginRight="8dp"
-                                android:gravity="center_vertical"
-                                android:text="@string/settings"
-                                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                                android:textColor="@color/white2" />
-
-                        </LinearLayout>
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:drawableStart="@drawable/ic_logo24"
+                        android:drawablePadding="16dp"
+                        android:gravity="center_vertical"
+                        android:padding="8dp"
+                        android:text="@string/app_name"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                        android:textColor="@color/gray1"
+                        android:textStyle="bold" />
 
 
-                        <LinearLayout
-                            android:id="@+id/nav_terms_and_conditions"
-                            android:layout_width="match_parent"
-                            android:layout_height="48dp"
-                            android:background="@drawable/nav_selector"
-                            android:clickable="true"
-                            android:focusable="true"
-                            android:onClick="onDrawerItemClick"
-                            android:orientation="horizontal"
-                            android:padding="8dp">
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:background="@color/shadow_color" />
 
-                            <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center_vertical"
-                                android:layout_marginLeft="8dp"
-                                android:layout_marginRight="8dp"
-                                android:adjustViewBounds="true"
-                                android:src="@drawable/ic_info"
-                                android:tint="@color/white2" />
+                    <TextView
+                        android:id="@+id/nav_home"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/nav_selector"
+                        android:clickable="true"
+                        android:drawableStart="@drawable/ic_home"
+                        android:drawablePadding="16dp"
+                        android:focusable="true"
+                        android:gravity="center_vertical"
+                        android:padding="16dp"
+                        android:text="@string/home"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                        android:textColor="@color/gray1"
+                        android:textStyle="bold" />
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:layout_gravity="center_vertical"
-                                android:layout_marginLeft="8dp"
-                                android:layout_marginRight="8dp"
-                                android:gravity="center_vertical"
-                                android:text="@string/terms_and_condition"
-                                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                                android:textColor="@color/white2" />
+                    <TextView
+                        android:id="@+id/nav_profile"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/nav_selector"
+                        android:clickable="true"
+                        android:drawableStart="@drawable/ic_person"
+                        android:drawablePadding="16dp"
+                        android:focusable="true"
+                        android:gravity="center_vertical"
+                        android:padding="16dp"
+                        android:text="@string/personal_page"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                        android:textColor="@color/gray1"
+                        android:textStyle="bold" />
 
-                        </LinearLayout>
+                    <TextView
+                        android:id="@+id/nav_customers"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/nav_selector"
+                        android:clickable="true"
+                        android:drawableStart="@drawable/ic_customers"
+                        android:drawablePadding="16dp"
+                        android:focusable="true"
+                        android:gravity="center_vertical"
+                        android:padding="16dp"
+                        android:text="@string/all_customers"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                        android:textColor="@color/gray1"
+                        android:textStyle="bold" />
 
-                        <LinearLayout
-                            android:id="@+id/nav_sign_out"
-                            android:layout_width="match_parent"
-                            android:layout_height="48dp"
-                            android:layout_marginTop="16dp"
-                            android:background="@drawable/nav_selector"
-                            android:clickable="true"
-                            android:focusable="true"
-                            android:onClick="onDrawerItemClick"
-                            android:orientation="horizontal"
-                            android:padding="8dp">
 
-                            <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center_vertical"
-                                android:layout_marginLeft="8dp"
-                                android:layout_marginRight="8dp"
-                                android:adjustViewBounds="true"
-                                android:src="@drawable/ic_logout"
-                                android:tint="@color/white2" />
+                    <TextView
+                        android:id="@+id/nav_notifications"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/nav_selector"
+                        android:clickable="true"
+                        android:drawableStart="@drawable/ic_notifications"
+                        android:drawablePadding="16dp"
+                        android:focusable="true"
+                        android:gravity="center_vertical"
+                        android:padding="16dp"
+                        android:text="@string/company_notification"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                        android:textColor="@color/gray1"
+                        android:textStyle="bold" />
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:layout_gravity="center_vertical"
-                                android:layout_marginLeft="8dp"
-                                android:layout_marginRight="8dp"
-                                android:gravity="center_vertical"
-                                android:text="@string/sign_out"
-                                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                                android:textColor="@color/white2" />
+                    <TextView
+                        android:id="@+id/nav_reports"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/nav_selector"
+                        android:clickable="true"
+                        android:drawableStart="@drawable/ic_bars"
+                        android:drawablePadding="16dp"
+                        android:focusable="true"
+                        android:gravity="center_vertical"
+                        android:padding="16dp"
+                        android:text="@string/reports_title"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                        android:textColor="@color/gray1"
+                        android:textStyle="bold" />
 
-                        </LinearLayout>
 
-                        <LinearLayout
-                            android:id="@+id/nav_exit"
-                            android:layout_width="match_parent"
-                            android:layout_height="48dp"
-                            android:layout_marginTop="16dp"
-                            android:background="@drawable/nav_selector"
-                            android:clickable="true"
-                            android:focusable="true"
-                            android:onClick="onDrawerItemClick"
-                            android:orientation="horizontal"
-                            android:padding="8dp">
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:background="@color/shadow_color" />
 
-                            <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center_vertical"
-                                android:layout_marginLeft="8dp"
-                                android:layout_marginRight="8dp"
-                                android:adjustViewBounds="true"
-                                android:contentDescription="@string/user_photo"
-                                android:src="@drawable/ic_exit"
-                                android:tint="@color/white2" />
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:layout_gravity="center_vertical"
-                                android:layout_marginLeft="8dp"
-                                android:layout_marginRight="8dp"
-                                android:gravity="center_vertical"
-                                android:text="@string/exit"
-                                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                                android:textColor="@color/white2" />
+                    <TextView
+                        android:id="@+id/nav_settings"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/nav_selector"
+                        android:clickable="true"
+                        android:drawableStart="@drawable/ic_settings"
+                        android:drawablePadding="16dp"
+                        android:focusable="true"
+                        android:gravity="center_vertical"
+                        android:padding="16dp"
+                        android:text="@string/settings"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                        android:textColor="@color/gray1"
+                        android:textStyle="bold" />
 
-                        </LinearLayout>
-                    </LinearLayout>
-                </androidx.core.widget.NestedScrollView>
-            </LinearLayout>
+                    <TextView
+                        android:id="@+id/nav_terms_and_conditions"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/nav_selector"
+                        android:clickable="true"
+                        android:drawableStart="@drawable/ic_info"
+                        android:drawablePadding="16dp"
+                        android:focusable="true"
+                        android:gravity="center_vertical"
+                        android:padding="16dp"
+                        android:text="@string/terms_and_condition"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                        android:textColor="@color/gray1"
+                        android:textStyle="bold" />
+
+
+                    <TextView
+                        android:id="@+id/nav_sign_out"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/nav_selector"
+                        android:clickable="true"
+                        android:drawableStart="@drawable/ic_logout"
+                        android:drawablePadding="16dp"
+                        android:focusable="true"
+                        android:gravity="center_vertical"
+                        android:padding="16dp"
+                        android:text="@string/sign_out"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                        android:textColor="@color/gray1"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+            </androidx.core.widget.NestedScrollView>
         </com.google.android.material.navigation.NavigationView>
     </androidx.drawerlayout.widget.DrawerLayout>
 

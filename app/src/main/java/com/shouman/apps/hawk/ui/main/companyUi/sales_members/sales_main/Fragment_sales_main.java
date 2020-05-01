@@ -25,7 +25,6 @@ import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.shouman.apps.hawk.R;
 import com.shouman.apps.hawk.data.model.DailyLogEntry;
 import com.shouman.apps.hawk.databinding.FragmentSalesDetailsBinding;
-import com.shouman.apps.hawk.ui.main.companyUi.ContainerActivity;
 import com.shouman.apps.hawk.ui.main.companyUi.sales_members.sales_info.Fragment_sales_info;
 import com.shouman.apps.hawk.ui.main.salesUI.main.allCustomersPage.AllCustomersActivity;
 
@@ -104,7 +103,7 @@ public class Fragment_sales_main extends Fragment {
         mBinding.toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                backToPrevious();
+
             }
         });
 
@@ -114,7 +113,7 @@ public class Fragment_sales_main extends Fragment {
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.action_sales_info:
-                        openSalesInfoFragment();
+                        //openSalesInfoFragment();
                         return true;
                     case R.id.action_all_customers:
                         openAllCustomersActivity();
@@ -131,32 +130,32 @@ public class Fragment_sales_main extends Fragment {
         startActivity(intent);
     }
 
-    private void openSalesInfoFragment() {
-        getHostActivity()
-                .fragmentManager
-                .beginTransaction()
-                .setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out, android.R.anim.fade_in, android.R.anim.fade_out)
-                .addToBackStack("sales_info")
-                .add(R.id.home_container, Fragment_sales_info.getInstance(salesMemberUID))
-                .commit();
-
-    }
-
-    private void backToPrevious() {
-        getHostActivity()
-                .fragmentManager
-                .popBackStack("sales_details", FragmentManager.POP_BACK_STACK_INCLUSIVE);
-    }
-
-    private ContainerActivity getHostActivity() {
-        return (ContainerActivity) getActivity();
-    }
+//    private void openSalesInfoFragment() {
+//        getHostActivity()
+//                .fragmentManager
+//                .beginTransaction()
+//                .setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out, android.R.anim.fade_in, android.R.anim.fade_out)
+//                .addToBackStack("sales_info")
+//                .add(R.id.home_container, Fragment_sales_info.getInstance(salesMemberUID))
+//                .commit();
+//
+//    }
+//
+//    private void backToPrevious() {
+//        getHostActivity()
+//                .fragmentManager
+//                .popBackStack("sales_details", FragmentManager.POP_BACK_STACK_INCLUSIVE);
+//    }
+//
+//    private ContainerActivity getHostActivity() {
+//        return (ContainerActivity) getActivity();
+//    }
 
 
     private void initializeChart() {
         LineDataSet dataSet = new LineDataSet(getChartEntries(), "Total Customers");
         dataSet.setDrawFilled(true);
-        dataSet.setFillDrawable(Objects.requireNonNull(getContext()).getResources().getDrawable(R.drawable.chart_gradient_fill));
+        dataSet.setFillDrawable(requireContext().getResources().getDrawable(R.drawable.chart_gradient_fill));
         ArrayList<ILineDataSet> dataSetArray = new ArrayList<>();
         dataSetArray.add(dataSet);
         LineData lineData = new LineData(dataSetArray);

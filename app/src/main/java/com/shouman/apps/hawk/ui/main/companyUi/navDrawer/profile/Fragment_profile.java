@@ -1,4 +1,4 @@
-package com.shouman.apps.hawk.ui.main.companyUi.company_profile;
+package com.shouman.apps.hawk.ui.main.companyUi.navDrawer.profile;
 
 
 import android.os.Bundle;
@@ -17,17 +17,17 @@ import com.shouman.apps.hawk.data.model.User;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class Fragment_company_profile extends Fragment {
+public class Fragment_profile extends Fragment {
 
 
     private FragmentCompanyProfileBinding mBinding;
 
 
-    public static Fragment_company_profile getInstance() {
-        return new Fragment_company_profile();
+    public static Fragment_profile getInstance() {
+        return new Fragment_profile();
     }
 
-    public Fragment_company_profile() {
+    public Fragment_profile() {
         // Required empty public constructor
     }
 

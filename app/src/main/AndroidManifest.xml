@@ -16,7 +16,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.main.companyUi.home.MainActivity" android:theme="@style/no_action_bar"/>
+        <activity android:name=".ui.main.companyUi.navDrawer.MainActivity" android:theme="@style/no_action_bar"/>
         <activity
             android:name=".ui.main.salesUI.main.allCustomersPage.AllCustomersActivity"
             android:theme="@style/no_action_bar" />
@@ -38,6 +38,15 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <data
+                    android:host="hawk.sales.com"
+                    android:scheme="https"/>
+            </intent-filter>
         </activity>
         <activity
             android:name=".ui.main.companyUi.ContainerActivity"
@@ -58,10 +67,12 @@
             android:name="com.facebook.FacebookActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/app_name" />
+
         <activity
             android:name="com.facebook.CustomTabActivity"
             android:exported="true">
             <intent-filter>
+
                 <action android:name="android.intent.action.VIEW" />
 
                 <category android:name="android.intent.category.DEFAULT" />
@@ -70,7 +81,5 @@
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
         </activity>
-
     </application>
-
 </manifest>

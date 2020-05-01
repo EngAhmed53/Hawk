@@ -1,7 +1,6 @@
 package com.shouman.apps.hawk.ui.main.companyUi.all_branches.branch_details.branch_info;
 
 
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,15 +8,9 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 
-import com.shouman.apps.hawk.R;
 import com.shouman.apps.hawk.databinding.FragmentBranchInfoBinding;
 import com.shouman.apps.hawk.preferences.UserPreference;
-import com.shouman.apps.hawk.ui.main.companyUi.ContainerActivity;
-import com.shouman.apps.hawk.utils.AppExecutors;
-
-import net.glxn.qrgen.android.QRCode;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -77,42 +70,14 @@ public class Fragment_branch_info extends Fragment {
         mBinding.edtBranchCity.setText("Cairo");
         mBinding.edtBranchPhone.setText("01028700014");
 
-        String qrInfo = getString(R.string.qr_code_key) + ", " + branchName + ", " + branchUID + ", " + companyName + ", " + companyUID;
-        setTheQRCode(qrInfo);
-    }
-
-    private void setTheQRCode(String qrInfo) {
-        final Bitmap qrBitMap = QRCode.from(qrInfo).bitmap();
-        AppExecutors.getsInstance().getDiskIO().execute(new Runnable() {
-            @Override
-            public void run() {
-               final Bitmap scaledBitMap = Bitmap.createScaledBitmap(qrBitMap, 600, 600, false);
-               AppExecutors.getsInstance().getMainThread().execute(new Runnable() {
-                   @Override
-                   public void run() {
-                       mBinding.branchQrCode.setImageBitmap(scaledBitMap);
-                   }
-               });
-            }
-        });
     }
 
     private void initToolbar() {
         mBinding.toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                backToBranchHome();
             }
         });
     }
 
-    private void backToBranchHome() {
-        getHostActivity()
-                .fragmentManager
-                .popBackStack("branch_info", FragmentManager.POP_BACK_STACK_INCLUSIVE);
-    }
-
-    private ContainerActivity getHostActivity() {
-        return (ContainerActivity) getActivity();
-    }
 }

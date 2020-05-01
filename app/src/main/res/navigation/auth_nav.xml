@@ -75,7 +75,7 @@
             app:launchSingleTop="true"
             app:popEnterAnim="@android:anim/slide_in_left"
             app:popExitAnim="@android:anim/slide_out_right"
-            app:popUpTo="@id/fragment_signIn"
+            app:popUpTo="@id/fragment_entry_screen"
             app:popUpToInclusive="true" />
     </fragment>
 
@@ -92,7 +92,7 @@
             app:exitAnim="@android:anim/slide_out_right"
             app:popEnterAnim="@android:anim/slide_in_left"
             app:popExitAnim="@android:anim/slide_out_right"
-            app:popUpTo="@id/fragment_signUp"
+            app:popUpTo="@id/fragment_entry_screen"
             app:popUpToInclusive="true" />
     </fragment>
 
@@ -113,21 +113,6 @@
         android:id="@+id/fragment_select_user_type"
         android:name="com.shouman.apps.hawk.ui.auth.Fragment_select_user_type"
         android:label="Fragment_select_user_type"
-        tools:layout="@layout/fragment_select_user_type">
-        <action
-            android:id="@+id/action_fragment_select_user_type_to_fragment_Scan_QR"
-            app:destination="@id/fragment_Scan_QR"
-            app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim"
-            app:popUpToInclusive="false" />
-    </fragment>
+        tools:layout="@layout/fragment_select_user_type"/>
 
-
-    <fragment
-        android:id="@+id/fragment_Scan_QR"
-        android:name="com.shouman.apps.hawk.ui.auth.Fragment_Scan_QR"
-        android:label="Fragment_Scan_QR"
-        tools:layout="@layout/fragment_scan_qr" />
 </navigation>

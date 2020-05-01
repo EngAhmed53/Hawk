@@ -20,9 +20,6 @@ import com.google.firebase.auth.FirebaseUser;
 import com.shouman.apps.hawk.R;
 import com.shouman.apps.hawk.data.model.User;
 import com.shouman.apps.hawk.databinding.FragmentSplashScreenBinding;
-import com.shouman.apps.hawk.preferences.UserPreference;
-import com.shouman.apps.hawk.ui.main.companyUi.home.MainActivity;
-import com.shouman.apps.hawk.ui.main.salesUI.main.home.Main2Activity;
 
 /**
  * A simple {@link Fragment} subclass.

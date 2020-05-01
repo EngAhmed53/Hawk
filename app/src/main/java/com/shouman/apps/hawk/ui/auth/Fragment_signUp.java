@@ -72,9 +72,7 @@ public class Fragment_signUp extends Fragment {
         firebaseAuth = FirebaseAuth.getInstance();
 
         initViewModel();
-        initGoogleSignIn();
-        initFacebookSignIn();
-        initEmailPasswordSignIn();
+
 
     }
 
@@ -82,6 +80,11 @@ public class Fragment_signUp extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         mBinding = FragmentSignUpBinding.inflate(inflater);
+
+        initGoogleSignIn();
+        initFacebookSignIn();
+        initEmailPasswordSignIn();
+
         return mBinding.getRoot();
     }
 
@@ -180,14 +183,6 @@ public class Fragment_signUp extends Fragment {
                         new AuthUI.IdpConfig.GoogleBuilder().build()))
                 .build();
 
-
-        //open the google sign up
-        mBinding.googleSignUpLayout.setOnClickListener(v -> {
-            startActivityForResult(
-                    googleIntent,
-                    RC_SIGN_IN);
-            showTheSigningUPProgressBarLayout();
-        });
     }
 
     private void handelFacebookToken(AccessToken accessToken) {

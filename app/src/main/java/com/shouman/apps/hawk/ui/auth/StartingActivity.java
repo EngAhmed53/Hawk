@@ -1,26 +1,57 @@
 package com.shouman.apps.hawk.ui.auth;
 
+import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
 import com.shouman.apps.hawk.R;
+
+import java.util.Arrays;
 
 public class StartingActivity extends AppCompatActivity {
 
     private static final String TAG = "StartingActivity";
     private AuthViewModel authViewModel;
+    public String[] dynamicLinkData = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //init dynamic link
+        handelDynamicLink();
+
         DataBindingUtil.setContentView(this, R.layout.activity_starting);
+
         initViewModel();
 
         authViewModel.setupMediatorLiveData();
 
+    }
+
+    private void handelDynamicLink() {
+        FirebaseDynamicLinks.getInstance()
+                .getDynamicLink(getIntent())
+                .addOnSuccessListener(this, pendingDynamicLinkData -> {
+                    // Get deep link from result (may be null if no link is found)
+                    Uri deepLink = null;
+                    if (pendingDynamicLinkData != null) {
+                        deepLink = pendingDynamicLinkData.getLink();
+                    }
+                    if (deepLink != null) {
+                        String path = deepLink.getPath();
+                        if (path != null) {
+                            dynamicLinkData = path.split("/");
+                            Log.e(TAG, "handelDynamicLink: " + Arrays.toString(dynamicLinkData));
+                        }
+                    }
+                })
+                .addOnFailureListener(this, e -> Log.w(TAG, "getDynamicLink:onFailure", e));
     }
 
     private void initViewModel() {
@@ -162,16 +193,6 @@ public class StartingActivity extends AppCompatActivity {
 //
 //            }
 //        }).check();
-//    }
-
-//    public void showScanFragment() {
-//        Fragment_Scan_QR scanQr = Fragment_Scan_QR.getInstance();
-//        fragmentManager
-//                .beginTransaction()
-//                .addToBackStack("qr_scan")
-//                .setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right, android.R.anim.slide_in_left, android.R.anim.slide_out_right)
-//                .add(R.id.starting_container, scanQr, "fragment_scan_qr")
-//                .commit();
 //    }
 //
 //    @Override

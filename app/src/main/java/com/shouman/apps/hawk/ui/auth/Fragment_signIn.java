@@ -98,17 +98,20 @@ public class Fragment_signIn extends Fragment {
 
         initViewModel();
 
-        initGoogleSignIn();
-
-        initFacebookSignIn();
-
-        initEmailPasswordSignIn();
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         mBinding = FragmentSignInBinding.inflate(inflater);
+
+        initGoogleSignIn();
+
+        initFacebookSignIn();
+
+        initEmailPasswordSignIn();
+
         //open forget password fragment
         mBinding.forgetPassword.setOnClickListener(v -> {
             String email = Objects.requireNonNull(mBinding.edtEmailSignIn.getText()).toString();
@@ -168,7 +171,7 @@ public class Fragment_signIn extends Fragment {
 
             @Override
             public void onCancel() {
-                Toast.makeText(getContext(), "Log in cancelled", Toast.LENGTH_SHORT).show();
+                Toast.makeText(requireContext(), "Log in cancelled", Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -287,7 +290,7 @@ public class Fragment_signIn extends Fragment {
                 firebaseAuth.addAuthStateListener(firebaseAuthListener);
 
             } else if (resultCode == RESULT_CANCELED) {
-                Toast.makeText(getContext(), "Sign up cancelled !", Toast.LENGTH_SHORT).show();
+                Toast.makeText(requireContext(), "Sign up cancelled !", Toast.LENGTH_SHORT).show();
             }
         } else {
             callbackManager.onActivityResult(requestCode, resultCode, data);
@@ -300,12 +303,12 @@ public class Fragment_signIn extends Fragment {
 
     private void showTheSigningINProgressBarLayout() {
         mBinding.signingInProgressBar.setVisibility(View.VISIBLE);
-        mBinding.signingInProgressBar.startAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.fade_in_animation));
+        mBinding.signingInProgressBar.startAnimation(AnimationUtils.loadAnimation(requireContext(), R.anim.fade_in_animation));
         mBinding.mainLayout.setAlpha(0.5f);
     }
 
     private void hideTheSigningINProgressBarLayout() {
-        mBinding.signingInProgressBar.startAnimation(AnimationUtils.loadAnimation(getContext(), android.R.anim.fade_out));
+        mBinding.signingInProgressBar.startAnimation(AnimationUtils.loadAnimation(requireContext(), android.R.anim.fade_out));
         mBinding.signingInProgressBar.setVisibility(View.GONE);
         mBinding.mainLayout.setAlpha(1.0f);
     }

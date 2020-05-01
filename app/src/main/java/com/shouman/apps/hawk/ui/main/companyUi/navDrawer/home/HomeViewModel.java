@@ -1,4 +1,4 @@
-package com.shouman.apps.hawk.ui.main.companyUi.all_sales_members;
+package com.shouman.apps.hawk.ui.main.companyUi.navDrawer.home;
 
 import android.app.Application;
 
@@ -16,11 +16,11 @@ import com.shouman.apps.hawk.utils.AppExecutors;
 import java.util.HashMap;
 import java.util.Map;
 
-public class AllSalesMembersViewModel extends AndroidViewModel {
+public class HomeViewModel extends AndroidViewModel {
 
     private MediatorLiveData<Map<String, Map<String, SalesListItem>>> allSalesMembersMediatorLiveData;
 
-    public AllSalesMembersViewModel(@NonNull Application application) {
+    public HomeViewModel(@NonNull Application application) {
         super(application);
         FirebaseQueryLiveData firebaseQueryLiveData = new FirebaseQueryLiveData(
                 FirebaseCompanyRepo

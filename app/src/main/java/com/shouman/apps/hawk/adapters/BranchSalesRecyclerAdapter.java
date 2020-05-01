@@ -23,9 +23,12 @@ public class BranchSalesRecyclerAdapter extends RecyclerView.Adapter<BranchSales
     private Context mContext;
     private List<String> branchNames;
     private Map<String, Map<String, SalesListItem>> branch_salesMembers_map;
+    private RecyclerView.RecycledViewPool viewPool;
+
 
     public BranchSalesRecyclerAdapter(Context context) {
         this.mContext = context;
+        viewPool = new RecyclerView.RecycledViewPool();
     }
 
     public void setBranch_salesMembers_map(Map<String, Map<String, SalesListItem>> branch_salesMembers_map) {
@@ -49,6 +52,7 @@ public class BranchSalesRecyclerAdapter extends RecyclerView.Adapter<BranchSales
         String branchDetails = branchNames.get(position);
         String branchName = branchDetails.substring(branchDetails.indexOf(", ") + 2);
         holder.mBinding.branchName.setText(branchName);
+        holder.mBinding.childRecView.setRecycledViewPool(viewPool);
         holder.mBinding.setSaleMembers(branch_salesMembers_map.get(branchDetails));
         holder.mBinding.setBranchDetails(branchDetails);
     }
