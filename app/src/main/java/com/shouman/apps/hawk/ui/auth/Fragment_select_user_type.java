@@ -16,12 +16,13 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.ui.NavigationUI;
+import androidx.navigation.Navigation;
 
 import com.shouman.apps.hawk.R;
 import com.shouman.apps.hawk.common.Common;
 import com.shouman.apps.hawk.data.model.User;
 import com.shouman.apps.hawk.databinding.FragmentSelectUserTypeBinding;
+import com.shouman.apps.hawk.preferences.UserPreference;
 
 import java.util.Objects;
 
@@ -57,13 +58,29 @@ public class Fragment_select_user_type extends Fragment {
 
         initViewModel();
 
+    }
+
+
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+
+        mBinding = FragmentSelectUserTypeBinding.inflate(inflater);
+
         getTheUserObjectFromViewModel();
 
+        initDropdown();
 
+        initConfirmButton();
+
+        return mBinding.getRoot();
+    }
+
+    private void getDynamicLinkDataIfExist() {
         if (getHostActivity().dynamicLinkData != null) {
-            mainUser.setUn(getHostActivity().dynamicLinkData[0]);
             mainUser.setCuid(getHostActivity().dynamicLinkData[1]);
             mainUser.setBuid(getHostActivity().dynamicLinkData[2]);
+            mainUser.setUn(getHostActivity().dynamicLinkData[3]);
             mainUser.setStatus(true);
             mainUser.setUt("sales_account");
 
@@ -75,27 +92,15 @@ public class Fragment_select_user_type extends Fragment {
         }
     }
 
-
-
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-
-        mBinding = FragmentSelectUserTypeBinding.inflate(inflater);
-
-        initDropdown();
-
-        initConfirmButton();
-
-        return mBinding.getRoot();
-    }
-
     private void initViewModel() {
         authViewModel = new ViewModelProvider(getHostActivity()).get(AuthViewModel.class);
     }
 
     private void getTheUserObjectFromViewModel() {
-        authViewModel.getUserMediatorLiveData().observe(getViewLifecycleOwner(), user -> mainUser = user);
+        authViewModel.getUserMediatorLiveData().observe(getViewLifecycleOwner(), user -> {
+            mainUser = user;
+            getDynamicLinkDataIfExist();
+        });
     }
 
     private void initDropdown() {
@@ -186,7 +191,9 @@ public class Fragment_select_user_type extends Fragment {
     }
 
     private void navigateToHome() {
-        //navigate to the main activity
+        Navigation.findNavController(mBinding.btnConfirmInfo).navigate(R.id.action_fragment_select_user_type_to_mainActivity);
+        UserPreference.setCompanyUID(requireContext(), mainUser.getCuid());
+        UserPreference.setCompanyName(requireContext(), mainUser.getCn());
     }
 
     private StartingActivity getHostActivity() {

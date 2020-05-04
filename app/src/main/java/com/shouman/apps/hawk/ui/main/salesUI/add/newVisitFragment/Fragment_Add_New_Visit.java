@@ -163,7 +163,7 @@ public class Fragment_Add_New_Visit extends Fragment {
             public void onChanged(BiMap<String, String> customerKeyValueMap) {
                 customersMap = customerKeyValueMap;
                 customersData = new ArrayList<>(customerKeyValueMap.values());
-                customersAdapter = new CustomersDropDownArrayAdapter(Objects.requireNonNull(getContext()), customersData);
+                customersAdapter = new CustomersDropDownArrayAdapter(requireContext(), customersData);
                 mBinding.filledExposedDropdown.setAdapter(customersAdapter);
             }
         });

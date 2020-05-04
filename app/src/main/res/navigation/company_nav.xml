@@ -7,36 +7,60 @@
 
     <fragment
         android:id="@+id/fragment_home"
-        android:name="com.shouman.apps.hawk.ui.main.companyUi.navDrawer.home.Fragment_home"
-        android:label="Fragment_Home"
-        tools:layout="@layout/fragment_home" />
+        android:name="com.shouman.apps.hawk.ui.main.companyUI.navDrawer.home.Fragment_home"
+        android:label="Home"
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_fragment_home_to_fragment_add_new_branch"
+            app:destination="@id/fragment_add_new_branch"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right" />
+        <action
+            android:id="@+id/action_fragment_home_to_fragment_new_salesman"
+            app:destination="@id/fragment_new_salesman"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right" />
+    </fragment>
     <fragment
         android:id="@+id/fragment_customers"
-        android:name="com.shouman.apps.hawk.ui.main.companyUi.navDrawer.customers.Fragment_customers"
-        android:label="fragment_all_customers"
+        android:name="com.shouman.apps.hawk.ui.main.companyUI.navDrawer.customers.Fragment_customers"
+        android:label="Customers"
         tools:layout="@layout/fragment_customers" />
     <fragment
         android:id="@+id/fragment_notification"
-        android:name="com.shouman.apps.hawk.ui.main.companyUi.navDrawer.notification.Fragment_notification"
-        android:label="fragment_notification"
+        android:name="com.shouman.apps.hawk.ui.main.companyUI.navDrawer.notification.Fragment_notification"
+        android:label="Notifications"
         tools:layout="@layout/fragment_notification" />
     <fragment
         android:id="@+id/fragment_reports"
-        android:name="com.shouman.apps.hawk.ui.main.companyUi.navDrawer.reports.Fragment_reports"
-        android:label="fragment_reports"
+        android:name="com.shouman.apps.hawk.ui.main.companyUI.navDrawer.reports.Fragment_reports"
+        android:label="Reports"
         tools:layout="@layout/fragment_reports" />
     <fragment
         android:id="@+id/fragment_profile"
-        android:name="com.shouman.apps.hawk.ui.main.companyUi.navDrawer.profile.Fragment_profile"
-        android:label="Fragment_profile" />
+        android:name="com.shouman.apps.hawk.ui.main.companyUI.navDrawer.profile.Fragment_profile"
+        android:label="Profile" />
     <fragment
         android:id="@+id/fragment_settings"
-        android:name="com.shouman.apps.hawk.ui.main.companyUi.navDrawer.settings.Fragment_settings"
-        android:label="fragment_settings"
+        android:name="com.shouman.apps.hawk.ui.main.companyUI.navDrawer.settings.Fragment_settings"
+        android:label="Settings"
         tools:layout="@layout/fragment_settings" />
     <fragment
         android:id="@+id/fragment_terms_condition"
-        android:name="com.shouman.apps.hawk.ui.main.companyUi.navDrawer.termsAndCondition.Fragment_terms_condition"
-        android:label="fragment_terms_condition"
+        android:name="com.shouman.apps.hawk.ui.main.companyUI.navDrawer.termsAndCondition.Fragment_terms_condition"
+        android:label="Terms And Condition"
         tools:layout="@layout/fragment_terms_condition" />
+    <fragment
+        android:id="@+id/fragment_add_new_branch"
+        android:name="com.shouman.apps.hawk.ui.main.companyUI.navDrawer.home.add_new_branch.Fragment_add_new_branch"
+        android:label="" />
+    <fragment
+        android:id="@+id/fragment_new_salesman"
+        android:name="com.shouman.apps.hawk.ui.main.companyUI.navDrawer.home.add_new_salesman.Fragment_new_salesman"
+        android:label=""
+        tools:layout="@layout/fragment_add_new_salesman" />
 </navigation>

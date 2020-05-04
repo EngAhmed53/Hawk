@@ -5,7 +5,7 @@
 
     <data>
 
-        <import type="com.shouman.apps.hawk.ui.main.companyUi.IMainClickHandler" />
+        <import type="com.shouman.apps.hawk.ui.main.companyUI.IMainClickHandler" />
 
         <variable
             name="salesUID"

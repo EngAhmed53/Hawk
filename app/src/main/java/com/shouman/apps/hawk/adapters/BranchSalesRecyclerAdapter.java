@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.shouman.apps.hawk.R;
@@ -25,7 +26,6 @@ public class BranchSalesRecyclerAdapter extends RecyclerView.Adapter<BranchSales
     private Map<String, Map<String, SalesListItem>> branch_salesMembers_map;
     private RecyclerView.RecycledViewPool viewPool;
 
-
     public BranchSalesRecyclerAdapter(Context context) {
         this.mContext = context;
         viewPool = new RecyclerView.RecycledViewPool();
@@ -34,7 +34,6 @@ public class BranchSalesRecyclerAdapter extends RecyclerView.Adapter<BranchSales
     public void setBranch_salesMembers_map(Map<String, Map<String, SalesListItem>> branch_salesMembers_map) {
         this.branch_salesMembers_map = branch_salesMembers_map;
         this.branchNames = new ArrayList<>(branch_salesMembers_map.keySet());
-        Log.e("adapter", "setBranch_salesMembers_map: " + branchNames.toString());
         notifyDataSetChanged();
     }
 

@@ -14,7 +14,7 @@ import com.shouman.apps.hawk.R;
 import com.shouman.apps.hawk.data.model.DailyLogEntry;
 import com.shouman.apps.hawk.databinding.CustomersListItemLayoutBinding;
 import com.shouman.apps.hawk.ui.main.OnCustomerItemClickHandler;
-import com.shouman.apps.hawk.ui.main.companyUi.IMainClickHandler;
+import com.shouman.apps.hawk.ui.main.companyUI.IMainClickHandler;
 import com.shouman.apps.hawk.ui.main.salesUI.main.home.IMain2ClickHandler;
 
 import java.text.DateFormat;

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MotionScene xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <Transition
+        app:constraintSetEnd="@layout/fragment_company_profile_end"
+        app:constraintSetStart="@layout/fragment_company_profile"
+        app:duration="1000"
+        app:motionInterpolator="bounce">
+
+        <OnSwipe
+            app:dragDirection="dragUp"
+            app:touchAnchorId="@id/info_frame"
+            app:touchAnchorSide="top" />
+
+    </Transition>
+
+    <Transition
+        app:constraintSetEnd="@layout/fragment_company_profile_end"
+        app:constraintSetStart="@layout/fragment_company_profile"
+        app:duration="1000"
+        app:motionInterpolator="bounce">
+
+        <OnSwipe
+            app:dragDirection="dragUp"
+            app:touchAnchorId="@id/user_name_txt"
+            app:touchAnchorSide="top" />
+
+    </Transition>
+
+    <Transition
+        app:constraintSetEnd="@layout/fragment_company_profile_end"
+        app:constraintSetStart="@layout/fragment_company_profile"
+        app:duration="1000"
+        app:motionInterpolator="bounce">
+
+        <OnSwipe
+            app:dragDirection="dragUp"
+            app:touchAnchorId="@id/user_email_txt"
+            app:touchAnchorSide="top" />
+
+    </Transition>
+
+    <Transition
+        app:constraintSetEnd="@layout/fragment_company_profile_end"
+        app:constraintSetStart="@layout/fragment_company_profile"
+        app:duration="1000"
+        app:motionInterpolator="bounce">
+
+        <OnSwipe
+            app:dragDirection="dragUp"
+            app:touchAnchorId="@id/user_company_name_txt"
+            app:touchAnchorSide="top" />
+
+    </Transition>
+</MotionScene>

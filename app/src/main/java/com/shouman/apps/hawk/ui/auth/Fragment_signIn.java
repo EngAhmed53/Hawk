@@ -34,6 +34,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.shouman.apps.hawk.R;
 import com.shouman.apps.hawk.data.model.User;
 import com.shouman.apps.hawk.databinding.FragmentSignInBinding;
+import com.shouman.apps.hawk.preferences.UserPreference;
 
 import java.util.Collections;
 import java.util.Objects;
@@ -73,7 +74,19 @@ public class Fragment_signIn extends Fragment {
     };
 
     private void showMainActivity(User user) {
-        Toast.makeText(requireContext(), "user logged in", Toast.LENGTH_SHORT).show();
+        String userType = user.getUt();
+
+        if(userType.equals("company_account")) {
+            Navigation.findNavController(mBinding.logoImage).navigate(R.id.action_fragment_signIn_to_mainActivity);
+            UserPreference.setCompanyUID(requireContext(), user.getCuid());
+            UserPreference.setCompanyName(requireContext(), user.getCn());
+        } else if (userType.equals("sales_account")){
+            //Navigation.findNavController(mBinding.appNameText).navigate(R.id.action_fragment_Splash_Screen_to_company_nav);
+            UserPreference.setBranchUID(requireContext(), user.getBuid());
+            UserPreference.setCompanyUID(requireContext(), user.getCuid());
+            UserPreference.setCompanyName(requireContext(), user.getCn());
+            UserPreference.setSalesmanStatus(requireContext(), user.isStatus());
+        }
     }
 
     private void navigateToSelectUserType() {

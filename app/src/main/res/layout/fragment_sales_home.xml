@@ -72,7 +72,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white2"
-                tools:context=".ui.main.companyUi.all_branches.Fragment_all_branches">
+                tools:context=".ui.main.companyUI.all_branches.Fragment_all_branches">
 
 
                 <com.github.mikephil.charting.charts.LineChart

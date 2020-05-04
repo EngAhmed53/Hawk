@@ -19,7 +19,7 @@ import com.shouman.apps.hawk.R;
 import com.shouman.apps.hawk.adapters.AllCustomersRecyclerViewAdapter;
 import com.shouman.apps.hawk.databinding.ActivityAllCustomersBinding;
 import com.shouman.apps.hawk.ui.main.OnCustomerItemClickHandler;
-import com.shouman.apps.hawk.ui.main.companyUi.customers.customerInfo.Fragment_customers_info;
+import com.shouman.apps.hawk.ui.main.companyUI.customers.customerInfo.Fragment_customers_info;
 
 import java.util.Map;
 import java.util.Objects;

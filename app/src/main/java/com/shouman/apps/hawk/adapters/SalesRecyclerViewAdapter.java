@@ -20,7 +20,7 @@ import com.shouman.apps.hawk.R;
 import com.shouman.apps.hawk.common.Common;
 import com.shouman.apps.hawk.data.model.SalesListItem;
 import com.shouman.apps.hawk.databinding.SalesListItemLayoutBinding;
-import com.shouman.apps.hawk.ui.main.companyUi.IMainClickHandler;
+import com.shouman.apps.hawk.ui.main.companyUI.IMainClickHandler;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +37,7 @@ public class SalesRecyclerViewAdapter extends RecyclerView.Adapter<SalesRecycler
 
     public SalesRecyclerViewAdapter(Context mContext, String branchDetails) {
         this.mContext = mContext;
-        iMainClickHandler = (IMainClickHandler) mContext;
+        //iMainClickHandler = (IMainClickHandler) mContext;
         this.mBranchDetails = branchDetails;
     }
 

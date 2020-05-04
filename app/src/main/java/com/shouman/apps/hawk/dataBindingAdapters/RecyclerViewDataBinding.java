@@ -1,18 +1,14 @@
 package com.shouman.apps.hawk.dataBindingAdapters;
 
-import android.content.Context;
-import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 
 import androidx.databinding.BindingAdapter;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.shouman.apps.hawk.R;
 import com.shouman.apps.hawk.adapters.AllCustomersRecyclerViewAdapter;
-import com.shouman.apps.hawk.adapters.BranchRecyclerViewAdapter;
 import com.shouman.apps.hawk.adapters.BranchSalesRecyclerAdapter;
 import com.shouman.apps.hawk.adapters.CustomersLogRecyclerViewAdapter;
 import com.shouman.apps.hawk.adapters.DaysRecyclerViewAdapter;
@@ -22,7 +18,6 @@ import com.shouman.apps.hawk.data.model.DailyLogEntry;
 import com.shouman.apps.hawk.data.model.SalesListItem;
 import com.shouman.apps.hawk.data.model.Visit;
 
-import java.lang.ref.WeakReference;
 import java.util.List;
 import java.util.Map;
 
@@ -30,38 +25,21 @@ public class RecyclerViewDataBinding {
     private static final String TAG = "RecyclerViewDataBinding";
 
 
-    @BindingAdapter("setBranchesMap")
-    public static void setRecyclerViewMap(RecyclerView view, Map<String, String> branches) {
-
-        if (branches == null) {
-            Log.e(TAG, "setB: " + "branches list is null");
-            return;
-        }
-        if (view.getLayoutManager() == null) {
-            view.setLayoutManager(new GridLayoutManager(view.getContext(), 3));
-            view.setHasFixedSize(true);
-        }
-        if (view.getAdapter() == null) {
-            BranchRecyclerViewAdapter adapter = new BranchRecyclerViewAdapter(view.getContext());
-            adapter.setBranchesMap(branches);
-            view.setAdapter(adapter);
-        } else {
-            ((BranchRecyclerViewAdapter) view.getAdapter()).setBranchesMap(branches);
-        }
-    }
-
     @BindingAdapter({"setSalesMap", "branchName"})
-    public static void setSalesRecyclerViewMap(RecyclerView view, Map<String, SalesListItem> salesList, String branchName) {
+    public static void setSalesRecyclerViewMap(RecyclerView view, Map<String, SalesListItem> salesList, String branchDetails) {
 
         if (salesList == null) {
             return;
         }
         if (view.getLayoutManager() == null) {
-            view.setLayoutManager(new LinearLayoutManager(view.getContext(), LinearLayoutManager.VERTICAL, false));
+            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(view.getContext(), LinearLayoutManager.VERTICAL, false);
+            linearLayoutManager.setInitialPrefetchItemCount(10);
             view.setHasFixedSize(true);
+            view.setLayoutManager(linearLayoutManager);
         }
+
         if (view.getAdapter() == null) {
-            SalesRecyclerViewAdapter adapter = new SalesRecyclerViewAdapter(view.getContext(), branchName);
+            SalesRecyclerViewAdapter adapter = new SalesRecyclerViewAdapter(view.getContext(), branchDetails);
             adapter.setSalesMap(salesList);
             view.setAdapter(adapter);
         } else {
@@ -101,26 +79,18 @@ public class RecyclerViewDataBinding {
 
     @BindingAdapter("setLogList")
     public static void setLogList(RecyclerView view, List<DailyLogEntry> logEntries) {
-        WeakReference<Context> contextWeakReference;
-        if (view != null) {
-            contextWeakReference = new WeakReference<>(view.getContext());
-        } else {
-            return;
-        }
         if (logEntries == null) {
             return;
         }
-        if (view.getLayoutManager() == null) {
-            view.setLayoutManager(new LinearLayoutManager(contextWeakReference.get(), LinearLayoutManager.VERTICAL, false));
-            view.setHasFixedSize(true);
-        }
+
+        view.setHasFixedSize(true);
+
         if (view.getAdapter() == null) {
-            CustomersLogRecyclerViewAdapter adapter = new CustomersLogRecyclerViewAdapter(contextWeakReference.get());
+            CustomersLogRecyclerViewAdapter adapter = new CustomersLogRecyclerViewAdapter(view.getContext());
             adapter.setLogEntriesList(logEntries);
             view.setAdapter(adapter);
         } else {
             ((CustomersLogRecyclerViewAdapter) view.getAdapter()).setLogEntriesList(logEntries);
-
         }
     }
 

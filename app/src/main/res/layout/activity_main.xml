@@ -9,20 +9,20 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fitsSystemWindows="true"
-        tools:openDrawer="end">
+        tools:openDrawer="start">
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <com.google.android.material.appbar.MaterialToolbar
+            <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:background="@color/colorPrimary"
+                android:translationZ="8dp"
                 android:elevation="4dp"
-                android:theme="@style/Widget.MaterialComponents.Toolbar.Surface"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -75,10 +75,11 @@
                         android:drawablePadding="16dp"
                         android:gravity="center_vertical"
                         android:padding="8dp"
+                        android:layout_marginTop="24dp"
                         android:text="@string/app_name"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Large"
                         android:textColor="@color/gray1"
-                        android:textStyle="bold" />
+                        android:fontFamily="sans-serif-medium" />
 
 
                     <View
@@ -99,6 +100,7 @@
                         android:drawablePadding="16dp"
                         android:focusable="true"
                         android:gravity="center_vertical"
+                        android:onClick="onNavigationItemSelected"
                         android:padding="16dp"
                         android:text="@string/home"
                         android:textAppearance="@style/TextAppearance.AppCompat.Small"
@@ -116,6 +118,7 @@
                         android:drawablePadding="16dp"
                         android:focusable="true"
                         android:gravity="center_vertical"
+                        android:onClick="onNavigationItemSelected"
                         android:padding="16dp"
                         android:text="@string/personal_page"
                         android:textAppearance="@style/TextAppearance.AppCompat.Small"
@@ -133,6 +136,7 @@
                         android:drawablePadding="16dp"
                         android:focusable="true"
                         android:gravity="center_vertical"
+                        android:onClick="onNavigationItemSelected"
                         android:padding="16dp"
                         android:text="@string/all_customers"
                         android:textAppearance="@style/TextAppearance.AppCompat.Small"
@@ -151,6 +155,7 @@
                         android:drawablePadding="16dp"
                         android:focusable="true"
                         android:gravity="center_vertical"
+                        android:onClick="onNavigationItemSelected"
                         android:padding="16dp"
                         android:text="@string/company_notification"
                         android:textAppearance="@style/TextAppearance.AppCompat.Small"
@@ -168,6 +173,7 @@
                         android:drawablePadding="16dp"
                         android:focusable="true"
                         android:gravity="center_vertical"
+                        android:onClick="onNavigationItemSelected"
                         android:padding="16dp"
                         android:text="@string/reports_title"
                         android:textAppearance="@style/TextAppearance.AppCompat.Small"
@@ -194,6 +200,7 @@
                         android:drawablePadding="16dp"
                         android:focusable="true"
                         android:gravity="center_vertical"
+                        android:onClick="onNavigationItemSelected"
                         android:padding="16dp"
                         android:text="@string/settings"
                         android:textAppearance="@style/TextAppearance.AppCompat.Small"
@@ -211,6 +218,7 @@
                         android:drawablePadding="16dp"
                         android:focusable="true"
                         android:gravity="center_vertical"
+                        android:onClick="onNavigationItemSelected"
                         android:padding="16dp"
                         android:text="@string/terms_and_condition"
                         android:textAppearance="@style/TextAppearance.AppCompat.Small"
@@ -223,12 +231,13 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_gravity="center_vertical"
-                        android:background="@drawable/nav_selector"
+                        android:background="?attr/selectableItemBackgroundBorderless"
                         android:clickable="true"
                         android:drawableStart="@drawable/ic_logout"
                         android:drawablePadding="16dp"
                         android:focusable="true"
                         android:gravity="center_vertical"
+                        android:onClick="onNavigationItemSelected"
                         android:padding="16dp"
                         android:text="@string/sign_out"
                         android:textAppearance="@style/TextAppearance.AppCompat.Small"
@@ -239,6 +248,4 @@
             </androidx.core.widget.NestedScrollView>
         </com.google.android.material.navigation.NavigationView>
     </androidx.drawerlayout.widget.DrawerLayout>
-
-
 </layout>

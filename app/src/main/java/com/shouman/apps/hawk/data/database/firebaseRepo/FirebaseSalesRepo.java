@@ -127,13 +127,14 @@ public class FirebaseSalesRepo {
         DatabaseReference companySalesTeamReference = companyReference.child("ST");
 
         //add this new member to its branch
-        Map<String, Object> newBranchSalesMember = new HashMap<>();
-        newBranchSalesMember.put(userUID, mainUser.getUn());
-        branchSalesMembersListReference.updateChildren(newBranchSalesMember);
+        Map<String, Object> newSalesman = new HashMap<>();
+        newSalesman.put("name", mainUser.getUn());
+        newSalesman.put("status", mainUser.isStatus());
+        branchSalesMembersListReference.child(userUID).updateChildren(newSalesman);
 
         //add this new member to the company sales team in the root
         Map<String, Object> newCompanySalesMember = new HashMap<>();
-        newBranchSalesMember.put(userUID, null);
+        newCompanySalesMember.put(userUID, null);
         companySalesTeamReference.updateChildren(newCompanySalesMember);
     }
 

@@ -16,7 +16,6 @@ import java.util.Arrays;
 public class StartingActivity extends AppCompatActivity {
 
     private static final String TAG = "StartingActivity";
-    private AuthViewModel authViewModel;
     public String[] dynamicLinkData = null;
 
     @Override
@@ -29,9 +28,6 @@ public class StartingActivity extends AppCompatActivity {
         DataBindingUtil.setContentView(this, R.layout.activity_starting);
 
         initViewModel();
-
-        authViewModel.setupMediatorLiveData();
-
     }
 
     private void handelDynamicLink() {
@@ -55,7 +51,7 @@ public class StartingActivity extends AppCompatActivity {
     }
 
     private void initViewModel() {
-        authViewModel = new ViewModelProvider(StartingActivity.this).get(AuthViewModel.class);
+        AuthViewModel authViewModel = new ViewModelProvider(StartingActivity.this).get(AuthViewModel.class);
         authViewModel.setupMediatorLiveData();
     }
 

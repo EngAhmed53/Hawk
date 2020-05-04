@@ -63,7 +63,7 @@
     <string name="open_branch_details">تفاصيل الفرع</string>
     <string name="branch_name">اسم الفرع</string>
     <string name="type_your_new_branch_name_and_then_press_add_button">اكتب اسم الفرع ثم اضغط علي اضافة فرع جديد</string>
-    <string name="add_new_branch">اضافة فرع جديد</string>
+    <string name="add_new_branch">فرع جديد</string>
     <string name="branches_list">قائمة الافرع</string>
     <string name="sales_member_list">المناديب</string>
     <string name="customers_log">سجل العملاء</string>
@@ -153,5 +153,9 @@
     <string name="sales_member_delete_failed_msg">You can\'t delete any sales member that has one or more customers, you should move or delete any customer belong to this sales member before deletion process</string>
     <string name="invitation_request">Please ask your supervisor or your manager for the invitation link, we need this invitation link in order to connect you with the company profile.</string>
     <string name="all_customers">Customers</string>
+    <string name="add_salesman">Add Salesman</string>
+    <string name="share_invitation_link">Share Invitation Link</string>
+    <string name="new_salesman_header">New Salesman</string>
+    <string name="type_the_salesman_info">Type the salesman name, select the branch that he belong\'s to, the send him the invitation link.</string>
 
 </resources>

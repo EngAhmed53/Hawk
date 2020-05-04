@@ -1,6 +1,5 @@
 package com.shouman.apps.hawk.ui.auth;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -20,6 +19,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.shouman.apps.hawk.R;
 import com.shouman.apps.hawk.data.model.User;
 import com.shouman.apps.hawk.databinding.FragmentSplashScreenBinding;
+import com.shouman.apps.hawk.preferences.UserPreference;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -88,7 +88,19 @@ public class Fragment_Splash_Screen extends Fragment {
     private void showMainActivity(User user) {
         String userType = user.getUt();
 
-        Intent intent = null;
+        if (userType.equals("company_account")) {
+            Navigation.findNavController(mBinding.appNameText).navigate(R.id.action_fragment_Splash_Screen_to_mainActivity);
+            Log.e(TAG, "showMainActivity: to company");
+            UserPreference.setCompanyUID(requireContext(), user.getCuid());
+            UserPreference.setCompanyName(requireContext(), user.getCn());
+        } else if (userType.equals("sales_account")) {
+            Navigation.findNavController(mBinding.appNameText).navigate(R.id.action_fragment_Splash_Screen_to_mainActivity);
+            UserPreference.setBranchUID(requireContext(), user.getBuid());
+            UserPreference.setCompanyUID(requireContext(), user.getCuid());
+            UserPreference.setCompanyName(requireContext(), user.getCn());
+            UserPreference.setSalesmanStatus(requireContext(), user.isStatus());
+        }
+        requireActivity().finish();
 
 //        if (userType.equals("company_account")) {
 //            intent = new Intent(requireContext(), MainActivity.class);

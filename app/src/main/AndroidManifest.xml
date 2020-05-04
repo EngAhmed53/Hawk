@@ -4,10 +4,7 @@
     package="com.shouman.apps.hawk">
     <!-- internet permission -->
     <uses-permission android:name="android.permission.INTERNET" /> <!-- location permission -->
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" /> <!-- camera permission -->
-    <uses-permission android:name="android.permission.CAMERA" /> <!-- vibration permission -->
-    <uses-permission android:name="android.permission.VIBRATE" />
-
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <application
         android:name=".application.HAWKApplication"
         android:allowBackup="true"
@@ -16,7 +13,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.main.companyUi.navDrawer.MainActivity" android:theme="@style/no_action_bar"/>
+        <activity android:name=".ui.main.companyUI.navDrawer.MainActivity" android:theme="@style/no_action_bar.transparentStatusBar"/>
         <activity
             android:name=".ui.main.salesUI.main.allCustomersPage.AllCustomersActivity"
             android:theme="@style/no_action_bar" />
@@ -48,9 +45,6 @@
                     android:scheme="https"/>
             </intent-filter>
         </activity>
-        <activity
-            android:name=".ui.main.companyUi.ContainerActivity"
-            android:theme="@style/no_action_bar" />
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"

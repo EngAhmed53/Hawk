@@ -75,8 +75,8 @@
     <string name="chart_label">Last 7 Days Total Customers Counter For All Branches</string>
     <string name="open_branch_details">open branch details</string>
     <string name="branch_name">Branch Name</string>
-    <string name="type_your_new_branch_name_and_then_press_add_button">Type your new branch name and then press add button</string>
-    <string name="add_new_branch">Add new branch</string>
+    <string name="type_your_new_branch_name_and_then_press_add_button">Type your new branch name and then press add button.</string>
+    <string name="add_new_branch">New Branch</string>
     <string name="branches_list">Branches List</string>
     <string name="sales_member_list">Sales members</string>
     <string name="customers_log">Customers Log</string>
@@ -160,7 +160,7 @@
     <string name="move_to">Move To</string>
     <string name="delete">Delete</string>
     <string name="disable">Disable</string>
-    <string name="choose_branch">Choose new branch</string>
+    <string name="choose_branch">Choose Branch</string>
     <string name="move">Move</string>
     <string name="move_sales_member_to_another_branch">Move %1$s to :</string>
     <string name="check_mark">check mark</string>
@@ -178,5 +178,9 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="add_salesman">Add Salesman</string>
+    <string name="share_invitation_link">Share Invitation Link</string>
+    <string name="new_salesman_header">New Salesman</string>
+    <string name="type_the_salesman_info">Type the salesman name, select the branch that he belong\'s to, the send him the invitation link.</string>
 
 </resources>
