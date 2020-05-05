@@ -20,128 +20,213 @@
 
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/parent_layout"
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
-        android:layout_marginTop="8dp"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/white">
-
-
-        <TextView
-            android:id="@+id/branch_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
-            android:gravity="center"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Button"
-            android:textColor="@color/black"
-            app:layout_constraintBottom_toTopOf="@+id/child_rec_view"
-            app:layout_constraintEnd_toStartOf="@+id/info"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintHorizontal_chainStyle="packed"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0"
-            app:layout_constraintVertical_chainStyle="packed"
-            tools:text="Main Branch" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/child_rec_view"
+        app:cardCornerRadius="8dp"
+        android:layout_height="wrap_content">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/parent_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:background="@android:color/transparent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/branch_name"
-            app:layout_constraintVertical_bias="0.0"
-            app:setSalesMap="@{saleMembers}"
-            app:branchName="@{branchDetails}"/>
-
-        <ImageButton
-            android:id="@+id/delete"
-            android:layout_width="42dp"
-            android:layout_height="42dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription="@string/branch_menu"
-            android:scaleType="center"
-            android:src="@drawable/ic_delete"
-            android:tint="@color/google_color"
-            app:layout_constraintBottom_toBottomOf="@+id/branch_name"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/branch_name" />
-
-        <ImageButton
-            android:id="@+id/info"
-            android:layout_width="42dp"
-            android:layout_height="42dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription="@string/branch_menu"
-            android:scaleType="center"
-            android:tint="@color/facebook_color"
-            android:src="@drawable/ic_info"
-            app:layout_constraintBottom_toBottomOf="@+id/branch_name"
-            app:layout_constraintEnd_toStartOf="@id/delete"
-            app:layout_constraintTop_toTopOf="@+id/branch_name" />
-
-        <!--        <androidx.constraintlayout.widget.ConstraintLayout-->
-        <!--            android:id="@+id/sales_multi_select_menu"-->
-        <!--            android:layout_width="wrap_content"-->
-        <!--            android:visibility="gone"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            app:layout_constraintBottom_toBottomOf="@+id/branch_name"-->
-        <!--            app:layout_constraintEnd_toStartOf="@+id/menu"-->
-        <!--            app:layout_constraintTop_toTopOf="@+id/branch_name">-->
-
-        <!--            <ImageButton-->
-        <!--                android:id="@+id/delete"-->
-        <!--                android:layout_width="42dp"-->
-        <!--                android:layout_height="42dp"-->
-        <!--                android:background="?attr/selectableItemBackgroundBorderless"-->
-        <!--                android:contentDescription="@string/delet_sales_member"-->
-        <!--                android:scaleType="center"-->
-        <!--                android:src="@drawable/ic_quit"-->
-        <!--                app:layout_constraintBottom_toBottomOf="parent"-->
-        <!--                app:layout_constraintEnd_toStartOf="@+id/disable"-->
-        <!--                app:layout_constraintStart_toEndOf="@+id/move_to"-->
-        <!--                app:layout_constraintTop_toTopOf="parent" />-->
-
-        <!--            <ImageButton-->
-        <!--                android:id="@+id/disable"-->
-        <!--                android:layout_width="42dp"-->
-        <!--                android:layout_height="42dp"-->
-        <!--                android:background="?attr/selectableItemBackgroundBorderless"-->
-        <!--                android:contentDescription="@string/disable_sales_member"-->
-        <!--                android:scaleType="center"-->
-        <!--                android:src="@drawable/ic_cancel"-->
-        <!--                android:tint="@color/black"-->
-        <!--                app:layout_constraintBottom_toBottomOf="parent"-->
-        <!--                app:layout_constraintEnd_toEndOf="parent"-->
-        <!--                app:layout_constraintStart_toEndOf="@+id/delete"-->
-        <!--                app:layout_constraintTop_toTopOf="parent" />-->
-
-        <!--            <ImageButton-->
-        <!--                android:id="@+id/move_to"-->
-        <!--                android:layout_width="42dp"-->
-        <!--                android:layout_height="42dp"-->
-        <!--                android:background="?attr/selectableItemBackgroundBorderless"-->
-        <!--                android:contentDescription="@string/move_sales_member_to_another_branch"-->
-        <!--                android:scaleType="center"-->
-        <!--                android:src="@drawable/ic_transfer"-->
-        <!--                android:tint="@color/black"-->
-        <!--                app:layout_constraintBottom_toBottomOf="parent"-->
-        <!--                app:layout_constraintEnd_toStartOf="@+id/delete"-->
-        <!--                app:layout_constraintStart_toStartOf="parent"-->
-        <!--                app:layout_constraintTop_toTopOf="parent" />-->
-
-        <!--        </androidx.constraintlayout.widget.ConstraintLayout>-->
+            android:background="@color/black_transparent">
 
 
+            <TextView
+                android:id="@+id/branch_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:padding="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginBottom="8dp"
+                android:gravity="center"
+                android:fontFamily="sans-serif-condensed-medium"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+                android:textColor="@color/black"
+                app:layout_constraintBottom_toTopOf="@+id/child_rec_view"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0"
+                app:layout_constraintVertical_chainStyle="packed"
+                tools:text="Main Branch" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout5"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_marginEnd="16dp"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toTopOf="@+id/child_rec_view"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/branch_name"
+                app:layout_constraintTop_toBottomOf="@+id/branch_name">
+
+
+                <ImageButton
+                    android:id="@+id/info"
+                    android:layout_width="48dp"
+                    android:layout_height="0dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="@string/branch_menu"
+                    android:scaleType="center"
+                    android:src="@drawable/ic_info"
+                    android:tint="@color/old_rose"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/view5"
+                    app:layout_constraintStart_toEndOf="@id/view6"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.0" />
+
+                <ImageButton
+                    android:id="@+id/delete"
+                    android:layout_width="48dp"
+                    android:layout_height="0dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="@string/branch_menu"
+                    android:src="@drawable/ic_delete"
+                    android:tint="@color/old_rose"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/view5"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <View
+                    android:id="@+id/view5"
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="@color/gray2"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/delete"
+                    app:layout_constraintHorizontal_chainStyle="packed"
+                    app:layout_constraintStart_toEndOf="@+id/info"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.0" />
+
+                <View
+                    android:id="@+id/view6"
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="@color/gray2"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/info"
+                    app:layout_constraintStart_toEndOf="@id/customersMap"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.0" />
+
+                <ImageButton
+                    android:id="@+id/customersMap"
+                    android:layout_width="48dp"
+                    android:layout_height="0dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="@string/branch_menu"
+                    android:src="@drawable/ic_map"
+                    android:tint="@color/old_rose"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/view6"
+                    app:layout_constraintHorizontal_chainStyle="spread"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/child_rec_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                tools:listitem="@layout/sales_list_item_layout"
+                android:layout_marginBottom="8dp"
+                android:background="@android:color/transparent"
+                app:branchName="@{branchDetails}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout5"
+                app:setSalesMap="@{saleMembers}" />
+
+            <!--        <ImageButton-->
+            <!--            android:id="@+id/info"-->
+            <!--            android:layout_width="42dp"-->
+            <!--            android:layout_height="42dp"-->
+            <!--            android:background="?attr/selectableItemBackgroundBorderless"-->
+            <!--            android:contentDescription="@string/branch_menu"-->
+            <!--            android:scaleType="center"-->
+            <!--            android:tint="@color/facebook_color"-->
+            <!--            android:src="@drawable/ic_info"-->
+            <!--            app:layout_constraintBottom_toBottomOf="@+id/branch_name"-->
+            <!--            app:layout_constraintEnd_toStartOf="@id/delete"-->
+            <!--            app:layout_constraintTop_toTopOf="@+id/branch_name" />-->
+
+            <!--        <androidx.constraintlayout.widget.ConstraintLayout-->
+            <!--            android:id="@+id/sales_multi_select_menu"-->
+            <!--            android:layout_width="wrap_content"-->
+            <!--            android:visibility="gone"-->
+            <!--            android:layout_height="wrap_content"-->
+            <!--            app:layout_constraintBottom_toBottomOf="@+id/branch_name"-->
+            <!--            app:layout_constraintEnd_toStartOf="@+id/menu"-->
+            <!--            app:layout_constraintTop_toTopOf="@+id/branch_name">-->
+
+            <!--            <ImageButton-->
+            <!--                android:id="@+id/delete"-->
+            <!--                android:layout_width="42dp"-->
+            <!--                android:layout_height="42dp"-->
+            <!--                android:background="?attr/selectableItemBackgroundBorderless"-->
+            <!--                android:contentDescription="@string/delet_sales_member"-->
+            <!--                android:scaleType="center"-->
+            <!--                android:src="@drawable/ic_quit"-->
+            <!--                app:layout_constraintBottom_toBottomOf="parent"-->
+            <!--                app:layout_constraintEnd_toStartOf="@+id/disable"-->
+            <!--                app:layout_constraintStart_toEndOf="@+id/move_to"-->
+            <!--                app:layout_constraintTop_toTopOf="parent" />-->
+
+            <!--            <ImageButton-->
+            <!--                android:id="@+id/disable"-->
+            <!--                android:layout_width="42dp"-->
+            <!--                android:layout_height="42dp"-->
+            <!--                android:background="?attr/selectableItemBackgroundBorderless"-->
+            <!--                android:contentDescription="@string/disable_sales_member"-->
+            <!--                android:scaleType="center"-->
+            <!--                android:src="@drawable/ic_cancel"-->
+            <!--                android:tint="@color/black"-->
+            <!--                app:layout_constraintBottom_toBottomOf="parent"-->
+            <!--                app:layout_constraintEnd_toEndOf="parent"-->
+            <!--                app:layout_constraintStart_toEndOf="@+id/delete"-->
+            <!--                app:layout_constraintTop_toTopOf="parent" />-->
+
+            <!--            <ImageButton-->
+            <!--                android:id="@+id/move_to"-->
+            <!--                android:layout_width="42dp"-->
+            <!--                android:layout_height="42dp"-->
+            <!--                android:background="?attr/selectableItemBackgroundBorderless"-->
+            <!--                android:contentDescription="@string/move_sales_member_to_another_branch"-->
+            <!--                android:scaleType="center"-->
+            <!--                android:src="@drawable/ic_transfer"-->
+            <!--                android:tint="@color/black"-->
+            <!--                app:layout_constraintBottom_toBottomOf="parent"-->
+            <!--                app:layout_constraintEnd_toStartOf="@+id/delete"-->
+            <!--                app:layout_constraintStart_toStartOf="parent"-->
+            <!--                app:layout_constraintTop_toTopOf="parent" />-->
+
+            <!--        </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </com.google.android.material.card.MaterialCardView>
+
 </layout>

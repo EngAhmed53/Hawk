@@ -21,12 +21,14 @@
         android:id="@+id/layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/white"
+        android:background="@android:color/transparent"
+        android:backgroundTint="@android:color/transparent"
         android:clickable="true"
+        android:elevation="0dp"
         android:focusable="true"
         android:longClickable="true"
-        android:stateListAnimator="@animator/branch_list_item_anim"
         app:cardCornerRadius="0dp"
+        app:cardElevation="0dp"
         app:rippleColor="@color/white_ripple_color">
 
         <androidx.constraintlayout.widget.ConstraintLayout

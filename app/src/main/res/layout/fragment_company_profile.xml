@@ -20,31 +20,30 @@
         app:layoutDescription="@xml/company_profile_scene"
         tools:context=".ui.main.companyUI.customers.customerInfo.Fragment_customers_info">
 
-
         <TextView
             android:id="@+id/company_title_txt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="56dp"
+            android:layout_marginTop="112dp"
             android:alpha="1"
+            android:fontFamily="sans-serif-black"
             android:rotationX="0"
             android:text="@{user.cn}"
             android:textAlignment="center"
+            android:textAllCaps="true"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:textColor="@color/white"
-            android:textStyle="bold"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Ahmed Company" />
 
-
         <FrameLayout
             android:id="@+id/info_frame"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginTop="112dp"
-            android:background="@drawable/movable_layout_background"
+            android:layout_marginTop="100dp"
+            android:background="@drawable/movable_layout_white_24dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
@@ -117,6 +116,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
                     android:background="@drawable/info_item_background"
                     android:clickable="true"
                     android:drawablePadding="16dp"
@@ -124,10 +124,9 @@
                     android:fontFamily="sans-serif-medium"
                     android:gravity="center_vertical"
                     android:paddingStart="8dp"
-                    android:paddingEnd="8dp"
                     android:paddingTop="16dp"
+                    android:paddingEnd="8dp"
                     android:paddingBottom="16dp"
-                    android:layout_marginEnd="16dp"
                     android:text="@{user.e}"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                     android:textColor="@color/gray1"
@@ -154,6 +153,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
                     android:background="@drawable/info_item_background"
                     android:clickable="true"
                     android:drawablePadding="16dp"
@@ -161,15 +161,15 @@
                     android:fontFamily="sans-serif-medium"
                     android:gravity="center_vertical"
                     android:paddingStart="8dp"
-                    android:paddingBottom="16dp"
                     android:paddingTop="16dp"
                     android:paddingEnd="8dp"
-                    android:layout_marginEnd="16dp"
+                    android:paddingBottom="16dp"
                     android:text="@{user.cn}"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                     android:textColor="@color/gray1"
                     tools:text="My Company" />
             </LinearLayout>
         </FrameLayout>
+
     </androidx.constraintlayout.motion.widget.MotionLayout>
 </layout>

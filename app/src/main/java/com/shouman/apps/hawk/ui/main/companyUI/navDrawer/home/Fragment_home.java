@@ -78,6 +78,8 @@ public class Fragment_home extends Fragment {
 
     private void closeFabMenu() {
         mBinding.fabMenu.close(true);
+        mBinding.protectionLayout.startAnimation(AnimationUtils.loadAnimation(getContext(), android.R.anim.fade_out));
+        mBinding.protectionLayout.setVisibility(View.GONE);
     }
 
     @Override

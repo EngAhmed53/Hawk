@@ -34,7 +34,7 @@ public class CustomersLogRecyclerViewAdapter extends RecyclerView.Adapter<Custom
 
     public CustomersLogRecyclerViewAdapter(Context mContext) {
         this.mContext = mContext;
-        formatter = DateFormat.getTimeInstance(DateFormat.SHORT, Locale.ENGLISH);
+        formatter = DateFormat.getTimeInstance(DateFormat.SHORT, Locale.getDefault());
         calendar = Calendar.getInstance();
     }
 
@@ -65,7 +65,7 @@ public class CustomersLogRecyclerViewAdapter extends RecyclerView.Adapter<Custom
             Glide.with(mContext).load(R.drawable.ic_pin).useAnimationPool(true).into(holder.mBinding.customerImage);
         }
 
-        holder.mBinding.setCustomerUID(dailyLogEntry.getCUID());
+        //holder.mBinding.setCustomerUID(dailyLogEntry.getCUID());
 
         //set on clickHandler
         OnCustomerItemClickHandler onCustomerItemClickHandler;
@@ -79,13 +79,13 @@ public class CustomersLogRecyclerViewAdapter extends RecyclerView.Adapter<Custom
             onCustomerItemClickHandler = (IMain2ClickHandler) mContext;
 
         }
-        holder.mBinding.setOnCustomerClickListener(onCustomerItemClickHandler);
+        //holder.mBinding.setOnCustomerClickListener(onCustomerItemClickHandler);
 
         //set company name
         holder.mBinding.companyNameTxt.setText(dailyLogEntry.getCustomerCompanyName());
         //set the time
         calendar.setTimeInMillis(dailyLogEntry.getTimeMillieSeconds());
-        holder.mBinding.timeAdded.setText(formatter.format(calendar.getTime()));
+        //holder.mBinding.timeAdded.setText(formatter.format(calendar.getTime()));
     }
 
     @Override

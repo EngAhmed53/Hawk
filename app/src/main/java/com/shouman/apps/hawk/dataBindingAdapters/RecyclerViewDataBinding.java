@@ -106,10 +106,10 @@ public class RecyclerViewDataBinding {
         }
         if (view.getAdapter() == null) {
             AllCustomersRecyclerViewAdapter adapter = new AllCustomersRecyclerViewAdapter(view.getContext());
-            adapter.setCustomersMap(customersMap);
+            //adapter.setCustomersList(customersMap);
             view.setAdapter(adapter);
         } else {
-            ((AllCustomersRecyclerViewAdapter) view.getAdapter()).setCustomersMap(customersMap);
+            //((AllCustomersRecyclerViewAdapter) view.getAdapter()).setCustomersList(customersMap);
 
         }
     }

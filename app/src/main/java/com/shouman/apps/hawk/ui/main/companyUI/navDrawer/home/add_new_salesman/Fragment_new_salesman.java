@@ -164,14 +164,16 @@ public class Fragment_new_salesman extends Fragment {
     }
 
     private void animateToolbarZDown() {
+        ((MainActivity) requireActivity()).mBinding.toolbar.setBackgroundColor(requireContext().getResources().getColor(R.color.colorPrimary));
         ViewPropertyAnimator animate = ((MainActivity) requireActivity()).mBinding.toolbar.animate();
-        animate.z(0)
+        animate.z(1)
                 .setInterpolator(new DecelerateInterpolator(2.f))
                 .setDuration(500).start();
     }
 
 
     private void animateToolbarZUp() {
+        ((MainActivity) requireActivity()).mBinding.toolbar.setBackgroundColor(requireContext().getResources().getColor(R.color.black_transparent));
         ViewPropertyAnimator animate = ((MainActivity) requireActivity()).mBinding.toolbar.animate();
         animate.z(8)
                 .setInterpolator(new DecelerateInterpolator(2.f))

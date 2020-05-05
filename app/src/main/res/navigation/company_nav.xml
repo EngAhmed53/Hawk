@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/fragment_home"
         android:name="com.shouman.apps.hawk.ui.main.companyUI.navDrawer.home.Fragment_home"
-        android:label="Home"
+        android:label=""
         tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_fragment_home_to_fragment_add_new_branch"
@@ -24,11 +24,18 @@
             app:exitAnim="@android:anim/slide_out_right"
             app:popEnterAnim="@android:anim/slide_in_left"
             app:popExitAnim="@android:anim/slide_out_right" />
+        <action
+            android:id="@+id/action_fragment_home_to_fragment_branch_info"
+            app:destination="@id/fragment_branch_info"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@android:anim/fade_out" />
     </fragment>
     <fragment
         android:id="@+id/fragment_customers"
         android:name="com.shouman.apps.hawk.ui.main.companyUI.navDrawer.customers.Fragment_customers"
-        android:label="Customers"
+        android:label=""
         tools:layout="@layout/fragment_customers" />
     <fragment
         android:id="@+id/fragment_notification"
@@ -57,10 +64,38 @@
     <fragment
         android:id="@+id/fragment_add_new_branch"
         android:name="com.shouman.apps.hawk.ui.main.companyUI.navDrawer.home.add_new_branch.Fragment_add_new_branch"
-        android:label="" />
+        android:label="" >
+        <action
+            android:id="@+id/action_fragment_add_new_branch_to_fragment_home"
+            app:destination="@id/fragment_home"
+            app:popUpTo="@id/fragment_home" />
+    </fragment>
     <fragment
         android:id="@+id/fragment_new_salesman"
         android:name="com.shouman.apps.hawk.ui.main.companyUI.navDrawer.home.add_new_salesman.Fragment_new_salesman"
         android:label=""
-        tools:layout="@layout/fragment_add_new_salesman" />
+        tools:layout="@layout/fragment_add_new_salesman" >
+        <action
+            android:id="@+id/action_fragment_new_salesman_to_fragment_home"
+            app:destination="@id/fragment_home"
+            app:popUpTo="@id/fragment_home" />
+    </fragment>
+    <action
+        android:id="@+id/action_global_fragment_home"
+        app:destination="@id/fragment_home"
+        app:popUpTo="@id/company_nav"
+        app:launchSingleTop="true" />
+    <fragment
+        android:id="@+id/fragment_branch_info"
+        android:name="com.shouman.apps.hawk.ui.main.companyUI.navDrawer.home.branch_info.Fragment_branch_info"
+        android:label="Info" >
+        <argument
+            android:name="branch_name"
+            app:argType="string"
+            android:defaultValue="No Value" />
+        <action
+            android:id="@+id/action_fragment_branch_info_to_fragment_home"
+            app:destination="@id/fragment_home"
+            app:popUpTo="@id/fragment_home" />
+    </fragment>
 </navigation>

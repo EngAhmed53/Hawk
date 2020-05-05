@@ -70,7 +70,7 @@ public class Fragment_Splash_Screen extends Fragment {
         authViewModel = new ViewModelProvider(host).get(AuthViewModel.class);
 
         Handler handler = new Handler();
-        handler.postDelayed(() -> firebaseAuth.addAuthStateListener(firebaseAuthListener), 5000);
+        handler.postDelayed(() -> firebaseAuth.addAuthStateListener(firebaseAuthListener), 0);
     }
 
     @Override

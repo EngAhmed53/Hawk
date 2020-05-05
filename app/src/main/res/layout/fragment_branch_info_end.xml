@@ -3,14 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-
     <androidx.constraintlayout.motion.widget.MotionLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/colorPrimary"
         android:clickable="true"
-        app:layoutDescription="@xml/branch_info_scene"
         android:focusable="true"
+        app:layoutDescription="@xml/branch_info_scene"
         tools:context=".ui.main.companyUI.customers.customerInfo.Fragment_customers_info">
 
         <TextView
@@ -18,9 +17,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="112dp"
-            android:alpha="1"
+            android:alpha="0"
             android:fontFamily="sans-serif-black"
-            android:rotationX="0"
+            android:rotationX="90"
             android:textAlignment="center"
             android:textAllCaps="true"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
@@ -36,11 +35,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="80dp"
+            android:layout_marginTop="72dp"
             android:layout_marginBottom="8dp"
-            android:alpha="0"
+            android:alpha="1"
             android:fontFamily="sans-serif-black"
-            android:rotationX="-90"
+            android:rotationX="0"
             android:textAlignment="center"
             android:textAllCaps="true"
             android:textAppearance="@style/TextAppearance.AppCompat.Small"
@@ -49,7 +48,7 @@
             app:layout_constraintEnd_toEndOf="@+id/info_frame"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/info_frame"
-            app:layout_constraintTop_toBottomOf="@+id/branch_title_big_txt"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="1.0"
             tools:text="Ahmed Company" />
 

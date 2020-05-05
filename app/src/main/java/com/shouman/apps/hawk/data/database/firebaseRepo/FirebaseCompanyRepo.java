@@ -50,6 +50,12 @@ public class FirebaseCompanyRepo {
         return companiesReference.child(companyUID).child("BList");
     }
 
+
+    synchronized public DatabaseReference getCompanyCustomersReference(Context context) {
+        String companyUID = UserPreference.getCompanyUID(context);
+        return companiesReference.child(companyUID).child("C");
+    }
+
     synchronized public DatabaseReference getCompanyBranchesDetailsReference(Context context) {
         String companyUID = UserPreference.getCompanyUID(context);
         return companiesReference.child(companyUID).child("B");
@@ -99,7 +105,7 @@ public class FirebaseCompanyRepo {
         return usersReference.child(userUID);
     }
 
-    synchronized public void addNewCompanyToDatabase(String cUID) {
+    synchronized void addNewCompanyToDatabase(String cUID) {
         companiesReference.child(cUID).setValue(null);
     }
 
@@ -178,12 +184,7 @@ public class FirebaseCompanyRepo {
                     usersReference.child(salesUID).removeValue();
 
                     //notify the delete is success
-                    AppExecutors.getsInstance().getMainThread().execute(new Runnable() {
-                        @Override
-                        public void run() {
-                            onSalesMemberDeleteAction.onDeleteSuccess();
-                        }
-                    });
+                    AppExecutors.getsInstance().getMainThread().execute(onSalesMemberDeleteAction::onDeleteSuccess);
                 }
             }
 

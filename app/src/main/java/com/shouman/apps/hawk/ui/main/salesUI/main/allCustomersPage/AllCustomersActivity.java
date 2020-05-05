@@ -49,7 +49,7 @@ public class AllCustomersActivity extends AppCompatActivity implements OnCustome
     private void initToolbar() {
         setSupportActionBar(mBinding.toolbar);
         Objects.requireNonNull(getSupportActionBar()).setTitle("All Customers");
-        mBinding.toolbar.inflateMenu(R.menu.all_customers_search_bar);
+        mBinding.toolbar.inflateMenu(R.menu.all_customers_menu);
         mBinding.toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -93,7 +93,7 @@ public class AllCustomersActivity extends AppCompatActivity implements OnCustome
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        new MenuInflater(this).inflate(R.menu.all_customers_search_bar, menu);
+        new MenuInflater(this).inflate(R.menu.all_customers_menu, menu);
         MenuItem menuItem = menu.findItem(R.id.action_search);
         SearchView searchView = (SearchView) menuItem.getActionView();
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {

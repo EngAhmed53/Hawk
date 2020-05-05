@@ -1,7 +1,6 @@
 package com.shouman.apps.hawk.ui.auth;
 
 
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,8 +11,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.firebase.auth.FirebaseAuth;
 import com.shouman.apps.hawk.R;
@@ -29,6 +26,7 @@ public class Fragment_Forget_Password extends Fragment {
     private FragmentForgetPasswordBinding mBinding;
     private FirebaseAuth auth;
     private String userEmail;
+
     public Fragment_Forget_Password() {
         // Required empty public constructor
     }
@@ -47,7 +45,8 @@ public class Fragment_Forget_Password extends Fragment {
 
         auth = FirebaseAuth.getInstance();
 
-        if (userEmail!= null) Objects.requireNonNull(mBinding.emailTextField.getEditText()).setText(userEmail);
+        if (userEmail != null)
+            Objects.requireNonNull(mBinding.emailTextField.getEditText()).setText(userEmail);
 
         mBinding.btnSendPasswordEmail.setOnClickListener(v -> {
             final String email = Objects.requireNonNull(mBinding.edtEmailSignUp.getText()).toString();

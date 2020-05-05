@@ -8,12 +8,15 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
+import androidx.navigation.NavDirections;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.shouman.apps.hawk.R;
 import com.shouman.apps.hawk.data.model.SalesListItem;
 import com.shouman.apps.hawk.databinding.BranchNameListItemBinding;
+import com.shouman.apps.hawk.ui.main.companyUI.navDrawer.home.Fragment_homeDirections;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,6 +57,11 @@ public class BranchSalesRecyclerAdapter extends RecyclerView.Adapter<BranchSales
         holder.mBinding.childRecView.setRecycledViewPool(viewPool);
         holder.mBinding.setSaleMembers(branch_salesMembers_map.get(branchDetails));
         holder.mBinding.setBranchDetails(branchDetails);
+        holder.mBinding.info.setOnClickListener( v -> {
+                    NavDirections toBranchInfo =  Fragment_homeDirections.actionFragmentHomeToFragmentBranchInfo().setBranchName(branchName);
+                    Navigation.findNavController(v).navigate(toBranchInfo);
+                }
+        );
     }
 
     @Override

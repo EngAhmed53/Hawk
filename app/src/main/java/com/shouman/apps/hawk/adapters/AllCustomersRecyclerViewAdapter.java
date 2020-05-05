@@ -1,7 +1,8 @@
 package com.shouman.apps.hawk.adapters;
 
 import android.content.Context;
-import android.graphics.Typeface;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,65 +14,91 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.shouman.apps.hawk.R;
+import com.shouman.apps.hawk.common.Common;
+import com.shouman.apps.hawk.data.model.Customer;
 import com.shouman.apps.hawk.databinding.CustomersListItemLayoutBinding;
-import com.shouman.apps.hawk.ui.main.OnCustomerItemClickHandler;
 
+import java.text.DateFormat;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
-import java.util.Map;
+import java.util.Locale;
 
 public class AllCustomersRecyclerViewAdapter extends RecyclerView.Adapter<AllCustomersRecyclerViewAdapter.CustomersViewHolder> implements Filterable {
 
-    private Map<String, String> customersMap;
-    private Map<String, String> customersMapFull;
-    private List<String> customersData;
-    private List<String> customersUIDs;
+    private List<Customer> allCustomers;
+    private List<Customer> allCustomersFull;
     private Context mContext;
-    private Filter mapFilter = new Filter() {
+    private DateFormat formatter;
+    private Calendar calendar;
+    private Filter listFilter = new Filter() {
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
-            Map<String, String> filteredMap = new HashMap<>();
+            List<Customer> filteredList = new ArrayList<>();
             if (constraint == null || constraint.length() == 0) {
-                filteredMap.putAll(customersMapFull);
+                filteredList.addAll(allCustomersFull);
             } else {
                 String filterPattern = constraint.toString().toLowerCase().trim();
 
-                for (String key : customersMapFull.keySet()) {
-                    String data = customersMapFull.get(key);
-                    if (data != null && data.toLowerCase().contains(filterPattern)) {
-                        filteredMap.put(key, data);
+                for (Customer customer : allCustomersFull) {
+                    String data = customer.getCn() + " " + customer.getN();
+                    if (data.toLowerCase().contains(filterPattern)) {
+                        filteredList.add(customer);
                     }
                 }
             }
             FilterResults filterResults = new FilterResults();
-            filterResults.values = filteredMap;
+            filterResults.values = filteredList;
             return filterResults;
         }
 
         @Override
         protected void publishResults(CharSequence constraint, FilterResults results) {
-            customersMap.clear();
-            customersMap.putAll((Map<String, String>) results.values);
-            customersData = new ArrayList<>();
-            customersData.addAll(customersMap.values());
-            customersUIDs = new ArrayList<>();
-            customersUIDs.addAll(customersMap.keySet());
+            allCustomers.clear();
+            allCustomers.addAll((List<Customer>) results.values);
             notifyDataSetChanged();
         }
     };
 
     public AllCustomersRecyclerViewAdapter(Context mContext) {
         this.mContext = mContext;
+        formatter = DateFormat.getDateInstance(DateFormat.DATE_FIELD, Locale.getDefault());
+        calendar = Calendar.getInstance();
     }
 
-    public void setCustomersMap(Map<String, String> customersMap) {
-        this.customersMap = customersMap;
-        this.customersMapFull = new HashMap<>(customersMap);
-        this.customersData = new ArrayList<>();
-        this.customersData.addAll(customersMap.values());
-        this.customersUIDs = new ArrayList<>();
-        this.customersUIDs.addAll(customersMap.keySet());
+    public void setCustomersList(List<Customer> customersList) {
+        this.allCustomers = customersList;
+        this.allCustomersFull = new ArrayList<>(customersList);
+        notifyDataSetChanged();
+    }
+
+    public void sortByNameAscendingOrder () {
+        if (allCustomers != null && allCustomers.size() > 0) {
+            Collections.sort(allCustomers, (o1, o2) -> o1.getN().compareTo(o2.getN()));
+        }
+        notifyDataSetChanged();
+    }
+
+    public void sortByNameDescendingOrder () {
+        if (allCustomers != null && allCustomers.size() > 0) {
+            Collections.sort(allCustomers, (o1, o2) -> o2.getN().compareTo(o1.getN()));
+        }
+        notifyDataSetChanged();
+    }
+
+    public void sortByDateAscendingOrder () {
+        if (allCustomers != null && allCustomers.size() > 0) {
+            Collections.sort(allCustomers, (o1, o2) -> (int) (o1.getAddedTime() - o2.getAddedTime()));
+        }
+        notifyDataSetChanged();
+    }
+
+    public void sortByDateDescendingOrder () {
+        if (allCustomers != null && allCustomers.size() > 0) {
+            Collections.sort(allCustomers, (o1, o2) -> (int) (o2.getAddedTime() - o1.getAddedTime()));
+        }
         notifyDataSetChanged();
     }
 
@@ -87,56 +114,30 @@ public class AllCustomersRecyclerViewAdapter extends RecyclerView.Adapter<AllCus
 
     @Override
     public void onBindViewHolder(@NonNull CustomersViewHolder holder, int position) {
-        String[] customerData = customersData.get(position).split(", ");
-        holder.mBinding.customerNameTxt.setText(customerData[0]);
-        //set on clickHandler
+        Customer customer = allCustomers.get(position);
+        holder.mBinding.customerNameTxt.setText(customer.getN());
+        holder.mBinding.companyNameTxt.setText(customer.getCn());
+        String visitsCount = customer.getVisitList().size() + " " + mContext.getString(R.string.customer_total_visits);
+        holder.mBinding.totalVisitsTxt.setText(visitsCount);
 
-        String customerUID = customersUIDs.get(position);
-        holder.mBinding.setCustomerUID(customerUID);
+        calendar.setTimeInMillis(customer.getAddedTime());
+        holder.mBinding.addedDateTxt.setText(formatter.format(calendar.getTime()));
 
-        OnCustomerItemClickHandler onCustomerItemClickHandler;
-
-        onCustomerItemClickHandler = (OnCustomerItemClickHandler) mContext;
-
-        holder.mBinding.setOnCustomerClickListener(onCustomerItemClickHandler);
-
-        //set the 2 letters
-        //setThe2Letters(holder, customerData[0]);
-
-        //set company name
-        holder.mBinding.companyNameTxt.setText(customerData[1]);
-        holder.mBinding.timeAdded.setVisibility(View.INVISIBLE);
-        holder.mBinding.customerImage.setImageResource(R.drawable.ic_ceo);
+        holder.mBinding.frame.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(Common.getRandomColor(position))));
     }
 
-//    private void setThe2Letters(@NonNull CustomersViewHolder holder, String customerName) {
-//        char c1 = customerName.charAt(0);
-//        Character c2 = null;
-//        int spaceIndex = customerName.lastIndexOf(" ");
-//        if (spaceIndex != -1 && customerName.length() > spaceIndex) {
-//            for (int i = spaceIndex + 1; i < customerName.length(); i++) {
-//                if (customerName.charAt(i) != ' ') {
-//                    c2 = customerName.charAt(i);
-//                    break;
-//                }
-//            }
-//        }
-//        String s = String.valueOf(c1) + (c2 != null ? c2 : "");
-//        holder.mBinding.first2Letters.setText(s);
-//        holder.mBinding.first2Letters.setTypeface(Typeface.createFromAsset(mContext.getAssets(), "varela_round_regular.ttf"));
- //   }
 
     @Override
     public int getItemCount() {
-        if (customersMap != null) {
-            return customersMap.size();
+        if (allCustomers != null) {
+            return allCustomers.size();
         }
         return 0;
     }
 
     @Override
     public Filter getFilter() {
-        return mapFilter;
+        return listFilter;
     }
 
 

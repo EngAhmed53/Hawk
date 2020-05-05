@@ -73,7 +73,7 @@
     <string name="customer_email">البريد الالكتروني</string>
     <string name="phone">رقم الهاتف</string>
     <string name="added_date">تاريخ الادخال</string>
-    <string name="google_maps_key">AIzaSyABpiW13-2gPYkgXVyzFypJTQIW1me4Y1s</string>
+    <string name="google_maps_key" translatable="false">AIzaSyABpiW13-2gPYkgXVyzFypJTQIW1me4Y1s</string>
     <string name="company_uid">رمز الشركة</string>
     <string name="edit_company_info">تعديل بيانات الشركة</string>
     <string name="drawer_user_image_disc">صورة المندوب</string>
@@ -157,5 +157,16 @@
     <string name="share_invitation_link">Share Invitation Link</string>
     <string name="new_salesman_header">New Salesman</string>
     <string name="type_the_salesman_info">Type the salesman name, select the branch that he belong\'s to, the send him the invitation link.</string>
+    <string name="sort_group">Sort By</string>
+    <string name="sort_by_name_a_z">by name ▼</string>
+    <string name="sort_by_name_z_a">by name ▲</string>
+    <string name="sort_by_date_a_z">by date ▼</string>
+    <string name="sort_by_date_z_a">by date ▲</string>
+    <string name="company_customers_list">Company customers list, press on any customer to view his information, or do a long press to view the action menu.</string>
+    <string name="customer_total_visits">Total Visits</string>
+    <string name="latest_notification">Latest Notification</string>
+    <string name="no_new_notifications">No new notifications!</string>
+    <string name="number_of_customers">Number Of Customers</string>
+
 
 </resources>
