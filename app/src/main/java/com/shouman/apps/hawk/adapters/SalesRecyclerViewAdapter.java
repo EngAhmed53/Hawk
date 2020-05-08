@@ -14,13 +14,16 @@ import android.view.animation.LinearInterpolator;
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.databinding.DataBindingUtil;
+import androidx.navigation.NavDirections;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.shouman.apps.hawk.R;
 import com.shouman.apps.hawk.common.Common;
 import com.shouman.apps.hawk.data.model.SalesListItem;
 import com.shouman.apps.hawk.databinding.SalesListItemLayoutBinding;
-import com.shouman.apps.hawk.ui.main.companyUI.IMainClickHandler;
+import com.shouman.apps.hawk.ui.main.companyUI.navDrawer.home.Fragment_homeDirections;
+import com.shouman.apps.hawk.ui.main.companyUI.navDrawer.home.OnSalesMemberLongClickActionsHandler;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,12 +35,12 @@ public class SalesRecyclerViewAdapter extends RecyclerView.Adapter<SalesRecycler
     private List<SalesListItem> salesListItem;
     private List<String> salesUIDs;
     private Context mContext;
-    private IMainClickHandler iMainClickHandler;
+    private OnSalesMemberLongClickActionsHandler onSalesMemberLongClickActionsHandler;
     private String mBranchDetails;
 
     public SalesRecyclerViewAdapter(Context mContext, String branchDetails) {
         this.mContext = mContext;
-        //iMainClickHandler = (IMainClickHandler) mContext;
+        onSalesMemberLongClickActionsHandler = (OnSalesMemberLongClickActionsHandler) mContext;
         this.mBranchDetails = branchDetails;
     }
 
@@ -63,10 +66,6 @@ public class SalesRecyclerViewAdapter extends RecyclerView.Adapter<SalesRecycler
     public void onBindViewHolder(@NonNull final SalesViewHolder holder, final int position) {
         SalesListItem salesItem = salesListItem.get(position);
         holder.mBinding.salesNameTxt.setText(salesItem.getName());
-        //set on clickHandler
-        String salesUID = salesUIDs.get(position);
-        holder.mBinding.setSalesUID(salesUID);
-        holder.mBinding.setSalesName(salesItem.getName());
         //set the 2 letters
         setThe2Letters(holder, position, salesItem.getName());
         //set the status
@@ -123,7 +122,8 @@ public class SalesRecyclerViewAdapter extends RecyclerView.Adapter<SalesRecycler
         public void onClick(View v) {
             String salesUID = salesUIDs.get(getAdapterPosition());
             String salesName = salesListItem.get(getAdapterPosition()).getName();
-            iMainClickHandler.onSalesItemClickHandler(salesUID, salesName);
+            NavDirections salesItemToSalesMain = Fragment_homeDirections.actionFragmentHomeToFragmentSalesMain(salesName, salesUID);
+            Navigation.findNavController(v).navigate(salesItemToSalesMain);
         }
 
         @Override
@@ -171,12 +171,7 @@ public class SalesRecyclerViewAdapter extends RecyclerView.Adapter<SalesRecycler
             PopupMenu popup = new PopupMenu(mContext, mBinding.layout);
             popup.setOnMenuItemClickListener(this);
             popup.inflate(R.menu.sales_item_menu);
-            popup.setOnDismissListener(new PopupMenu.OnDismissListener() {
-                @Override
-                public void onDismiss(PopupMenu menu) {
-                    hideCheckMark();
-                }
-            });
+            popup.setOnDismissListener(menu -> hideCheckMark());
             if (statusEnabled) {
                 popup.getMenu().findItem(R.id.action_disable).setVisible(true);
                 popup.getMenu().findItem(R.id.action_enable).setVisible(false);
@@ -195,16 +190,16 @@ public class SalesRecyclerViewAdapter extends RecyclerView.Adapter<SalesRecycler
 
             switch (item.getItemId()) {
                 case R.id.action_move:
-                    iMainClickHandler.onActionMove(salesUID, salesName, status, mBranchDetails);
+                    onSalesMemberLongClickActionsHandler.onActionMove(salesUID, salesName, status, mBranchDetails);
                     return true;
                 case R.id.action_disable:
-                    iMainClickHandler.onActionDisable(salesUID, mBranchDetails);
+                    onSalesMemberLongClickActionsHandler.onActionDisable(salesUID, mBranchDetails);
                     return true;
                 case R.id.action_enable:
-                    iMainClickHandler.onActionEnable(salesUID, mBranchDetails);
+                    onSalesMemberLongClickActionsHandler.onActionEnable(salesUID, mBranchDetails);
                     return true;
                 case R.id.action_delete:
-                    iMainClickHandler.onActionDelete(salesUID, mBranchDetails);
+                    onSalesMemberLongClickActionsHandler.onActionDelete(salesUID, mBranchDetails);
                     return true;
                 default:
                     return false;

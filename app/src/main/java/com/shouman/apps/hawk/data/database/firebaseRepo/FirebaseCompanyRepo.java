@@ -1,6 +1,7 @@
 package com.shouman.apps.hawk.data.database.firebaseRepo;
 
 import android.content.Context;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 
@@ -21,6 +22,7 @@ public class FirebaseCompanyRepo {
 
     public interface OnSalesMemberDeleteAction {
         void onDeleteSuccess();
+
         void onDeleteFailed();
     }
 
@@ -93,6 +95,7 @@ public class FirebaseCompanyRepo {
 
         String newBranchKey = branchesListReference.push().getKey();
 
+        assert newBranchKey != null;
         branchesListReference.child(newBranchKey).setValue(branchName);
         branchesReference.child(newBranchKey).child("n").setValue(branchName);
 
@@ -161,37 +164,39 @@ public class FirebaseCompanyRepo {
     }
 
 
-    public void deleteSalesMember(Context context, final OnSalesMemberDeleteAction onSalesMemberDeleteAction, final String salesUID, String branchUID) {
+    public void deleteSalesMember(Context context, final String salesUID, String branchUID) {
         final String companyUID = UserPreference.getCompanyUID(context);
+        OnSalesMemberDeleteAction onSalesMemberDeleteAction = (OnSalesMemberDeleteAction) context;
         final DatabaseReference branchSalesMembersList = companiesReference.child(companyUID).child("B").child(branchUID).child("SM");
         final DatabaseReference companySalesTeam = companiesReference.child(companyUID).child("ST").child(salesUID);
 
 
-        AppExecutors.getsInstance().getNetworkIO().execute(() -> companiesReference.child(companyUID).child("ST").child(salesUID).child("cList").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                long childCounts = dataSnapshot.getChildrenCount();
-                if (childCounts > 0) {
-                        AppExecutors.getsInstance().getMainThread().execute(onSalesMemberDeleteAction::onDeleteFailed);
-                } else {
-                    //remove from branch list
-                    branchSalesMembersList.child(salesUID).removeValue();
+        AppExecutors.getsInstance().getNetworkIO().execute(() ->
+                companiesReference.child(companyUID).child("ST").child(salesUID).child("cList").addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        long childCounts = dataSnapshot.getChildrenCount();
+                        if (childCounts > 0) {
+                            AppExecutors.getsInstance().getMainThread().execute(onSalesMemberDeleteAction::onDeleteFailed);
+                        } else {
+                            //remove from branch list
+                            ////branchSalesMembersList.child(salesUID).removeValue();
 
-                    //remove from company salesTeam"ST"
-                    companySalesTeam.child(salesUID).removeValue();
+                            //remove from company salesTeam"ST"
+                            ////companySalesTeam.child(salesUID).removeValue();
 
-                    //remove from users database
-                    usersReference.child(salesUID).removeValue();
+                            //remove from users database
+                            ////usersReference.child(salesUID).removeValue();
 
-                    //notify the delete is success
-                    AppExecutors.getsInstance().getMainThread().execute(onSalesMemberDeleteAction::onDeleteSuccess);
-                }
-            }
+                            //notify the delete is success
+                            AppExecutors.getsInstance().getMainThread().execute(onSalesMemberDeleteAction::onDeleteSuccess);
+                        }
+                    }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
 
-            }
-        }));
+                    }
+                }));
     }
 }

@@ -32,7 +32,7 @@ import com.shouman.apps.hawk.databinding.ActivityMain2Binding;
 import com.shouman.apps.hawk.preferences.UserPreference;
 import com.shouman.apps.hawk.sync.workManager.SyncWorker;
 import com.shouman.apps.hawk.ui.auth.StartingActivity;
-import com.shouman.apps.hawk.ui.main.companyUI.customers.customerInfo.Fragment_customers_info;
+import com.shouman.apps.hawk.ui.main.companyUI.customer.customerInfo.Fragment_customers_info;
 import com.shouman.apps.hawk.ui.main.salesUI.main.allCustomersPage.AllCustomersActivity;
 import com.shouman.apps.hawk.ui.main.salesUI.main.home.offlinData.FragmentOfflineData;
 import com.shouman.apps.hawk.ui.main.salesUI.main.personalPage.PersonalPageActivity;

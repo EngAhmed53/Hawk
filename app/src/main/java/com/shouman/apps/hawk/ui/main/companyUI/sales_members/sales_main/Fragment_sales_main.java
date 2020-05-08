@@ -1,130 +1,130 @@
 package com.shouman.apps.hawk.ui.main.companyUI.sales_members.sales_main;
 
 
-import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.widget.Toolbar;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.github.mikephil.charting.components.Description;
-import com.github.mikephil.charting.data.Entry;
-import com.github.mikephil.charting.data.LineData;
-import com.github.mikephil.charting.data.LineDataSet;
-import com.github.mikephil.charting.formatter.ValueFormatter;
-import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.shouman.apps.hawk.R;
+import com.shouman.apps.hawk.adapters.DaysRecyclerViewAdapter;
+import com.shouman.apps.hawk.adapters.LogEntriesRecyclerViewAdapter;
 import com.shouman.apps.hawk.data.model.DailyLogEntry;
-import com.shouman.apps.hawk.databinding.FragmentSalesDetailsBinding;
-import com.shouman.apps.hawk.ui.main.salesUI.main.allCustomersPage.AllCustomersActivity;
+import com.shouman.apps.hawk.databinding.FragmentSalesMainBinding;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-
-import static com.shouman.apps.hawk.ui.main.salesUI.main.allCustomersPage.AllCustomersActivity.SALES_UID;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class Fragment_sales_main extends Fragment {
-
-    private static final String SALES_MEMBER_UID = "sales_uid";
-    private static final String SALES_MEMBER_NAME = "sales_name";
+public class Fragment_sales_main extends Fragment implements DaysRecyclerViewAdapter.OnDayItemClickListener {
+    private static final String TAG = "Fragment_sales_main";
     private String salesMemberUID;
     private String salesMemberName;
-    public FragmentSalesDetailsBinding mBinding;
+    private LogViewModel logViewModel;
+    private FragmentSalesMainBinding mBinding;
+    private DaysRecyclerViewAdapter daysAdapter;
+    private LogEntriesRecyclerViewAdapter logsAdapter;
+    private List<Long> mDaysList;
+    private Map<Long, List<DailyLogEntry>> mDayLogMap;
 
-
-    public static Fragment_sales_main getInstance() {
-        return new Fragment_sales_main();
-    }
-
-    public static Fragment_sales_main getInstance(String salesUID, String salesName) {
-        Bundle args = new Bundle();
-        args.putString(SALES_MEMBER_UID, salesUID);
-        args.putString(SALES_MEMBER_NAME, salesName);
-        Fragment_sales_main sales_details = Fragment_sales_main.getInstance();
-        sales_details.setArguments(args);
-        return sales_details;
-    }
 
     public Fragment_sales_main() {
         // Required empty public constructor
     }
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+        getArgs();
+        initViewModel();
+        daysAdapter = new DaysRecyclerViewAdapter(requireContext(), this);
+        logsAdapter = new LogEntriesRecyclerViewAdapter(requireContext());
+    }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        mBinding = FragmentSalesDetailsBinding.inflate(inflater);
-        Bundle arguments = getArguments();
-        if (arguments != null) {
-            salesMemberUID = arguments.getString(SALES_MEMBER_UID);
-            salesMemberName = arguments.getString(SALES_MEMBER_NAME);
-        }
-        initViewModel();
-        toolbarCustomization();
-        initializeChart();
-        mBinding.recCustomers.setNestedScrollingEnabled(false);
-
+        mBinding = FragmentSalesMainBinding.inflate(inflater);
         return mBinding.getRoot();
     }
 
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        initRecViews();
+
+        mBinding.salesNameTxt.setText(salesMemberName);
+
+        logViewModel.getDaysLogLiveData().observe(getViewLifecycleOwner(), day_logs_map -> {
+            mDayLogMap = day_logs_map;
+            mDaysList = new ArrayList<>(mDayLogMap.keySet());
+            Collections.sort(mDaysList, Collections.reverseOrder());
+            daysAdapter.setDaysList(mDaysList);
+            logsAdapter.setLogEntriesList(mDayLogMap.get(daysAdapter.getSelectedItem()));
+            mBinding.progressBar.setVisibility(View.GONE);
+            mBinding.daysRecView.setVisibility(View.VISIBLE);
+            mBinding.logRecView.setVisibility(View.VISIBLE);
+        });
+    }
+
+    @Override
+    public void onDayItemClick() {
+        logsAdapter.setLogEntriesList(mDayLogMap.get(daysAdapter.getSelectedItem()));
+        Log.e(TAG, "onDayItemClick: " + mDayLogMap.get(daysAdapter.getSelectedItem()) );
+        Log.e(TAG, "onDayItemClick: " + daysAdapter.getSelectedItem());
+    }
+
+    private void initRecViews() {
+        mBinding.daysRecView.setAdapter(daysAdapter);
+        mBinding.daysRecView.setHasFixedSize(true);
+
+        mBinding.logRecView.setAdapter(logsAdapter);
+        mBinding.logRecView.setHasFixedSize(true);
+    }
+
+    private void getArgs() {
+        assert getArguments() != null;
+        salesMemberName = Fragment_sales_mainArgs.fromBundle(getArguments()).getSalesName();
+        salesMemberUID = Fragment_sales_mainArgs.fromBundle(getArguments()).getSalesUID();
+    }
+
     private void initViewModel() {
-        //setting up the viewModel
-        SaleViewModelFactory factory = new SaleViewModelFactory(getContext(), salesMemberUID);
-        SalesViewModel salesViewModel = new ViewModelProvider(this, factory).get(SalesViewModel.class);
-        salesViewModel.getMediatorSalesLiveData().observe(getViewLifecycleOwner(), new Observer<Map<String, List<DailyLogEntry>>>() {
-            @Override
-
-            public void onChanged(Map<String, List<DailyLogEntry>> date_logEntries_map) {
-                mBinding.setDatesLogEntriesMap(date_logEntries_map);
-            }
-        });
+        LogViewModelFactory factory = new LogViewModelFactory(getContext(), salesMemberUID);
+        logViewModel = new ViewModelProvider(this, factory).get(LogViewModel.class);
     }
 
-
-    private void toolbarCustomization() {
-        mBinding.toolbar.setTitle(salesMemberName);
-        mBinding.toolbar.inflateMenu(R.menu.sales_toolbar_menu);
-        mBinding.toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
-
-
-        mBinding.toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.action_sales_info:
-                        //openSalesInfoFragment();
-                        return true;
-                    case R.id.action_all_customers:
-                        openAllCustomersActivity();
-                    default:
-                        return false;
-                }
-            }
-        });
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        new MenuInflater(requireContext()).inflate(R.menu.sales_toolbar_menu, menu);
+        super.onCreateOptionsMenu(menu, inflater);
     }
 
-    private void openAllCustomersActivity() {
-        Intent intent = new Intent(getContext(), AllCustomersActivity.class);
-        intent.putExtra(SALES_UID, salesMemberUID);
-        startActivity(intent);
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_sales_info:
+                //openSalesInfoFragment();
+                return true;
+            case R.id.action_all_customers:
+                //openAllCustomersActivity();
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
 //    private void openSalesInfoFragment() {
@@ -137,62 +137,51 @@ public class Fragment_sales_main extends Fragment {
 //                .commit();
 //
 //    }
+
+//    private void initializeChart() {
+//        LineDataSet dataSet = new LineDataSet(getChartEntries(), "Total Customers");
+//        dataSet.setDrawFilled(true);
+//        dataSet.setFillDrawable(requireContext().getResources().getDrawable(R.drawable.chart_gradient_fill));
+//        ArrayList<ILineDataSet> dataSetArray = new ArrayList<>();
+//        dataSetArray.add(dataSet);
+//        LineData lineData = new LineData(dataSetArray);
+//        lineData.setValueTextSize(10);
+//        lineData.setValueTextColor(Color.BLACK);
+//        lineData.setValueFormatter(new MyValueFormatter());
 //
-//    private void backToPrevious() {
-//        getHostActivity()
-//                .fragmentManager
-//                .popBackStack("sales_details", FragmentManager.POP_BACK_STACK_INCLUSIVE);
+//
+//        //chart description
+//        Description chartDescription = new Description();
+//        chartDescription.setText(getString(R.string.chart_label));
+//        chartDescription.setTextSize(10);
+//
+//        mBinding.chartView.setData(lineData);
+//        mBinding.chartView.setDescription(chartDescription);
+//        mBinding.chartView.setNoDataText("No data to view");
+//        mBinding.chartView.setNoDataTextColor(Color.BLACK);
+//        mBinding.chartView.getAxisRight().setDrawLabels(false);
+//        mBinding.chartView.setPinchZoom(false);
+//        mBinding.chartView.setDoubleTapToZoomEnabled(false);
+//        mBinding.chartView.invalidate();
 //    }
 //
-//    private ContainerActivity getHostActivity() {
-//        return (ContainerActivity) getActivity();
+//    private ArrayList<Entry> getChartEntries() {
+//        ArrayList<Entry> entries = new ArrayList<>();
+//        entries.add(new Entry(0, 1));
+//        entries.add(new Entry(2, 2));
+//        entries.add(new Entry(4, 6));
+//        entries.add(new Entry(5, 9));
+//        entries.add(new Entry(7, 8));
+//        entries.add(new Entry(10, 2));
+//        entries.add(new Entry(15, 6));
+//        return entries;
 //    }
-
-
-    private void initializeChart() {
-        LineDataSet dataSet = new LineDataSet(getChartEntries(), "Total Customers");
-        dataSet.setDrawFilled(true);
-        dataSet.setFillDrawable(requireContext().getResources().getDrawable(R.drawable.chart_gradient_fill));
-        ArrayList<ILineDataSet> dataSetArray = new ArrayList<>();
-        dataSetArray.add(dataSet);
-        LineData lineData = new LineData(dataSetArray);
-        lineData.setValueTextSize(10);
-        lineData.setValueTextColor(Color.BLACK);
-        lineData.setValueFormatter(new MyValueFormatter());
-
-
-        //chart description
-        Description chartDescription = new Description();
-        chartDescription.setText(getString(R.string.chart_label));
-        chartDescription.setTextSize(10);
-
-        mBinding.chartView.setData(lineData);
-        mBinding.chartView.setDescription(chartDescription);
-        mBinding.chartView.setNoDataText("No data to view");
-        mBinding.chartView.setNoDataTextColor(Color.BLACK);
-        mBinding.chartView.getAxisRight().setDrawLabels(false);
-        mBinding.chartView.setPinchZoom(false);
-        mBinding.chartView.setDoubleTapToZoomEnabled(false);
-        mBinding.chartView.invalidate();
-    }
-
-    private ArrayList<Entry> getChartEntries() {
-        ArrayList<Entry> entries = new ArrayList<>();
-        entries.add(new Entry(0, 1));
-        entries.add(new Entry(2, 2));
-        entries.add(new Entry(4, 6));
-        entries.add(new Entry(5, 9));
-        entries.add(new Entry(7, 8));
-        entries.add(new Entry(10, 2));
-        entries.add(new Entry(15, 6));
-        return entries;
-    }
-
-    private static class MyValueFormatter extends ValueFormatter {
-        @Override
-        public String getFormattedValue(float value) {
-            return String.valueOf((int) value);
-        }
-    }
+//
+//    private static class MyValueFormatter extends ValueFormatter {
+//        @Override
+//        public String getFormattedValue(float value) {
+//            return String.valueOf((int) value);
+//        }
+//    }
 
 }

@@ -1,4 +1,4 @@
-package com.shouman.apps.hawk.ui.main.companyUI.customers.visitsLog;
+package com.shouman.apps.hawk.ui.main.companyUI.customer.visitsLog;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

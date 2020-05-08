@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:background="@android:color/transparent"
+        android:layout_height="wrap_content"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp">
+
+        <TextView
+            android:id="@+id/month_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-light"
+            android:padding="8dp"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+            android:textColor="@color/gray1"
+            app:layout_constraintBottom_toTopOf="@+id/day_frame"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
+            app:layout_constraintVertical_chainStyle="packed"
+            tools:text="May" />
+
+        <FrameLayout
+            android:id="@+id/day_frame"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/two_letters_background"
+            app:layout_constraintBottom_toTopOf="@+id/day_txt"
+            app:layout_constraintEnd_toEndOf="@+id/month_txt"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="@+id/month_txt"
+            app:layout_constraintTop_toBottomOf="@+id/month_txt"
+            tools:backgroundTint="@color/gray2">
+
+
+            <TextView
+                android:id="@+id/day_num_txt"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_gravity="center"
+                android:alpha="1"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:maxLines="1"
+                android:paddingLeft="6dp"
+                android:paddingRight="6dp"
+                android:textAllCaps="true"
+                android:textColor="@color/white2"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                tools:text="18" />
+        </FrameLayout>
+
+
+        <TextView
+            android:id="@+id/day_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-light"
+            android:padding="8dp"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/day_frame"
+            app:layout_constraintStart_toEndOf="@+id/day_frame"
+            app:layout_constraintTop_toBottomOf="@+id/day_frame"
+            tools:text="T" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -86,9 +86,7 @@ public class Fragment_home extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        homeViewModel.getAllSalesMembersMediatorLiveData().observe(getViewLifecycleOwner(), branch_sales_map -> {
-            mBinding.setBranchesSalesMap(branch_sales_map);
-        });
+        homeViewModel.getAllSalesMembersMediatorLiveData().observe(getViewLifecycleOwner(), branch_sales_map ->
+                mBinding.setBranchesSalesMap(branch_sales_map));
     }
-
 }

@@ -1,7 +1,7 @@
 package com.shouman.apps.hawk.ui.main.companyUI;
 
 
-//public class ContainerActivity extends AppCompatActivity implements IMainClickHandler, FirebaseCompanyRepo.OnSalesMemberDeleteAction {
+//public class ContainerActivity extends AppCompatActivity implements OnSalesMemberLongClickActionsHandler, FirebaseCompanyRepo.OnSalesMemberDeleteAction {
 //
 //    private static final String TAG = "MainActivity";
 //    public static final String SELECTED_MENU_ITEM = "selected_fragment";

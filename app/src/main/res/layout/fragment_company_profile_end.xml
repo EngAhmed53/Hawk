@@ -17,7 +17,7 @@
         android:background="@color/colorPrimary"
         android:clickable="true"
         android:focusable="true"
-        tools:context=".ui.main.companyUI.customers.customerInfo.Fragment_customers_info">
+        tools:context=".ui.main.companyUI.customer.customerInfo.Fragment_customers_info">
 
 
             <TextView

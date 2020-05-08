@@ -1,17 +1,12 @@
 package com.shouman.apps.hawk.dataBindingAdapters;
 
-import android.view.View;
-import android.widget.ProgressBar;
-
 import androidx.databinding.BindingAdapter;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.shouman.apps.hawk.R;
 import com.shouman.apps.hawk.adapters.AllCustomersRecyclerViewAdapter;
 import com.shouman.apps.hawk.adapters.BranchSalesRecyclerAdapter;
-import com.shouman.apps.hawk.adapters.CustomersLogRecyclerViewAdapter;
-import com.shouman.apps.hawk.adapters.DaysRecyclerViewAdapter;
+import com.shouman.apps.hawk.adapters.LogEntriesRecyclerViewAdapter;
 import com.shouman.apps.hawk.adapters.SalesRecyclerViewAdapter;
 import com.shouman.apps.hawk.adapters.VisitsRecyclerViewAdapter;
 import com.shouman.apps.hawk.data.model.DailyLogEntry;
@@ -48,7 +43,7 @@ public class RecyclerViewDataBinding {
     }
 
 
-    @BindingAdapter("setLogMap")
+/*    @BindingAdapter("setLogMap")
     public static void setLogMap(final RecyclerView view, final Map<String, List<DailyLogEntry>> date_logEntries_map) {
         if (date_logEntries_map == null) {
             return;
@@ -60,12 +55,12 @@ public class RecyclerViewDataBinding {
         if (view.getAdapter() == null) {
 
             DaysRecyclerViewAdapter adapter = new DaysRecyclerViewAdapter(view.getContext());
-            adapter.setDate_logEntries_map(date_logEntries_map);
+            adapter.setDaysList(date_logEntries_map);
             view.setAdapter(adapter);
 
         } else {
 
-            ((DaysRecyclerViewAdapter) view.getAdapter()).setDate_logEntries_map(date_logEntries_map);
+            ((DaysRecyclerViewAdapter) view.getAdapter()).setDaysList(date_logEntries_map);
         }
         view.postDelayed(new Runnable() {
             @Override
@@ -75,7 +70,7 @@ public class RecyclerViewDataBinding {
                 if (progressBar != null) progressBar.setVisibility(View.GONE);
             }
         }, 1);
-    }
+    }*/
 
     @BindingAdapter("setLogList")
     public static void setLogList(RecyclerView view, List<DailyLogEntry> logEntries) {
@@ -86,11 +81,11 @@ public class RecyclerViewDataBinding {
         view.setHasFixedSize(true);
 
         if (view.getAdapter() == null) {
-            CustomersLogRecyclerViewAdapter adapter = new CustomersLogRecyclerViewAdapter(view.getContext());
+            LogEntriesRecyclerViewAdapter adapter = new LogEntriesRecyclerViewAdapter(view.getContext());
             adapter.setLogEntriesList(logEntries);
             view.setAdapter(adapter);
         } else {
-            ((CustomersLogRecyclerViewAdapter) view.getAdapter()).setLogEntriesList(logEntries);
+            ((LogEntriesRecyclerViewAdapter) view.getAdapter()).setLogEntriesList(logEntries);
         }
     }
 

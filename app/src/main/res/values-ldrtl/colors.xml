@@ -25,6 +25,8 @@
     <color name="green">#2A952E</color>
     <color name="mtrl_textinput_default_box_stroke_color" tools:override="true">#fff</color>
     <color name="shadow_color">#66000000</color>
+    <color name="white_blue">#e7e7ec</color>
+    <color name="white3">#F8EEEDED</color>
 
 </resources>
 

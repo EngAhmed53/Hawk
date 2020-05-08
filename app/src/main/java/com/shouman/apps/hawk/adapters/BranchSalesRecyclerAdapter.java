@@ -1,7 +1,6 @@
 package com.shouman.apps.hawk.adapters;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,12 +9,11 @@ import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.shouman.apps.hawk.R;
 import com.shouman.apps.hawk.data.model.SalesListItem;
-import com.shouman.apps.hawk.databinding.BranchNameListItemBinding;
+import com.shouman.apps.hawk.databinding.BranchListItemBinding;
 import com.shouman.apps.hawk.ui.main.companyUI.navDrawer.home.Fragment_homeDirections;
 
 import java.util.ArrayList;
@@ -43,9 +41,9 @@ public class BranchSalesRecyclerAdapter extends RecyclerView.Adapter<BranchSales
     @NonNull
     @Override
     public BranchSalesViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        BranchNameListItemBinding mBinding =
+        BranchListItemBinding mBinding =
                 DataBindingUtil
-                        .inflate(LayoutInflater.from(mContext), R.layout.branch_name_list_item, parent, false);
+                        .inflate(LayoutInflater.from(mContext), R.layout.branch_list_item, parent, false);
         return new BranchSalesViewHolder(mBinding.getRoot());
     }
 
@@ -72,7 +70,7 @@ public class BranchSalesRecyclerAdapter extends RecyclerView.Adapter<BranchSales
 
     static class BranchSalesViewHolder extends RecyclerView.ViewHolder {
 
-        BranchNameListItemBinding mBinding;
+        BranchListItemBinding mBinding;
 
         BranchSalesViewHolder(@NonNull View itemView) {
             super(itemView);

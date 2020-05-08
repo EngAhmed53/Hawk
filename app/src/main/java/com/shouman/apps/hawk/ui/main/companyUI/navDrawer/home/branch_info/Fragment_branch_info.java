@@ -1,6 +1,5 @@
 package com.shouman.apps.hawk.ui.main.companyUI.navDrawer.home.branch_info;
 
-
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,7 +24,6 @@ public class Fragment_branch_info extends Fragment {
     public Fragment_branch_info() {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,

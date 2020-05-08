@@ -3,20 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
-
-        <import type="com.shouman.apps.hawk.ui.main.companyUI.IMainClickHandler" />
-
-        <variable
-            name="salesUID"
-            type="String" />
-
-        <variable
-            name="salesName"
-            type="String" />
-
-    </data>
-
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/layout"
         android:layout_width="match_parent"

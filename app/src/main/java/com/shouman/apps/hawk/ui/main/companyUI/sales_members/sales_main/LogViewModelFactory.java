@@ -6,12 +6,12 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
-public class SaleViewModelFactory extends ViewModelProvider.NewInstanceFactory {
+public class LogViewModelFactory extends ViewModelProvider.NewInstanceFactory {
 
     private String salesUID;
     private Context mContext;
 
-    public SaleViewModelFactory(Context context, String salesUID) {
+    public LogViewModelFactory(Context context, String salesUID) {
         this.salesUID = salesUID;
         this.mContext = context;
     }
@@ -19,6 +19,6 @@ public class SaleViewModelFactory extends ViewModelProvider.NewInstanceFactory {
     @NonNull
     @Override
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
-        return (T) new SalesViewModel(mContext, salesUID);
+        return (T) new LogViewModel(mContext, salesUID);
     }
 }

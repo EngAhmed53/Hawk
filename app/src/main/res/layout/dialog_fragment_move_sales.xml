@@ -4,71 +4,48 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
-
-    </data>
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:minHeight="400dp"
-        android:background="@drawable/main_background">
-
-
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="wrap_content"
-            android:layout_height="?actionBarSize"
-            android:background="@color/facebook_color"
-            android:elevation="6dp"
-            android:minWidth="348dp"
-            android:fadeScrollbars="true"
-            android:minHeight="?actionBarSize"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:navigationIcon="@drawable/ic_close"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-            app:title="@string/move_to"
-            app:titleTextAppearance="@style/TextAppearance.AppCompat.Medium"
-            app:titleTextColor="@color/white2" />
+        android:background="@color/white"
+        android:minHeight="300dp">
 
         <TextView
             android:id="@+id/headline"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
             android:ellipsize="end"
-            android:layout_marginEnd="16dp"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            android:textColor="@color/white"
+            android:gravity="center"
+            android:fontFamily="sans-serif-black"
+            android:paddingRight="16dp"
+            android:paddingLeft="16dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
+            android:textColor="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar"
-            tools:text="Move Ahmed Ramadan To :" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Move Ahmed Ramadan To" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/choose_branch_input_layout"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+            style="@style/materialAutoCompleteCustomColor"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="24dp"
+            android:hint="@string/choose_new_branch"
             android:minWidth="300dp"
-            android:hint="@string/choose_branch"
-            android:textColorHint="@color/white2"
+            android:textColorHint="@color/gray1"
             app:boxCornerRadiusBottomEnd="6dp"
             app:boxCornerRadiusBottomStart="6dp"
             app:boxCornerRadiusTopEnd="6dp"
             app:boxCornerRadiusTopStart="6dp"
-            app:boxStrokeColor="@color/white2"
-            app:boxStrokeWidth="1dp"
             app:hintTextAppearance="@style/TextAppearance.AppCompat.Caption"
-            app:hintTextColor="@color/white2"
+            app:hintTextColor="@color/gray1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/headline">
@@ -79,24 +56,24 @@
                 android:layout_height="match_parent"
                 android:maxLength="50"
                 android:maxLines="1"
-                android:textColor="@color/white2"
+                android:textColor="@color/gray1"
                 tools:ignore="LabelFor" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button
             android:id="@+id/btn_move"
             android:layout_width="wrap_content"
-            android:layout_height="48dp"
+            android:layout_height="56dp"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="24dp"
             android:layout_marginBottom="8dp"
             android:backgroundTint="@color/colorAccent"
             android:elevation="6dp"
             android:enabled="false"
-            android:paddingLeft="48dp"
-            android:paddingRight="48dp"
+            android:paddingLeft="56dp"
+            android:paddingRight="56dp"
             android:text="@string/move"
-            android:textAllCaps="false"
+            android:textAllCaps="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"

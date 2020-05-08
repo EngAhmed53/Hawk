@@ -1,4 +1,4 @@
-package com.shouman.apps.hawk.ui.main.companyUI.customers.customerInfo;
+package com.shouman.apps.hawk.ui.main.companyUI.customer.customerInfo;
 
 
 import android.content.Context;
@@ -28,7 +28,7 @@ import com.google.firebase.database.annotations.NotNull;
 import com.shouman.apps.hawk.R;
 import com.shouman.apps.hawk.data.model.Customer;
 import com.shouman.apps.hawk.databinding.FragmentCustomersInfoBinding;
-import com.shouman.apps.hawk.ui.main.companyUI.customers.visitsLog.DialogFragment_Visits_Log;
+import com.shouman.apps.hawk.ui.main.companyUI.customer.visitsLog.DialogFragment_Visits_Log;
 
 import java.text.DateFormat;
 import java.util.Calendar;

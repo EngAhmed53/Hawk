@@ -18,7 +18,7 @@
         android:clickable="true"
         android:focusable="true"
         app:layoutDescription="@xml/company_profile_scene"
-        tools:context=".ui.main.companyUI.customers.customerInfo.Fragment_customers_info">
+        tools:context=".ui.main.companyUI.customer.customerInfo.Fragment_customers_info">
 
         <TextView
             android:id="@+id/company_title_txt"
