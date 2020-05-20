@@ -43,8 +43,6 @@ import static android.app.Activity.RESULT_OK;
 
 public class Fragment_signUp extends Fragment {
 
-    private static final String TAG = "Fragment_signUp";
-
     private static final int RC_SIGN_IN = 122;
 
     public FragmentSignUpBinding mBinding;
@@ -81,7 +79,7 @@ public class Fragment_signUp extends Fragment {
                              Bundle savedInstanceState) {
         mBinding = FragmentSignUpBinding.inflate(inflater);
 
-        initGoogleSignIn();
+        initGoogleSignUp();
         initFacebookSignIn();
         initEmailPasswordSignIn();
 
@@ -166,7 +164,7 @@ public class Fragment_signUp extends Fragment {
         });
     }
 
-    private void initGoogleSignIn() {
+    private void initGoogleSignUp() {
         //define the google sign up button
         final AuthMethodPickerLayout customLayout = new AuthMethodPickerLayout
                 .Builder(R.layout.fragment_sign_up)
@@ -182,6 +180,13 @@ public class Fragment_signUp extends Fragment {
                 .setAvailableProviders(Collections.singletonList(
                         new AuthUI.IdpConfig.GoogleBuilder().build()))
                 .build();
+
+        mBinding.googleSignUpLayout.setOnClickListener(v -> {
+            startActivityForResult(
+                    googleIntent,
+                    RC_SIGN_IN);
+            showTheSigningUPProgressBarLayout();
+        });
 
     }
 
@@ -285,12 +290,8 @@ public class Fragment_signUp extends Fragment {
         mBinding.mainLayout.setAlpha(1.0f);
     }
 
-//    private void openSignInFragment(String email) {
-//        getHostActivity().showSignInFragment(email);
-//    }
-
     private void showErrorDialog(String message) {
-        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(getHostActivity(), R.style.ThemeOverlay_MaterialComponents_MaterialAlertDialog)
+        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(getHostActivity(), R.style.AlertDialogTheme)
                 .setTitle("Error")
                 .setMessage(message)
                 .setCancelable(true)
@@ -303,9 +304,6 @@ public class Fragment_signUp extends Fragment {
     public void onResume() {
         super.onResume();
         accessTokenTracker.startTracking();
-//        if (SELECTED_POSITION != -1) {
-//            mBinding.filledExposedDropdown.setText(Common.getAllPositions(getContext())[SELECTED_POSITION], false);
-//        }
     }
 
     private void navigateToSelectUserType() {

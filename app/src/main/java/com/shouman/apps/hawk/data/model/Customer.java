@@ -6,6 +6,7 @@ import android.os.Parcelable;
 import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
 
+import com.google.firebase.database.Exclude;
 import com.shouman.apps.hawk.BR;
 
 import java.util.HashMap;
@@ -36,16 +37,29 @@ public class Customer extends BaseObservable implements Parcelable {
     //can be empty or null
     private String ei;
 
+    // the added time
     private long addedTime;
+
+    // the salesman who added this customer
+    private String addedByName;
+
+    // the salesman name who has the control over this customer
+    private String belongToName;
+
+    // the salesman uid who has the control over this customer
+    private String belongToUID;
 
     //list of customer visits
     private Map<String, Visit> visitList;
+
+    @Exclude
+    private boolean isChecked;
 
     public Customer() {
         visitList = new HashMap<>();
     }
 
-    public Customer(String n, double lt, double ln, String cn, String p, String e, String ei, long addedTime) {
+    public Customer(String n, double lt, double ln, String cn, String p, String e, String ei, long addedTime, String addedByName, String belongToName, String belongToUID) {
         this.n = n;
         this.lt = lt;
         this.ln = ln;
@@ -53,6 +67,9 @@ public class Customer extends BaseObservable implements Parcelable {
         this.p = p;
         this.e = e;
         this.ei = ei;
+        this.addedByName = addedByName;
+        this.belongToName = belongToName;
+        this.belongToUID = belongToUID;
         this.visitList = new HashMap<>();
         this.addedTime = addedTime;
     }
@@ -127,6 +144,44 @@ public class Customer extends BaseObservable implements Parcelable {
         notifyPropertyChanged(com.shouman.apps.hawk.BR.ei);
     }
 
+    @Bindable
+    public String getAddedByName() {
+        return addedByName;
+    }
+
+    public void setAddedByName(String addedByName) {
+        this.addedByName = addedByName;
+        notifyPropertyChanged(BR.addedByName);
+    }
+
+    @Bindable
+    public String getBelongToName() {
+        return belongToName;
+    }
+
+    public void setBelongToName(String belongToName) {
+        this.belongToName = belongToName;
+        notifyPropertyChanged(BR.belongToName);
+    }
+
+    @Bindable
+    public String getBelongToUID() {
+        return belongToUID;
+    }
+
+    public void setBelongToUID(String belongToUID) {
+        this.belongToUID = belongToUID;
+        notifyPropertyChanged(BR.belongToUID);
+    }
+
+    public boolean isChecked() {
+        return isChecked;
+    }
+
+    public void setChecked(boolean checked) {
+        isChecked = checked;
+    }
+
     public Map<String, Visit> getVisitList() {
         return visitList;
     }
@@ -171,6 +226,9 @@ public class Customer extends BaseObservable implements Parcelable {
         dest.writeString(e);
         dest.writeString(ei);
         dest.writeLong(addedTime);
+        dest.writeString(addedByName);
+        dest.writeString(belongToName);
+        dest.writeString(belongToUID);
     }
 
     @SuppressWarnings("unused")

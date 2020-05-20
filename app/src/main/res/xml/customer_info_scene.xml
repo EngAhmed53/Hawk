@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MotionScene xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <Transition
+        app:constraintSetEnd="@layout/fragment_customer_info_end"
+        app:constraintSetStart="@layout/fragment_customer_info"
+        app:duration="1000"
+        app:motionInterpolator="bounce">
+
+        <OnSwipe
+            app:dragDirection="dragUp"
+            app:touchAnchorId="@id/info_frame"
+            app:touchAnchorSide="top" />
+
+    </Transition>
+
+    <Transition
+        app:constraintSetEnd="@layout/fragment_customer_info_end"
+        app:constraintSetStart="@layout/fragment_customer_info"
+        app:duration="1000"
+        app:motionInterpolator="bounce">
+
+        <OnSwipe
+            app:dragDirection="dragUp"
+            app:touchAnchorId="@id/info_scroll"
+            app:touchAnchorSide="top" />
+
+    </Transition>
+
+</MotionScene>

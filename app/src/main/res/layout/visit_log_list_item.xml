@@ -6,13 +6,17 @@
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/white2"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:backgroundTint="@color/white"
         android:backgroundTintMode="src_over"
         android:clickable="true"
         android:focusable="true"
-        android:stateListAnimator="@animator/branch_list_item_anim"
-        app:cardCornerRadius="0dp"
-        app:rippleColor="@color/colorPrimaryLight">
+        app:cardCornerRadius="16dp"
+        app:cardElevation="4dp"
+        app:rippleColor="@color/primaryTransparent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -21,33 +25,35 @@
             <TextView
                 android:id="@+id/txt_visit_date_time"
                 android:layout_width="wrap_content"
-                android:layout_height="0dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
                 android:ellipsize="end"
+                android:fontFamily="sans-serif-medium"
                 android:gravity="center_vertical"
                 android:maxLines="1"
-                android:paddingStart="8dp"
-                android:paddingEnd="8dp"
+                android:padding="8dp"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textColor="@color/black"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintHorizontal_chainStyle="packed"
-                app:layout_constraintStart_toEndOf="@+id/customer_image"
+                app:layout_constraintStart_toEndOf="@+id/date_icon"
                 app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0"
                 app:layout_constraintVertical_chainStyle="packed"
                 tools:text="MAR 20, 2020 10:38" />
 
             <TextView
                 android:id="@+id/txt_visit_notes"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:gravity="center_vertical"
                 android:maxLines="1"
-                android:paddingStart="8dp"
-                android:paddingEnd="8dp"
-                android:layout_marginBottom="8dp"
+                android:padding="8dp"
+                android:fontFamily="sans-serif"
                 android:textAppearance="@style/TextAppearance.AppCompat.Small"
                 android:textColor="@color/gray1"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -56,23 +62,42 @@
                 app:layout_constraintStart_toStartOf="@+id/txt_visit_date_time"
                 app:layout_constraintTop_toBottomOf="@+id/txt_visit_date_time"
                 app:layout_constraintVertical_bias="0.0"
-                tools:text="Qebaa Company" />
+                tools:text="Visit Notes" />
+
+            <TextView
+                android:id="@+id/txt_visit_money"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:ellipsize="end"
+                android:gravity="center_vertical"
+                android:maxLines="1"
+                android:padding="8dp"
+                android:fontFamily="sans-serif"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                android:textColor="@color/gray1"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/txt_visit_date_time"
+                app:layout_constraintTop_toBottomOf="@+id/txt_visit_notes"
+                app:layout_constraintVertical_bias="0.0"
+                tools:text="500 LE" />
 
 
             <ImageView
-                android:id="@+id/customer_image"
+                android:id="@+id/date_icon"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_marginStart="16dp"
-                android:background="@drawable/two_letters_background"
-                android:backgroundTint="@color/colorAccent"
-                android:contentDescription="@string/customer_image"
                 android:scaleType="centerInside"
-                android:src="@drawable/ic_pin"
+                android:src="@drawable/ic_date"
                 app:layout_constraintBottom_toBottomOf="@+id/txt_visit_date_time"
+                app:layout_constraintEnd_toStartOf="@+id/txt_visit_date_time"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintHorizontal_chainStyle="packed"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/txt_visit_date_time" />
-
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

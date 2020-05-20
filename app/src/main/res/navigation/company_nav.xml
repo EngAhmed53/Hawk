@@ -38,15 +38,23 @@
             app:exitAnim="@anim/fragment_open_exit"
             app:popEnterAnim="@anim/fragment_open_enter"
             app:popExitAnim="@anim/fragment_open_exit" />
-        <action
-            android:id="@+id/action_fragment_home_to_dialogFragment_Move_Sales"
-            app:destination="@id/dialogFragment_Move_Sales" />
     </fragment>
     <fragment
         android:id="@+id/fragment_customers"
         android:name="com.shouman.apps.hawk.ui.main.companyUI.navDrawer.customers.Fragment_customers"
         android:label=""
-        tools:layout="@layout/fragment_customers" />
+        tools:layout="@layout/fragment_customers" >
+        <action
+            android:id="@+id/action_fragment_customers_to_fragment_customers_info"
+            app:destination="@id/fragment_customers_info"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right" />
+        <action
+            android:id="@+id/action_fragment_customers_to_dialogFragment_Move_Multi_Customers"
+            app:destination="@id/dialogFragment_Move_Multi_Customers" />
+    </fragment>
     <fragment
         android:id="@+id/fragment_notification"
         android:name="com.shouman.apps.hawk.ui.main.companyUI.navDrawer.notification.Fragment_notification"
@@ -73,7 +81,7 @@
         tools:layout="@layout/fragment_terms_condition" />
     <fragment
         android:id="@+id/fragment_add_new_branch"
-        android:name="com.shouman.apps.hawk.ui.main.companyUI.navDrawer.home.add_new_branch.Fragment_add_new_branch"
+        android:name="com.shouman.apps.hawk.ui.main.companyUI.navDrawer.home.addNewBranch.Fragment_add_new_branch"
         android:label="">
         <action
             android:id="@+id/action_fragment_add_new_branch_to_fragment_home"
@@ -82,7 +90,7 @@
     </fragment>
     <fragment
         android:id="@+id/fragment_new_salesman"
-        android:name="com.shouman.apps.hawk.ui.main.companyUI.navDrawer.home.add_new_salesman.Fragment_new_salesman"
+        android:name="com.shouman.apps.hawk.ui.main.companyUI.navDrawer.home.addNewSalesman.Fragment_new_salesman"
         android:label=""
         tools:layout="@layout/fragment_add_new_salesman">
         <action
@@ -97,7 +105,7 @@
         app:popUpTo="@id/company_nav" />
     <fragment
         android:id="@+id/fragment_branch_info"
-        android:name="com.shouman.apps.hawk.ui.main.companyUI.navDrawer.home.branch_info.Fragment_branch_info"
+        android:name="com.shouman.apps.hawk.ui.main.companyUI.navDrawer.home.branchInfo.Fragment_branch_info"
         android:label="Info">
         <argument
             android:name="branch_name"
@@ -110,7 +118,7 @@
     </fragment>
     <fragment
         android:id="@+id/fragment_sales_main"
-        android:name="com.shouman.apps.hawk.ui.main.companyUI.sales_members.sales_main.Fragment_sales_main"
+        android:name="com.shouman.apps.hawk.ui.main.companyUI.salesman.salesMain.Fragment_sales_main"
         android:label=""
         tools:layout="@layout/fragment_sales_main">
         <action
@@ -122,11 +130,32 @@
         <argument
             android:name="salesUID"
             app:argType="string" />
+        <action
+            android:id="@+id/action_fragment_sales_main_to_fragment_Salesman_Customers"
+            app:destination="@id/fragment_Salesman_Customers"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@android:anim/fade_out" />
+        <action
+            android:id="@+id/action_fragment_sales_main_to_fragment_sales_info"
+            app:destination="@id/fragment_sales_info"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@android:anim/fade_out" />
+        <action
+            android:id="@+id/action_fragment_sales_main_to_fragment_customers_info"
+            app:destination="@id/fragment_customers_info"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
 
     <dialog
         android:id="@+id/dialogFragment_Move_Sales"
-        android:name="com.shouman.apps.hawk.ui.main.companyUI.all_sales_members.moveSales.DialogFragment_Move_Sales"
+        android:name="com.shouman.apps.hawk.ui.main.companyUI.salesman.salesInfo.moveSalesMan.DialogFragment_Move_Sales"
         android:label="">
         <argument
             android:name="salesName"
@@ -140,5 +169,108 @@
         <argument
             android:name="status"
             app:argType="boolean" />
+    </dialog>
+    <fragment
+        android:id="@+id/fragment_Salesman_Customers"
+        android:name="com.shouman.apps.hawk.ui.main.companyUI.salesman.salesCustomers.Fragment_salesman_customers"
+        tools:layout="@layout/fragment_salesman_customers"
+        android:label="" >
+        <argument
+            android:name="salesUID"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_fragment_Salesman_Customers_to_fragment_customers_info"
+            app:destination="@id/fragment_customers_info"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right" />
+        <action
+            android:id="@+id/action_fragment_Salesman_Customers_to_dialogFragment_Move_Multi_Customers"
+            app:destination="@id/dialogFragment_Move_Multi_Customers" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragment_sales_info"
+        tools:layout="@layout/fragment_sales_info"
+        android:name="com.shouman.apps.hawk.ui.main.companyUI.salesman.salesInfo.Fragment_sales_info"
+        android:label="Info" >
+        <argument
+            android:name="salesUID"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_fragment_sales_info_to_dialogFragment_Move_Sales"
+            app:destination="@id/dialogFragment_Move_Sales" />
+        <action
+            android:id="@+id/action_fragment_sales_info_to_fragment_home"
+            app:destination="@id/fragment_home"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"
+            app:popUpTo="@id/fragment_home" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragment_customers_info"
+        tools:layout="@layout/fragment_customer_info"
+        android:name="com.shouman.apps.hawk.ui.main.companyUI.customer.customerInfo.Fragment_customer_info"
+        android:label="" >
+        <argument
+            android:name="customer"
+            app:nullable="true"
+            app:argType="com.shouman.apps.hawk.data.model.Customer" />
+        <action
+            android:id="@+id/action_fragment_customers_info_to_dialogFragment_Visits_Log"
+            app:destination="@id/dialogFragment_Visits_Log"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@android:anim/fade_out" />
+        <argument
+            android:name="customerUID"
+            app:argType="string"
+            app:nullable="true" />
+        <action
+            android:id="@+id/action_fragment_customers_info_to_dialogFragment_Move_Customer"
+            app:destination="@id/dialogFragment_Move_Customer" />
+    </fragment>
+    <dialog
+        tools:layout="@layout/visit_log_list_item"
+        android:id="@+id/dialogFragment_Visits_Log"
+        android:name="com.shouman.apps.hawk.ui.main.companyUI.customer.visitsLog.DialogFragment_visits_Log"
+        android:label="" >
+        <argument
+            android:name="visitList"
+            app:argType="com.shouman.apps.hawk.data.model.Visit[]" />
+        <action
+            android:id="@+id/action_dialogFragment_Visits_Log_to_fragment_customers_info"
+            app:destination="@id/fragment_customers_info" />
+    </dialog>
+    <dialog
+        android:id="@+id/dialogFragment_Move_Customer"
+        android:name="com.shouman.apps.hawk.ui.main.companyUI.customer.customerInfo.moveCustomer.DialogFragment_Move_Customer"
+        tools:layout="@layout/dialog_fragment_move_customer"
+        android:label="" >
+        <argument
+            android:name="customerUID"
+            app:argType="string" />
+        <argument
+            android:name="customerName"
+            app:argType="string" />
+        <argument
+            android:name="oldSalesmanUID"
+            app:argType="string" />
+    </dialog>
+    <dialog
+        android:id="@+id/dialogFragment_Move_Multi_Customers"
+        android:name="com.shouman.apps.hawk.ui.main.companyUI.navDrawer.customers.moveMultiCustomers.DialogFragment_Move_Multi_Customers"
+        tools:layout="@layout/dialog_fragment_move_mutli_customers"
+        android:label="DialogFragment_Move_Multi_Customers" >
+        <argument
+            android:name="selectedCustomersUIDs"
+            app:argType="string[]" />
+        <argument
+            android:name="salesUID"
+            app:argType="string"
+            app:nullable="true" />
     </dialog>
 </navigation>

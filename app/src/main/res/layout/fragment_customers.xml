@@ -11,7 +11,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout4"
             android:layout_width="match_parent"
-            android:layout_height="280dp"
+            android:layout_height="250dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -22,12 +22,12 @@
                 android:layout_height="match_parent"
                 android:contentDescription="@string/my_customers"
                 android:scaleType="centerCrop"
-                android:src="@drawable/customers_image" />
+                android:src="@drawable/man_and_woman" />
 
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:alpha=".65"
+                android:alpha=".2"
                 android:src="@drawable/protection_background_primary"
                 tools:ignore="ContentDescription" />
 
@@ -70,7 +70,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="190dp"
+            android:layout_marginTop="170dp"
             android:layout_marginEnd="16dp"
             android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent"

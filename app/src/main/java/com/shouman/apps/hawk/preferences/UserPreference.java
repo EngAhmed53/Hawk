@@ -7,79 +7,116 @@ import androidx.preference.PreferenceManager;
 
 public class UserPreference {
 
-    private static final String USER_CUID = "company_uid";
-    private static final String USER_BUID = "sales_member_branch_uid";
-    private static final String USER_COMPANY_NAME = "company_name";
-    private static final String USER_BRANCH_NAME = "branch_name";
-    private static final String FIRST_START = "first_start";
-    private static final String SALESMAN_STATUS = "salesman_status";
+    private enum SavedInfo {
+        USER_CUID("company_uid"),
+        USER_BUID("sales_member_branch_uid"),
+        USER_COMPANY_NAME("company_name"),
+        USER_BRANCH_NAME("branch_name"),
+        FIRST_START("first_start"),
+        SALESMAN_STATUS("salesman_status"),
+        USER_NAME("user_name");
 
+        private String value;
 
-    public static void setBranchUID(Context context, String branchUID) {
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
-        preferences.edit().putString(USER_BUID, branchUID).apply();
+        SavedInfo(String value) {
+            this.value = value;
+        }
+
+        public String getValue() {
+            return value;
+        }
     }
 
-    public static String getBranchUID(Context context) {
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
-        return preferences.getString(USER_BUID, "null");
+    private static final Object LOCK = new Object();
+    private static UserPreference mInstance;
+
+    public static UserPreference getInstance() {
+        if (mInstance == null) {
+            synchronized (LOCK) {
+                mInstance = new UserPreference();
+            }
+        }
+        return mInstance;
     }
 
-    public static void setFirstStart(Context context) {
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
-        preferences.edit().putBoolean(FIRST_START, false).apply();
+    private UserPreference() {
     }
 
-    public static boolean isFirstStart(Context context) {
+    public void setBranchUID(Context context, String branchUID) {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
-        return preferences.getBoolean(FIRST_START, true);
+        preferences.edit().putString(SavedInfo.USER_BUID.getValue(), branchUID).apply();
+    }
+
+    public String getBranchUID(Context context) {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        return preferences.getString(SavedInfo.USER_BUID.getValue(), null);
+    }
+
+    public void setFirstStart(Context context) {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        preferences.edit().putBoolean(SavedInfo.FIRST_START.getValue(), false).apply();
+    }
+
+    public boolean isFirstStart(Context context) {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        return preferences.getBoolean(SavedInfo.FIRST_START.getValue(), true);
     }
 
 
-    public static void setCompanyUID(Context context, String CUID) {
+    public void setCompanyUID(Context context, String CUID) {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
-        preferences.edit().putString(USER_CUID, CUID).apply();
+        preferences.edit().putString(SavedInfo.USER_CUID.getValue(), CUID).apply();
     }
 
-    public static String getCompanyUID(Context context) {
+    public String getCompanyUID(Context context) {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
-        return preferences.getString(USER_CUID, "null");
+        return preferences.getString(SavedInfo.USER_CUID.getValue(), null);
     }
 
 
-    public static void setCompanyName(Context context, String cName) {
+    public void setCompanyName(Context context, String cName) {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
-        preferences.edit().putString(USER_COMPANY_NAME, cName).apply();
+        preferences.edit().putString(SavedInfo.USER_COMPANY_NAME.getValue(), cName).apply();
     }
 
-    public static String getUserCompanyName(Context context) {
+    public String getUserCompanyName(Context context) {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
-        return preferences.getString(USER_COMPANY_NAME, "null");
+        return preferences.getString(SavedInfo.USER_COMPANY_NAME.getValue(), null);
     }
 
-    public static void setBranchName(Context context, String branchName) {
+    public void setBranchName(Context context, String branchName) {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
-        preferences.edit().putString(USER_BRANCH_NAME, branchName).apply();
+        preferences.edit().putString(SavedInfo.USER_BRANCH_NAME.getValue(), branchName).apply();
     }
 
-    public static String getBranchName(Context context) {
+    public String getBranchName(Context context) {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
-        return preferences.getString(USER_BRANCH_NAME, "null");
+        return preferences.getString(SavedInfo.USER_BRANCH_NAME.getValue(), null);
     }
 
-    public static void setSalesmanStatus(Context context, boolean status) {
+    public void setSalesmanStatus(Context context, boolean status) {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
-        preferences.edit().putBoolean(SALESMAN_STATUS, status).apply();
+        preferences.edit().putBoolean(SavedInfo.SALESMAN_STATUS.getValue(), status).apply();
     }
 
-    public static boolean getSalesmanStatus(Context context) {
+    public boolean getSalesmanStatus(Context context) {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
-        return preferences.getBoolean(SALESMAN_STATUS, true);
+        return preferences.getBoolean(SavedInfo.SALESMAN_STATUS.getValue(), true);
 
     }
 
-    public static void clearAllPreference(Context context) {
+    public void clearAllPreference(Context context) {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
         preferences.edit().clear().apply();
+    }
+
+    public void setUserName(Context context, String userName) {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        preferences.edit().putString(SavedInfo.USER_NAME.getValue(), userName).apply();
+    }
+
+    public String getUserName(Context context) {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        return preferences.getString(SavedInfo.USER_NAME.getValue(), null);
     }
 }

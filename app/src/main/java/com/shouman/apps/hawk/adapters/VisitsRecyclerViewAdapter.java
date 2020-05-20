@@ -47,7 +47,17 @@ public class VisitsRecyclerViewAdapter extends RecyclerView.Adapter<VisitsRecycl
         Visit visit = visitsList.get(position);
         String visitTime = DateFormat.getDateTimeInstance(DateFormat.DEFAULT, DateFormat.SHORT).format(new Date(visit.getVisitTime()));
         holder.mBinding.txtVisitDateTime.setText(visitTime);
+
+        if (visit.getVisitNote() == null || visit.getVisitNote().isEmpty()) {
+            holder.mBinding.txtVisitNotes.setVisibility(View.GONE);
+        }
+
+        if (visit.getVisitCache() == 0) {
+            holder.mBinding.txtVisitMoney.setVisibility(View.GONE);
+        }
+
         holder.mBinding.txtVisitNotes.setText(visit.getVisitNote());
+        holder.mBinding.txtVisitMoney.setText(String.valueOf(visit.getVisitCache()));
     }
 
     @Override

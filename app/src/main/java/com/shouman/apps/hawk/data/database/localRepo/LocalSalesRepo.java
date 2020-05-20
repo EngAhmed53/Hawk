@@ -38,18 +38,15 @@ public class LocalSalesRepo {
         companiesReference = database.getReference().child("data");
         customersDailyLogLocalLiveData = new MutableLiveData<>();
 
-        AppExecutors.getsInstance().getDiskIO().execute(new Runnable() {
-            @Override
-            public void run() {
-                Map<String, List<DailyLogEntry>> allDaysLog = new HashMap<>();
+        AppExecutors.getsInstance().getDiskIO().execute(() -> {
+            Map<String, List<DailyLogEntry>> allDaysLog = new HashMap<>();
 
-                Book dailyLocalBook = Paper.book("Daily_Log");
-                for (String day : dailyLocalBook.getAllKeys()) {
-                    List<DailyLogEntry> dayLog = dailyLocalBook.read(day);
-                    allDaysLog.put(day, dayLog);
-                }
-                customersDailyLogLocalLiveData.postValue(allDaysLog);
+            Book dailyLocalBook = Paper.book("Daily_Log");
+            for (String day : dailyLocalBook.getAllKeys()) {
+                List<DailyLogEntry> dayLog = dailyLocalBook.read(day);
+                allDaysLog.put(day, dayLog);
             }
+            customersDailyLogLocalLiveData.postValue(allDaysLog);
         });
     }
 
@@ -64,7 +61,7 @@ public class LocalSalesRepo {
     }
 
     synchronized public void addNewCustomerToLocalDatabase(Context context, Customer customer) {
-        String companyUID = UserPreference.getCompanyUID(context);
+        String companyUID = UserPreference.getInstance().getCompanyUID(context);
         DatabaseReference customersReference = companiesReference.child(companyUID).child("C");
         String newCustomerKey = customersReference.push().getKey();
 
@@ -133,15 +130,12 @@ public class LocalSalesRepo {
         final List<String> currentDayLogCustomersKey = new ArrayList<>();
         final Book allLocalLogBook = Paper.book("Daily_Log");
         if (allLocalLogBook.contains(date)) {
-            AppExecutors.getsInstance().getDiskIO().execute(new Runnable() {
-                @Override
-                public void run() {
-                    List<DailyLogEntry> currentDayLog = allLocalLogBook.read(date);
-                    for (DailyLogEntry logEntry : currentDayLog) {
-                        if (logEntry != null) currentDayLogCustomersKey.add(logEntry.getCUID());
-                    }
-                    currentDayLocalLogMutableLiveData.postValue(currentDayLogCustomersKey);
+            AppExecutors.getsInstance().getDiskIO().execute(() -> {
+                List<DailyLogEntry> currentDayLog = allLocalLogBook.read(date);
+                for (DailyLogEntry logEntry : currentDayLog) {
+                    if (logEntry != null) currentDayLogCustomersKey.add(logEntry.getCUID());
                 }
+                currentDayLocalLogMutableLiveData.postValue(currentDayLogCustomersKey);
             });
         }
         return currentDayLocalLogMutableLiveData;

@@ -9,7 +9,7 @@
         android:background="@color/colorPrimary"
         android:clickable="true"
         android:focusable="true"
-        tools:context=".ui.main.companyUI.navDrawer.home.add_new_branch.Fragment_add_new_branch">
+        tools:context=".ui.main.companyUI.navDrawer.home.addNewBranch.Fragment_add_new_branch">
 
 
         <TextView
@@ -92,7 +92,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/choose_branch_input_layout"
+                android:id="@+id/choose_sales_input_layout"
                 style="@style/materialAutoCompleteCustomColor"
                 android:layout_width="350dp"
                 android:layout_height="wrap_content"

@@ -55,8 +55,7 @@
             app:itemIconPadding="8dp"
             app:itemIconSize="28dp"
             app:itemIconTint="@color/white2"
-            app:itemMaxLines="1"
-            app:itemTextColor="@color/white2">
+            app:itemMaxLines="1">
 
             <androidx.core.widget.NestedScrollView
                 android:layout_width="match_parent"

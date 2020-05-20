@@ -62,20 +62,20 @@ public class DaysRecyclerViewAdapter extends RecyclerView.Adapter<DaysRecyclerVi
     public void onBindViewHolder(@NonNull DaysViewHolder holder, int position) {
         long dateMillisecond = daysList.get(position);
         calendar.setTimeInMillis(dateMillisecond);
-        String monthText;
+        String dayText;
         if (dateMillisecond == currentDateMillisecond) {
-            monthText = mContext.getString(R.string.today);
+            dayText = mContext.getString(R.string.today);
         } else {
             long seconds = Math.abs(currentDateMillisecond - dateMillisecond) / 1000;
             if (seconds > 86400 && seconds < 172800)
-                monthText = mContext.getString(R.string.yesterday);
+                dayText = mContext.getString(R.string.yesterday);
             else {
-                monthText = simpleDateFormatForMonth.format(calendar.getTime());
+                dayText = simpleDateFormatForDay.format(calendar.getTime());
             }
         }
-        holder.mBinding.monthTxt.setText(monthText);
+        holder.mBinding.monthTxt.setText(simpleDateFormatForMonth.format(calendar.getTime()));
         holder.mBinding.dayNumTxt.setText(String.valueOf(calendar.get(Calendar.DAY_OF_MONTH)));
-        holder.mBinding.dayTxt.setText(simpleDateFormatForDay.format(calendar.getTime()));
+        holder.mBinding.dayTxt.setText(dayText);
         holder.setSelected();
     }
 
@@ -99,6 +99,7 @@ public class DaysRecyclerViewAdapter extends RecyclerView.Adapter<DaysRecyclerVi
 
             itemView.setOnClickListener(v -> {
                 mBinding.monthTxt.setTypeface(null, Typeface.BOLD);
+                mBinding.dayTxt.setTypeface(null, Typeface.BOLD);
                 mBinding.dayFrame.setBackgroundTintList(ColorStateList.valueOf(mContext.getResources().getColor(R.color.colorAccent)));
 
                 if (checkedPosition != getAdapterPosition()) {
@@ -112,9 +113,11 @@ public class DaysRecyclerViewAdapter extends RecyclerView.Adapter<DaysRecyclerVi
         private void setSelected() {
             if (checkedPosition == getAdapterPosition()) {
                 mBinding.monthTxt.setTypeface(null, Typeface.BOLD);
+                mBinding.dayTxt.setTypeface(null, Typeface.BOLD);
                 mBinding.dayFrame.setBackgroundTintList(ColorStateList.valueOf(mContext.getResources().getColor(R.color.colorAccent)));
             } else {
                 mBinding.monthTxt.setTypeface(null, Typeface.NORMAL);
+                mBinding.dayTxt.setTypeface(null, Typeface.NORMAL);
                 mBinding.dayFrame.setBackgroundTintList(ColorStateList.valueOf(mContext.getResources().getColor(R.color.gray2)));
             }
         }

@@ -1,33 +1,42 @@
 package com.shouman.apps.hawk.adapters;
 
+import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.LinearInterpolator;
 import android.widget.Filter;
 import android.widget.Filterable;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
+import androidx.databinding.ObservableArrayList;
+import androidx.navigation.NavDirections;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.common.collect.BiMap;
 import com.shouman.apps.hawk.R;
 import com.shouman.apps.hawk.common.Common;
 import com.shouman.apps.hawk.data.model.Customer;
 import com.shouman.apps.hawk.databinding.CustomersListItemLayoutBinding;
+import com.shouman.apps.hawk.ui.main.companyUI.navDrawer.customers.Fragment_customersDirections;
 
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 
 public class AllCustomersRecyclerViewAdapter extends RecyclerView.Adapter<AllCustomersRecyclerViewAdapter.CustomersViewHolder> implements Filterable {
 
+    public ObservableArrayList<String> selectedUIDs;
+    private ArrayList<Integer> selectedPositions;
+    private BiMap<String, Customer> customersMap;
     private List<Customer> allCustomers;
     private List<Customer> allCustomersFull;
     private Context mContext;
@@ -66,36 +75,39 @@ public class AllCustomersRecyclerViewAdapter extends RecyclerView.Adapter<AllCus
         this.mContext = mContext;
         formatter = DateFormat.getDateInstance(DateFormat.DATE_FIELD, Locale.getDefault());
         calendar = Calendar.getInstance();
+        selectedUIDs = new ObservableArrayList<>();
+        selectedPositions = new ArrayList<>();
     }
 
-    public void setCustomersList(List<Customer> customersList) {
-        this.allCustomers = customersList;
-        this.allCustomersFull = new ArrayList<>(customersList);
+    public void setCustomersMap(BiMap<String, Customer> customersMap) {
+        this.customersMap = customersMap;
+        this.allCustomers = new ArrayList<>(customersMap.values());
+        this.allCustomersFull = new ArrayList<>(customersMap.values());
         notifyDataSetChanged();
     }
 
-    public void sortByNameAscendingOrder () {
+    public void sortByNameAscendingOrder() {
         if (allCustomers != null && allCustomers.size() > 0) {
             Collections.sort(allCustomers, (o1, o2) -> o1.getN().compareTo(o2.getN()));
         }
         notifyDataSetChanged();
     }
 
-    public void sortByNameDescendingOrder () {
+    public void sortByNameDescendingOrder() {
         if (allCustomers != null && allCustomers.size() > 0) {
             Collections.sort(allCustomers, (o1, o2) -> o2.getN().compareTo(o1.getN()));
         }
         notifyDataSetChanged();
     }
 
-    public void sortByDateAscendingOrder () {
+    public void sortByDateAscendingOrder() {
         if (allCustomers != null && allCustomers.size() > 0) {
             Collections.sort(allCustomers, (o1, o2) -> (int) (o1.getAddedTime() - o2.getAddedTime()));
         }
         notifyDataSetChanged();
     }
 
-    public void sortByDateDescendingOrder () {
+    public void sortByDateDescendingOrder() {
         if (allCustomers != null && allCustomers.size() > 0) {
             Collections.sort(allCustomers, (o1, o2) -> (int) (o2.getAddedTime() - o1.getAddedTime()));
         }
@@ -117,12 +129,19 @@ public class AllCustomersRecyclerViewAdapter extends RecyclerView.Adapter<AllCus
         Customer customer = allCustomers.get(position);
         holder.mBinding.customerNameTxt.setText(customer.getN());
         holder.mBinding.companyNameTxt.setText(customer.getCn());
+        if (customer.getBelongToName() != null)
+            holder.mBinding.belongToTxt.setText(customer.getBelongToName());
         String visitsCount = customer.getVisitList().size() + " " + mContext.getString(R.string.customer_total_visits);
         holder.mBinding.totalVisitsTxt.setText(visitsCount);
 
+        if (customer.isChecked()) {
+            holder.setChecked();
+        } else {
+            holder.setNotChecked();
+        }
+
         calendar.setTimeInMillis(customer.getAddedTime());
         holder.mBinding.addedDateTxt.setText(formatter.format(calendar.getTime()));
-
         holder.mBinding.frame.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(Common.getRandomColor(position))));
     }
 
@@ -140,14 +159,112 @@ public class AllCustomersRecyclerViewAdapter extends RecyclerView.Adapter<AllCus
         return listFilter;
     }
 
+    public void clearSelections() {
+        selectedUIDs.clear();
+        for (int position : selectedPositions) {
+            allCustomers.get(position).setChecked(false);
+            notifyItemChanged(position);
+        }
+        selectedPositions.clear();
+    }
 
-    static class CustomersViewHolder extends RecyclerView.ViewHolder {
 
+    class CustomersViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
+        Customer customer;
         CustomersListItemLayoutBinding mBinding;
 
         CustomersViewHolder(@NonNull View itemView) {
             super(itemView);
             mBinding = DataBindingUtil.bind(itemView);
+            itemView.setOnClickListener(this);
+            itemView.setOnLongClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            customer = allCustomers.get(getAdapterPosition());
+            if (selectedUIDs.size() == 0) {
+                NavDirections toCustomersDetails =
+                        Fragment_customersDirections.actionFragmentCustomersToFragmentCustomersInfo(
+                                customer,
+                                customersMap.inverse().get(customer));
+                Navigation.findNavController(v).navigate(toCustomersDetails);
+            } else {
+                if (customer.isChecked()) {
+                    customer.setChecked(false);
+                    selectedUIDs.remove(customersMap.inverse().get(customer));
+                    selectedPositions.remove((Integer) getAdapterPosition());
+                    hideCheckMark();
+                } else {
+                    customer.setChecked(true);
+                    selectedUIDs.add(customersMap.inverse().get(customer));
+                    selectedPositions.add(getAdapterPosition());
+                    showCheckMark();
+                }
+            }
+        }
+
+        @Override
+        public boolean onLongClick(View v) {
+            customer = allCustomers.get(getAdapterPosition());
+            if (customer.isChecked()) {
+                customer.setChecked(false);
+                selectedUIDs.remove(customersMap.inverse().get(customer));
+                selectedPositions.remove((Integer) getAdapterPosition());
+                hideCheckMark();
+            } else {
+                customer.setChecked(true);
+                selectedUIDs.add(customersMap.inverse().get(customer));
+                selectedPositions.add(getAdapterPosition());
+                showCheckMark();
+            }
+            return true;
+        }
+
+        private void hideCheckMark() {
+            ObjectAnimator fadeOutCheckMark = ObjectAnimator.ofFloat(mBinding.checkMark, "alpha", 1f, 0f);
+            fadeOutCheckMark.setDuration(300);
+            fadeOutCheckMark.setInterpolator(new LinearInterpolator());
+            fadeOutCheckMark.start();
+
+            ObjectAnimator rotateCheckMark = ObjectAnimator.ofFloat(mBinding.checkMark, "rotationY", 180f, 0f);
+            rotateCheckMark.setDuration(300);
+            rotateCheckMark.setInterpolator(new LinearInterpolator());
+            rotateCheckMark.start();
+
+            ObjectAnimator fadeIn2Letters = ObjectAnimator.ofFloat(mBinding.customerImage, "alpha", 0f, 1f);
+            fadeIn2Letters.setDuration(300);
+            fadeIn2Letters.setInterpolator(new LinearInterpolator());
+            fadeIn2Letters.start();
+        }
+
+        private void showCheckMark() {
+            ObjectAnimator fadeInCheckMark = ObjectAnimator.ofFloat(mBinding.checkMark, "alpha", 0f, 1f);
+            fadeInCheckMark.setDuration(300);
+            fadeInCheckMark.setInterpolator(new LinearInterpolator());
+            fadeInCheckMark.start();
+
+            ObjectAnimator rotateCheckMark = ObjectAnimator.ofFloat(mBinding.checkMark, "rotationY", 0.0f, 180f);
+            rotateCheckMark.setDuration(300);
+            rotateCheckMark.setInterpolator(new LinearInterpolator());
+            rotateCheckMark.start();
+
+            ObjectAnimator fadeOut2Letters = ObjectAnimator.ofFloat(mBinding.customerImage, "alpha", 1f, 0f);
+            fadeOut2Letters.setDuration(300);
+            fadeOut2Letters.setInterpolator(new LinearInterpolator());
+            fadeOut2Letters.start();
+        }
+
+        private void setNotChecked() {
+            mBinding.checkMark.setAlpha(0f);
+            mBinding.checkMark.setRotationY(0f);
+            mBinding.customerImage.setAlpha(1f);
+        }
+
+        private void setChecked() {
+            mBinding.checkMark.setAlpha(1f);
+            mBinding.checkMark.setRotationY(180f);
+            mBinding.customerImage.setAlpha(0f);
         }
     }
 }

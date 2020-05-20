@@ -32,6 +32,7 @@ public class Fragment_Splash_Screen extends Fragment {
 
     private FirebaseAuth firebaseAuth;
 
+    private UserPreference userPreference;
 
     private AuthViewModel authViewModel;
 
@@ -59,6 +60,12 @@ public class Fragment_Splash_Screen extends Fragment {
     }
 
     @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        userPreference = UserPreference.getInstance();
+    }
+
+    @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
@@ -69,14 +76,15 @@ public class Fragment_Splash_Screen extends Fragment {
         assert host != null;
         authViewModel = new ViewModelProvider(host).get(AuthViewModel.class);
 
-        Handler handler = new Handler();
-        handler.postDelayed(() -> firebaseAuth.addAuthStateListener(firebaseAuthListener), 0);
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         mBinding = FragmentSplashScreenBinding.inflate(inflater);
+
+        Handler handler = new Handler();
+        handler.postDelayed(() -> firebaseAuth.addAuthStateListener(firebaseAuthListener), 0);
 
         return mBinding.getRoot();
     }
@@ -91,28 +99,30 @@ public class Fragment_Splash_Screen extends Fragment {
         if (userType.equals("company_account")) {
             Navigation.findNavController(mBinding.appNameText).navigate(R.id.action_fragment_Splash_Screen_to_mainActivity);
             Log.e(TAG, "showMainActivity: to company");
-            UserPreference.setCompanyUID(requireContext(), user.getCuid());
-            UserPreference.setCompanyName(requireContext(), user.getCn());
+            userPreference.setCompanyUID(requireContext(), user.getCuid());
+            userPreference.setCompanyName(requireContext(), user.getCn());
+            userPreference.setUserName(requireContext(), user.getUn());
         } else if (userType.equals("sales_account")) {
-            Navigation.findNavController(mBinding.appNameText).navigate(R.id.action_fragment_Splash_Screen_to_mainActivity);
-            UserPreference.setBranchUID(requireContext(), user.getBuid());
-            UserPreference.setCompanyUID(requireContext(), user.getCuid());
-            UserPreference.setCompanyName(requireContext(), user.getCn());
-            UserPreference.setSalesmanStatus(requireContext(), user.isStatus());
+            Navigation.findNavController(mBinding.appNameText).navigate(R.id.action_fragment_Splash_Screen_to_main2Activity);
+            userPreference.setBranchUID(requireContext(), user.getBuid());
+            userPreference.setCompanyUID(requireContext(), user.getCuid());
+            userPreference.setCompanyName(requireContext(), user.getCn());
+            userPreference.setSalesmanStatus(requireContext(), user.isStatus());
+            userPreference.setUserName(requireContext(), user.getUn());
         }
         requireActivity().finish();
 
 //        if (userType.equals("company_account")) {
 //            intent = new Intent(requireContext(), MainActivity.class);
-//            UserPreference.setCompanyUID(requireContext(), user.getCuid());
-//            UserPreference.setCompanyName(requireContext(), user.getCn());
+//            userPreference.setCompanyUID(requireContext(), user.getCuid());
+//            userPreference.setCompanyName(requireContext(), user.getCn());
 //        } else if (userType.equals("sales_account")) {
 //            intent = new Intent(requireContext(), Main2Activity.class);
 //
-//            UserPreference.setBranchUID(requireContext(), user.getBuid());
-//            UserPreference.setCompanyUID(requireContext(), user.getCuid());
-//            UserPreference.setCompanyName(requireContext(), user.getCn());
-//            UserPreference.setSalesmanStatus(requireContext(), user.isStatus());
+//            userPreference.setBranchUID(requireContext(), user.getBuid());
+//            userPreference.setCompanyUID(requireContext(), user.getCuid());
+//            userPreference.setCompanyName(requireContext(), user.getCn());
+//            userPreference.setSalesmanStatus(requireContext(), user.isStatus());
 //        }
 //        if (intent != null)
 //            startActivity(intent);

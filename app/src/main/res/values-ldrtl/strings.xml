@@ -25,7 +25,7 @@
     <string name="logo_image">شعار البرنامج</string>
     <string name="continue_btn">الاستمرار</string>
     <string name="please_type_company_name">ادخل اسم شركتك</string>
-    <string name="company_name">اسم الشركة</string>
+    <string name="company_name">الشركة</string>
     <string name="password_min_6_characters">كلمة المرور (لا تقل عن 6 احرف)</string>
     <string name="create_new_account">حساب جديد</string>
     <string name="i_already_have_account">لدي حساب</string>
@@ -72,7 +72,7 @@
     <string name="customer_name">اسم العميل</string>
     <string name="customer_email">البريد الالكتروني</string>
     <string name="phone">رقم الهاتف</string>
-    <string name="added_date">تاريخ الادخال</string>
+    <string name="added_time">تاريخ الادخال</string>
     <string name="google_maps_key" translatable="false">AIzaSyABpiW13-2gPYkgXVyzFypJTQIW1me4Y1s</string>
     <string name="company_uid">رمز الشركة</string>
     <string name="edit_company_info">تعديل بيانات الشركة</string>
@@ -87,11 +87,11 @@
     <string name="nav_drawer_open">nav_open</string>
     <string name="nav_drawer_closed">nav_closed</string>
     <string name="type_the_new_customer_information_then_press_continue">ادخل بيانات العميل ثم اضغط استمرار</string>
-    <string name="notes">ملاحظات...</string>
+    <string name="notes">ملاحظات…</string>
     <string name="add_customer">اضافة عميل جديد</string>
     <string name="user_photo">صورة المستخدم</string>
     <string name="personal_photo">الصورة الشخصية</string>
-    <string name="customer_notes">ملاحظات العميل</string>
+    <string name="customer_notes">ملاحظات</string>
     <string name="call_customer_phone_number">الاتصال بالعميل</string>
     <string name="search">بحث</string>
     <string name="branch_info">بيانات الفرع</string>
@@ -114,7 +114,7 @@
     <string name="not_defined">غير محدد</string>
     <string name="cancel">الغاء</string>
     <string name="customer_image">صورة العميل</string>
-    <string name="visits_log">سجل الزيارات</string>
+    <string name="visits_log">الزيارات</string>
     <string name="sales_info">بيانات المندوب</string>
     <string name="sales_man_customers_list">عملاء المندوب</string>
     <string name="sales_photo">صورة المندوب</string>
@@ -171,11 +171,36 @@
     <string name="sales_deleted">Deleted</string>
     <string name="delete_sales_confirm">Are you sure you want to delete this sales member ?</string>
     <string name="enabled">Enabled</string>
-    <string name="ok_dialog_btn">Ok</string>
+    <string name="ok_dialog_btn">OK</string>
     <string name="no_internet_connection">Network Error</string>
     <string name="check_your_internet_connection">You need internet connection to perform delete salsman action.</string>
     <string name="choose_new_branch">Choose new branch</string>
     <string name="move_salesman_done">Salesman moved successfully!</string>
+    <string name="sales_customers_list">Press on any customer to view his information, or do a long press to view the action menu.</string>
+    <string name="active_label">Active</string>
+    <string name="disabled_label">Disabled</string>
+    <string name="added_by">Added by</string>
+    <string name="belong_to">Belong to</string>
+    <string name="view_location">Location</string>
+    <string name="customers_map">Customers Map</string>
+    <string name="choose_new_salesman">Choose new salesman</string>
+    <string name="customer_moved_successfully">Customer moved Successfully!</string>
+    <string name="move_customer_subheader">Choose the new salesman to move this customer to, then click move button.</string>
+    <string name="move_sales_subheader">Choose the new branch to move salesman to, then click move button</string>
+    <string name="delete_customer">Delete Customer!</string>
+    <string name="delete_customer_msg">Are you sure you want to delete this customer?\nDeleted customers can\'t be retrevied</string>
+    <string name="delete_customers_msg">Are you sure you want to delete selected customers? Deleted customers data can\'t be retrieved.</string>
+    <string name="customer_deleted">Customer Deleted!</string>
+    <string name="delete_customer_forever">Permanently Delete</string>
+    <string name="move_selected_to">Move selected to</string>
+    <string name="multi_customers_subheader">Choose the new salesman to move selected customers to, then click move button.</string>
+    <string name="profile">My Profile</string>
+    <string name="about">About</string>
+    <string name="daily_log">Daily Log</string>
+    <string name="add_new">Add New</string>
+    <string name="create_new_customer">Create new customer</string>
+    <string name="add_new_visit">Add new visit</string>
+    <string name="pick_location">Pick Location</string>
 
 
 </resources>

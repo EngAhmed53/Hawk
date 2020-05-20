@@ -6,10 +6,12 @@ import android.os.Parcelable;
 public class Visit implements Parcelable {
     private String visitNote;
     private long visitTime;
+    private int visitCache;
 
-    public Visit(String visitNote, long visitTime) {
+    public Visit(String visitNote, long visitTime, int visitCache) {
         this.visitNote = visitNote;
         this.visitTime = visitTime;
+        this.visitCache = visitCache;
     }
 
     public Visit() {
@@ -45,6 +47,7 @@ public class Visit implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(visitNote);
         dest.writeLong(visitTime);
+        dest.writeInt(visitCache);
     }
 
     @SuppressWarnings("unused")
@@ -59,4 +62,12 @@ public class Visit implements Parcelable {
             return new Visit[size];
         }
     };
+
+    public int getVisitCache() {
+        return visitCache;
+    }
+
+    public void setVisitCache(int visitCache) {
+        this.visitCache = visitCache;
+    }
 }

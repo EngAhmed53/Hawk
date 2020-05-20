@@ -19,12 +19,14 @@ import java.util.Objects;
 
 public class FirebaseSalesRepo {
     private static FirebaseSalesRepo firebaseSalesRepo;
+    private UserPreference userPreference;
     private FirebaseDatabase database;
     private DatabaseReference companiesReference;
     private DatabaseReference usersReference;
     private static final Object LOCK = new Object();
 
     private FirebaseSalesRepo() {
+        userPreference = UserPreference.getInstance();
         database = FirebaseDatabase.getInstance();
         companiesReference = database.getReference().child("data");
         usersReference = database.getReference().child("users");
@@ -40,32 +42,17 @@ public class FirebaseSalesRepo {
     }
 
     synchronized public void uploadCustomers(Context context, Customer customer, String key) {
-        String companyUID = UserPreference.getCompanyUID(context);
-        String userUID = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
-
-        DatabaseReference salesMemberCustomersListReference =
-                companiesReference
-                        .child(companyUID)
-                        .child("ST")
-                        .child(userUID)
-                        .child("cList");
+        String companyUID = userPreference.getCompanyUID(context);
 
         DatabaseReference customersReference =
                 companiesReference.child(companyUID).child("C");
 
         customersReference.child(key).setValue(customer);
 
-
-        Map<String, Object> newValue = new HashMap<>();
-        String value = customer.getN() + ", " + customer.getCn() + ", " + customer.getLt() + ", " + customer.getLn();
-        newValue.put(key, value);
-
-        salesMemberCustomersListReference
-                .updateChildren(newValue);
     }
 
     synchronized public void uploadVisits(Context context, Visit visit, String customerUID) {
-        String companyUID = UserPreference.getCompanyUID(context);
+        String companyUID = userPreference.getCompanyUID(context);
         //add this visit to customer visits list
         DatabaseReference customerReference = companiesReference.child(companyUID).child("C").child(customerUID);
         customerReference.child("visitList").push().setValue(visit);
@@ -73,7 +60,7 @@ public class FirebaseSalesRepo {
 
 
     synchronized public void uploadLocalLog(Context context, String date, DailyLogEntry dailyLogEntry) {
-        String companyUID = UserPreference.getCompanyUID(context);
+        String companyUID = userPreference.getCompanyUID(context);
         String userUID = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
 
         DatabaseReference salesMemberCustomersLogReference = companiesReference.child(companyUID).child("ST").child(userUID).child("cLog");
@@ -82,11 +69,10 @@ public class FirebaseSalesRepo {
 
     //add new customer to database
     synchronized public void addNewCustomerToDatabase(Context context, Customer customer) {
-        String companyUID = UserPreference.getCompanyUID(context);
+        String companyUID = userPreference.getCompanyUID(context);
         String userUID = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
         DatabaseReference customersReference = companiesReference.child(companyUID).child("C");
         DatabaseReference salesMemberCustomersLogReference = companiesReference.child(companyUID).child("ST").child(userUID).child("cLog");
-        DatabaseReference salesMemberCustomersListReference = companiesReference.child(companyUID).child("ST").child(userUID).child("cList");
 
         String newCustomerKey = customersReference.push().getKey();
 
@@ -110,14 +96,6 @@ public class FirebaseSalesRepo {
                 .child(String.valueOf(dateOnly.getTime()))
                 .push()
                 .setValue(dailyLogEntry);
-
-        //add this new customer to sales member customersList
-        Map<String, Object> newValue = new HashMap<>();
-        String value = customer.getN() + ", " + customer.getCn() + ", " + customer.getLt() + ", " + customer.getLn();
-        newValue.put(newCustomerKey, value);
-
-        salesMemberCustomersListReference
-                .updateChildren(newValue);
     }
 
 
@@ -144,7 +122,7 @@ public class FirebaseSalesRepo {
     }
 
     synchronized public void addNewVisitReport(Context context, Visit visit, String customerUID, String customerName, String companyName) {
-        String companyUID = UserPreference.getCompanyUID(context);
+        String companyUID = userPreference.getCompanyUID(context);
         String userUID = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
 
 
@@ -170,7 +148,7 @@ public class FirebaseSalesRepo {
     }
 
     synchronized public DatabaseReference getCurrentDayLog(Context context, String salesUID, String date) {
-        String companyUID = UserPreference.getCompanyUID(context);
+        String companyUID = userPreference.getCompanyUID(context);
         return companiesReference.child(companyUID).child("ST").child(salesUID).child("cLog").child(date);
     }
 }

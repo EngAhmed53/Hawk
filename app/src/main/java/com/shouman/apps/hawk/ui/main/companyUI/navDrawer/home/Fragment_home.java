@@ -44,6 +44,7 @@ public class Fragment_home extends Fragment {
 
         mBinding = FragmentHomeBinding.inflate(inflater);
 
+
         mBinding.fabMenu.setOnMenuButtonClickListener(v -> {
             if (mBinding.fabMenu.isOpened()) {
                 mBinding.protectionLayout.startAnimation(AnimationUtils.loadAnimation(getContext(), android.R.anim.fade_out));

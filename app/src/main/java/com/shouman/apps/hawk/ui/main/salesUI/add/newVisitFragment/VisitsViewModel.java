@@ -39,7 +39,7 @@ class VisitsViewModel extends ViewModel {
         final LiveData<List<String>> currentDayLocalLogLiveData = localSalesRepo.getCurrentDayLocalLog(currentDate);
 
         FirebaseQueryLiveData customersMapLiveData =
-                new FirebaseQueryLiveData(firebaseCompanyRepo.getSalesMemberCustomersList(mContext, salesUID));
+                new FirebaseQueryLiveData(firebaseCompanyRepo.getSalesmanCustomersList(mContext, salesUID));
 
         FirebaseQueryLiveData currentDayLogFirebaseLiveData = new FirebaseQueryLiveData(salesRepo.getCurrentDayLog(mContext, salesUID, currentDate));
 

@@ -19,7 +19,7 @@ public class FirebaseAuthRepo {
                 firebaseAuthRepo = new FirebaseAuthRepo();
             }
         }
-        return new FirebaseAuthRepo();
+        return firebaseAuthRepo;
     }
 
 

@@ -11,8 +11,11 @@ public class User {
     private String cuid;
     //user type
     private String ut;
-    //company name
+    //companyName
     private String cn;
+
+    //branchName
+    private String bn;
 
     private boolean status;
 
@@ -20,13 +23,14 @@ public class User {
         status = true;
     }
 
-    public User(String un, String e, String buid, String cuid, String ut, String cn) {
+    public User(String un, String e, String buid, String cuid, String ut, String cn, String bn) {
         this.un = un;
         this.e = e;
         this.buid = buid;
         this.cuid = cuid;
         this.ut = ut;
         this.cn = cn;
+        this.bn = bn;
         status = true;
     }
 
@@ -76,6 +80,14 @@ public class User {
 
     public void setCn(String cn) {
         this.cn = cn;
+    }
+
+    public String getBn() {
+        return bn;
+    }
+
+    public void setBn(String bn) {
+        this.bn = bn;
     }
 
     public boolean isStatus() {

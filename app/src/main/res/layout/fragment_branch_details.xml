@@ -93,8 +93,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="32dp"
-                        app:setSalesMap="@{null}"
-                        app:branchName="@{null}"/>
+                        app:setParentPosition="@{null}"
+                        app:setSalesMap="@{null}" />
 
                 </androidx.core.widget.NestedScrollView>
             </androidx.constraintlayout.widget.ConstraintLayout>

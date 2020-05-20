@@ -1,18 +1,14 @@
 package com.shouman.apps.hawk.adapters;
 
-import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.LinearInterpolator;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.widget.PopupMenu;
 import androidx.databinding.DataBindingUtil;
 import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
@@ -23,7 +19,6 @@ import com.shouman.apps.hawk.common.Common;
 import com.shouman.apps.hawk.data.model.SalesListItem;
 import com.shouman.apps.hawk.databinding.SalesListItemLayoutBinding;
 import com.shouman.apps.hawk.ui.main.companyUI.navDrawer.home.Fragment_homeDirections;
-import com.shouman.apps.hawk.ui.main.companyUI.navDrawer.home.OnSalesMemberLongClickActionsHandler;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,13 +30,11 @@ public class SalesRecyclerViewAdapter extends RecyclerView.Adapter<SalesRecycler
     private List<SalesListItem> salesListItem;
     private List<String> salesUIDs;
     private Context mContext;
-    private OnSalesMemberLongClickActionsHandler onSalesMemberLongClickActionsHandler;
-    private String mBranchDetails;
+    private int parentPosition;
 
-    public SalesRecyclerViewAdapter(Context mContext, String branchDetails) {
+    public SalesRecyclerViewAdapter(Context mContext, int parentPosition) {
         this.mContext = mContext;
-        onSalesMemberLongClickActionsHandler = (OnSalesMemberLongClickActionsHandler) mContext;
-        this.mBranchDetails = branchDetails;
+        this.parentPosition = parentPosition;
     }
 
     public void setSalesMap(Map<String, SalesListItem> salesMap) {
@@ -95,7 +88,7 @@ public class SalesRecyclerViewAdapter extends RecyclerView.Adapter<SalesRecycler
         String s = String.valueOf(c1) + (c2 != null ? c2 : "");
         holder.mBinding.first2Letters.setText(s);
         holder.mBinding.first2Letters.setTypeface(Typeface.createFromAsset(mContext.getAssets(), "varela_round_regular.ttf"));
-        holder.mBinding.frame.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(Common.getRandomColor(position))));
+        holder.mBinding.frame.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(Common.getRandomColor(position + (parentPosition * 2)))));
     }
 
     @Override
@@ -106,7 +99,9 @@ public class SalesRecyclerViewAdapter extends RecyclerView.Adapter<SalesRecycler
         return 0;
     }
 
-    class SalesViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener, PopupMenu.OnMenuItemClickListener {
+    class SalesViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener
+            //, View.OnLongClickListener, PopupMenu.OnMenuItemClickListener {
+    {
 
         SalesListItemLayoutBinding mBinding;
         boolean statusEnabled;
@@ -114,7 +109,6 @@ public class SalesRecyclerViewAdapter extends RecyclerView.Adapter<SalesRecycler
         SalesViewHolder(@NonNull View itemView) {
             super(itemView);
             mBinding = DataBindingUtil.bind(itemView);
-            itemView.setOnLongClickListener(this);
             itemView.setOnClickListener(this);
         }
 
@@ -126,84 +120,85 @@ public class SalesRecyclerViewAdapter extends RecyclerView.Adapter<SalesRecycler
             Navigation.findNavController(v).navigate(salesItemToSalesMain);
         }
 
-        @Override
-        public boolean onLongClick(View v) {
-            showCheckMark();
-            showMenu();
-            return true;
-        }
+//        @Override
+//        public boolean onLongClick(View v) {
+//            showCheckMark();
+//            showMenu();
+//            return true;
+//        }
 
-        private void hideCheckMark() {
-            ObjectAnimator fadeOutCheckMark = ObjectAnimator.ofFloat(mBinding.checkMark, "alpha", 1f, 0f);
-            fadeOutCheckMark.setDuration(300);
-            fadeOutCheckMark.setInterpolator(new LinearInterpolator());
-            fadeOutCheckMark.start();
+//        private void hideCheckMark() {
+//            ObjectAnimator fadeOutCheckMark = ObjectAnimator.ofFloat(mBinding.checkMark, "alpha", 1f, 0f);
+//            fadeOutCheckMark.setDuration(300);
+//            fadeOutCheckMark.setInterpolator(new LinearInterpolator());
+//            fadeOutCheckMark.start();
+//
+//            ObjectAnimator rotateCheckMark = ObjectAnimator.ofFloat(mBinding.checkMark, "rotationY", 180f, 0f);
+//            rotateCheckMark.setDuration(300);
+//            rotateCheckMark.setInterpolator(new LinearInterpolator());
+//            rotateCheckMark.start();
+//
+//            ObjectAnimator fadeIn2Letters = ObjectAnimator.ofFloat(mBinding.first2Letters, "alpha", 0f, 1f);
+//            fadeIn2Letters.setDuration(300);
+//            fadeIn2Letters.setInterpolator(new LinearInterpolator());
+//            fadeIn2Letters.start();
+//        }
+//
+//        private void showCheckMark() {
+//            ObjectAnimator fadeInCheckMark = ObjectAnimator.ofFloat(mBinding.checkMark, "alpha", 0f, 1f);
+//            fadeInCheckMark.setDuration(300);
+//            fadeInCheckMark.setInterpolator(new LinearInterpolator());
+//            fadeInCheckMark.start();
+//
+//            ObjectAnimator rotateCheckMark = ObjectAnimator.ofFloat(mBinding.checkMark, "rotationY", 0.0f, 180f);
+//            rotateCheckMark.setDuration(300);
+//            rotateCheckMark.setInterpolator(new LinearInterpolator());
+//            rotateCheckMark.start();
+//
+//            ObjectAnimator fadeOut2Letters = ObjectAnimator.ofFloat(mBinding.first2Letters, "alpha", 1f, 0f);
+//            fadeOut2Letters.setDuration(300);
+//            fadeOut2Letters.setInterpolator(new LinearInterpolator());
+//            fadeOut2Letters.start();
+//        }
 
-            ObjectAnimator rotateCheckMark = ObjectAnimator.ofFloat(mBinding.checkMark, "rotationY", 180f, 0f);
-            rotateCheckMark.setDuration(300);
-            rotateCheckMark.setInterpolator(new LinearInterpolator());
-            rotateCheckMark.start();
+//        private void showMenu() {
+//            PopupMenu popup = new PopupMenu(mContext, mBinding.layout);
+//            popup.setOnMenuItemClickListener(this);
+//            popup.inflate(R.menu.sales_item_menu);
+//            popup.setOnDismissListener(menu -> hideCheckMark());
+//            if (statusEnabled) {
+//                popup.getMenu().findItem(R.id.action_disable).setVisible(true);
+//                popup.getMenu().findItem(R.id.action_enable).setVisible(false);
+//            } else {
+//                popup.getMenu().findItem(R.id.action_disable).setVisible(false);
+//                popup.getMenu().findItem(R.id.action_enable).setVisible(true);
+//            }
+//            popup.show();
+//        }
 
-            ObjectAnimator fadeIn2Letters = ObjectAnimator.ofFloat(mBinding.first2Letters, "alpha", 0f, 1f);
-            fadeIn2Letters.setDuration(300);
-            fadeIn2Letters.setInterpolator(new LinearInterpolator());
-            fadeIn2Letters.start();
-        }
-
-        private void showCheckMark() {
-            ObjectAnimator fadeInCheckMark = ObjectAnimator.ofFloat(mBinding.checkMark, "alpha", 0f, 1f);
-            fadeInCheckMark.setDuration(300);
-            fadeInCheckMark.setInterpolator(new LinearInterpolator());
-            fadeInCheckMark.start();
-
-            ObjectAnimator rotateCheckMark = ObjectAnimator.ofFloat(mBinding.checkMark, "rotationY", 0.0f, 180f);
-            rotateCheckMark.setDuration(300);
-            rotateCheckMark.setInterpolator(new LinearInterpolator());
-            rotateCheckMark.start();
-
-            ObjectAnimator fadeOut2Letters = ObjectAnimator.ofFloat(mBinding.first2Letters, "alpha", 1f, 0f);
-            fadeOut2Letters.setDuration(300);
-            fadeOut2Letters.setInterpolator(new LinearInterpolator());
-            fadeOut2Letters.start();
-        }
-
-        private void showMenu() {
-            PopupMenu popup = new PopupMenu(mContext, mBinding.layout);
-            popup.setOnMenuItemClickListener(this);
-            popup.inflate(R.menu.sales_item_menu);
-            popup.setOnDismissListener(menu -> hideCheckMark());
-            if (statusEnabled) {
-                popup.getMenu().findItem(R.id.action_disable).setVisible(true);
-                popup.getMenu().findItem(R.id.action_enable).setVisible(false);
-            } else {
-                popup.getMenu().findItem(R.id.action_disable).setVisible(false);
-                popup.getMenu().findItem(R.id.action_enable).setVisible(true);
-            }
-            popup.show();
-        }
-
-        @Override
-        public boolean onMenuItemClick(MenuItem item) {
-            String salesUID = salesUIDs.get(getAdapterPosition());
-            String salesName = salesListItem.get(getAdapterPosition()).getName();
-            boolean status = salesListItem.get(getAdapterPosition()).isStatus();
-
-            switch (item.getItemId()) {
-                case R.id.action_move:
-                    onSalesMemberLongClickActionsHandler.onActionMove(salesUID, salesName, status, mBranchDetails);
-                    return true;
-                case R.id.action_disable:
-                    onSalesMemberLongClickActionsHandler.onActionDisable(salesUID, mBranchDetails);
-                    return true;
-                case R.id.action_enable:
-                    onSalesMemberLongClickActionsHandler.onActionEnable(salesUID, mBranchDetails);
-                    return true;
-                case R.id.action_delete:
-                    onSalesMemberLongClickActionsHandler.onActionDelete(salesUID, mBranchDetails);
-                    return true;
-                default:
-                    return false;
-            }
-        }
+//        @Override
+//        public boolean onMenuItemClick(MenuItem item) {
+//            String salesUID = salesUIDs.get(getAdapterPosition());
+//            String salesName = salesListItem.get(getAdapterPosition()).getName();
+//            boolean status = salesListItem.get(getAdapterPosition()).isStatus();
+//
+//            switch (item.getItemId()) {
+//                case R.id.action_move:
+//                    onSalesMemberLongClickActionsHandler.onActionMove(salesUID, salesName, status, mBranchDetails);
+//                    return true;
+//                case R.id.action_disable:
+//                    onSalesMemberLongClickActionsHandler.onActionDisable(salesUID, mBranchDetails);
+//                    return true;
+//                case R.id.action_enable:
+//                    onSalesMemberLongClickActionsHandler.onActionEnable(salesUID, mBranchDetails);
+//                    return true;
+//                case R.id.action_delete:
+//                    onSalesMemberLongClickActionsHandler.onActionDelete(salesUID, mBranchDetails);
+//                    return true;
+//                default:
+//                    return false;
+//            }
+//        }
+//    }
     }
 }

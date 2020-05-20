@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -16,6 +17,7 @@ import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 import androidx.transition.Transition;
 import androidx.transition.TransitionInflater;
+
 import com.facebook.AccessToken;
 import com.facebook.AccessTokenTracker;
 import com.facebook.CallbackManager;
@@ -47,6 +49,8 @@ public class Fragment_signIn extends Fragment {
 
     private FirebaseAuth firebaseAuth;
 
+    private UserPreference userPreference;
+
     private CallbackManager callbackManager;
 
     private AccessTokenTracker accessTokenTracker;
@@ -73,22 +77,6 @@ public class Fragment_signIn extends Fragment {
         }
     };
 
-    private void showMainActivity(User user) {
-        String userType = user.getUt();
-
-        if(userType.equals("company_account")) {
-            Navigation.findNavController(mBinding.logoImage).navigate(R.id.action_fragment_signIn_to_mainActivity);
-            UserPreference.setCompanyUID(requireContext(), user.getCuid());
-            UserPreference.setCompanyName(requireContext(), user.getCn());
-        } else if (userType.equals("sales_account")){
-            //Navigation.findNavController(mBinding.appNameText).navigate(R.id.action_fragment_Splash_Screen_to_company_nav);
-            UserPreference.setBranchUID(requireContext(), user.getBuid());
-            UserPreference.setCompanyUID(requireContext(), user.getCuid());
-            UserPreference.setCompanyName(requireContext(), user.getCn());
-            UserPreference.setSalesmanStatus(requireContext(), user.isStatus());
-        }
-    }
-
     private void navigateToSelectUserType() {
         Navigation.findNavController(mBinding.btnEmailSignIn).navigate(R.id.action_fragment_signIn_to_fragment_select_user_type2);
     }
@@ -108,6 +96,8 @@ public class Fragment_signIn extends Fragment {
         setSharedElementReturnTransition(customTransition);
 
         firebaseAuth = FirebaseAuth.getInstance();
+
+        userPreference = UserPreference.getInstance();
 
         initViewModel();
 
@@ -230,7 +220,7 @@ public class Fragment_signIn extends Fragment {
                 )
                 .build();
 
-        //open the google sign up
+        //open the google sign in
         mBinding.googleSignInLayout.setOnClickListener(v -> {
             startActivityForResult(
                     googleIntent,
@@ -303,7 +293,7 @@ public class Fragment_signIn extends Fragment {
                 firebaseAuth.addAuthStateListener(firebaseAuthListener);
 
             } else if (resultCode == RESULT_CANCELED) {
-                Toast.makeText(requireContext(), "Sign up cancelled !", Toast.LENGTH_SHORT).show();
+                Toast.makeText(requireContext(), "Sign in cancelled!", Toast.LENGTH_SHORT).show();
             }
         } else {
             callbackManager.onActivityResult(requestCode, resultCode, data);
@@ -327,7 +317,7 @@ public class Fragment_signIn extends Fragment {
     }
 
     private void showErrorDialog(String message) {
-        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(getHostActivity(), R.style.ThemeOverlay_MaterialComponents_MaterialAlertDialog)
+        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(getHostActivity(), R.style.AlertDialogTheme)
                 .setTitle("Error")
                 .setMessage(message)
                 .setCancelable(true)
@@ -341,6 +331,27 @@ public class Fragment_signIn extends Fragment {
         NavDirections signInToForgetPassword = Fragment_signInDirections.actionFragmentSignInToFragmentForgetPassword(email);
         Navigation.findNavController(mBinding.forgetPassword).navigate(signInToForgetPassword);
     }
+
+    private void showMainActivity(User user) {
+        String userType = user.getUt();
+
+        if (userType.equals("company_account")) {
+            Navigation.findNavController(mBinding.logoImage).navigate(R.id.action_fragment_signIn_to_mainActivity);
+            userPreference.setCompanyUID(requireContext(), user.getCuid());
+            userPreference.setCompanyName(requireContext(), user.getCn());
+            userPreference.setUserName(requireContext(), user.getUn());
+        } else if (userType.equals("sales_account")) {
+            Navigation.findNavController(mBinding.logoImage).navigate(R.id.action_fragment_signIn_to_main2Activity);
+            userPreference.setBranchUID(requireContext(), user.getBuid());
+            userPreference.setCompanyUID(requireContext(), user.getCuid());
+            userPreference.setCompanyName(requireContext(), user.getCn());
+            userPreference.setSalesmanStatus(requireContext(), user.isStatus());
+            userPreference.setUserName(requireContext(), user.getUn());
+        }
+
+        requireActivity().finish();
+    }
+
 
     //check if the InputText is not empty and did not has an error
     private boolean checkInputTextErrors(TextInputLayout inputLayout) {

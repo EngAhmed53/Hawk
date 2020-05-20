@@ -1,7 +1,6 @@
 package com.shouman.apps.hawk.ui.main.salesUI.add.newCustomerFragments;
 
 
-import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,9 +8,11 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavDirections;
+import androidx.navigation.Navigation;
 
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -21,38 +22,38 @@ import com.google.android.gms.maps.model.LatLng;
 import com.shouman.apps.hawk.data.database.mainRepo.MainRepo;
 import com.shouman.apps.hawk.data.model.Customer;
 import com.shouman.apps.hawk.databinding.FragmentPickLocationBinding;
-import com.shouman.apps.hawk.ui.main.salesUI.add.addActivity.AddNewActivity;
-import com.shouman.apps.hawk.ui.main.salesUI.add.addActivity.LocationViewModel;
+import com.shouman.apps.hawk.ui.main.salesUI.LocationViewModel;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class Fragment_pick_customer_location extends Fragment implements OnMapReadyCallback {
 
-    private static final String TAG = "Fragment_pick_customer";
     private GoogleMap googleMap;
     private Customer theCustomer;
     private double latitude;
     private double longitude;
     private FragmentPickLocationBinding mBinding;
     private MainRepo mainRepo;
-    private Context context;
-
+    private NewCustomerSharedViewModel customerViewModel;
+    private LocationViewModel locationViewModel;
 
     public Fragment_pick_customer_location() {
         // Required empty public constructor
     }
 
-    public static Fragment_pick_customer_location getInstance() {
-        return new Fragment_pick_customer_location();
-    }
 
     @Override
-    public void onAttach(@NonNull Context context) {
-        super.onAttach(context);
-        this.context = context;
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
         mainRepo = MainRepo.getInstance();
+
+        initSharedViewModel();
+
+        initLocationViewModel();
     }
+
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -63,35 +64,39 @@ public class Fragment_pick_customer_location extends Fragment implements OnMapRe
         //set the map view
         setupMapView(savedInstanceState);
 
-        //get the customer from viewModel
-        initSharedViewModel();
-
-        //set the getLocation button
-        mBinding.myLocation.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                theCustomer.setLt(latitude);
-                theCustomer.setLn(longitude);
-
-                //push this customer to the database
-                mainRepo.addNewCustomer(context, theCustomer);
-                //add this new customer to database
-                Toast.makeText(context, theCustomer.getCn() + "added to database", Toast.LENGTH_SHORT).show();
-                getBaseActivity().finish();
-            }
-        });
         return mBinding.getRoot();
     }
 
-    private void initSharedViewModel() {
-        NewCustomerSharedViewModel customerSharedViewModel = new ViewModelProvider(getBaseActivity()).get(NewCustomerSharedViewModel.class);
-        customerSharedViewModel.getCustomerMutableLiveData().observe(getViewLifecycleOwner(), new Observer<Customer>() {
-            @Override
-            public void onChanged(Customer customer) {
-                theCustomer = customer;
-            }
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        mBinding.myLocation.hide();
+
+        //get the customer from viewModel
+        customerViewModel.getCustomerMutableLiveData().observe(
+                getViewLifecycleOwner(), customer -> theCustomer = customer
+        );
+
+        //set the pickLocation button
+        mBinding.pickLocationBtn.setOnClickListener(v -> {
+
+            theCustomer.setLt(latitude);
+            theCustomer.setLn(longitude);
+
+            //push this customer to the database
+            mainRepo.addNewCustomer(requireContext(), theCustomer);
+
+            Toast.makeText(requireContext(), theCustomer.getCn() + "added to database", Toast.LENGTH_SHORT).show();
+            NavDirections toHome = Fragment_pick_customer_locationDirections.actionFragmentPickCustomerLocationToFragmentSalesHome();
+            Navigation.findNavController(mBinding.getRoot()).navigate(toHome);
         });
+
+        mBinding.myLocation.setOnClickListener(v -> locationViewModel.requestCurrentLocationUpdate());
+    }
+
+    private void initSharedViewModel() {
+        customerViewModel = new ViewModelProvider(requireActivity()).get(NewCustomerSharedViewModel.class);
     }
 
 
@@ -99,12 +104,22 @@ public class Fragment_pick_customer_location extends Fragment implements OnMapRe
     @Override
     public void onMapReady(GoogleMap googleMap) {
         this.googleMap = googleMap;
+
         setMapUI();
-        //set salesman location on map
-        getSalesMemberLocation();
+
+        locationViewModel.getLatLongMutableLiveData().observe(getViewLifecycleOwner(), latLng -> {
+            //get the longitude and latitude
+            latitude = latLng.latitude;
+            longitude = latLng.longitude;
+
+            mBinding.myLocation.show();
+            mBinding.progressBar.setVisibility(View.GONE);
+            mBinding.pickLocationBtn.setEnabled(true);
+            //show the location on mab;
+            showLocationOnMap(latLng);
+        });
     }
 
-    //map ui
     private void setMapUI() {
         googleMap.getUiSettings().setAllGesturesEnabled(true);
         googleMap.getUiSettings().setMapToolbarEnabled(true);
@@ -115,25 +130,10 @@ public class Fragment_pick_customer_location extends Fragment implements OnMapRe
         googleMap.setBuildingsEnabled(true);
     }
 
-    //get the host activity
-    private AddNewActivity getBaseActivity() {
-        return (AddNewActivity) getActivity();
-    }
 
     //get the location
-    private void getSalesMemberLocation() {
-        LocationViewModel locationViewModel = new ViewModelProvider(getBaseActivity()).get(LocationViewModel.class);
-        locationViewModel.requestCurrentLocationUpdate();
-        locationViewModel.getLatLongMutableLiveData().observe(getViewLifecycleOwner(), new Observer<LatLng>() {
-            @Override
-            public void onChanged(LatLng latLng) {
-                //get the longitude and latitude
-                latitude = latLng.latitude;
-                longitude = latLng.longitude;
-                //show the location on mab;
-                showLocationOnMap(new LatLng(latitude, longitude));
-            }
-        });
+    private void initLocationViewModel() {
+        locationViewModel = new ViewModelProvider(requireActivity()).get(LocationViewModel.class);
     }
 
     //move the camera to location
@@ -157,6 +157,7 @@ public class Fragment_pick_customer_location extends Fragment implements OnMapRe
     public void onResume() {
         super.onResume();
         mBinding.map.onResume();
+        locationViewModel.requestCurrentLocationUpdate();
     }
 
     @Override

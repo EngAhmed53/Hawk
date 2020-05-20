@@ -9,6 +9,7 @@ import com.shouman.apps.hawk.adapters.BranchSalesRecyclerAdapter;
 import com.shouman.apps.hawk.adapters.LogEntriesRecyclerViewAdapter;
 import com.shouman.apps.hawk.adapters.SalesRecyclerViewAdapter;
 import com.shouman.apps.hawk.adapters.VisitsRecyclerViewAdapter;
+import com.shouman.apps.hawk.common.Common;
 import com.shouman.apps.hawk.data.model.DailyLogEntry;
 import com.shouman.apps.hawk.data.model.SalesListItem;
 import com.shouman.apps.hawk.data.model.Visit;
@@ -20,8 +21,8 @@ public class RecyclerViewDataBinding {
     private static final String TAG = "RecyclerViewDataBinding";
 
 
-    @BindingAdapter({"setSalesMap", "branchName"})
-    public static void setSalesRecyclerViewMap(RecyclerView view, Map<String, SalesListItem> salesList, String branchDetails) {
+    @BindingAdapter({"setSalesMap", "setParentPosition"})
+    public static void setSalesRecyclerViewMap(RecyclerView view, Map<String, SalesListItem> salesList, Integer parentPosition) {
 
         if (salesList == null) {
             return;
@@ -34,7 +35,7 @@ public class RecyclerViewDataBinding {
         }
 
         if (view.getAdapter() == null) {
-            SalesRecyclerViewAdapter adapter = new SalesRecyclerViewAdapter(view.getContext(), branchDetails);
+            SalesRecyclerViewAdapter adapter = new SalesRecyclerViewAdapter(view.getContext(), parentPosition);
             adapter.setSalesMap(salesList);
             view.setAdapter(adapter);
         } else {
@@ -81,7 +82,7 @@ public class RecyclerViewDataBinding {
         view.setHasFixedSize(true);
 
         if (view.getAdapter() == null) {
-            LogEntriesRecyclerViewAdapter adapter = new LogEntriesRecyclerViewAdapter(view.getContext());
+            LogEntriesRecyclerViewAdapter adapter = new LogEntriesRecyclerViewAdapter(view.getContext(), Common.COMPANY_ACCOUNT);
             adapter.setLogEntriesList(logEntries);
             view.setAdapter(adapter);
         } else {

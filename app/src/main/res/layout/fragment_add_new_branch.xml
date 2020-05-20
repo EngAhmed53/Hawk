@@ -10,7 +10,7 @@
         android:background="@color/colorPrimary"
         android:clickable="true"
         android:focusable="true"
-        tools:context=".ui.main.companyUI.navDrawer.home.add_new_branch.Fragment_add_new_branch">
+        tools:context=".ui.main.companyUI.navDrawer.home.addNewBranch.Fragment_add_new_branch">
 
         <TextView
             android:id="@+id/header_txt"

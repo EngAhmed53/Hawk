@@ -54,7 +54,7 @@ public class BranchSalesRecyclerAdapter extends RecyclerView.Adapter<BranchSales
         holder.mBinding.branchName.setText(branchName);
         holder.mBinding.childRecView.setRecycledViewPool(viewPool);
         holder.mBinding.setSaleMembers(branch_salesMembers_map.get(branchDetails));
-        holder.mBinding.setBranchDetails(branchDetails);
+        holder.mBinding.setParentPosition(position);
         holder.mBinding.info.setOnClickListener( v -> {
                     NavDirections toBranchInfo =  Fragment_homeDirections.actionFragmentHomeToFragmentBranchInfo().setBranchName(branchName);
                     Navigation.findNavController(v).navigate(toBranchInfo);

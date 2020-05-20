@@ -3,19 +3,10 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <data>
-
-        <import type="com.shouman.apps.hawk.data.model.Visit" />
-
-        <import type="java.util.List" />
-
-        <variable
-            name="visitsLog"
-            type="List&lt;Visit>" />
-    </data>
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
+        android:backgroundTint="@color/white_blue"
+
         android:layout_height="match_parent"
         android:background="@color/white2">
 
@@ -27,7 +18,7 @@
             android:background="@color/colorPrimary"
             android:elevation="6dp"
             android:fadeScrollbars="true"
-            android:minWidth="400dp"
+            android:minWidth="500dp"
             android:minHeight="?actionBarSize"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             app:layout_constraintEnd_toEndOf="parent"
@@ -44,12 +35,16 @@
             android:id="@+id/rec_visits"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:minWidth="400dp"
+            android:background="@color/white_blue"
+            android:minWidth="500dp"
             android:minHeight="400dp"
+            android:orientation="vertical"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/toolbar"
-            app:setVisitsLog="@{visitsLog}" />
+            app:layout_constraintVertical_bias="0.0" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

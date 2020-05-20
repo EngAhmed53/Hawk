@@ -39,6 +39,8 @@ public class Fragment_select_user_type extends Fragment {
 
     private User mainUser;
 
+    private UserPreference userPreference;
+
     private boolean isUserNameSetted = false;
 
     private boolean isCompanyNameSetted = false;
@@ -55,9 +57,8 @@ public class Fragment_select_user_type extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        userPreference = UserPreference.getInstance();
         initViewModel();
-
     }
 
 
@@ -87,8 +88,8 @@ public class Fragment_select_user_type extends Fragment {
             //update the user object in the viewModel
             authViewModel.updateTheUserInDatabase(mainUser);
 
-            //navigate to the main activity
-            navigateToHome();
+            //navigate to the sales main activity
+            navigateToSalesHome();
         }
     }
 
@@ -186,14 +187,25 @@ public class Fragment_select_user_type extends Fragment {
             authViewModel.updateTheUserInDatabase(mainUser);
 
             //navigate to home activity
-            navigateToHome();
+            navigateToCompanyHome();
         });
     }
 
-    private void navigateToHome() {
+    private void navigateToSalesHome() {
+        Navigation.findNavController(mBinding.btnConfirmInfo).navigate(R.id.action_fragment_select_user_type_to_main2Activity);
+        userPreference.setBranchUID(requireContext(), mainUser.getBuid());
+        userPreference.setCompanyUID(requireContext(), mainUser.getCuid());
+        userPreference.setCompanyName(requireContext(), mainUser.getCn());
+        userPreference.setSalesmanStatus(requireContext(), mainUser.isStatus());
+        userPreference.setUserName(requireContext(), mainUser.getUn());
+    }
+
+    private void navigateToCompanyHome() {
         Navigation.findNavController(mBinding.btnConfirmInfo).navigate(R.id.action_fragment_select_user_type_to_mainActivity);
-        UserPreference.setCompanyUID(requireContext(), mainUser.getCuid());
-        UserPreference.setCompanyName(requireContext(), mainUser.getCn());
+        userPreference.setCompanyUID(requireContext(), mainUser.getCuid());
+        userPreference.setCompanyName(requireContext(), mainUser.getCn());
+        userPreference.setUserName(requireContext(), mainUser.getUn());
+        requireActivity().finish();
     }
 
     private StartingActivity getHostActivity() {

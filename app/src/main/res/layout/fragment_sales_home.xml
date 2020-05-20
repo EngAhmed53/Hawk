@@ -1,191 +1,174 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
-
-        <import type="java.util.Map" />
-
-        <import type="java.util.List" />
-
-        <import type="com.shouman.apps.hawk.data.model.DailyLogEntry" />
-
-        <variable
-            name="logEntriesMap"
-            type="Map&lt; String, List &lt;DailyLogEntry>>" />
-    </data>
-
-    <FrameLayout
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/white">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/block_layout"
+        <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:visibility="visible"
-            android:layout_gravity="center"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:backgroundTint="@color/white_blue"
+            android:fitsSystemWindows="true"
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$Behavior">
 
-            <ImageView
-                android:id="@+id/imageView"
-                android:layout_width="112dp"
-                android:layout_height="112dp"
-                android:src="@drawable/ic_lock"
-                app:layout_constraintBottom_toTopOf="@+id/disabled_msg"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_chainStyle="packed" />
+            <!--            <com.google.android.material.appbar.MaterialToolbar-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="?actionBarSize"-->
+            <!--                android:background="@color/colorPrimary"-->
+            <!--                android:elevation="4dp"-->
+            <!--                android:backgroundTint="@color/colorPrimary"-->
+            <!--                android:textAppearance="@style/TextAppearance.AppCompat.Display1"-->
+            <!--                app:menu="@menu/sales_ui_home_secondary_menu"-->
+            <!--                android:theme="@style/ThemeOverlay.MaterialComponents.Dark.ActionBar"-->
+            <!--                app:layout_scrollFlags="scroll|enterAlways|snap"-->
+            <!--                app:popupTheme="@style/ThemeOverlay.MaterialComponents.Light"-->
+            <!--                app:title="@string/home" />-->
 
-            <TextView
-                android:id="@+id/disabled_msg"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="24dp"
-                android:gravity="center"
-                android:paddingBottom="4dp"
-                android:text="@string/disabled_msg"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
-                android:textColor="@color/gray1"
+
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageView" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0"
+                app:layout_scrollFlags="scroll|enterAlways|snap">
 
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.core.widget.NestedScrollView
-            android:id="@+id/info_layout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/white2">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/white2"
-                tools:context=".ui.main.companyUI.all_branches.Fragment_all_branches">
-
-
-                <com.github.mikephil.charting.charts.LineChart
-                    android:id="@+id/chart_view"
+                <TextView
+                    android:id="@+id/header_txt"
                     android:layout_width="0dp"
-                    android:layout_height="240dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginBottom="16dp"
-                    android:background="@color/fui_transparent"
-                    app:layout_constraintBottom_toTopOf="@+id/rec_customers"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
+                    android:fontFamily="sans-serif"
+                    android:text="@string/daily_log"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"
+                    android:textColor="@color/gray1"
+                    app:layout_constraintBottom_toTopOf="@+id/constraintLayout6"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_chainStyle="packed" />
 
-                <ProgressBar
-                    android:id="@+id/progress_bar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
-                    android:visibility="visible"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/chart_view" />
 
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rec_customers"
-                    android:layout_width="match_parent"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/constraintLayout6"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp"
-                    android:visibility="gone"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="8dp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/chart_view"/>
-<!--                    app:setLogMap="@{logEntriesMap}" />-->
+                    app:layout_constraintEnd_toEndOf="@+id/header_txt"
+                    app:layout_constraintStart_toStartOf="@+id/header_txt"
+                    app:layout_constraintTop_toBottomOf="@+id/header_txt">
+
+                    <TextView
+                        android:id="@+id/notification_txt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:drawablePadding="8dp"
+                        android:fontFamily="sans-serif"
+                        android:text="All customer data is synced!"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                        android:textColor="@color/gray1"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/imageView4"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageView
+                        android:id="@+id/imageView4"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:contentDescription="@string/latest_notification"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/ic_upload_data"
+                        android:tint="@color/gray1"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/notification_txt"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintHorizontal_chainStyle="packed"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
-        </androidx.core.widget.NestedScrollView>
 
-        <FrameLayout
-            android:id="@+id/protection_layout"
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/days_recView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:orientation="horizontal"
+                android:visibility="gone"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/calender_list_item" />
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/log_recView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/protection_background"
-            android:clickable="true"
-            android:focusable="true"
-            android:visibility="gone" />
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+            tools:listitem="@layout/log_entry_list_item" />
 
-        <com.github.clans.fab.FloatingActionMenu
-            android:id="@+id/fab_menu"
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            style="@style/Widget.AppCompat.ProgressBar"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_gravity="center"
+            android:background="@android:color/transparent"
+            app:layout_constraintBottom_toBottomOf="@+id/main_frame"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/main_frame" />
+
+        <com.google.android.material.bottomappbar.BottomAppBar
+            android:id="@+id/bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:backgroundTint="@color/colorPrimary"
+            android:theme="@style/ThemeOverlay.MaterialComponents.Dark.ActionBar"
+            app:fabAlignmentMode="end"
+            app:fabAnimationMode="slide"
+            app:fabCradleMargin="8dp"
+            app:fabCradleRoundedCornerRadius="16dp"
+            app:hideOnScroll="true"
+            app:menu="@menu/sales_ui_home_main_menu"
+            app:popupTheme="@style/ThemeOverlay.MaterialComponents.Light" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom|end"
-            app:menu_animationDelayPerItem="50"
-            app:menu_buttonSpacing="0dp"
-            app:menu_buttonToggleAnimation="@anim/rotate_animation"
-            app:menu_colorNormal="@color/colorAccent"
-            app:menu_colorPressed="@color/old_rose_dark"
-            app:menu_colorRipple="@color/colorPrimaryLight"
-            app:menu_fab_hide_animation="@anim/fab_scale_down"
-            app:menu_fab_show_animation="@anim/fab_slide_in_from_right"
-            app:menu_fab_size="normal"
-            app:menu_icon="@drawable/ic_plus"
-            app:menu_labels_colorNormal="@color/white"
-            app:menu_labels_colorPressed="@color/white"
-            app:menu_labels_colorRipple="@color/gray2"
-            app:menu_labels_cornerRadius="8dp"
-            app:menu_labels_ellipsize="end"
-            app:menu_labels_hideAnimation="@anim/fab_slide_out_to_left"
-            app:menu_labels_margin="4dp"
-            app:menu_labels_maxLines="1"
-            app:menu_labels_paddingBottom="4dp"
-            app:menu_labels_paddingLeft="8dp"
-            app:menu_labels_paddingRight="8dp"
-            app:menu_labels_paddingTop="4dp"
-            app:menu_labels_position="left"
-            app:menu_labels_showAnimation="@anim/fab_slide_in_from_right"
-            app:menu_labels_showShadow="true"
-            app:menu_labels_textColor="@color/gray1"
-            app:menu_labels_textSize="16sp"
-            app:menu_openDirection="up"
-            app:menu_shadowColor="@color/shadow_color"
-            app:menu_shadowRadius="4dp"
-            app:menu_shadowXOffset="1dp"
-            app:menu_shadowYOffset="3dp"
-            app:menu_showShadow="true">
+            android:backgroundTint="@color/colorAccent"
+            android:src="@drawable/ic_plus"
+            app:fab_hideAnimation="@anim/fab_scale_down"
+            app:fab_showAnimation="@anim/fab_scale_up"
+            app:layout_anchor="@id/bar"
+            app:layout_anchorGravity="end"
+            app:layout_behavior="com.google.android.material.floatingactionbutton.FloatingActionButton$Behavior"
+            app:tint="@color/white" />
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
-
-            <com.github.clans.fab.FloatingActionButton
-                android:id="@+id/fab_item_add_customer"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_person_add"
-                app:fab_colorNormal="@color/colorPrimary"
-                app:fab_colorPressed="@color/colorPrimaryDark"
-                app:fab_label="@string/add_customer_fab"
-                app:fab_size="normal"
-                app:pressedTranslationZ="6dp"
-                app:rippleColor="@color/colorPrimaryLight" />
-
-            <com.github.clans.fab.FloatingActionButton
-                android:id="@+id/fab_item_add_visit"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_redo"
-                app:fab_colorNormal="@color/colorPrimary"
-                app:fab_colorPressed="@color/colorPrimaryDark"
-                app:fab_label="@string/add_visit_fab"
-                app:fab_size="normal"
-                app:pressedTranslationZ="6dp"
-                app:rippleColor="@color/colorPrimaryLight" />
-        </com.github.clans.fab.FloatingActionMenu>
-    </FrameLayout>
 </layout>

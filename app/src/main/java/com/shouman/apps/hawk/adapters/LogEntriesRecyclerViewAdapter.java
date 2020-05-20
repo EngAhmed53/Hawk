@@ -7,11 +7,15 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
+import androidx.navigation.NavDirections;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.shouman.apps.hawk.R;
+import com.shouman.apps.hawk.common.Common;
 import com.shouman.apps.hawk.data.model.DailyLogEntry;
 import com.shouman.apps.hawk.databinding.LogEntryListItemBinding;
+import com.shouman.apps.hawk.ui.main.companyUI.salesman.salesMain.Fragment_sales_mainDirections;
 
 import java.text.DateFormat;
 import java.util.Calendar;
@@ -28,10 +32,13 @@ public class LogEntriesRecyclerViewAdapter extends RecyclerView.Adapter<LogEntri
 
     private Calendar calendar;
 
-    public LogEntriesRecyclerViewAdapter(Context mContext) {
+    private int userType;
+
+    public LogEntriesRecyclerViewAdapter(Context mContext, int userType) {
         this.mContext = mContext;
         formatter = DateFormat.getTimeInstance(DateFormat.SHORT, Locale.getDefault());
         calendar = Calendar.getInstance();
+        this.userType = userType;
     }
 
     public void setLogEntriesList(List<DailyLogEntry> logEntries) {
@@ -76,13 +83,28 @@ public class LogEntriesRecyclerViewAdapter extends RecyclerView.Adapter<LogEntri
     }
 
 
-    static class CustomersViewHolder extends RecyclerView.ViewHolder {
+    class CustomersViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         LogEntryListItemBinding mBinding;
 
         CustomersViewHolder(@NonNull View itemView) {
             super(itemView);
             mBinding = DataBindingUtil.bind(itemView);
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            if (userType == Common.COMPANY_ACCOUNT) {
+                NavDirections toCustomerDetails =
+                        Fragment_sales_mainDirections.actionFragmentSalesMainToFragmentCustomersInfo(
+                                null,
+                                logEntries.get(getAdapterPosition()).getCUID()
+                        );
+                Navigation.findNavController(v).navigate(toCustomerDetails);
+            } else if (userType == Common.SALES_ACCOUNT) {
+                //
+            }
         }
     }
 }

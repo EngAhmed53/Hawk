@@ -2,9 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.shouman.apps.hawk">
-    <!-- internet permission -->
-    <uses-permission android:name="android.permission.INTERNET" /> <!-- location permission -->
+
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
     <application
         android:name=".application.HAWKApplication"
         android:allowBackup="true"
@@ -13,20 +14,20 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.main.companyUI.navDrawer.MainActivity" android:theme="@style/no_action_bar.transparentStatusBar"/>
         <activity
-            android:name=".ui.main.salesUI.main.allCustomersPage.AllCustomersActivity"
+            android:name=".ui.main.companyUI.navDrawer.MainActivity"
+            android:theme="@style/no_action_bar.transparentStatusBar" />
+        <activity
+            android:name=".ui.main.salesUI.home22.allCustomersPage.AllCustomersActivity"
             android:theme="@style/no_action_bar" />
         <activity
-            android:name=".ui.main.salesUI.main.personalPage.PersonalPageActivity"
+            android:name=".ui.main.salesUI.home22.personalPage.PersonalPageActivity"
             android:theme="@style/no_action_bar" />
+
         <activity
-            android:name=".ui.main.salesUI.add.addActivity.AddNewActivity"
+            android:name=".ui.main.salesUI.Main2Activity"
+            android:launchMode="singleTop"
             android:theme="@style/no_action_bar" />
-        <activity
-            android:name=".ui.main.salesUI.main.home.Main2Activity"
-            android:theme="@style/no_action_bar"
-            android:launchMode="singleTop"/>
         <activity
             android:name=".ui.auth.StartingActivity"
             android:theme="@style/no_action_bar">
@@ -37,12 +38,14 @@
             </intent-filter>
 
             <intent-filter>
-                <action android:name="android.intent.action.VIEW"/>
-                <category android:name="android.intent.category.DEFAULT"/>
-                <category android:name="android.intent.category.BROWSABLE"/>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
                 <data
                     android:host="hawk.sales.com"
-                    android:scheme="https"/>
+                    android:scheme="https" />
             </intent-filter>
         </activity>
 

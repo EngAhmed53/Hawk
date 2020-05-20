@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -23,8 +24,7 @@ import com.shouman.apps.hawk.adapters.CustomersDropDownArrayAdapter;
 import com.shouman.apps.hawk.data.database.mainRepo.MainRepo;
 import com.shouman.apps.hawk.data.model.Visit;
 import com.shouman.apps.hawk.databinding.FragmentAddNewVisitBinding;
-import com.shouman.apps.hawk.ui.main.salesUI.add.addActivity.AddNewActivity;
-import com.shouman.apps.hawk.ui.main.salesUI.add.addActivity.LocationViewModel;
+import com.shouman.apps.hawk.ui.main.salesUI.LocationViewModel;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -193,8 +193,8 @@ public class Fragment_Add_New_Visit extends Fragment {
         });
     }
 
-    private AddNewActivity getBaseActivity() {
-        return (AddNewActivity) getActivity();
+    private FragmentActivity getBaseActivity() {
+        return getActivity();
     }
 
 }
