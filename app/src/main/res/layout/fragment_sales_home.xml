@@ -73,33 +73,54 @@
 
                     <TextView
                         android:id="@+id/notification_txt"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
+                        android:layout_marginEnd="8dp"
                         android:drawablePadding="8dp"
                         android:fontFamily="sans-serif"
-                        android:text="All customer data is synced!"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Inverse"
                         android:textColor="@color/gray1"
+                        tools:text="Local data found, active your internet connection to sync your data!"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/imageView4"
+                        app:layout_constraintStart_toEndOf="@+id/status_frame"
                         app:layout_constraintTop_toTopOf="parent" />
 
-                    <ImageView
-                        android:id="@+id/imageView4"
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:contentDescription="@string/latest_notification"
-                        android:scaleType="centerInside"
-                        android:src="@drawable/ic_upload_data"
-                        android:tint="@color/gray1"
+                    <FrameLayout
+                        android:id="@+id/status_frame"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@color/white_blue"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@+id/notification_txt"
+                        android:background="@drawable/two_letters_background"
                         app:layout_constraintHorizontal_bias="0.0"
-                        app:layout_constraintHorizontal_chainStyle="packed"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.5">
+
+
+                        <ImageView
+                            android:id="@+id/priority_high"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:contentDescription="@string/priority_high"
+                            android:scaleType="centerInside"
+                            android:tint="@color/google_color"
+                            android:alpha="1"/>
+                        <ImageView
+                            android:id="@+id/check_mark"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:contentDescription="@string/check_mark"
+                            android:scaleType="centerInside"
+                            android:alpha="0"
+                            android:tint="@color/green"
+                            android:src="@drawable/ic_check_circle_24px" />
+                    </FrameLayout>
 
 
                 </androidx.constraintlayout.widget.ConstraintLayout>

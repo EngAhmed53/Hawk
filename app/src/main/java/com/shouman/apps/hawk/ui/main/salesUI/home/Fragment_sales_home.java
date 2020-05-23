@@ -1,10 +1,13 @@
 package com.shouman.apps.hawk.ui.main.salesUI.home;
 
 
+import android.animation.ObjectAnimator;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.LinearInterpolator;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -14,6 +17,7 @@ import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.shouman.apps.hawk.R;
 import com.shouman.apps.hawk.adapters.DaysRecyclerViewAdapter;
 import com.shouman.apps.hawk.adapters.LogEntriesRecyclerViewAdapter;
 import com.shouman.apps.hawk.common.Common;
@@ -36,6 +40,7 @@ public class Fragment_sales_home extends Fragment implements DaysRecyclerViewAda
     private LogEntriesRecyclerViewAdapter logsAdapter;
     private List<Long> mDaysList;
     private Map<Long, List<DailyLogEntry>> mDayLogMap;
+    private LocalDataViewModel localDataViewModel;
 
     public Fragment_sales_home() {
         // Required empty public constructor
@@ -46,8 +51,13 @@ public class Fragment_sales_home extends Fragment implements DaysRecyclerViewAda
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
         initViewModel();
+        initLocalDataViewModel();
         daysAdapter = new DaysRecyclerViewAdapter(requireContext(), this);
         logsAdapter = new LogEntriesRecyclerViewAdapter(requireContext(), Common.SALES_ACCOUNT);
+    }
+
+    private void initLocalDataViewModel() {
+        localDataViewModel = new ViewModelProvider(this).get(LocalDataViewModel.class);
     }
 
     @Override
@@ -68,9 +78,9 @@ public class Fragment_sales_home extends Fragment implements DaysRecyclerViewAda
         mBinding.logRecView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
-                if(dy > 0){
+                if (dy > 0) {
                     mBinding.fab.hide();
-                } else{
+                } else {
                     mBinding.fab.show();
                 }
 
@@ -81,6 +91,27 @@ public class Fragment_sales_home extends Fragment implements DaysRecyclerViewAda
         mBinding.fab.setOnClickListener(v -> {
             NavDirections toAddDialog = Fragment_sales_homeDirections.actionFragmentSalesHomeToDialogFragmentAddNew();
             Navigation.findNavController(v).navigate(toAddDialog);
+        });
+
+        mBinding.bar.setOnMenuItemClickListener(item -> {
+            switch (item.getItemId()) {
+//                case R.id.action_offline_data:
+//                    return true;
+                case R.id.action_profile:
+                    navigateToProfile();
+                    return true;
+                case R.id.action_my_customers:
+                    navigateToCustomers();
+                    return true;
+                case R.id.action_settings:
+                    navigateToSettings();
+                    return true;
+                case R.id.action_about:
+                    navigateToAbout();
+                    return true;
+                default:
+                    return false;
+            }
         });
 
         salesHomeViewModel.getDaysLogLiveData().observe(getViewLifecycleOwner(), day_logs_map -> {
@@ -96,6 +127,34 @@ public class Fragment_sales_home extends Fragment implements DaysRecyclerViewAda
 
             }
         });
+
+        localDataViewModel.getLocalLogLiveData().observe(getViewLifecycleOwner(), totalLocalEntries -> {
+            if (totalLocalEntries == 0) {
+                mBinding.notificationTxt.setText(R.string.all_data_synced);
+                showCheckMark();
+            } else {
+                mBinding.notificationTxt.setText(R.string.active_internt_to_sync);
+                shoeWarningMark();
+            }
+        });
+    }
+
+    private void navigateToAbout() {
+
+    }
+
+    private void navigateToSettings() {
+
+    }
+
+    private void navigateToCustomers() {
+        NavDirections toMyCustomers = Fragment_sales_homeDirections.actionFragmentSalesHomeToFragmentSalesCustomers();
+        Navigation.findNavController(mBinding.getRoot()).navigate(toMyCustomers);
+    }
+
+    private void navigateToProfile() {
+        NavDirections toProfile = Fragment_sales_homeDirections.actionFragmentSalesHomeToFragmentSalesInfo2();
+        Navigation.findNavController(mBinding.getRoot()).navigate(toProfile);
     }
 
     private void initRecViews() {
@@ -116,4 +175,34 @@ public class Fragment_sales_home extends Fragment implements DaysRecyclerViewAda
     public void onDayItemClick() {
         logsAdapter.setLogEntriesList(mDayLogMap.get(daysAdapter.getSelectedItem()));
     }
+
+    private void shoeWarningMark() {
+        ObjectAnimator fadeOutCheckMark = ObjectAnimator.ofFloat(mBinding.checkMark, "alpha", 1f, 0f);
+        fadeOutCheckMark.setDuration(300);
+        fadeOutCheckMark.setInterpolator(new LinearInterpolator());
+        fadeOutCheckMark.start();
+
+//        ObjectAnimator fadeInWarningIcon = ObjectAnimator.ofFloat(mBinding.priorityHigh, "alpha", 0f, 1f);
+//        fadeInWarningIcon.setDuration(300);
+//        fadeInWarningIcon.setInterpolator(new LinearInterpolator());
+//        fadeInWarningIcon.start();
+        AnimationDrawable avdErrorGrayToRed;
+        mBinding.priorityHigh.setAlpha(1f);
+        mBinding.priorityHigh.setBackgroundResource(R.drawable.error_gray_to_red);
+        avdErrorGrayToRed = (AnimationDrawable) mBinding.priorityHigh.getBackground();
+        avdErrorGrayToRed.start();
+    }
+
+    private void showCheckMark() {
+        ObjectAnimator fadeInCheckMark = ObjectAnimator.ofFloat(mBinding.checkMark, "alpha", 0f, 1f);
+        fadeInCheckMark.setDuration(300);
+        fadeInCheckMark.setInterpolator(new LinearInterpolator());
+        fadeInCheckMark.start();
+
+        ObjectAnimator fadeInWarningIcon = ObjectAnimator.ofFloat(mBinding.priorityHigh, "alpha", 1f, 0f);
+        fadeInWarningIcon.setDuration(300);
+        fadeInWarningIcon.setInterpolator(new LinearInterpolator());
+        fadeInWarningIcon.start();
+    }
+
 }

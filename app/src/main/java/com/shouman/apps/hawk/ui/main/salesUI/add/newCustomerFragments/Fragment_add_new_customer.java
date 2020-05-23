@@ -43,8 +43,8 @@ public class Fragment_add_new_customer extends Fragment {
     private Customer customer;
     public FragmentAddNewCustomerBinding mBinding;
     private NewCustomerSharedViewModel customerViewModel;
-    private final int MY_PERMISSIONS_ACCESS_FINE_LOCATION = 212;
     private UserPreference userPreference;
+    private final int MY_PERMISSIONS_ACCESS_FINE_LOCATION = 212;
     private int LOCATION_REQUEST = 112;
 
 
@@ -77,6 +77,8 @@ public class Fragment_add_new_customer extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         mBinding = FragmentAddNewCustomerBinding.inflate(inflater);
+
+        mBinding.toolbar.setNavigationOnClickListener(v -> Navigation.findNavController(v).popBackStack());
 
         //requestCompanyNameFocus();
         return mBinding.getRoot();

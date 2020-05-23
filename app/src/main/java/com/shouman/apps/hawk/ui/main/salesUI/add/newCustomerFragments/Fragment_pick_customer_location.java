@@ -29,11 +29,11 @@ import com.shouman.apps.hawk.ui.main.salesUI.LocationViewModel;
  */
 public class Fragment_pick_customer_location extends Fragment implements OnMapReadyCallback {
 
+    private FragmentPickLocationBinding mBinding;
     private GoogleMap googleMap;
     private Customer theCustomer;
     private double latitude;
     private double longitude;
-    private FragmentPickLocationBinding mBinding;
     private MainRepo mainRepo;
     private NewCustomerSharedViewModel customerViewModel;
     private LocationViewModel locationViewModel;

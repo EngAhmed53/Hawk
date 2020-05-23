@@ -1,30 +1,37 @@
 package com.shouman.apps.hawk.ui.main.salesUI.add.newVisitFragment;
 
+import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
+import android.view.animation.AnimationUtils;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavDirections;
+import androidx.navigation.Navigation;
 
-import com.google.android.gms.maps.model.LatLng;
 import com.google.common.collect.BiMap;
-import com.google.firebase.auth.FirebaseAuth;
 import com.shouman.apps.hawk.R;
 import com.shouman.apps.hawk.adapters.CustomersDropDownArrayAdapter;
 import com.shouman.apps.hawk.data.database.mainRepo.MainRepo;
+import com.shouman.apps.hawk.data.model.Customer;
 import com.shouman.apps.hawk.data.model.Visit;
 import com.shouman.apps.hawk.databinding.FragmentAddNewVisitBinding;
 import com.shouman.apps.hawk.ui.main.salesUI.LocationViewModel;
+import com.shouman.apps.hawk.ui.main.salesUI.SalesCustomersViewModel;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -38,17 +45,25 @@ public class Fragment_Add_New_Visit extends Fragment {
 
     private FragmentAddNewVisitBinding mBinding;
     private CustomersDropDownArrayAdapter customersAdapter;
-    private BiMap<String, String> customersMap;
-    private List<String> customersData;
-    private List<String> customersDayLog;
+
     private String selectedCustomerUID;
+
     private double customerLatitude;
     private double customerLongitude;
     private double currentLatitude;
     private double currentLongitude;
-    private String companyName;
-    private String customerName;
+
     private MainRepo mainRepo;
+
+    private LocationViewModel locationViewModel;
+
+    private final int MY_PERMISSIONS_ACCESS_FINE_LOCATION = 212;
+
+    private ArrayList<String> customersDayLog;
+    private BiMap<String, Customer> customersMap;
+    private List<Customer> customersList;
+    private String customerName;
+    private String companyName;
 
     private enum DistanceLimits {
         MINIMUM_DISTANCE(0f),
@@ -66,14 +81,12 @@ public class Fragment_Add_New_Visit extends Fragment {
         // Required empty public constructor
     }
 
-    public static Fragment_Add_New_Visit getInstance() {
-        return new Fragment_Add_New_Visit();
-    }
 
     @Override
-    public void onAttach(@NonNull Context context) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         mainRepo = MainRepo.getInstance();
-        super.onAttach(context);
+        initLocationViewModel();
     }
 
     @Override
@@ -81,53 +94,41 @@ public class Fragment_Add_New_Visit extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         mBinding = FragmentAddNewVisitBinding.inflate(inflater);
-
-        getSalesMemberLocation();
-
-        initViewModel();
-
-        mBinding.filledExposedDropdown.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                selectedCustomerUID = customersMap.inverse().get(customersData.get(position));
-                String[] customerData = customersData.get(position).split(", ");
-                StringBuilder builder = new StringBuilder().append(customerData[0]).append(", ").append(customerData[1]);
-                mBinding.filledExposedDropdown.setText(builder.toString(), false);
-
-                customerName = customerData[0];
-                companyName = customerData[1];
-
-                customerLatitude = Double.parseDouble(customerData[2]);
-                customerLongitude = Double.parseDouble(customerData[3]);
-            }
-        });
-
-        mBinding.btcContinue.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (isSalesMemberInTheCustomerPlace()) {
-                    final Visit visit = new Visit();
-                    visit.setVisitTime(new Date().getTime());
-                    visit.setVisitNote(Objects.requireNonNull(mBinding.edtVisitNotes.getText()).toString());
-
-                    if (!isCustomerIsAlreadyExitInThisDayLog(selectedCustomerUID)) {
-                        mainRepo.addVisitToCustomer(getContext(), visit, selectedCustomerUID, customerName, companyName);
-                        Toast.makeText(getContext(), "Visit added Successfully", Toast.LENGTH_SHORT).show();
-                        getBaseActivity().finish();
-                    } else {
-                        Toast.makeText(getContext(), "This user is already exist in this day log", Toast.LENGTH_SHORT).show();
-                    }
-
-                } else {
-                    Toast.makeText(getContext(),
-                            "You should be in the customer place to add a visit report",
-                            Toast.LENGTH_SHORT)
-                            .show();
-                }
-
-            }
-        });
+        mBinding.toolbar.setNavigationOnClickListener(v -> Navigation.findNavController(v).popBackStack());
         return mBinding.getRoot();
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        initCustomersViewModel();
+        initCurrentDayLogLiveData();
+
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+
+        mBinding.filledExposedDropdown.setOnItemClickListener((parent, view1, position, id) -> {
+            Customer customer = customersList.get(position);
+
+            customerLatitude = customer.getLt();
+            customerLongitude = customer.getLn();
+            customerName = customer.getN();
+            companyName = customer.getCn();
+
+            Log.e("TAG", "onViewCreated: lat " + customerLatitude + " long " + customerLongitude);
+
+            String selectedName = customer.getN() + ", " + customer.getCn();
+            mBinding.filledExposedDropdown.setText(selectedName);
+
+            selectedCustomerUID = customersMap.inverse().get(customer);
+            mBinding.btcContinue.setEnabled(true);
+        });
+
+        mBinding.btcContinue.setOnClickListener(v -> requestLocationPermission());
+        super.onViewCreated(view, savedInstanceState);
     }
 
     private boolean isCustomerIsAlreadyExitInThisDayLog(String selectedCustomerUID) {
@@ -148,53 +149,130 @@ public class Fragment_Add_New_Visit extends Fragment {
         //the difference distance in meters
         float distance = salesCurrentLocation.distanceTo(customerSavedLocation);
 
-        Log.e("dis", "isSalesMemberInTheCustomerPlace: " + "currentLatitude = " + currentLatitude + "\n" + "currentLongitude = " + currentLongitude + "\n" + "customerLati = " + customerLatitude + "\n" + "customerLong = " + currentLongitude + "\n" + "dis = " + distance);
+        Log.e("dis", "isSalesMemberInTheCustomerPlace: " + "currentLatitude = " + currentLatitude + "\n" + "currentLongitude = " + currentLongitude + "\n" + "customerLati = " + customerLatitude + "\n" + "customerLong = " + customerLongitude + "\n" + "dis = " + distance);
         return (distance >= DistanceLimits.MINIMUM_DISTANCE.distance && distance <= DistanceLimits.MAXIMUM_DISTANCE.distance);
     }
 
-    private void initViewModel() {
-        String userUID = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
+    private void initCustomersViewModel() {
 
-        VisitViewModelFactory visitViewModelFactory = new VisitViewModelFactory(getContext(), userUID);
-        VisitsViewModel visitsViewModel = new ViewModelProvider(this, visitViewModelFactory).get(VisitsViewModel.class);
+        SalesCustomersViewModel salesCustomersViewModel = new ViewModelProvider(requireActivity()).get(SalesCustomersViewModel.class);
 
-        visitsViewModel.getCustomersMapMediatorLiveData().observe(getViewLifecycleOwner(), new Observer<BiMap<String, String>>() {
-            @Override
-            public void onChanged(BiMap<String, String> customerKeyValueMap) {
-                customersMap = customerKeyValueMap;
-                customersData = new ArrayList<>(customerKeyValueMap.values());
-                customersAdapter = new CustomersDropDownArrayAdapter(requireContext(), customersData);
-                mBinding.filledExposedDropdown.setAdapter(customersAdapter);
+        salesCustomersViewModel.getCustomersMediatorLiveData().observe(getViewLifecycleOwner(), customerMap -> {
+            this.customersMap = customerMap;
+            customersList = new ArrayList<>(customerMap.values());
+            customersAdapter = new CustomersDropDownArrayAdapter(requireContext(), customersList);
+            mBinding.filledExposedDropdown.setAdapter(customersAdapter);
+        });
+    }
+
+    private void initCurrentDayLogLiveData() {
+        CurrentDayLogViewModel currentDayLogViewModel = new ViewModelProvider(requireActivity()).get(CurrentDayLogViewModel.class);
+
+        currentDayLogViewModel.getCurrentDayLogMediatorLiveData().observe(getViewLifecycleOwner(), currentDayLog -> {
+            if (customersDayLog == null) {
+                customersDayLog = new ArrayList<>(currentDayLog);
+            } else {
+                customersDayLog.addAll(currentDayLog);
             }
         });
+    }
 
-        visitsViewModel.getCurrentDayLogMediatorLiveData().observe(getViewLifecycleOwner(), new Observer<List<String>>() {
-            @Override
-            public void onChanged(List<String> customersCurrentDayLog) {
-                Log.e("TAG", "onChanged: " + customersCurrentDayLog.toString());
-                if (customersDayLog == null) {
-                    customersDayLog = new ArrayList<>(customersCurrentDayLog);
-                } else {
-                    customersDayLog.addAll(customersCurrentDayLog);
+    private void initLocationViewModel() {
+        locationViewModel = new ViewModelProvider(requireActivity()).get(LocationViewModel.class);
+    }
+
+
+    private void requestLocationPermission() {
+
+        if (ContextCompat.checkSelfPermission(requireActivity(), Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            // Permission is not granted
+            requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                    MY_PERMISSIONS_ACCESS_FINE_LOCATION);
+        } else {
+            addTheNawVisit();
+        }
+    }
+
+
+    private void addTheNawVisit() {
+        if (isLocationEnabled()) {
+            //add the new visit
+            mBinding.progressBar.setVisibility(View.VISIBLE);
+            locationViewModel.requestCurrentLocationUpdate();
+            locationViewModel.getLatLongMutableLiveData().observe(getViewLifecycleOwner(), latLng -> {
+                if (latLng != null) {
+                    currentLatitude = latLng.latitude;
+                    currentLongitude = latLng.longitude;
+                    if (isSalesMemberInTheCustomerPlace()) {
+                        if (!isCustomerIsAlreadyExitInThisDayLog(selectedCustomerUID)) {
+                            AddNewVisitToDatabase();
+                            Toast.makeText(getContext(), "Visit added Successfully", Toast.LENGTH_SHORT).show();
+                            navigateToHome();
+                        } else {
+                            Toast.makeText(getContext(), "This user is already exist in this day log", Toast.LENGTH_SHORT).show();
+                        }
+                    } else {
+                        Toast.makeText(getContext(),
+                                "You should be in the customer place to add a visit report",
+                                Toast.LENGTH_SHORT)
+                                .show();
+                    }
                 }
+                mBinding.progressBar.setVisibility(View.GONE);
+            });
+
+        } else {
+            //location is not enabled so we need to enable it
+            Toast.makeText(requireContext(), "Turn on location", Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+            int LOCATION_REQUEST = 112;
+            if (intent.resolveActivity(requireActivity().getPackageManager()) != null)
+                startActivityForResult(intent, LOCATION_REQUEST);
+            mBinding.progressBar.setVisibility(View.GONE);
+        }
+    }
+
+    private void navigateToHome() {
+        NavDirections toHome = Fragment_Add_New_VisitDirections.actionFragmentAddNewVisitToFragmentSalesHome();
+        Navigation.findNavController(mBinding.getRoot()).navigate(toHome);
+    }
+
+    private void AddNewVisitToDatabase() {
+        Visit visit = new Visit();
+        visit.setVisitTime(new Date().getTime());
+        visit.setVisitNote(Objects.requireNonNull(mBinding.edtVisitNotes.getText()).toString());
+        mainRepo.addVisitToCustomer(getContext(), visit, selectedCustomerUID, customerName, companyName);
+    }
+
+    private boolean isLocationEnabled() {
+        LocationManager locationManager = (LocationManager) requireContext().getSystemService(Context.LOCATION_SERVICE);
+        if (locationManager != null)
+            return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager.isProviderEnabled(
+                    LocationManager.NETWORK_PROVIDER
+            );
+        return false;
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        Toast.makeText(requireContext(), "Location permission needed to get the customer location", Toast.LENGTH_SHORT).show();
+
+        if (requestCode == MY_PERMISSIONS_ACCESS_FINE_LOCATION) {
+            // If request is cancelled, the result arrays are empty.
+            if (grantResults.length > 0
+                    && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                addTheNawVisit();
+            } else {
+                Toast.makeText(requireContext(), "Location permission needed to get the customer location", Toast.LENGTH_SHORT).show();
             }
-        });
+        }
     }
 
-    private void getSalesMemberLocation() {
-        LocationViewModel locationViewModel = new ViewModelProvider(getBaseActivity()).get(LocationViewModel.class);
-        locationViewModel.requestCurrentLocationUpdate();
-        locationViewModel.getLatLongMutableLiveData().observe(getViewLifecycleOwner(), new Observer<LatLng>() {
-            @Override
-            public void onChanged(LatLng latLng) {
-                currentLatitude = latLng.latitude;
-                currentLongitude = latLng.longitude;
-            }
-        });
+    @Override
+    public void onResume() {
+        mBinding.infoFrame.startAnimation(AnimationUtils.loadAnimation(requireContext(), R.anim.slide_from_down));
+        super.onResume();
     }
-
-    private FragmentActivity getBaseActivity() {
-        return getActivity();
-    }
-
 }

@@ -13,6 +13,20 @@
         app:layoutDescription="@xml/sales_info_scene"
         tools:context=".ui.main.companyUI.customer.customerInfo.Fragment_customer_info">
 
+        <Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/black_transparent"
+            android:elevation="4dp"
+            android:theme="@style/ThemeOverlay.MaterialComponents.Dark.ActionBar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:title="@string/profile"
+            android:navigationIcon="@drawable/ic_arrow_back"
+            android:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+
         <TextView
             android:id="@+id/sales_title_big_txt"
             android:layout_width="wrap_content"
@@ -71,180 +85,6 @@
                 android:layout_marginTop="16dp"
                 android:orientation="vertical"
                 android:paddingBottom="16dp">
-
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/constraintLayout5"
-                    android:layout_width="match_parent"
-                    android:layout_height="65dp"
-                    android:layout_gravity="center"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginEnd="16dp"
-                    app:layout_constraintBottom_toTopOf="@+id/child_rec_view"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/branch_name">
-
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/changeStatus_btn"
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
-                        android:background="?attr/selectableItemBackgroundBorderless"
-                        android:clickable="true"
-                        android:focusable="true"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/view5"
-                        app:layout_constraintStart_toEndOf="@id/view6"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintVertical_bias="0.0">
-
-                        <ImageView
-                            android:id="@+id/changeStatus"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="?attr/selectableItemBackgroundBorderless"
-                            android:contentDescription="@string/branch_menu"
-                            android:scaleType="center"
-                            android:src="@drawable/ic_disable"
-                            android:tint="@color/colorAccent"
-                            app:layout_constraintBottom_toTopOf="@+id/change_status_title"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintVertical_chainStyle="packed" />
-
-                        <TextView
-                            android:id="@+id/change_status_title"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/disable"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                            android:textColor="@color/colorAccent"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="@+id/changeStatus"
-                            app:layout_constraintStart_toStartOf="@+id/changeStatus"
-                            app:layout_constraintTop_toBottomOf="@+id/changeStatus" />
-
-
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/delete_btn"
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
-                        android:background="?attr/selectableItemBackgroundBorderless"
-                        android:clickable="true"
-                        android:focusable="true"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/view5"
-                        app:layout_constraintTop_toTopOf="parent">
-
-                        <ImageView
-                            android:id="@+id/delete"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="?attr/selectableItemBackgroundBorderless"
-                            android:contentDescription="@string/branch_menu"
-                            android:src="@drawable/ic_delete"
-                            android:tint="@color/colorAccent"
-                            app:layout_constraintBottom_toTopOf="@+id/delete_title"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintVertical_chainStyle="packed" />
-
-                        <TextView
-                            android:id="@+id/delete_title"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/delete"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                            android:textColor="@color/colorAccent"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="@+id/delete"
-                            app:layout_constraintStart_toStartOf="@+id/delete"
-                            app:layout_constraintTop_toBottomOf="@+id/delete" />
-
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-
-                    <View
-                        android:id="@+id/view5"
-                        android:layout_width="1dp"
-                        android:layout_height="match_parent"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginEnd="8dp"
-                        android:layout_marginBottom="8dp"
-                        android:background="@color/white_ripple_color"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@id/delete_btn"
-                        app:layout_constraintHorizontal_chainStyle="packed"
-                        app:layout_constraintStart_toEndOf="@+id/changeStatus_btn"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintVertical_bias="0.0" />
-
-                    <View
-                        android:id="@+id/view6"
-                        android:layout_width="1dp"
-                        android:layout_height="match_parent"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginEnd="8dp"
-                        android:layout_marginBottom="8dp"
-                        android:background="@color/white_ripple_color"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/changeStatus_btn"
-                        app:layout_constraintStart_toEndOf="@id/move_btn"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintVertical_bias="0.0" />
-
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/move_btn"
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
-                        android:background="?attr/selectableItemBackgroundBorderless"
-                        android:clickable="true"
-                        android:focusable="true"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/view6"
-                        app:layout_constraintHorizontal_chainStyle="packed"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintVertical_chainStyle="packed">
-
-                        <ImageView
-                            android:id="@+id/move_to"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="?attr/selectableItemBackgroundBorderless"
-                            android:contentDescription="@string/branch_menu"
-                            android:src="@drawable/ic_transfer"
-                            android:tint="@color/colorAccent"
-                            app:layout_constraintBottom_toTopOf="@+id/move_title"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintVertical_chainStyle="packed" />
-
-                        <TextView
-                            android:id="@+id/move_title"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/move"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                            android:textColor="@color/colorAccent"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="@+id/move_to"
-                            app:layout_constraintStart_toStartOf="@+id/move_to"
-                            app:layout_constraintTop_toBottomOf="@+id/move_to" />
-
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
 
 
                 <androidx.constraintlayout.widget.ConstraintLayout

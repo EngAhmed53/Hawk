@@ -39,32 +39,26 @@ public class MainRepo {
     }
 
     synchronized public void addNewCustomer(final Context context, final Customer customer) {
-        AppExecutors.getsInstance().getNetworkIO().execute(new Runnable() {
-            @Override
-            public void run() {
-                if (NetworkUtils.isConnectedToInternet(context)) {
-                    firebaseSalesRepo.addNewCustomerToDatabase(context, customer);
-                    Log.e(TAG, "addNewCustomer: customer added to firebase database");
-                } else {
-                    localSalesRepo.addNewCustomerToLocalDatabase(context, customer);
-                    Log.e(TAG, "addNewCustomer: customer added to local database");
-                }
+        AppExecutors.getsInstance().getNetworkIO().execute(() -> {
+            if (NetworkUtils.isConnectedToInternet(context)) {
+                firebaseSalesRepo.addNewCustomerToDatabase(context, customer);
+                Log.e(TAG, "addNewCustomer: customer added to firebase database");
+            } else {
+                localSalesRepo.addNewCustomerToLocalDatabase(context, customer);
+                Log.e(TAG, "addNewCustomer: customer added to local database");
             }
         });
 
     }
 
     synchronized public void addVisitToCustomer(final Context context, final Visit visit, final String customerUID, final String customerName, final String companyName) {
-        AppExecutors.getsInstance().getNetworkIO().execute(new Runnable() {
-            @Override
-            public void run() {
-                if (NetworkUtils.isConnectedToInternet(context)) {
-                    firebaseSalesRepo.addNewVisitReport(context, visit, customerUID, customerName, companyName);
-                    Log.e(TAG, "addNewCustomer: visit added to firebase database");
-                } else {
-                    localSalesRepo.addNewVisitReportToLocalDatabase(visit, customerUID, customerName, companyName);
-                    Log.e(TAG, "addNewCustomer: visit added to local database");
-                }
+        AppExecutors.getsInstance().getNetworkIO().execute(() -> {
+            if (NetworkUtils.isConnectedToInternet(context)) {
+                firebaseSalesRepo.addNewVisitReport(context, visit, customerUID, customerName, companyName);
+                Log.e(TAG, "addNewCustomer: visit added to firebase database");
+            } else {
+                localSalesRepo.addNewVisitReportToLocalDatabase(visit, customerUID, customerName, companyName);
+                Log.e(TAG, "addNewCustomer: visit added to local database");
             }
         });
 

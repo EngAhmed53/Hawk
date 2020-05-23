@@ -224,6 +224,10 @@
     <string name="create_new_customer">Create new customer</string>
     <string name="add_new_visit">Add new visit</string>
     <string name="pick_location">Pick Location</string>
+    <string name="select_customer">select customer</string>
+    <string name="all_data_synced">All customer data is synced!</string>
+    <string name="priority_high">priority high</string>
+    <string name="active_internt_to_sync">Data saved locally, enable your internet connection to sync!</string>
 
 
 </resources>

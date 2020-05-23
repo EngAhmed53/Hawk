@@ -112,7 +112,7 @@ public class FragmentOfflineData extends Fragment {
                     public void onChanged(WorkInfo workInfo) {
                         if (workInfo != null) {
                             if (workInfo.getState().isFinished()) {
-                                LocalSalesRepo.getInstance().notifyAllLogDataUploaded();
+                                LocalSalesRepo.getInstance().clearAllLocalLogData();
                                 Toast.makeText(getActivity(), "Uploading Done", Toast.LENGTH_SHORT).show();
                                 finish();
                             }

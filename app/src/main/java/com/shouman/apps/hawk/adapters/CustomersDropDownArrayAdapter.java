@@ -1,7 +1,6 @@
 package com.shouman.apps.hawk.adapters;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,16 +11,16 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.shouman.apps.hawk.R;
+import com.shouman.apps.hawk.data.model.Customer;
 
 import java.util.List;
-import java.util.Objects;
 
-public class CustomersDropDownArrayAdapter extends ArrayAdapter<String> {
+public class CustomersDropDownArrayAdapter extends ArrayAdapter<Customer> {
 
     private Context mContext;
-    private List<String> customersList;
+    private List<Customer> customersList;
 
-    public CustomersDropDownArrayAdapter(@NonNull Context context, @NonNull List<String> customersList) {
+    public CustomersDropDownArrayAdapter(@NonNull Context context, @NonNull List<Customer> customersList) {
         super(context, 0, customersList);
         this.customersList = customersList;
         this.mContext = context;
@@ -36,14 +35,16 @@ public class CustomersDropDownArrayAdapter extends ArrayAdapter<String> {
 
         if (customersList != null && customersList.size() > 0) {
 
-            String[] customerData = Objects.requireNonNull(getItem(position)).split(", ");
-            Log.e("TAG", "getView: " + customerData[0]);
-            String customerName = customerData[0];
-            String companyName = customerData[1];
-            String twoLitters = getThe2Letters(customerName);
-            ((TextView) convertView.findViewById(R.id.customer_name_txt)).setText(customerName);
-            ((TextView) convertView.findViewById(R.id.company_name_txt)).setText(companyName);
-            ((TextView) convertView.findViewById(R.id.first_2_letters)).setText(twoLitters);
+            Customer customer = getItem(position);
+
+            if (customer != null) {
+                String customerName = customer.getN();
+                String companyName = customer.getCn();
+                String twoLitters = getThe2Letters(customerName);
+                ((TextView) convertView.findViewById(R.id.customer_name_txt)).setText(customerName);
+                ((TextView) convertView.findViewById(R.id.company_name_txt)).setText(companyName);
+                ((TextView) convertView.findViewById(R.id.first_2_letters)).setText(twoLitters);
+            }
         }
         return convertView;
     }
@@ -64,7 +65,7 @@ public class CustomersDropDownArrayAdapter extends ArrayAdapter<String> {
     }
 
 
-    public void setCustomersList(List<String> customersList) {
+    public void setCustomersList(List<Customer> customersList) {
         this.customersList = customersList;
         notifyDataSetChanged();
         notifyDataSetInvalidated();

@@ -28,7 +28,9 @@ public class LocalSalesRepo {
     private static final String TAG = "LocalSalesRepo";
     private static LocalSalesRepo localSalesRepo;
     private static final Object LOCK = new Object();
-    private MutableLiveData<Map<String, List<DailyLogEntry>>> customersDailyLogLocalLiveData;
+    //private MutableLiveData<Map<String, List<DailyLogEntry>>> customersDailyLogLocalLiveData;
+    private MutableLiveData<Integer> totalLocalLogLiveData;
+    private Map<String, List<DailyLogEntry>> allDaysLog;
     private DatabaseReference companiesReference;
 
 
@@ -36,17 +38,18 @@ public class LocalSalesRepo {
         Log.e(TAG, "LocalSalesRepo: start setting live data");
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         companiesReference = database.getReference().child("data");
-        customersDailyLogLocalLiveData = new MutableLiveData<>();
-
+        //customersDailyLogLocalLiveData = new MutableLiveData<>();
+        totalLocalLogLiveData = new MutableLiveData<>();
+        allDaysLog = new HashMap<>();
         AppExecutors.getsInstance().getDiskIO().execute(() -> {
-            Map<String, List<DailyLogEntry>> allDaysLog = new HashMap<>();
-
+            //Map<String, List<DailyLogEntry>> allDaysLog = new HashMap<>();
             Book dailyLocalBook = Paper.book("Daily_Log");
             for (String day : dailyLocalBook.getAllKeys()) {
                 List<DailyLogEntry> dayLog = dailyLocalBook.read(day);
                 allDaysLog.put(day, dayLog);
             }
-            customersDailyLogLocalLiveData.postValue(allDaysLog);
+            updateTotalLocalLogEntriesLiveData();
+            //  customersDailyLogLocalLiveData.postValue(allDaysLog);
         });
     }
 
@@ -79,7 +82,6 @@ public class LocalSalesRepo {
                 date.getTime(),
                 newCustomerKey);
 
-        Map<String, List<DailyLogEntry>> allDaysLog = customersDailyLogLocalLiveData.getValue();
         if (allDaysLog == null) {
             allDaysLog = new HashMap<>();
         }
@@ -90,7 +92,7 @@ public class LocalSalesRepo {
         currentDayLog.add(dailyLogEntry);
         allDaysLog.put(currentDateMillSecond, currentDayLog);
         Paper.book("Daily_Log").write(currentDateMillSecond, currentDayLog);
-        customersDailyLogLocalLiveData.postValue(allDaysLog);
+        updateTotalLocalLogEntriesLiveData();
     }
 
 
@@ -110,8 +112,6 @@ public class LocalSalesRepo {
                         false,
                         date.getTime(),
                         customerUID);
-
-        Map<String, List<DailyLogEntry>> allDaysLog = customersDailyLogLocalLiveData.getValue();
         if (allDaysLog == null) {
             allDaysLog = new HashMap<>();
         }
@@ -122,7 +122,7 @@ public class LocalSalesRepo {
         currentDayLog.add(dailyLogEntry);
         allDaysLog.put(currentDateMillisecond, currentDayLog);
         Paper.book("Daily_Log").write(currentDateMillisecond, currentDayLog);
-        customersDailyLogLocalLiveData.postValue(allDaysLog);
+        updateTotalLocalLogEntriesLiveData();
     }
 
     synchronized public LiveData<List<String>> getCurrentDayLocalLog(final String date) {
@@ -141,11 +141,23 @@ public class LocalSalesRepo {
         return currentDayLocalLogMutableLiveData;
     }
 
-    public LiveData<Map<String, List<DailyLogEntry>>> getCustomersDailyLogLocalLiveData() {
-        return customersDailyLogLocalLiveData;
+    private void updateTotalLocalLogEntriesLiveData() {
+        if (allDaysLog == null || allDaysLog.size() == 0) totalLocalLogLiveData.postValue(0);
+        int totalLocalLog = 0;
+        for (String day : allDaysLog.keySet()) {
+            List<DailyLogEntry> logEntries = allDaysLog.get(day);
+            if (logEntries != null)
+                totalLocalLog += logEntries.size();
+        }
+        totalLocalLogLiveData.postValue(totalLocalLog);
     }
 
-    public void notifyAllLogDataUploaded() {
-        customersDailyLogLocalLiveData.setValue(null);
+    public LiveData<Integer> getTotalLocalLogLiveData() {
+        return totalLocalLogLiveData;
+    }
+
+    public void clearAllLocalLogData() {
+        allDaysLog.clear();
+        updateTotalLocalLogEntriesLiveData();
     }
 }

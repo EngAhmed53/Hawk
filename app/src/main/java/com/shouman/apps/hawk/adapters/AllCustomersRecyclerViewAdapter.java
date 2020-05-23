@@ -73,7 +73,7 @@ public class AllCustomersRecyclerViewAdapter extends RecyclerView.Adapter<AllCus
 
     public AllCustomersRecyclerViewAdapter(Context mContext) {
         this.mContext = mContext;
-        formatter = DateFormat.getDateInstance(DateFormat.DATE_FIELD, Locale.getDefault());
+        formatter = DateFormat.getDateInstance(DateFormat.DEFAULT, Locale.getDefault());
         calendar = Calendar.getInstance();
         selectedUIDs = new ObservableArrayList<>();
         selectedPositions = new ArrayList<>();

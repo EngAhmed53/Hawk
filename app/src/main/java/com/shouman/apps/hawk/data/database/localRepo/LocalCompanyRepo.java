@@ -1,12 +1,5 @@
 package com.shouman.apps.hawk.data.database.localRepo;
 
-import androidx.lifecycle.MutableLiveData;
-
-import com.shouman.apps.hawk.data.model.Customer;
-import com.shouman.apps.hawk.utils.AppExecutors;
-
-import io.paperdb.Paper;
-
 public class LocalCompanyRepo {
 
     private static LocalCompanyRepo localCompanyRepo;

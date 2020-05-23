@@ -54,7 +54,7 @@ public class Main2Activity extends AppCompatActivity {
                 .getWorkInfosByTagLiveData("TagSyncLocalData").observe(this, workInfos -> {
             if (workInfos != null && !workInfos.isEmpty()) {
                 if (workInfos.get(0).getState() == WorkInfo.State.RUNNING) {
-                    LocalSalesRepo.getInstance().notifyAllLogDataUploaded();
+                    LocalSalesRepo.getInstance().clearAllLocalLogData();
                 }
             }
         });

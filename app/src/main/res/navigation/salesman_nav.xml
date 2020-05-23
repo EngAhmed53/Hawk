@@ -7,18 +7,32 @@
 
     <fragment
         android:id="@+id/fragment_sales_home"
-        tools:layout="@layout/fragment_sales_home"
         android:name="com.shouman.apps.hawk.ui.main.salesUI.home.Fragment_sales_home"
-        android:label="Fragment_sales_home" >
+        android:label="Fragment_sales_home"
+        tools:layout="@layout/fragment_sales_home">
         <action
             android:id="@+id/action_fragment_sales_home_to_dialogFragment_add_new"
             app:destination="@id/dialogFragment_add_new" />
+        <action
+            android:id="@+id/action_fragment_sales_home_to_fragment_sales_info2"
+            app:destination="@id/fragment_sales_info2"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@android:anim/fade_out" />
+        <action
+            android:id="@+id/action_fragment_sales_home_to_fragment_sales_customers"
+            app:destination="@id/fragment_sales_customers"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@android:anim/fade_out" />
     </fragment>
     <fragment
         android:id="@+id/fragment_add_new_customer"
-        tools:layout="@layout/fragment_add_new_customer"
         android:name="com.shouman.apps.hawk.ui.main.salesUI.add.newCustomerFragments.Fragment_add_new_customer"
-        android:label="Fragment_add_new_customer" >
+        android:label="Fragment_add_new_customer"
+        tools:layout="@layout/fragment_add_new_customer">
         <action
             android:id="@+id/action_fragment_add_new_customer_to_fragment_pick_customer_location"
             app:destination="@id/fragment_pick_customer_location"
@@ -30,8 +44,8 @@
     <dialog
         android:id="@+id/dialogFragment_add_new"
         android:name="com.shouman.apps.hawk.ui.main.salesUI.add.DialogFragment_add_new"
-        tools:layout="@layout/dialog_fragment_add_new"
-        android:label="" >
+        android:label=""
+        tools:layout="@layout/dialog_fragment_add_new">
         <action
             android:id="@+id/action_dialogFragment_add_new_to_fragment_add_new_customer"
             app:destination="@id/fragment_add_new_customer"
@@ -39,12 +53,15 @@
             app:exitAnim="@android:anim/slide_out_right"
             app:popEnterAnim="@android:anim/slide_in_left"
             app:popExitAnim="@android:anim/slide_out_right" />
+        <action
+            android:id="@+id/action_dialogFragment_add_new_to_fragment_Add_New_Visit"
+            app:destination="@id/fragment_Add_New_Visit" />
     </dialog>
     <fragment
         android:id="@+id/fragment_pick_customer_location"
-        tools:layout="@layout/fragment_pick_location"
         android:name="com.shouman.apps.hawk.ui.main.salesUI.add.newCustomerFragments.Fragment_pick_customer_location"
-        android:label="Fragment_pick_customer_location" >
+        android:label="Fragment_pick_customer_location"
+        tools:layout="@layout/fragment_pick_location">
         <action
             android:id="@+id/action_fragment_pick_customer_location_to_fragment_sales_home"
             app:destination="@id/fragment_sales_home"
@@ -55,4 +72,29 @@
             app:popUpTo="@id/fragment_sales_home"
             app:popUpToInclusive="true" />
     </fragment>
+    <fragment
+        android:id="@+id/fragment_Add_New_Visit"
+        android:name="com.shouman.apps.hawk.ui.main.salesUI.add.newVisitFragment.Fragment_Add_New_Visit"
+        android:label="Fragment_Add_New_Visit"
+        tools:layout="@layout/fragment_add_new_visit">
+        <action
+            android:id="@+id/action_fragment_Add_New_Visit_to_fragment_sales_home"
+            app:destination="@id/fragment_sales_home"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right"
+            app:popUpTo="@id/fragment_sales_home"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragment_sales_info2"
+        android:name="com.shouman.apps.hawk.ui.main.salesUI.profile.Fragment_sales_profile"
+        android:label="Fragment_sales_info"
+        tools:layout="@layout/fragment_sales_info" />
+    <fragment
+        android:id="@+id/fragment_sales_customers"
+        android:name="com.shouman.apps.hawk.ui.main.salesUI.customers.Fragment_sales_customers"
+        android:label="Fragment_sales_customers"
+        tools:layout="@layout/fragment_sales_my_customers" />
 </navigation>
