@@ -14,7 +14,8 @@ public class UserPreference {
         USER_BRANCH_NAME("branch_name"),
         FIRST_START("first_start"),
         SALESMAN_STATUS("salesman_status"),
-        USER_NAME("user_name");
+        USER_NAME("user_name"),
+        USER_TYPE("user_type");
 
         private String value;
 
@@ -118,5 +119,15 @@ public class UserPreference {
     public String getUserName(Context context) {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
         return preferences.getString(SavedInfo.USER_NAME.getValue(), null);
+    }
+
+    public void setUserType(Context context, String userType) {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        preferences.edit().putString(SavedInfo.USER_TYPE.getValue(), userType).apply();
+    }
+
+    public String getUserType(Context context) {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        return preferences.getString(SavedInfo.USER_TYPE.getValue(), null);
     }
 }

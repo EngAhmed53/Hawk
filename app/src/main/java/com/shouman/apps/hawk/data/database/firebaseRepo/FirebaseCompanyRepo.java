@@ -22,7 +22,6 @@ import java.util.Objects;
 
 public class FirebaseCompanyRepo {
 
-
     public interface OnSalesMemberDeleteAction {
         void onDeleteSuccess();
 

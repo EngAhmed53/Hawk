@@ -1,6 +1,7 @@
 package com.shouman.apps.hawk.ui.auth;
 
 import android.app.Application;
+import android.content.Context;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -51,8 +52,8 @@ public class AuthViewModel extends AndroidViewModel {
         return userMediatorLiveData;
     }
 
-    void updateTheUserInDatabase(User mainUser) {
-        firebaseAuthRepo.updateTheUserInDatabase(firebaseUser.getUid(), mainUser);
+    void updateTheUserInDatabase(Context context, User mainUser) {
+        firebaseAuthRepo.updateTheUserInDatabase(context, firebaseUser.getUid(), mainUser);
     }
 
 }

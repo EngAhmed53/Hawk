@@ -102,6 +102,7 @@ public class Fragment_Splash_Screen extends Fragment {
             userPreference.setCompanyUID(requireContext(), user.getCuid());
             userPreference.setCompanyName(requireContext(), user.getCn());
             userPreference.setUserName(requireContext(), user.getUn());
+            userPreference.setUserType(requireContext(), user.getUt());
         } else if (userType.equals("sales_account")) {
             Navigation.findNavController(mBinding.appNameText).navigate(R.id.action_fragment_Splash_Screen_to_main2Activity);
             userPreference.setBranchUID(requireContext(), user.getBuid());
@@ -109,6 +110,7 @@ public class Fragment_Splash_Screen extends Fragment {
             userPreference.setCompanyName(requireContext(), user.getCn());
             userPreference.setSalesmanStatus(requireContext(), user.isStatus());
             userPreference.setUserName(requireContext(), user.getUn());
+            userPreference.setUserType(requireContext(), user.getUt());
         }
         requireActivity().finish();
 

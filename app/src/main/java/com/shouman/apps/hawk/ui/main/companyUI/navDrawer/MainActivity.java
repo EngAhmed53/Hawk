@@ -12,6 +12,7 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.shouman.apps.hawk.R;
 import com.shouman.apps.hawk.databinding.ActivityMainBinding;
 
@@ -31,6 +32,14 @@ public class MainActivity extends AppCompatActivity {
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         enabledNav = mBinding.navHome;
         setupNavigation();
+        setTheUserFCMToken();
+    }
+
+    private void setTheUserFCMToken() {
+        FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(instanceIdResult -> {
+
+        });
+
     }
 
     private void setupNavigation() {

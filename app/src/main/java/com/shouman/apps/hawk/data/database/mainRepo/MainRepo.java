@@ -3,9 +3,7 @@ package com.shouman.apps.hawk.data.database.mainRepo;
 import android.content.Context;
 import android.util.Log;
 
-import com.shouman.apps.hawk.data.database.firebaseRepo.FirebaseCompanyRepo;
 import com.shouman.apps.hawk.data.database.firebaseRepo.FirebaseSalesRepo;
-import com.shouman.apps.hawk.data.database.localRepo.LocalCompanyRepo;
 import com.shouman.apps.hawk.data.database.localRepo.LocalSalesRepo;
 import com.shouman.apps.hawk.data.model.Customer;
 import com.shouman.apps.hawk.data.model.Visit;
@@ -16,10 +14,10 @@ public class MainRepo {
     private static final String TAG = "MainRepo";
     private static MainRepo mainRepo;
     private final static Object LOCK = new Object();
-    private LocalCompanyRepo localCompanyRepo;
+    // private LocalCompanyRepo localCompanyRepo;
     private LocalSalesRepo localSalesRepo;
     private FirebaseSalesRepo firebaseSalesRepo;
-    private FirebaseCompanyRepo firebaseCompanyRepo;
+    //private FirebaseCompanyRepo firebaseCompanyRepo;
 
     public static MainRepo getInstance() {
 

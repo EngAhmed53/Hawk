@@ -17,12 +17,6 @@
         <activity
             android:name=".ui.main.companyUI.navDrawer.MainActivity"
             android:theme="@style/no_action_bar.transparentStatusBar" />
-        <activity
-            android:name=".ui.main.salesUI.home22.allCustomersPage.AllCustomersActivity"
-            android:theme="@style/no_action_bar" />
-        <activity
-            android:name=".ui.main.salesUI.home22.personalPage.PersonalPageActivity"
-            android:theme="@style/no_action_bar" />
 
         <activity
             android:name=".ui.main.salesUI.Main2Activity"
@@ -78,5 +72,15 @@
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
         </activity>
+
+        <service
+            android:name=".Services.MyFirebaseMessagingService"
+            android:exported="false"
+            android:stopWithTask="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+
+            </intent-filter>
+        </service>
     </application>
 </manifest>

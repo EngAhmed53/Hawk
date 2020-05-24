@@ -86,7 +86,7 @@ public class Fragment_select_user_type extends Fragment {
             mainUser.setUt("sales_account");
 
             //update the user object in the viewModel
-            authViewModel.updateTheUserInDatabase(mainUser);
+            authViewModel.updateTheUserInDatabase(requireContext(), mainUser);
 
             //navigate to the sales main activity
             navigateToSalesHome();
@@ -184,7 +184,7 @@ public class Fragment_select_user_type extends Fragment {
             mainUser.setCuid(Common.EmailToUID(mainUser.getE()));
 
             //update the user object in the viewModel
-            authViewModel.updateTheUserInDatabase(mainUser);
+            authViewModel.updateTheUserInDatabase(requireContext(), mainUser);
 
             //navigate to home activity
             navigateToCompanyHome();
@@ -198,6 +198,7 @@ public class Fragment_select_user_type extends Fragment {
         userPreference.setCompanyName(requireContext(), mainUser.getCn());
         userPreference.setSalesmanStatus(requireContext(), mainUser.isStatus());
         userPreference.setUserName(requireContext(), mainUser.getUn());
+        userPreference.setUserType(requireContext(), mainUser.getUt());
     }
 
     private void navigateToCompanyHome() {
@@ -205,6 +206,7 @@ public class Fragment_select_user_type extends Fragment {
         userPreference.setCompanyUID(requireContext(), mainUser.getCuid());
         userPreference.setCompanyName(requireContext(), mainUser.getCn());
         userPreference.setUserName(requireContext(), mainUser.getUn());
+        userPreference.setUserType(requireContext(), mainUser.getUt());
         requireActivity().finish();
     }
 

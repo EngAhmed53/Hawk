@@ -102,7 +102,7 @@ public class LocalSalesRepo {
         Date currentDate = Common.getCurrentDateWithoutTime();
         String currentDateMillisecond = String.valueOf(currentDate.getTime());
 
-        String visitKey = customerUID + ", " + date.getTime();
+        String visitKey = customerUID + ", " + customerName + ", " + date.getTime();
         Paper.book("visits_list").write(visitKey, visit);
 
         //add this visit as a logDataEntry to the sales member day log

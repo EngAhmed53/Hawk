@@ -340,6 +340,7 @@ public class Fragment_signIn extends Fragment {
             userPreference.setCompanyUID(requireContext(), user.getCuid());
             userPreference.setCompanyName(requireContext(), user.getCn());
             userPreference.setUserName(requireContext(), user.getUn());
+            userPreference.setUserType(requireContext(), user.getUt());
         } else if (userType.equals("sales_account")) {
             Navigation.findNavController(mBinding.logoImage).navigate(R.id.action_fragment_signIn_to_main2Activity);
             userPreference.setBranchUID(requireContext(), user.getBuid());
@@ -347,6 +348,7 @@ public class Fragment_signIn extends Fragment {
             userPreference.setCompanyName(requireContext(), user.getCn());
             userPreference.setSalesmanStatus(requireContext(), user.isStatus());
             userPreference.setUserName(requireContext(), user.getUn());
+            userPreference.setUserType(requireContext(), user.getUt());
         }
 
         requireActivity().finish();

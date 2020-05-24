@@ -44,9 +44,11 @@ public class SyncTask {
 
         FirebaseSalesRepo salesRepo = FirebaseSalesRepo.getInstance();
         for (String key : allNewVisitsBook.getAllKeys()) {
-            String customerUID = key.substring(0, key.indexOf(", "));
+            String[] customerData = key.split(", ");
+            String customerUID = customerData[0];
+            String customerName = customerData[1];
             Visit visit = allNewVisitsBook.read(key);
-            salesRepo.uploadVisits(context, visit, customerUID);
+            salesRepo.uploadVisits(context, visit, customerUID, customerName);
             allNewVisitsBook.delete(key);
             Log.e(TAG, "uploadNewCustomers: upload visit" + customerUID);
         }

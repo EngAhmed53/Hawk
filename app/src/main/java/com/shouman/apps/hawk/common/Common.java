@@ -16,8 +16,11 @@ import java.util.Date;
 
 public class Common {
     private static final String TAG = "Common class";
-    public static int COMPANY_ACCOUNT = 0;
-    public static int SALES_ACCOUNT = 1;
+    public static final int COMPANY_ACCOUNT = 0;
+    public static final int SALES_ACCOUNT = 1;
+    public static final String ACTIVITY_NEW_CUSTOMER = "New_Customer";
+    public static final String ACTIVITY_NEW_VISIT = "New_Visit";
+    public static final String ACTIVITY_NEW_SALESMAN = "New_Salesman";
 
     public static String[] getAllPositions(Context context) {
         return context.getResources().getStringArray(R.array.positions_array);
@@ -46,7 +49,7 @@ public class Common {
     }
 
     public static Date getCurrentDateWithoutTime() {
-        Calendar calendar=Calendar.getInstance();
+        Calendar calendar = Calendar.getInstance();
         calendar.setTime(new Date());
         calendar.set(Calendar.HOUR_OF_DAY, 0);
         calendar.set(Calendar.MINUTE, 0);

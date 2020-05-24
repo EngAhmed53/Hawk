@@ -1,5 +1,7 @@
 package com.shouman.apps.hawk.data.database.firebaseRepo;
 
+import android.content.Context;
+
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.shouman.apps.hawk.data.model.User;
@@ -27,7 +29,7 @@ public class FirebaseAuthRepo {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         usersReference = database.getReference().child("users");
         companyRepo = FirebaseCompanyRepo.getInstance();
-        salesRepo =FirebaseSalesRepo.getInstance();
+        salesRepo = FirebaseSalesRepo.getInstance();
     }
 
     synchronized public DatabaseReference getUserReference(String userUID) {
@@ -42,21 +44,21 @@ public class FirebaseAuthRepo {
         return user;
     }
 
-    synchronized public void updateTheUserInDatabase(final String userUID, final User mainUser) {
-        AppExecutors.getsInstance().getNetworkIO().execute(new Runnable() {
-            @Override
-            public void run() {
-                //update the user in the users database
-                usersReference.child(userUID).setValue(mainUser);
+    synchronized public void updateTheUserInDatabase(Context context, final String userUID, final User mainUser) {
+        AppExecutors.getsInstance().getNetworkIO().execute(() -> {
+            //update the user in the users database
+            usersReference.child(userUID).setValue(mainUser);
 
-                //add new company or sales member account
-                if (mainUser.getUt().equals("company_account")) {
-                    companyRepo.addNewCompanyToDatabase(mainUser.getCuid());
-                } else if (mainUser.getUt().equals("sales_account")) {
-                    salesRepo.addNewSalesMemberToDatabase(userUID, mainUser);
-                }
+            //add new company or sales member account
+            if (mainUser.getUt().equals("company_account")) {
+                companyRepo.addNewCompanyToDatabase(mainUser.getCuid());
+            } else if (mainUser.getUt().equals("sales_account")) {
+                salesRepo.addNewSalesMemberToDatabase(context, userUID, mainUser);
             }
         });
     }
 
+    public void addNewTokenToCompanyUser(String userUID, String newToken) {
+        usersReference.child(userUID).child("NT").child(newToken).setValue(true);
+    }
 }
