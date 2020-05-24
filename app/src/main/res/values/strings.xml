@@ -228,6 +228,7 @@
     <string name="all_data_synced">All customer data is synced!</string>
     <string name="priority_high">priority high</string>
     <string name="active_internt_to_sync">Data saved locally, enable your internet connection to sync!</string>
+    <string name="default_notification_channel_id">Resellers Application</string>
 
 
 </resources>

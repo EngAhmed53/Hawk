@@ -1,5 +1,7 @@
 package com.shouman.apps.hawk.data.model;
 
+import java.util.Map;
+
 public class User {
     //userName
     private String un;
@@ -13,11 +15,12 @@ public class User {
     private String ut;
     //companyName
     private String cn;
-
     //branchName
     private String bn;
-
+    //salesman status true = active ... false = disabled
     private boolean status;
+    //FCM tokens map
+    private Map<String, Boolean> NT;
 
     public User() {
         status = true;
@@ -96,5 +99,13 @@ public class User {
 
     public void setStatus(boolean status) {
         this.status = status;
+    }
+
+    public Map<String, Boolean> getNT() {
+        return NT;
+    }
+
+    public void setNT(Map<String, Boolean> NT) {
+        this.NT = NT;
     }
 }

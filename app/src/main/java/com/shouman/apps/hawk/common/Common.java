@@ -26,18 +26,6 @@ public class Common {
         return context.getResources().getStringArray(R.array.positions_array);
     }
 
-    //convert the user email to UID to put it as key in User database
-    public static String EmailToUID(String email) {
-        StringBuilder stringBuilder = new StringBuilder();
-        for (char c : email.toCharArray()) {
-
-            if (c != '@' && c != '.') {
-                stringBuilder.append(c);
-            }
-        }
-        return stringBuilder.toString();
-    }
-
     public static String getRandomColor(int position) {
         String[] colors;
         colors = new String[]{"#4267B2", "#AF3782", "#73B5DF", "#F70298", "#9A0861", "#5C67B7", "#253964", "#8B2E27", "#03699B", "#E91E63"};

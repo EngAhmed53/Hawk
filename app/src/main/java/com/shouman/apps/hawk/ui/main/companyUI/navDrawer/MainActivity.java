@@ -12,8 +12,11 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.shouman.apps.hawk.R;
+import com.shouman.apps.hawk.data.database.firebaseRepo.FirebaseAuthRepo;
 import com.shouman.apps.hawk.databinding.ActivityMainBinding;
 
 import java.util.Objects;
@@ -37,7 +40,12 @@ public class MainActivity extends AppCompatActivity {
 
     private void setTheUserFCMToken() {
         FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(instanceIdResult -> {
-
+            String newToken = instanceIdResult.getToken();
+            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+            if (user != null) {
+                String userUID = user.getUid();
+                FirebaseAuthRepo.getInstance().addNewTokenToCompanyUser(userUID, newToken);
+            }
         });
 
     }

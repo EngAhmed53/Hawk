@@ -18,6 +18,8 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.shouman.apps.hawk.R;
 import com.shouman.apps.hawk.common.Common;
 import com.shouman.apps.hawk.data.model.User;
@@ -174,14 +176,19 @@ public class Fragment_select_user_type extends Fragment {
             //set company account info
             //company user name
             mainUser.setUn(Objects.requireNonNull(mBinding.edtName.getText()).toString().trim());
+
             //company name
             mainUser.setCn(Objects.requireNonNull(mBinding.edtCompanyName.getText()).toString().trim());
+
             //branch uid is null because it is company not sales member
             mainUser.setBuid(null);
+
             // set the user_type
             mainUser.setUt("company_account");
+
             //set the company uid
-            mainUser.setCuid(Common.EmailToUID(mainUser.getE()));
+            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+            if (user != null) mainUser.setCuid(user.getUid());
 
             //update the user object in the viewModel
             authViewModel.updateTheUserInDatabase(requireContext(), mainUser);
