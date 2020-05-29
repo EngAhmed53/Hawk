@@ -26,12 +26,12 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="112dp"
             android:alpha="1"
-            android:fontFamily="sans-serif-black"
+            android:fontFamily="@font/jost_medium"
             android:rotationX="0"
             android:text="@{user.cn}"
             android:textAlignment="center"
             android:textAllCaps="true"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textAppearance="@style/Headline5"
             android:textColor="@color/white"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
@@ -66,10 +66,9 @@
                     android:layout_marginTop="8dp"
                     android:drawableStart="@drawable/ic_person_old_rose"
                     android:drawablePadding="16dp"
-                    android:fontFamily="sans-serif-medium"
                     android:gravity="center_vertical"
                     android:text="@string/user_name"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    android:textAppearance="@style/Medium"
                     android:textColor="@color/old_rose_dark" />
 
                 <TextView
@@ -83,14 +82,13 @@
                     android:clickable="true"
                     android:drawablePadding="16dp"
                     android:focusable="true"
-                    android:fontFamily="sans-serif-medium"
                     android:gravity="center_vertical"
                     android:paddingStart="8dp"
                     android:paddingTop="16dp"
                     android:paddingEnd="16dp"
                     android:paddingBottom="16dp"
                     android:text="@{user.un}"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    android:textAppearance="@style/Large"
                     android:textColor="@color/gray1"
                     tools:text="Ahmed Ramadan" />
 
@@ -104,10 +102,9 @@
                     android:layout_marginTop="16dp"
                     android:drawableStart="@drawable/ic_email"
                     android:drawablePadding="16dp"
-                    android:fontFamily="sans-serif-medium"
                     android:gravity="center_vertical"
                     android:text="@string/email"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    android:textAppearance="@style/Medium"
                     android:textColor="@color/old_rose_dark" />
 
                 <TextView
@@ -121,14 +118,13 @@
                     android:clickable="true"
                     android:drawablePadding="16dp"
                     android:focusable="true"
-                    android:fontFamily="sans-serif-medium"
                     android:gravity="center_vertical"
                     android:paddingStart="8dp"
                     android:paddingTop="16dp"
                     android:paddingEnd="8dp"
                     android:paddingBottom="16dp"
                     android:text="@{user.e}"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    android:textAppearance="@style/Large"
                     android:textColor="@color/gray1"
                     tools:text="AhmedRamadan@yahoo.com" />
 
@@ -141,10 +137,9 @@
                     android:layout_marginTop="16dp"
                     android:drawableStart="@drawable/ic_domain"
                     android:drawablePadding="16dp"
-                    android:fontFamily="sans-serif-medium"
                     android:gravity="center_vertical"
                     android:text="@string/company_name"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                    android:textAppearance="@style/Medium"
                     android:textColor="@color/old_rose_dark" />
 
                 <TextView
@@ -158,14 +153,13 @@
                     android:clickable="true"
                     android:drawablePadding="16dp"
                     android:focusable="true"
-                    android:fontFamily="sans-serif-medium"
                     android:gravity="center_vertical"
                     android:paddingStart="8dp"
                     android:paddingTop="16dp"
                     android:paddingEnd="8dp"
                     android:paddingBottom="16dp"
                     android:text="@{user.cn}"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    android:textAppearance="@style/Large"
                     android:textColor="@color/gray1"
                     tools:text="My Company" />
             </LinearLayout>

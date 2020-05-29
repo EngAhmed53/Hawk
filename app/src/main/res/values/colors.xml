@@ -28,6 +28,9 @@
     <color name="white_ripple_color">#23000000</color>
     <color name="white_blue">#e7e7ec</color>
     <color name="white3">#F8EEEDED</color>
+    <color name="material_green">#08C1B0</color>
+    <color name="material_yellow">#FFC411</color>
+    <color name="material_blue">#039BE5</color>
 
 </resources>
 

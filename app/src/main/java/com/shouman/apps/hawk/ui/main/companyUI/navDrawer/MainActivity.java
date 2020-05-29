@@ -15,6 +15,7 @@ import androidx.navigation.ui.NavigationUI;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.shouman.apps.hawk.R;
 import com.shouman.apps.hawk.data.database.firebaseRepo.FirebaseAuthRepo;
 import com.shouman.apps.hawk.databinding.ActivityMainBinding;
@@ -36,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
         enabledNav = mBinding.navHome;
         setupNavigation();
         setTheUserFCMToken();
+        FirebaseMessaging.getInstance().subscribeToTopic("New_Customer");
     }
 
     private void setTheUserFCMToken() {
@@ -113,11 +115,11 @@ public class MainActivity extends AppCompatActivity {
                 }
                 break;
 
-            case R.id.nav_notifications:
+            case R.id.nav_activities:
                 if (enabledNav != mBinding.navCustomers) {
                     enabledNav.setSelected(false);
-                    navController.navigate(R.id.fragment_notification);
-                    enabledNav = mBinding.navNotifications;
+                    navController.navigate(R.id.fragment_activities);
+                    enabledNav = mBinding.navActivities;
                 }
                 break;
 

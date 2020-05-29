@@ -56,10 +56,10 @@
             app:destination="@id/dialogFragment_Move_Multi_Customers" />
     </fragment>
     <fragment
-        android:id="@+id/fragment_notification"
-        android:name="com.shouman.apps.hawk.ui.main.companyUI.navDrawer.notification.Fragment_notification"
-        android:label="Notifications"
-        tools:layout="@layout/fragment_notification" />
+        android:id="@+id/fragment_activities"
+        android:name="com.shouman.apps.hawk.ui.main.companyUI.navDrawer.activities.Fragment_activities"
+        android:label=""
+        tools:layout="@layout/fragment_activities" />
     <fragment
         android:id="@+id/fragment_reports"
         android:name="com.shouman.apps.hawk.ui.main.companyUI.navDrawer.reports.Fragment_reports"

@@ -17,6 +17,64 @@
         <item name="android:actionModeBackground">@color/colorAccent</item>
     </style>
 
+<!--font styles-->
+    <style name="Headline4" parent="TextAppearance.MaterialComponents.Headline4">
+        <item name="android:fontFamily">@font/jost_regular</item>
+        <item name="fontFamily">@font/jost_regular</item>
+    </style>
+
+    <style name="Headline5" parent="TextAppearance.MaterialComponents.Headline5">
+        <item name="android:fontFamily">@font/jost_regular</item>
+        <item name="fontFamily">@font/jost_regular</item>
+    </style>
+
+    <style name="Headline6" parent="TextAppearance.MaterialComponents.Headline6">
+        <item name="android:fontFamily">@font/jost_medium</item>
+        <item name="fontFamily">@font/jost_medium</item>
+    </style>
+
+    <style name="Subtitle1" parent="TextAppearance.MaterialComponents.Subtitle1">
+        <item name="android:textSize">16sp</item>
+        <item name="android:fontFamily">@font/jost_regular</item>
+        <item name="fontFamily">@font/jost_regular</item>
+    </style>
+
+    <style name="Subtitle2" parent="TextAppearance.MaterialComponents.Subtitle2">
+        <item name="android:fontFamily">@font/jost_medium</item>
+        <item name="fontFamily">@font/jost_medium</item>
+    </style>
+
+    <style name="Caption" parent="TextAppearance.MaterialComponents.Caption">
+        <item name="android:fontFamily">@font/jost_regular</item>
+        <item name="fontFamily">@font/jost_regular</item>
+    </style>
+
+    <style name="Small" parent="TextAppearance.AppCompat.Small">
+        <item name="android:fontFamily">@font/jost_regular</item>
+        <item name="fontFamily">@font/jost_regular</item>
+    </style>
+
+    <style name="Medium" parent="TextAppearance.AppCompat.Medium">
+        <item name="android:fontFamily">@font/jost_regular</item>
+        <item name="fontFamily">@font/jost_regular</item>
+    </style>
+
+    <style name="Large" parent="TextAppearance.AppCompat.Large">
+        <item name="android:fontFamily">@font/jost_regular</item>
+        <item name="fontFamily">@font/jost_regular</item>
+    </style>
+
+    <style name="Button" parent="TextAppearance.MaterialComponents.Button">
+        <item name="android:fontFamily">@font/jost_medium</item>
+        <item name="fontFamily">@font/jost_medium</item>
+    </style>
+
+    <style name="OverLine" parent="TextAppearance.MaterialComponents.Overline">
+        <item name="android:fontFamily">@font/jost_regular</item>
+        <item name="fontFamily">@font/jost_regular</item>
+    </style>
+    //////////////////////////
+
     <style name="no_action_bar.transparentStatusBar" parent="no_action_bar">
         <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
@@ -24,6 +82,7 @@
     <style name="materialInputLayoutCustomColor" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
         <item name="boxStrokeColor">@color/material_input_layout_stroke_colors</item>
         <item name="boxStrokeWidth">1dp</item>
+        <item name="android:textAppearance">@style/Medium</item>
     </style>
 
     <style name="materialAutoCompleteCustomColor" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
@@ -79,5 +138,4 @@
     <style name="BottomSheetDialogTheme" parent="BaseBottomSheetDialog" />
 
 
-    
 </resources>

@@ -15,7 +15,7 @@
         android:longClickable="true"
         app:cardCornerRadius="0dp"
         app:cardElevation="0dp"
-        app:rippleColor="@color/white_ripple_color">
+        app:rippleColor="?colorControlHighlight">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -30,11 +30,10 @@
                 android:ellipsize="end"
                 android:gravity="center_vertical"
                 android:maxLines="1"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                android:textColor="@color/black"
+                android:textAppearance="@style/Headline6"
+                android:fontFamily="@font/jost_regular"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintHorizontal_chainStyle="spread_inside"
                 app:layout_constraintStart_toEndOf="@+id/frame"
                 app:layout_constraintTop_toTopOf="@+id/frame"
                 tools:text="Main Branch" />
@@ -65,8 +64,8 @@
                     android:layout_marginStart="8dp"
                     android:gravity="center_vertical"
                     android:maxLines="1"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Caption"
-                    android:textColor="@color/gray2"
+                    android:textAppearance="@style/Caption"
+                    android:textColor="@color/gray1"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@id/img_status"
@@ -76,8 +75,8 @@
 
             <FrameLayout
                 android:id="@+id/frame"
-                android:layout_width="42dp"
-                android:layout_height="42dp"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
@@ -93,14 +92,14 @@
 
                 <TextView
                     android:id="@+id/first_2_letters"
-                    android:layout_width="42dp"
-                    android:layout_height="42dp"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
                     android:alpha="1"
                     android:ellipsize="end"
                     android:gravity="center"
                     android:maxLines="1"
-                    android:paddingLeft="6dp"
-                    android:paddingRight="6dp"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"
                     android:textAllCaps="true"
                     android:textColor="@color/white2"
                     android:textSize="18sp"

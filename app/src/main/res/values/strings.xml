@@ -229,6 +229,22 @@
     <string name="priority_high">priority high</string>
     <string name="active_internt_to_sync">Data saved locally, enable your internet connection to sync!</string>
     <string name="default_notification_channel_id">Resellers Application</string>
+    <string name="notify_new_customer_title">New Customer</string>
+    <string name="notify_new_customer_body">\" created new customer with name \"</string>
+    <string name="notify_new_visit_title">New Visit</string>
+    <string name="notify_new_visit_body">\" added new visit to customer \"</string>
+    <string name="notify_new_salesman_title">New Salesman</string>
+    <string name="notify_new_salesman_body">joined your sales team.</string>
+    <string name="main_notification_channel_name">Primary</string>
+    <string name="activities">Activities</string>
+    <string name="your_sales_team_daily_activities">Your sales team daily activities.</string>
+    <string name="customer">Customer</string>
+    <string name="activity_type">activity type</string>
+    <string name="customers">Customers</string>
+    <string name="visits">Visits</string>
+    <string name="visit">Visit</string>
+    <string name="salesmen">Salesmen</string>
+    <string name="salesman">Salesman</string>
 
 
 </resources>

@@ -1,5 +1,6 @@
 package com.shouman.apps.hawk.data.database.firebaseRepo;
 
+import android.app.Application;
 import android.content.Context;
 import android.util.Log;
 
@@ -65,6 +66,11 @@ public class FirebaseCompanyRepo {
     synchronized public DatabaseReference getCompanyBranchesDetailsReference(Context context) {
         String companyUID = userPreference.getCompanyUID(context);
         return companiesReference.child(companyUID).child("B");
+    }
+
+    synchronized public DatabaseReference getAllActivities(Context context) {
+        String companyUID = userPreference.getCompanyUID(context);
+        return companiesReference.child(companyUID).child("Activities");
     }
 
     //return branch sales member list reference
