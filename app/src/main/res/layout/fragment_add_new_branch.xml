@@ -4,12 +4,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.constraintlayout.motion.widget.MotionLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/colorPrimary"
         android:clickable="true"
         android:focusable="true"
+        app:layoutDescription="@xml/add_new_branch_scene"
         tools:context=".ui.main.companyUI.navDrawer.home.addNewBranch.Fragment_add_new_branch">
 
         <TextView
@@ -17,12 +18,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
             android:layout_marginTop="64dp"
-            android:fontFamily="sans-serif-black"
+            android:layout_marginEnd="16dp"
+            android:fontFamily="@font/jost_black"
             android:text="@string/add_new_branch"
-            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+            android:textAppearance="@style/Headline4"
             android:textColor="@color/white"
+            app:autoSizeMaxTextSize="34sp"
+            app:autoSizeMinTextSize="18sp"
+            app:autoSizeTextType="uniform"
             app:layout_constraintBottom_toTopOf="@id/subHeader_txt"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -38,10 +42,10 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
-            android:fontFamily="sans-serif"
             android:text="@string/type_your_new_branch_name_and_then_press_add_button"
-            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:textAppearance="@style/Subtitle1"
             android:textColor="@color/white"
+            android:alpha="1"
             app:layout_constraintBottom_toTopOf="@id/info_frame"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -51,66 +55,105 @@
             app:layout_constraintVertical_chainStyle="packed" />
 
 
-        <LinearLayout
+        <androidx.core.widget.NestedScrollView
             android:id="@+id/info_frame"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginTop="42dp"
+            android:layout_marginTop="64dp"
             android:background="@drawable/movable_layout_white_24dp"
-            android:orientation="vertical"
+            android:clickable="true"
+            android:focusable="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@id/subHeader_txt">
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/branch_name_TextField"
-                style="@style/materialInputLayoutCustomColor"
-                android:layout_width="350dp"
-                android:layout_marginTop="32dp"
-                android:layout_marginStart="16dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                android:layout_gravity="center"
-                android:layout_marginBottom="8dp"
-                android:hint="@string/branch_name"
-                android:textColorHint="@color/black"
-                app:boxCornerRadiusBottomEnd="6dp"
-                app:boxCornerRadiusBottomStart="6dp"
-                app:boxCornerRadiusTopEnd="6dp"
-                app:boxCornerRadiusTopStart="6dp"
-                app:errorEnabled="true"
-                app:errorTextColor="@android:color/holo_red_dark"
-                app:hintTextAppearance="@style/TextAppearance.AppCompat.Caption"
-                app:hintTextColor="@color/gray1"
-                app:startIconDrawable="@drawable/ic_domain">
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edt_branch_name"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="16dp"
+                android:orientation="vertical">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="8dp">
+
+                    <ImageView
+                        android:id="@+id/icon2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:contentDescription="@string/branch_menu"
+                        android:scaleType="center"
+                        android:src="@drawable/ic_branch_36dp"
+                        android:tint="@color/gray1"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/branch_name_TextField"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/branch_name_TextField"
+                        style="@style/materialInputLayoutCustomColor"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:hint="@string/branch_name"
+                        android:textColorHint="@color/black"
+                        app:boxCornerRadiusBottomEnd="6dp"
+                        app:boxCornerRadiusBottomStart="6dp"
+                        app:boxCornerRadiusTopEnd="6dp"
+                        app:boxCornerRadiusTopStart="6dp"
+                        app:errorEnabled="true"
+                        app:errorTextAppearance="@style/Caption"
+                        app:errorTextColor="@android:color/holo_red_dark"
+                        app:hintTextAppearance="@style/Caption"
+                        app:hintTextColor="@color/gray1"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/icon2"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edt_branch_name"
+                            android:layout_width="match_parent"
+                            android:layout_height="56dp"
+                            android:inputType="text"
+                            android:maxLength="100"
+                            android:maxLines="1"
+                            android:textAppearance="@style/Medium"
+                            android:textColor="@color/black"
+                            android:textColorHint="@color/white" />
+                    </com.google.android.material.textfield.TextInputLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <Button
+                    android:id="@+id/btn_add_branch"
+                    android:layout_width="wrap_content"
                     android:layout_height="56dp"
-                    android:inputType="text"
-                    android:maxLength="100"
-                    android:maxLines="1"
-                    android:textColor="@color/black"
-                    android:textColorHint="@color/white2" />
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:layout_gravity="center"
+                    android:layout_marginTop="8dp"
+                    android:backgroundTint="@color/colorAccent"
+                    android:elevation="6dp"
+                    android:enabled="false"
+                    android:paddingLeft="42dp"
+                    android:paddingRight="42dp"
+                    android:text="@string/add_new_branch"
+                    android:textAppearance="@style/Button"
+                    android:textColor="@color/white" />
 
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btn_add_branch"
-                android:layout_width="wrap_content"
-                android:layout_height="56dp"
-                android:layout_marginTop="8dp"
-                android:backgroundTint="@color/colorAccent"
-                android:drawableStart="@drawable/ic_branch"
-                android:drawablePadding="8dp"
-                android:elevation="6dp"
-                android:layout_gravity="center"
-                android:paddingLeft="42dp"
-                android:paddingRight="42dp"
-                android:text="@string/add_new_branch"
-                android:textColor="@color/white" />
+            </LinearLayout>
 
-        </LinearLayout>
-    </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+    </androidx.constraintlayout.motion.widget.MotionLayout>
 </layout>

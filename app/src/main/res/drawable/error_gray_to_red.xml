@@ -4,6 +4,6 @@
         android:drawable="@drawable/ic_error_24px_gray"
         android:duration="700" />
     <item
-        android:drawable="@drawable/ic_error_24px_red"
+        android:drawable="@drawable/ic_error_24px_yellow"
         android:duration="700" />
 </animation-list>

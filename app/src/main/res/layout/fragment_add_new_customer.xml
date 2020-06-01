@@ -24,23 +24,22 @@
             app:navigationIcon="@drawable/ic_arrow_back"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
             app:titleMarginStart="0dp"
-            app:titleTextColor="@color/white2" />
+            app:titleTextColor="@color/white" />
 
         <TextView
-            android:id="@+id/header"
+            android:id="@+id/header_txt"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
             android:fontFamily="@font/jost_black"
             android:text="@string/new_customer"
             android:textAppearance="@style/Headline4"
-            android:textColor="@color/white2"
+            android:textColor="@color/white"
             app:autoSizeMaxTextSize="34sp"
             app:autoSizeMinTextSize="18sp"
             app:autoSizeTextType="uniform"
-            app:layout_constraintBottom_toTopOf="@+id/headline"
+            app:layout_constraintBottom_toTopOf="@+id/subHeader_txt"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -49,7 +48,7 @@
 
 
         <TextView
-            android:id="@+id/headline"
+            android:id="@+id/subHeader_txt"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -57,11 +56,11 @@
             android:layout_marginBottom="64dp"
             android:text="@string/type_the_new_customer_information_then_press_continue"
             android:textAppearance="@style/Subtitle1"
-            android:textColor="@color/white2"
+            android:textColor="@color/white"
             app:layout_constraintBottom_toTopOf="@+id/info_frame"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/header" />
+            app:layout_constraintTop_toBottomOf="@+id/header_txt" />
 
 
         <androidx.core.widget.NestedScrollView
@@ -74,7 +73,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/headline">
+            app:layout_constraintTop_toBottomOf="@+id/subHeader_txt">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -96,7 +95,7 @@
                         android:layout_marginEnd="8dp"
                         android:contentDescription="@string/branch_menu"
                         android:scaleType="center"
-                        android:src="@drawable/ic_person_outline_36dp"
+                        android:src="@drawable/ic_person_36dp"
                         android:tint="@color/gray1"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@+id/customer_name_txtInput"

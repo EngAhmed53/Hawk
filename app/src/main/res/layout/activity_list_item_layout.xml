@@ -46,13 +46,13 @@
 
 
             <TextView
-                android:fontFamily="sans-serif-medium"
+                android:fontFamily="@font/jost_medium"
                 android:id="@+id/activity_type_txt"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_width="wrap_content"
                 android:textColor="@color/black"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textAppearance="@style/Headline6"
                 app:layout_constraintBottom_toTopOf="@+id/activity_body_txt"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -63,12 +63,12 @@
 
             <TextView
                 android:ellipsize="end"
-                android:fontFamily="sans-serif-light"
+                android:fontFamily="@font/jost_light"
                 android:id="@+id/activity_body_txt"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
                 android:layout_width="0dp"
-                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                android:textAppearance="@style/Subtitle1"
                 android:textColor="@color/gray1"
                 app:layout_constraintBottom_toBottomOf="@+id/type_card_view"
                 app:layout_constraintEnd_toStartOf="@id/activity_time_txt"
@@ -84,12 +84,11 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="16dp"
                 android:ellipsize="end"
-                android:fontFamily="sans-serif-light"
+                android:fontFamily="@font/jost_light"
                 android:gravity="center"
-
                 android:paddingTop="8dp"
                 android:paddingBottom="8dp"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
+                android:textAppearance="@style/Subtitle2"
                 android:textColor="@color/gray1"
                 app:layout_constraintBottom_toBottomOf="@+id/activity_body_txt"
                 app:layout_constraintEnd_toEndOf="parent"

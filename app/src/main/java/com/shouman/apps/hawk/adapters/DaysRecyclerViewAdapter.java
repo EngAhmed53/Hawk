@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -98,8 +99,8 @@ public class DaysRecyclerViewAdapter extends RecyclerView.Adapter<DaysRecyclerVi
             mBinding = DataBindingUtil.bind(itemView);
 
             itemView.setOnClickListener(v -> {
-                mBinding.monthTxt.setTypeface(null, Typeface.BOLD);
-                mBinding.dayTxt.setTypeface(null, Typeface.BOLD);
+                mBinding.monthTxt.setTypeface(ResourcesCompat.getFont(mContext, R.font.jost_bold));
+                mBinding.dayTxt.setTypeface(ResourcesCompat.getFont(mContext, R.font.jost_bold));
                 mBinding.dayFrame.setBackgroundTintList(ColorStateList.valueOf(mContext.getResources().getColor(R.color.colorAccent)));
 
                 if (checkedPosition != getAdapterPosition()) {
@@ -112,12 +113,12 @@ public class DaysRecyclerViewAdapter extends RecyclerView.Adapter<DaysRecyclerVi
 
         private void setSelected() {
             if (checkedPosition == getAdapterPosition()) {
-                mBinding.monthTxt.setTypeface(null, Typeface.BOLD);
-                mBinding.dayTxt.setTypeface(null, Typeface.BOLD);
+                mBinding.monthTxt.setTypeface(ResourcesCompat.getFont(mContext, R.font.jost_bold));
+                mBinding.dayTxt.setTypeface(ResourcesCompat.getFont(mContext, R.font.jost_bold));
                 mBinding.dayFrame.setBackgroundTintList(ColorStateList.valueOf(mContext.getResources().getColor(R.color.colorAccent)));
             } else {
-                mBinding.monthTxt.setTypeface(null, Typeface.NORMAL);
-                mBinding.dayTxt.setTypeface(null, Typeface.NORMAL);
+                mBinding.monthTxt.setTypeface(ResourcesCompat.getFont(mContext, R.font.jost_light));
+                mBinding.dayTxt.setTypeface(ResourcesCompat.getFont(mContext, R.font.jost_light));
                 mBinding.dayFrame.setBackgroundTintList(ColorStateList.valueOf(mContext.getResources().getColor(R.color.gray2)));
             }
         }

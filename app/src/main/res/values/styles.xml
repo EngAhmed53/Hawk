@@ -73,6 +73,11 @@
         <item name="android:fontFamily">@font/jost_regular</item>
         <item name="fontFamily">@font/jost_regular</item>
     </style>
+
+    <style name="Title" parent="TextAppearance.AppCompat.Title">
+        <item name="android:fontFamily">@font/jost_regular</item>
+        <item name="fontFamily">@font/jost_regular</item>
+    </style>
     //////////////////////////
 
     <style name="no_action_bar.transparentStatusBar" parent="no_action_bar">
@@ -116,8 +121,8 @@
     </style>
 
     <style name="PositiveButtonStyle" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
-        <item name="android:textColor">@color/old_rose</item>
-        <item name="rippleColor">@color/old_rose_dark</item>
+        <item name="android:textColor">@color/colorAccent2</item>
+        <item name="rippleColor">@color/colorAccent2</item>
     </style>
 
     <style name="NegativeButtonStyle" parent="Widget.MaterialComponents.Button.TextButton.Dialog">

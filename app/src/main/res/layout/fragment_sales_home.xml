@@ -16,19 +16,6 @@
             android:fitsSystemWindows="true"
             app:layout_behavior="com.google.android.material.appbar.AppBarLayout$Behavior">
 
-            <!--            <com.google.android.material.appbar.MaterialToolbar-->
-            <!--                android:layout_width="match_parent"-->
-            <!--                android:layout_height="?actionBarSize"-->
-            <!--                android:background="@color/colorPrimary"-->
-            <!--                android:elevation="4dp"-->
-            <!--                android:backgroundTint="@color/colorPrimary"-->
-            <!--                android:textAppearance="@style/TextAppearance.AppCompat.Display1"-->
-            <!--                app:menu="@menu/sales_ui_home_secondary_menu"-->
-            <!--                android:theme="@style/ThemeOverlay.MaterialComponents.Dark.ActionBar"-->
-            <!--                app:layout_scrollFlags="scroll|enterAlways|snap"-->
-            <!--                app:popupTheme="@style/ThemeOverlay.MaterialComponents.Light"-->
-            <!--                app:title="@string/home" />-->
-
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/constraintLayout4"
                 android:layout_width="match_parent"
@@ -49,10 +36,10 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="16dp"
-                    android:fontFamily="sans-serif"
                     android:text="@string/daily_log"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"
-                    android:textColor="@color/gray1"
+                    android:fontFamily="@font/jost_black"
+                    android:textAppearance="@style/Headline4"
+                    android:textColor="@color/black"
                     app:layout_constraintBottom_toTopOf="@+id/constraintLayout6"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -78,8 +65,7 @@
                         android:layout_marginStart="8dp"
                         android:layout_marginEnd="8dp"
                         android:drawablePadding="8dp"
-                        android:fontFamily="sans-serif"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Inverse"
+                        android:textAppearance="@style/Subtitle1"
                         android:textColor="@color/gray1"
                         tools:text="Local data found, active your internet connection to sync your data!"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -118,7 +104,7 @@
                             android:contentDescription="@string/check_mark"
                             android:scaleType="centerInside"
                             android:alpha="0"
-                            android:tint="@color/green"
+                            android:tint="@color/material_green"
                             android:src="@drawable/ic_check_circle_24px" />
                     </FrameLayout>
 

@@ -16,7 +16,7 @@
         android:focusable="true"
         app:cardCornerRadius="16dp"
         app:cardElevation="4dp"
-        app:rippleColor="@color/primaryTransparent">
+        app:rippleColor="?colorControlHighlight">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -27,15 +27,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
                 android:ellipsize="end"
-                android:fontFamily="sans-serif-medium"
                 android:gravity="center_vertical"
                 android:maxLines="1"
                 android:padding="8dp"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textAppearance="@style/Headline6"
                 android:textColor="@color/black"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/txt_visit_notes"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintHorizontal_chainStyle="packed"
@@ -49,19 +47,18 @@
                 android:id="@+id/txt_visit_notes"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
                 android:ellipsize="end"
                 android:gravity="center_vertical"
                 android:maxLines="1"
                 android:padding="8dp"
-                android:fontFamily="sans-serif"
-                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                android:textAppearance="@style/Medium"
                 android:textColor="@color/gray1"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/txt_visit_money"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/txt_visit_date_time"
                 app:layout_constraintTop_toBottomOf="@+id/txt_visit_date_time"
-                app:layout_constraintVertical_bias="0.0"
                 tools:text="Visit Notes" />
 
             <TextView
@@ -73,15 +70,13 @@
                 android:gravity="center_vertical"
                 android:maxLines="1"
                 android:padding="8dp"
-                android:fontFamily="sans-serif"
-                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                android:textAppearance="@style/Medium"
                 android:textColor="@color/gray1"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/txt_visit_date_time"
                 app:layout_constraintTop_toBottomOf="@+id/txt_visit_notes"
-                app:layout_constraintVertical_bias="0.0"
                 tools:text="500 LE" />
 
 

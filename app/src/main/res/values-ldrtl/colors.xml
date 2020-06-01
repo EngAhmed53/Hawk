@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <color name="colorPrimary">#673ab7</color>
-    <color name="colorPrimaryDark">#4527a0</color>
-    <color name="primaryTransparent">#80673AB7</color>
-    <color name="colorPrimaryLight">#8E54F5</color>
-    <color name="colorAccent">#B1086F</color>
-    <color name="old_rose">#C43F92</color>
-    <color name="old_rose_dark">#81275B</color>
-    <color name="old_rose_light">#E964B6</color>
-    <color name="white2">#FAFAFA</color>
+    <color name="colorPrimary">#4473EA</color>
+    <color name="colorPrimaryDark">#4015B9</color>
+    <color name="colorAccent">#AB2CCB</color>
+    <color name="material_green">#08C1B0</color>
+    <color name="material_yellow">#FFC411</color>
+    <color name="material_blue">#039BE5</color>
     <color name="white">#FFFFFF</color>
     <color name="white_transparent">#69FFFFFF</color>
     <color name="black">#212121</color>
@@ -21,15 +18,10 @@
     <color name="google_color">#DB4437</color>
     <color name="google_color_dark">#8B2E27</color>
     <color name="google_color_transparent">#73DB4437</color>
-    <color name="ld">#F70298</color>
-    <color name="green">#45C64A</color>
     <color name="mtrl_textinput_default_box_stroke_color" tools:override="true">#fff</color>
     <color name="shadow_color">#66000000</color>
+    <color name="white_ripple_color">#23000000</color>
     <color name="white_blue">#e7e7ec</color>
     <color name="white3">#F8EEEDED</color>
-    <color name="material_green">#08C1B0</color>
-    <color name="material_yellow">#FFC411</color>
-    <color name="material_blue">#039BE5</color>
-
 </resources>
 

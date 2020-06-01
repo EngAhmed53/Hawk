@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 
-
-
 <MotionScene xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:motion="http://schemas.android.com/apk/res-auto">
@@ -108,22 +106,3 @@
 
 
 </MotionScene>
-
-
-
-<!--<MotionScene xmlns:app="http://schemas.android.com/apk/res-auto">-->
-
-<!--    <Transition-->
-<!--        app:constraintSetEnd="@layout/fragment_add_new_customer_end"-->
-<!--        app:constraintSetStart="@layout/fragment_add_new_customer"-->
-<!--        app:duration="1000"-->
-<!--        app:motionInterpolator="bounce">-->
-
-<!--        <OnSwipe-->
-<!--            app:dragDirection="dragUp"-->
-<!--            app:touchAnchorId="@id/info_frame"-->
-<!--            app:touchAnchorSide="top" />-->
-
-<!--    </Transition>-->
-
-<!--</MotionScene>-->

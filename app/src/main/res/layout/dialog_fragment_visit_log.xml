@@ -8,7 +8,7 @@
         android:backgroundTint="@color/white_blue"
 
         android:layout_height="match_parent"
-        android:background="@color/white2">
+        android:background="@color/white">
 
 
         <androidx.appcompat.widget.Toolbar
@@ -27,8 +27,8 @@
             app:navigationIcon="@drawable/ic_close"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
             app:title="@string/visits_log_sub_title"
-            app:titleTextAppearance="@style/TextAppearance.AppCompat.Title.Inverse"
-            app:titleTextColor="@color/white2" />
+            app:titleTextAppearance="@style/Title"
+            app:titleTextColor="@color/white" />
 
 
         <androidx.recyclerview.widget.RecyclerView

@@ -17,18 +17,11 @@
             android:id="@+id/sales_title_big_txt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="104dp"
-            android:alpha="1"
-            android:fontFamily="sans-serif-black"
-            android:scaleX="1"
-            android:scaleY="1"
             android:textAlignment="center"
+            android:fontFamily="@font/jost_bold"
             android:textAllCaps="true"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textAppearance="@style/Headline5"
             android:textColor="@color/white"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
             tools:text="Ibrahim Ebaiad" />
 
 
@@ -36,33 +29,18 @@
             android:id="@+id/sales_title_small_txt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="56dp"
-            android:layout_marginBottom="4dp"
-            android:alpha="0"
-            android:fontFamily="sans-serif-black"
+            android:fontFamily="@font/jost_black"
             android:textAlignment="center"
             android:textAllCaps="true"
-            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:textAppearance="@style/Small"
             android:textColor="@color/white"
-            app:layout_constraintBottom_toTopOf="@+id/info_frame"
-            app:layout_constraintEnd_toEndOf="@+id/info_frame"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/info_frame"
-            app:layout_constraintTop_toBottomOf="@+id/sales_title_big_txt"
-            app:layout_constraintVertical_bias="1.0"
             tools:text="Ahmed Company" />
 
         <FrameLayout
             android:id="@+id/info_frame"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/movable_layout_white_24dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/sales_title_small_txt">
+            android:background="@drawable/movable_layout_white_24dp">
 
             <LinearLayout
                 android:id="@+id/edit_fields_layout"
@@ -119,7 +97,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/disable"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                            android:textAppearance="@style/Small"
                             android:textColor="@color/colorAccent"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="@+id/changeStatus"
@@ -161,7 +139,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/delete"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                            android:textAppearance="@style/Small"
                             android:textColor="@color/colorAccent"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="@+id/delete"
@@ -235,7 +213,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/move"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                            android:textAppearance="@style/Small"
                             android:textColor="@color/colorAccent"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="@+id/move_to"
@@ -275,7 +253,7 @@
                         android:clickable="true"
                         android:focusable="true"
                         android:gravity="center_vertical"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                        android:textAppearance="@style/Medium"
                         android:textColor="@color/gray1"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/icon"
@@ -289,7 +267,7 @@
                         android:layout_gravity="center_vertical"
                         android:gravity="center_vertical"
                         android:text="@string/email"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                        android:textAppearance="@style/Small"
                         android:textColor="@color/gray1"
                         app:layout_constraintBottom_toTopOf="@+id/sales_email_txt"
                         app:layout_constraintStart_toStartOf="@+id/sales_email_txt"
@@ -334,7 +312,7 @@
                         android:clickable="true"
                         android:focusable="true"
                         android:gravity="center_vertical"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                        android:textAppearance="@style/Medium"
                         android:textColor="@color/gray1"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/icon2"
@@ -348,7 +326,7 @@
                         android:layout_gravity="center_vertical"
                         android:gravity="center_vertical"
                         android:text="@string/phone"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                        android:textAppearance="@style/Small"
                         android:textColor="@color/gray1"
                         app:layout_constraintBottom_toTopOf="@+id/sales_phone_txt"
                         app:layout_constraintStart_toStartOf="@+id/sales_phone_txt"
@@ -392,7 +370,7 @@
                         android:clickable="true"
                         android:focusable="true"
                         android:gravity="center_vertical"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                        android:textAppearance="@style/Medium"
                         android:textColor="@color/gray1"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/icon3"
@@ -406,7 +384,7 @@
                         android:layout_gravity="center_vertical"
                         android:gravity="center_vertical"
                         android:text="@string/status"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                        android:textAppearance="@style/Small"
                         android:textColor="@color/gray1"
                         app:layout_constraintBottom_toTopOf="@+id/sales_status_txt"
                         app:layout_constraintStart_toStartOf="@+id/sales_status_txt"
@@ -450,7 +428,7 @@
                         android:clickable="true"
                         android:focusable="true"
                         android:gravity="center_vertical"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                        android:textAppearance="@style/Medium"
                         android:textColor="@color/gray1"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/icon4"
@@ -464,7 +442,7 @@
                         android:layout_gravity="center_vertical"
                         android:gravity="center_vertical"
                         android:text="@string/branch_name"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                        android:textAppearance="@style/Small"
                         android:textColor="@color/gray1"
                         app:layout_constraintBottom_toTopOf="@+id/sales_branch_name_txt"
                         app:layout_constraintStart_toStartOf="@+id/sales_branch_name_txt"
@@ -473,43 +451,6 @@
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-                <!--                <TextView-->
-                <!--                    android:id="@+id/customers_count_title_txt"-->
-                <!--                    android:layout_width="wrap_content"-->
-                <!--                    android:layout_height="wrap_content"-->
-                <!--                    android:layout_gravity="center_vertical"-->
-                <!--                    android:layout_marginStart="16dp"-->
-                <!--                    android:layout_marginTop="16dp"-->
-                <!--                    android:drawableStart="@drawable/ic_group"-->
-                <!--                    android:drawablePadding="16dp"-->
-                <!--                    android:padding="8dp"-->
-                <!--                    android:fontFamily="sans-serif-medium"-->
-                <!--                    android:gravity="center_vertical"-->
-                <!--                    android:text="@string/number_of_customers"-->
-                <!--                    android:textAppearance="@style/TextAppearance.AppCompat.Small"-->
-                <!--                    android:textColor="@color/colorAccent_dark" />-->
-
-                <!--                <TextView-->
-                <!--                    android:id="@+id/customers_count_txt"-->
-                <!--                    android:layout_width="match_parent"-->
-                <!--                    android:layout_height="wrap_content"-->
-                <!--                    android:layout_gravity="center_vertical"-->
-                <!--                    android:layout_marginStart="16dp"-->
-                <!--                    android:layout_marginEnd="16dp"-->
-                <!--                    android:background="@drawable/info_item_background"-->
-                <!--                    android:clickable="true"-->
-                <!--                    android:drawablePadding="16dp"-->
-                <!--                    android:focusable="true"-->
-                <!--                    android:fontFamily="sans-serif-medium"-->
-                <!--                    android:gravity="center_vertical"-->
-                <!--                    android:paddingStart="8dp"-->
-                <!--                    android:paddingTop="16dp"-->
-                <!--                    android:paddingEnd="8dp"-->
-                <!--                    android:paddingBottom="16dp"-->
-                <!--                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"-->
-                <!--                    android:textColor="@color/gray1"-->
-                <!--                    tools:text="15 Customers" />-->
             </LinearLayout>
         </FrameLayout>
     </androidx.constraintlayout.motion.widget.MotionLayout>

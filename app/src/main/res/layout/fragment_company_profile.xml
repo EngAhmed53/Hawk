@@ -24,146 +24,213 @@
             android:id="@+id/company_title_txt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="112dp"
-            android:alpha="1"
-            android:fontFamily="@font/jost_medium"
-            android:rotationX="0"
+            android:fontFamily="@font/jost_bold"
             android:text="@{user.cn}"
             android:textAlignment="center"
             android:textAllCaps="true"
             android:textAppearance="@style/Headline5"
             android:textColor="@color/white"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
             tools:text="Ahmed Company" />
 
-        <FrameLayout
+        <TextView
+            android:id="@+id/company_title_small_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/jost_black"
+            android:textAlignment="center"
+            android:textAllCaps="true"
+            android:text="@{user.cn}"
+            android:textAppearance="@style/Small"
+            android:textColor="@color/white"
+            tools:text="Ahmed Company" />
+
+        <androidx.core.widget.NestedScrollView
             android:id="@+id/info_frame"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginTop="100dp"
-            android:background="@drawable/movable_layout_white_24dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/company_title_txt">
+            android:background="@drawable/movable_layout_white_24dp">
 
             <LinearLayout
                 android:id="@+id/edit_fields_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="8dp"
                 android:orientation="vertical"
                 android:paddingBottom="16dp">
 
-                <TextView
-                    android:id="@+id/user_name_title_txt"
-                    android:layout_width="wrap_content"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/user_name_layout"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="16dp"
                     android:layout_marginTop="8dp"
-                    android:drawableStart="@drawable/ic_person_old_rose"
-                    android:drawablePadding="16dp"
-                    android:gravity="center_vertical"
-                    android:text="@string/user_name"
-                    android:textAppearance="@style/Medium"
-                    android:textColor="@color/old_rose_dark" />
+                    android:background="@drawable/info_item_background"
+                    android:padding="16dp">
 
-                <TextView
-                    android:id="@+id/user_name_txt"
+                    <ImageView
+                        android:id="@+id/icon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="8dp"
+                        android:contentDescription="@string/branch_menu"
+                        android:scaleType="center"
+                        android:src="@drawable/ic_person_36dp"
+                        android:tint="@color/gray1"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/user_name_txt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:gravity="center_vertical"
+                        android:text="@{user.un}"
+                        android:textAppearance="@style/Medium"
+                        android:textColor="@color/gray1"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toEndOf="@+id/icon"
+                        app:layout_constraintTop_toBottomOf="@+id/user_name_title_txt"
+                        tools:text="Ibrahim Ali" />
+
+                    <TextView
+                        android:id="@+id/user_name_title_txt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:gravity="center_vertical"
+                        android:text="@string/user_name"
+                        android:textAppearance="@style/Small"
+                        android:textColor="@color/gray1"
+                        app:layout_constraintBottom_toTopOf="@+id/user_name_txt"
+                        app:layout_constraintStart_toStartOf="@+id/user_name_txt"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_chainStyle="packed" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/email_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginEnd="16dp"
+                    android:layout_marginTop="8dp"
                     android:background="@drawable/info_item_background"
-                    android:clickable="true"
-                    android:drawablePadding="16dp"
-                    android:focusable="true"
-                    android:gravity="center_vertical"
-                    android:paddingStart="8dp"
-                    android:paddingTop="16dp"
-                    android:paddingEnd="16dp"
-                    android:paddingBottom="16dp"
-                    android:text="@{user.un}"
-                    android:textAppearance="@style/Large"
-                    android:textColor="@color/gray1"
-                    tools:text="Ahmed Ramadan" />
+                    android:padding="16dp">
+
+                    <ImageView
+                        android:id="@+id/icon2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="8dp"
+                        android:contentDescription="@string/branch_menu"
+                        android:scaleType="center"
+                        android:src="@drawable/ic_email_36dp"
+                        android:tint="@color/gray1"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/user_email_txt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:text="@{user.e}"
+                        android:gravity="center_vertical"
+                        android:textAppearance="@style/Medium"
+                        android:textColor="@color/gray1"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toEndOf="@+id/icon2"
+                        app:layout_constraintTop_toBottomOf="@+id/email_title_txt"
+                        tools:text="Ibrahim858@gamil.com" />
+
+                    <TextView
+                        android:id="@+id/email_title_txt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:gravity="center_vertical"
+                        android:text="@string/email"
+                        android:textAppearance="@style/Small"
+                        android:textColor="@color/gray1"
+                        app:layout_constraintBottom_toTopOf="@+id/user_email_txt"
+                        app:layout_constraintStart_toStartOf="@+id/user_email_txt"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_chainStyle="packed" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-                <TextView
-                    android:id="@+id/email_title_txt"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="16dp"
-                    android:drawableStart="@drawable/ic_email"
-                    android:drawablePadding="16dp"
-                    android:gravity="center_vertical"
-                    android:text="@string/email"
-                    android:textAppearance="@style/Medium"
-                    android:textColor="@color/old_rose_dark" />
-
-                <TextView
-                    android:id="@+id/user_email_txt"
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginEnd="16dp"
                     android:background="@drawable/info_item_background"
-                    android:clickable="true"
-                    android:drawablePadding="16dp"
-                    android:focusable="true"
-                    android:gravity="center_vertical"
-                    android:paddingStart="8dp"
-                    android:paddingTop="16dp"
-                    android:paddingEnd="8dp"
-                    android:paddingBottom="16dp"
-                    android:text="@{user.e}"
-                    android:textAppearance="@style/Large"
-                    android:textColor="@color/gray1"
-                    tools:text="AhmedRamadan@yahoo.com" />
+                    android:padding="16dp">
 
-                <TextView
-                    android:id="@+id/company_name_title_txt"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="16dp"
-                    android:drawableStart="@drawable/ic_domain"
-                    android:drawablePadding="16dp"
-                    android:gravity="center_vertical"
-                    android:text="@string/company_name"
-                    android:textAppearance="@style/Medium"
-                    android:textColor="@color/old_rose_dark" />
+                    <ImageView
+                        android:id="@+id/icon4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="8dp"
+                        android:contentDescription="@string/branch_menu"
+                        android:scaleType="center"
+                        android:src="@drawable/ic_domain_36dp"
+                        android:tint="@color/gray1"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
-                    android:id="@+id/user_company_name_txt"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:background="@drawable/info_item_background"
-                    android:clickable="true"
-                    android:drawablePadding="16dp"
-                    android:focusable="true"
-                    android:gravity="center_vertical"
-                    android:paddingStart="8dp"
-                    android:paddingTop="16dp"
-                    android:paddingEnd="8dp"
-                    android:paddingBottom="16dp"
-                    android:text="@{user.cn}"
-                    android:textAppearance="@style/Large"
-                    android:textColor="@color/gray1"
-                    tools:text="My Company" />
+                    <TextView
+                        android:id="@+id/user_company_name_txt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:text="@{user.cn}"
+                        android:gravity="center_vertical"
+                        android:textAppearance="@style/Medium"
+                        android:textColor="@color/gray1"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toEndOf="@+id/icon4"
+                        app:layout_constraintTop_toBottomOf="@+id/company_name_title_txt"
+                        tools:text="Qebaa Company" />
+
+                    <TextView
+                        android:id="@+id/company_name_title_txt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:gravity="center_vertical"
+                        android:text="@string/company_name"
+                        android:textAppearance="@style/Small"
+                        android:textColor="@color/gray1"
+                        app:layout_constraintBottom_toTopOf="@+id/user_company_name_txt"
+                        app:layout_constraintStart_toStartOf="@+id/user_company_name_txt"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_chainStyle="packed" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
             </LinearLayout>
-        </FrameLayout>
+        </androidx.core.widget.NestedScrollView>
 
     </androidx.constraintlayout.motion.widget.MotionLayout>
 </layout>

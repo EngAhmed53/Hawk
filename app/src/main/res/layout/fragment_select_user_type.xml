@@ -24,15 +24,16 @@
 
             <TextView
                 android:id="@+id/header"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="8dp"
-                android:fontFamily="sans-serif-light"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:fontFamily="@font/jost_black"
                 android:text="@string/select_your_position"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"
-                android:textColor="@color/white2"
-                app:layout_constraintBottom_toTopOf="@+id/headline"
+                android:textAppearance="@style/Headline4"
+                android:textColor="@color/white"
+                app:layout_constraintBottom_toTopOf="@+id/subHeader"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
@@ -40,13 +41,13 @@
                 app:layout_constraintVertical_chainStyle="packed" />
 
             <TextView
-                android:id="@+id/headline"
+                android:id="@+id/subHeader"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
+                android:layout_marginEnd="16dp"
                 android:text="@string/please_select_your_position"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
-                android:textColor="@color/white2"
+                android:textAppearance="@style/Subtitle1"
+                android:textColor="@color/white"
                 app:layout_constraintBottom_toTopOf="@+id/name_inputLayout"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -63,25 +64,25 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="32dp"
                 android:hint="@string/user_name"
-                android:textColorHint="@color/white2"
+                android:textColorHint="@color/white"
                 app:boxCornerRadiusBottomEnd="6dp"
                 app:boxCornerRadiusBottomStart="6dp"
                 app:boxCornerRadiusTopEnd="6dp"
                 app:boxCornerRadiusTopStart="6dp"
-                app:boxStrokeColor="@color/white2"
+                app:boxStrokeColor="@color/white"
                 app:boxStrokeWidth="1dp"
                 app:errorEnabled="true"
                 app:errorTextColor="@android:color/holo_red_dark"
                 app:helperText="@string/name_helper_text"
                 app:helperTextEnabled="true"
-                app:helperTextTextAppearance="@style/TextAppearance.MaterialComponents.Caption"
-                app:helperTextTextColor="@color/white2"
-                app:hintTextAppearance="@style/TextAppearance.AppCompat.Caption"
-                app:hintTextColor="@color/white2"
+                app:helperTextTextAppearance="@style/Caption"
+                app:helperTextTextColor="@color/white"
+                app:hintTextAppearance="@style/Caption"
+                app:hintTextColor="@color/white"
                 app:layout_constraintBottom_toTopOf="@+id/position_info_layout"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/headline"
+                app:layout_constraintTop_toBottomOf="@+id/subHeader"
                 app:userNameValidation="@{empty}">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -91,8 +92,9 @@
                     android:inputType="text"
                     android:maxLength="100"
                     android:maxLines="1"
-                    android:textColor="@color/white2"
-                    android:textColorHint="@color/white2" />
+                    android:textAppearance="@style/Medium"
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/white" />
             </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -116,15 +118,15 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="6dp"
                     android:hint="@string/choose_your_position"
-                    android:textColorHint="@color/white2"
+                    android:textColorHint="@color/white"
                     app:boxCornerRadiusBottomEnd="6dp"
                     app:boxCornerRadiusBottomStart="6dp"
                     app:boxCornerRadiusTopEnd="6dp"
                     app:boxCornerRadiusTopStart="6dp"
-                    app:boxStrokeColor="@color/white2"
+                    app:boxStrokeColor="@color/white"
                     app:boxStrokeWidth="1dp"
-                    app:hintTextAppearance="@style/TextAppearance.AppCompat.Caption"
-                    app:hintTextColor="@color/white2">
+                    app:hintTextAppearance="@style/Caption"
+                    app:hintTextColor="@color/white">
 
                     <AutoCompleteTextView
                         android:id="@+id/filled_exposed_dropdown"
@@ -132,7 +134,8 @@
                         android:layout_height="match_parent"
                         android:maxLength="50"
                         android:maxLines="1"
-                        android:textColor="@color/white2"
+                        android:textAppearance="@style/Medium"
+                        android:textColor="@color/white"
                         tools:ignore="LabelFor" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -152,22 +155,22 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="6dp"
                         android:hint="@string/company_name"
-                        android:textColorHint="@color/white2"
+                        android:textColorHint="@color/white"
                         app:boxCornerRadiusBottomEnd="6dp"
                         app:boxCornerRadiusBottomStart="6dp"
                         app:boxCornerRadiusTopEnd="6dp"
                         app:boxCornerRadiusTopStart="6dp"
-                        app:boxStrokeColor="@color/white2"
+                        app:boxStrokeColor="@color/white"
                         app:boxStrokeWidth="1dp"
                         app:companyNameValidation="@{empty}"
                         app:errorEnabled="true"
                         app:errorTextColor="@android:color/holo_red_dark"
                         app:helperText="@string/please_type_company_name"
                         app:helperTextEnabled="true"
-                        app:helperTextTextAppearance="@style/TextAppearance.MaterialComponents.Caption"
-                        app:helperTextTextColor="@color/white2"
-                        app:hintTextAppearance="@style/TextAppearance.AppCompat.Caption"
-                        app:hintTextColor="@color/white2">
+                        app:helperTextTextAppearance="@style/Caption"
+                        app:helperTextTextColor="@color/white"
+                        app:hintTextAppearance="@style/Caption"
+                        app:hintTextColor="@color/white">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/edt_company_name"
@@ -176,8 +179,9 @@
                             android:inputType="text"
                             android:maxLength="200"
                             android:maxLines="1"
-                            android:textColor="@color/white2"
-                            android:textColorHint="@color/white2" />
+                            android:textAppearance="@style/Medium"
+                            android:textColor="@color/white"
+                            android:textColorHint="@color/white" />
 
                     </com.google.android.material.textfield.TextInputLayout>
                 </LinearLayout>
@@ -198,7 +202,7 @@
                         android:layout_height="match_parent"
                         android:padding="8dp"
                         android:text="@string/invitation_request"
-                        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                        android:textAppearance="@style/Medium"
                         android:textColor="@color/white" />
 
 
@@ -215,7 +219,8 @@
                     android:background="@color/colorPrimary"
                     android:elevation="6dp"
                     android:enabled="false"
-                    android:text="@string/confirm" />
+                    android:text="@string/confirm"
+                    android:textAppearance="@style/Button" />
 
             </LinearLayout>
 

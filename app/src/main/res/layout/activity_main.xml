@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fitsSystemWindows="true"
-        tools:openDrawer="end">
+        tools:openDrawer="start">
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -21,15 +21,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:background="@color/black_transparent"
-                android:translationZ="8dp"
                 android:elevation="4dp"
+                android:theme="@style/ThemeOverlay.MaterialComponents.Dark.ActionBar"
+                android:translationZ="8dp"
+                app:titleTextAppearance="@style/Title"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
                 app:titleMarginStart="0dp"
-                android:theme="@style/ThemeOverlay.MaterialComponents.Dark.ActionBar"
-                app:titleTextColor="@color/white2" />
+                app:titleTextColor="@color/white" />
 
             <fragment
                 android:id="@+id/company_container"
@@ -54,7 +55,7 @@
             android:background="@color/white"
             app:itemIconPadding="8dp"
             app:itemIconSize="28dp"
-            app:itemIconTint="@color/white2"
+            app:itemIconTint="@color/white"
             app:itemMaxLines="1">
 
             <androidx.core.widget.NestedScrollView
@@ -71,15 +72,15 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_gravity="center_vertical"
-                        android:drawableStart="@drawable/ic_logo24"
-                        android:drawablePadding="16dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="24dp"
+                        android:layout_marginEnd="8dp"
+                        android:fontFamily="@font/josefin_sans_regular"
                         android:gravity="center_vertical"
                         android:padding="8dp"
-                        android:layout_marginTop="24dp"
                         android:text="@string/app_name"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                        android:textColor="@color/gray1"
-                        android:fontFamily="sans-serif-medium" />
+                        android:textAppearance="@style/Large"
+                        android:textColor="@color/black" />
 
 
                     <View
@@ -94,54 +95,57 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_gravity="center_vertical"
+                        android:layout_marginEnd="24dp"
                         android:background="@drawable/nav_selector"
                         android:clickable="true"
                         android:drawableStart="@drawable/ic_home"
                         android:drawablePadding="16dp"
                         android:focusable="true"
+                        android:fontFamily="@font/jost_bold"
                         android:gravity="center_vertical"
                         android:onClick="onNavigationItemSelected"
                         android:padding="16dp"
                         android:text="@string/home"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                        android:textColor="@color/gray1"
-                        android:textStyle="bold" />
+                        android:textAppearance="@style/Small"
+                        android:textColor="@color/gray1" />
 
                     <TextView
                         android:id="@+id/nav_profile"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_gravity="center_vertical"
+                        android:layout_marginEnd="24dp"
                         android:background="@drawable/nav_selector"
                         android:clickable="true"
                         android:drawableStart="@drawable/ic_person"
                         android:drawablePadding="16dp"
                         android:focusable="true"
+                        android:fontFamily="@font/jost_bold"
                         android:gravity="center_vertical"
                         android:onClick="onNavigationItemSelected"
                         android:padding="16dp"
                         android:text="@string/personal_page"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                        android:textColor="@color/gray1"
-                        android:textStyle="bold" />
+                        android:textAppearance="@style/Small"
+                        android:textColor="@color/gray1" />
 
                     <TextView
                         android:id="@+id/nav_customers"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_gravity="center_vertical"
+                        android:layout_marginEnd="24dp"
                         android:background="@drawable/nav_selector"
                         android:clickable="true"
                         android:drawableStart="@drawable/ic_customers"
                         android:drawablePadding="16dp"
                         android:focusable="true"
+                        android:fontFamily="@font/jost_bold"
                         android:gravity="center_vertical"
                         android:onClick="onNavigationItemSelected"
                         android:padding="16dp"
                         android:text="@string/all_customers"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                        android:textColor="@color/gray1"
-                        android:textStyle="bold" />
+                        android:textAppearance="@style/Small"
+                        android:textColor="@color/gray1" />
 
 
                     <TextView
@@ -149,36 +153,38 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_gravity="center_vertical"
+                        android:layout_marginEnd="24dp"
                         android:background="@drawable/nav_selector"
                         android:clickable="true"
-                        android:drawableStart="@drawable/ic_notifications"
+                        android:drawableStart="@drawable/ic_timeline"
                         android:drawablePadding="16dp"
                         android:focusable="true"
+                        android:fontFamily="@font/jost_bold"
                         android:gravity="center_vertical"
                         android:onClick="onNavigationItemSelected"
                         android:padding="16dp"
-                        android:text="@string/company_notification"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                        android:textColor="@color/gray1"
-                        android:textStyle="bold" />
+                        android:text="@string/company_activities"
+                        android:textAppearance="@style/Small"
+                        android:textColor="@color/gray1" />
 
                     <TextView
                         android:id="@+id/nav_reports"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_gravity="center_vertical"
+                        android:layout_marginEnd="24dp"
                         android:background="@drawable/nav_selector"
                         android:clickable="true"
                         android:drawableStart="@drawable/ic_bars"
                         android:drawablePadding="16dp"
                         android:focusable="true"
+                        android:fontFamily="@font/jost_bold"
                         android:gravity="center_vertical"
                         android:onClick="onNavigationItemSelected"
                         android:padding="16dp"
                         android:text="@string/reports_title"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                        android:textColor="@color/gray1"
-                        android:textStyle="bold" />
+                        android:textAppearance="@style/Small"
+                        android:textColor="@color/gray1" />
 
 
                     <View
@@ -194,36 +200,38 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_gravity="center_vertical"
+                        android:layout_marginEnd="24dp"
                         android:background="@drawable/nav_selector"
                         android:clickable="true"
                         android:drawableStart="@drawable/ic_settings"
                         android:drawablePadding="16dp"
                         android:focusable="true"
+                        android:fontFamily="@font/jost_bold"
                         android:gravity="center_vertical"
                         android:onClick="onNavigationItemSelected"
                         android:padding="16dp"
                         android:text="@string/settings"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                        android:textColor="@color/gray1"
-                        android:textStyle="bold" />
+                        android:textAppearance="@style/Small"
+                        android:textColor="@color/gray1" />
 
                     <TextView
                         android:id="@+id/nav_terms_and_conditions"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_gravity="center_vertical"
+                        android:layout_marginEnd="24dp"
                         android:background="@drawable/nav_selector"
                         android:clickable="true"
                         android:drawableStart="@drawable/ic_info"
                         android:drawablePadding="16dp"
                         android:focusable="true"
+                        android:fontFamily="@font/jost_bold"
                         android:gravity="center_vertical"
                         android:onClick="onNavigationItemSelected"
                         android:padding="16dp"
                         android:text="@string/terms_and_condition"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                        android:textColor="@color/gray1"
-                        android:textStyle="bold" />
+                        android:textAppearance="@style/Small"
+                        android:textColor="@color/gray1" />
 
 
                     <TextView
@@ -231,18 +239,19 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_gravity="center_vertical"
+                        android:layout_marginEnd="24dp"
                         android:background="?attr/selectableItemBackgroundBorderless"
                         android:clickable="true"
                         android:drawableStart="@drawable/ic_logout"
                         android:drawablePadding="16dp"
                         android:focusable="true"
+                        android:fontFamily="@font/jost_bold"
                         android:gravity="center_vertical"
                         android:onClick="onNavigationItemSelected"
                         android:padding="16dp"
                         android:text="@string/sign_out"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                        android:textColor="@color/gray1"
-                        android:textStyle="bold" />
+                        android:textAppearance="@style/Small"
+                        android:textColor="@color/gray1" />
 
                 </LinearLayout>
             </androidx.core.widget.NestedScrollView>

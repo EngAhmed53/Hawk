@@ -28,7 +28,7 @@ public class Common {
 
     public static String getRandomColor(int position) {
         String[] colors;
-        colors = new String[]{"#4267B2", "#AF3782", "#73B5DF", "#F70298", "#9A0861", "#5C67B7", "#253964", "#8B2E27", "#03699B", "#E91E63"};
+        colors = new String[]{"#EF5350", "#EC407A", "#AB47BC", "#42A5F5", "#26C6DA", "#26A69A", "#FFEE58", "#FFA726", "#D4E157", "#FF7043"};
         if (position < colors.length) return colors[position];
         else {
             position = position % 10;
