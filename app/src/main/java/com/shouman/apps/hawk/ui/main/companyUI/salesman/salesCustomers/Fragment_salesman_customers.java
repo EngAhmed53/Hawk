@@ -105,9 +105,9 @@ public class Fragment_salesman_customers extends Fragment {
         mBinding = FragmentSalesmanCustomersBinding.inflate(inflater);
         initRecView();
 
-        mViewModel.getSalesCustomersMediatorLiveData().observe(getViewLifecycleOwner(), customersMap -> {
-            mAdapter.setCustomersMap(customersMap);
-            String header = customersMap.size() >= 2 ? customersMap.size() + " Customers" : customersMap.size() + " Customer";
+        mViewModel.getSalesCustomersLiveData().observe(getViewLifecycleOwner(), customersList -> {
+            mAdapter.setCustomersList(customersList);
+            String header = customersList.size() >= 2 ? customersList.size() + " Customers" : customersList.size() + " Customer";
             mBinding.headerTxt.setText(header);
             mBinding.progressBar.setVisibility(View.GONE);
             mBinding.mainFrame.setVisibility(View.VISIBLE);

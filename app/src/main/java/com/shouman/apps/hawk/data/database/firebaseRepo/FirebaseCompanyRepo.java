@@ -73,6 +73,11 @@ public class FirebaseCompanyRepo {
         return companiesReference.child(companyUID).child("Activities");
     }
 
+    synchronized public DatabaseReference getCurrentDayActivities(Context context, String currentDayMillisecond) {
+        String companyUID = userPreference.getCompanyUID(context);
+        return companiesReference.child(companyUID).child("Activities").child(currentDayMillisecond);
+    }
+
     //return branch sales member list reference
     synchronized public DatabaseReference getBranchSalesMembersList(Context context, String branchUID) {
         String companyUID = userPreference.getCompanyUID(context);

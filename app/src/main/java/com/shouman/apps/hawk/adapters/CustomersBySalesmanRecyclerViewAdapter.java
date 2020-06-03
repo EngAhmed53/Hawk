@@ -18,12 +18,12 @@ import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.common.collect.BiMap;
 import com.shouman.apps.hawk.R;
 import com.shouman.apps.hawk.common.Common;
 import com.shouman.apps.hawk.data.model.Customer;
 import com.shouman.apps.hawk.databinding.CustomersListItemLayoutBySalesBinding;
 import com.shouman.apps.hawk.ui.main.companyUI.salesman.salesCustomers.Fragment_salesman_customersDirections;
+import com.shouman.apps.hawk.utils.AppExecutors;
 
 import java.text.DateFormat;
 import java.util.ArrayList;
@@ -38,7 +38,6 @@ public class CustomersBySalesmanRecyclerViewAdapter extends RecyclerView.Adapter
     private ArrayList<Integer> selectedPositions;
     private List<Customer> allCustomers;
     private List<Customer> allCustomersFull;
-    private BiMap<String, Customer> customersBiMap;
     private Context mContext;
     private DateFormat formatter;
     private Calendar calendar;
@@ -79,10 +78,9 @@ public class CustomersBySalesmanRecyclerViewAdapter extends RecyclerView.Adapter
         selectedPositions = new ArrayList<>();
     }
 
-    public void setCustomersMap(BiMap<String, Customer> customersMap) {
-        this.allCustomers = new ArrayList<>(customersMap.values());
-        this.allCustomersFull = new ArrayList<>(customersMap.values());
-        this.customersBiMap = customersMap;
+    public void setCustomersList(List<Customer> customersList) {
+        this.allCustomers = customersList;
+        AppExecutors.getsInstance().getDiskIO().execute(() -> this.allCustomersFull = new ArrayList<>(customersList));
         notifyDataSetChanged();
     }
 
@@ -186,20 +184,20 @@ public class CustomersBySalesmanRecyclerViewAdapter extends RecyclerView.Adapter
         public void onClick(View v) {
             customer = allCustomers.get(getAdapterPosition());
             if (selectedUIDs.size() == 0) {
+                Customer customer = allCustomers.get(getAdapterPosition());
                 NavDirections toCustomersDetails =
                         Fragment_salesman_customersDirections.actionFragmentSalesmanCustomersToFragmentCustomersInfo(
-                                allCustomers.get(getAdapterPosition()), customersBiMap.inverse().get(allCustomers.get(getAdapterPosition()))
-                        );
+                                customer, customer.getUid());
                 Navigation.findNavController(v).navigate(toCustomersDetails);
             } else {
                 if (customer.isChecked()) {
                     customer.setChecked(false);
-                    selectedUIDs.remove(customersBiMap.inverse().get(customer));
+                    selectedUIDs.remove(customer.getUid());
                     selectedPositions.remove((Integer) getAdapterPosition());
                     hideCheckMark();
                 } else {
                     customer.setChecked(true);
-                    selectedUIDs.add(customersBiMap.inverse().get(customer));
+                    selectedUIDs.add(customer.getUid());
                     selectedPositions.add(getAdapterPosition());
                     showCheckMark();
                 }
@@ -211,12 +209,12 @@ public class CustomersBySalesmanRecyclerViewAdapter extends RecyclerView.Adapter
             customer = allCustomers.get(getAdapterPosition());
             if (customer.isChecked()) {
                 customer.setChecked(false);
-                selectedUIDs.remove(customersBiMap.inverse().get(customer));
+                selectedUIDs.remove(customer.getUid());
                 selectedPositions.remove((Integer) getAdapterPosition());
                 hideCheckMark();
             } else {
                 customer.setChecked(true);
-                selectedUIDs.add(customersBiMap.inverse().get(customer));
+                selectedUIDs.add(customer.getUid());
                 selectedPositions.add(getAdapterPosition());
                 showCheckMark();
             }

@@ -2,7 +2,6 @@ package com.shouman.apps.hawk.ui.main.companyUI.navDrawer.activities;
 
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,7 +29,6 @@ import java.util.Map;
  * A simple {@link Fragment} subclass.
  */
 public class Fragment_activities extends Fragment implements DaysRecyclerViewAdapter.OnDayItemClickListener {
-    private static final String TAG = "Fragment_activities";
     private FragmentActivitiesBinding mBinding;
     private ActivitiesViewModel activitiesViewModel;
     private DaysRecyclerViewAdapter daysAdapter;
@@ -65,7 +63,6 @@ public class Fragment_activities extends Fragment implements DaysRecyclerViewAda
         initRecViews();
 
         activitiesViewModel.getActivitiesMediatorLiveData().observe(getViewLifecycleOwner(), activitiesMap -> {
-            Log.e(TAG, "onViewCreated: " + activitiesMap.size());
             mDayActivitiesMap = activitiesMap;
             mDaysList = new ArrayList<>(mDayActivitiesMap.keySet());
             Collections.sort(mDaysList, Collections.reverseOrder());

@@ -110,10 +110,12 @@ public class Fragment_customers extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        allCustomersViewModel.getMapMediatorLiveData().observe(getViewLifecycleOwner(), allCustomersList -> {
+        allCustomersViewModel.geCustomersListLiveData().observe(getViewLifecycleOwner(), allCustomersList -> {
+            mBinding.customersRec.setVisibility(View.GONE);
+            mBinding.progressBar.setVisibility(View.VISIBLE);
             String header = allCustomersList.size() >= 2 ? allCustomersList.size() + " Customers" : allCustomersList.size() + " Customer";
             mBinding.headerTxt.setText(header);
-            allCustomersAdapter.setCustomersMap(allCustomersList);
+            allCustomersAdapter.setCustomersList(allCustomersList);
             mBinding.customersRec.setVisibility(View.VISIBLE);
             mBinding.progressBar.setVisibility(View.GONE);
         });
@@ -185,7 +187,11 @@ public class Fragment_customers extends Fragment {
                     dialog.dismiss();
                     mode.finish();
                 })
-                .setNegativeButton(getString(R.string.cancel), (dialog, which) -> dialog.dismiss());
+                .setNegativeButton(getString(R.string.cancel), (dialog, which) -> {
+                            dialog.dismiss();
+                            mode.finish();
+                        }
+                );
         builder.create().show();
     }
 
@@ -280,6 +286,7 @@ public class Fragment_customers extends Fragment {
         if (allCustomersAdapter != null) {
             allCustomersAdapter.clearSelections();
         }
+        allCustomersAdapter = null;
         super.onDestroy();
     }
 }

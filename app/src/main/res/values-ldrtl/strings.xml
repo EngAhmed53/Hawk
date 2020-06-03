@@ -1,6 +1,5 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="app_name">Sales Eagle</string>
-
+    <string name="app_name">resellers</string>
     <string name="email_address_edit_text">البريد الاليكتروني</string>
     <string name="password_edit_text">كلمة السر</string>
     <string name="app_logo_dsc">لوجو البرنامج</string>
@@ -221,6 +220,9 @@
     <string name="visit">Visit</string>
     <string name="salesmen">Salesmen</string>
     <string name="salesman">Salesman</string>
+    <string name="today_activities">today\'s activities:</string>
+    <string name="no_activities_today_yet">No activities today yet!</string>
+    <string name="all_customers_list">All customers list</string>
 
 
 </resources>

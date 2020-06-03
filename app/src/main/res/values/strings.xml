@@ -1,5 +1,5 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <string name="app_name">Sales Eagle</string>
+    <string name="app_name">resellers</string>
     <string name="email_address_edit_text">Email address</string>
     <string name="password_edit_text">Password</string>
     <string name="app_logo_dsc">app_logo</string>
@@ -21,7 +21,7 @@
     <string name="hr_helper_text">Call your Manager to get Company Id</string>
     <string name="hr_pin_code_helper">Please type your pin code</string>
     <string name="hr_pin_code_hint">HR PIN code</string>
-    <string name="slogan">An Easy, Smart Customers Control System</string>
+    <string name="slogan">An Easy, Smart Sales teams and Customers Control System</string>
     <string name="google_logo">google_logo</string>
     <string name="facebook_logo">facebook_logo</string>
     <string name="logo_image">logo_image</string>
@@ -184,7 +184,7 @@
     <string name="sort_by_name_z_a">by name ▲</string>
     <string name="sort_by_date_a_z">by date ▼</string>
     <string name="sort_by_date_z_a">by date ▲</string>
-    <string name="company_customers_list">Company customers list, press on any customer to view his information, or do a long press to view the action menu.</string>
+    <string name="company_customers_list">Press on any customer to view his information, or do a long press to view the action menu.</string>
     <string name="customer_total_visits">Total Visits</string>
     <string name="latest_notification">Latest Notification</string>
     <string name="no_new_notifications">No new notifications !</string>
@@ -245,6 +245,9 @@
     <string name="visit">Visit</string>
     <string name="salesmen">Salesmen</string>
     <string name="salesman">Salesman</string>
+    <string name="today_activities">today\'s activities:</string>
+    <string name="no_activities_today_yet">No activities today yet!</string>
+    <string name="all_customers_list">All customers list</string>
 
 
 </resources>

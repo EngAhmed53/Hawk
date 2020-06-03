@@ -39,7 +39,7 @@
                         android:adjustViewBounds="true"
                         android:contentDescription="@string/app_logo_dsc"
                         android:scaleType="centerCrop"
-                        android:src="@drawable/app_logo"
+                        android:src="@drawable/ic_app_logo"
                         android:transitionName="@string/logo_image" />
 
                     <TextView

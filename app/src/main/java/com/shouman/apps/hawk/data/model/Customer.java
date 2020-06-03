@@ -17,6 +17,9 @@ public class Customer extends BaseObservable implements Parcelable {
     //customer name
     private String n;
 
+    //customer uid
+    private String uid;
+
     //customer latitude;
     private double lt;
 
@@ -200,8 +203,17 @@ public class Customer extends BaseObservable implements Parcelable {
         notifyPropertyChanged(BR.addedTime);
     }
 
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
+    }
+
     protected Customer(Parcel in) {
         n = in.readString();
+        uid = in.readString();
         lt = in.readDouble();
         ln = in.readDouble();
         cn = in.readString();
@@ -219,6 +231,7 @@ public class Customer extends BaseObservable implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(n);
+        dest.writeString(uid);
         dest.writeDouble(lt);
         dest.writeDouble(ln);
         dest.writeString(cn);

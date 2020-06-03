@@ -24,10 +24,11 @@
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:color/transparent"
         android:elevation="0dp"
         android:clickable="true"
         android:focusable="true"
+        android:layout_marginTop="8dp"
+        android:backgroundTint="@android:color/transparent"
         app:rippleColor="@color/colorPrimary"
         app:cardCornerRadius="8dp"
         app:cardElevation="0dp">
@@ -35,8 +36,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/parent_layout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@android:color/transparent">
+            android:layout_height="wrap_content">
 
 
             <TextView
@@ -44,37 +44,18 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="8dp"
+                android:fontFamily="@font/jost_medium"
                 android:gravity="center"
                 android:padding="8dp"
-                android:fontFamily="@font/jost_medium"
                 android:textAppearance="@style/Headline5"
                 android:textColor="@color/black"
                 app:layout_constraintBottom_toTopOf="@+id/child_rec_view"
-                app:layout_constraintEnd_toStartOf="@+id/info"
-                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintHorizontal_chainStyle="packed"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.0"
                 app:layout_constraintVertical_chainStyle="packed"
                 tools:text="Main Branch" />
-
-            <ImageButton
-                android:id="@+id/info"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:layout_marginEnd="8dp"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:contentDescription="@string/branch_menu"
-                android:scaleType="center"
-                android:src="@drawable/ic_info"
-                android:tint="@color/colorAccent2"
-                app:layout_constraintBottom_toBottomOf="@id/branch_name"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/branch_name" />
 
 
             <androidx.recyclerview.widget.RecyclerView

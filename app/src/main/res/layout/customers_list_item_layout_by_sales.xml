@@ -6,7 +6,8 @@
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/white"
+        android:backgroundTint="@android:color/transparent"
+        android:background="@android:color/transparent"
         android:clickable="true"
         android:elevation="0dp"
         android:focusable="true"
