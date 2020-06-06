@@ -223,6 +223,17 @@
     <string name="today_activities">today\'s activities:</string>
     <string name="no_activities_today_yet">No activities today yet!</string>
     <string name="all_customers_list">All customers list</string>
+    <string name="entry_screen">Entry screen</string>
+    <string name="continue_with_email">Continue with email</string>
+    <string name="continue_with_google">Continue with Google</string>
+    <string name="continue_with_facebook">Continue with Facebook</string>
+    <string name="log_in_cancelled">Log in cancelled</string>
+    <string name="email_continue_subTitle">Create new account with your email address or sign in if you already signed up.</string>
+    <string name="just_a_moment">Just a moment</string>
+    <string name="entry_terms">By usong this app, you agree to the Terms and Condition and Privacy Policy, you also agree to receive product-related emails from HAWK from which you can unsubscribe at any time.</string>
+    <string name="email_sent_to">"email send to "</string>
+    <string name="type_your_email_address">Please type your email address</string>
+    <string name="add_to_company">" added to Company"</string>
 
 
 </resources>

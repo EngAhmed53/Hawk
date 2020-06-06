@@ -57,72 +57,7 @@
         android:label="Fragment_entry_screen"
         tools:layout="@layout/fragment_entry_screen">
         <action
-            android:id="@+id/action_fragment_entry_screen_to_fragment_signIn2"
-            app:destination="@id/fragment_signIn"
-            app:enterAnim="@android:anim/fade_in"
-            app:exitAnim="@android:anim/fade_out"
-            app:popEnterAnim="@android:anim/fade_in"
-            app:popExitAnim="@android:anim/fade_out" />
-        <action
-            android:id="@+id/action_fragment_entry_screen_to_fragment_signUp2"
-            app:destination="@id/fragment_signUp"
-            app:enterAnim="@android:anim/fade_in"
-            app:exitAnim="@android:anim/fade_out"
-            app:popEnterAnim="@android:anim/fade_in"
-            app:popExitAnim="@android:anim/fade_out" />
-    </fragment>
-
-
-    <fragment
-        android:id="@+id/fragment_signIn"
-        android:name="com.shouman.apps.hawk.ui.auth.Fragment_signIn"
-        android:label="Fragment_signIn"
-        tools:layout="@layout/fragment_sign_in">
-        <action
-            android:id="@+id/action_fragment_signIn_to_fragment_Forget_Password"
-            app:destination="@id/fragment_Forget_Password"
-            app:enterAnim="@android:anim/slide_in_left"
-            app:exitAnim="@android:anim/slide_out_right"
-            app:popEnterAnim="@anim/fui_slide_in_right"
-            app:popExitAnim="@anim/fab_slide_out_to_right" />
-        <action
-            android:id="@+id/action_fragment_signIn_to_fragment_select_user_type2"
-            app:destination="@id/fragment_select_user_type"
-            app:enterAnim="@android:anim/slide_in_left"
-            app:exitAnim="@android:anim/slide_out_right"
-            app:launchSingleTop="true"
-            app:popEnterAnim="@android:anim/slide_in_left"
-            app:popExitAnim="@android:anim/slide_out_right"
-            app:popUpTo="@id/fragment_entry_screen"
-            app:popUpToInclusive="true" />
-        <action
-            android:id="@+id/action_fragment_signIn_to_mainActivity"
-            app:destination="@id/mainActivity"
-            app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim"
-            app:popUpTo="@id/fragment_entry_screen"
-            app:popUpToInclusive="true" />
-        <action
-            android:id="@+id/action_fragment_signIn_to_main2Activity"
-            app:destination="@id/main2Activity"
-            app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim"
-            app:popUpTo="@id/fragment_entry_screen"
-            app:popUpToInclusive="true" />
-    </fragment>
-
-
-    <fragment
-        android:id="@+id/fragment_signUp"
-        android:name="com.shouman.apps.hawk.ui.auth.Fragment_signUp"
-        android:label="Fragment_signUp"
-        tools:layout="@layout/fragment_sign_up">
-        <action
-            android:id="@+id/action_fragment_signUp_to_fragment_select_user_type2"
+            android:id="@+id/action_fragment_entry_screen_to_fragment_select_user_type"
             app:destination="@id/fragment_select_user_type"
             app:enterAnim="@android:anim/slide_in_left"
             app:exitAnim="@android:anim/slide_out_right"
@@ -130,6 +65,19 @@
             app:popExitAnim="@android:anim/slide_out_right"
             app:popUpTo="@id/fragment_entry_screen"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_fragment_entry_screen_to_mainActivity"
+            app:destination="@id/mainActivity" />
+        <action
+            android:id="@+id/action_fragment_entry_screen_to_main2Activity"
+            app:destination="@id/main2Activity" />
+        <action
+            android:id="@+id/action_fragment_entry_screen_to_fragment_email_continue"
+            app:destination="@id/fragment_email_continue"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@android:anim/fade_out" />
     </fragment>
 
 
@@ -177,5 +125,41 @@
         tools:layout="@layout/activity_main2"
         android:name="com.shouman.apps.hawk.ui.main.salesUI.Main2Activity"
         android:label="Main2Activity" />
+    <fragment
+        android:id="@+id/fragment_email_continue"
+        tools:layout="@layout/fragment_email_continue"
+        android:name="com.shouman.apps.hawk.ui.auth.Fragment_email_continue"
+        android:label="Fragment_email_continue" >
+        <action
+            android:id="@+id/action_fragment_email_continue_to_fragment_Forget_Password"
+            app:destination="@id/fragment_Forget_Password"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"
+            app:popEnterAnim="@android:anim/fade_in"
+            app:popExitAnim="@android:anim/fade_out" />
+        <action
+            android:id="@+id/action_fragment_email_continue_to_mainActivity"
+            app:destination="@id/mainActivity"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+        <action
+            android:id="@+id/action_fragment_email_continue_to_fragment_select_user_type"
+            app:destination="@id/fragment_select_user_type"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right"
+            app:popUpTo="@id/fragment_email_continue"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_fragment_email_continue_to_main2Activity"
+            app:destination="@id/main2Activity"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+    </fragment>
 
 </navigation>

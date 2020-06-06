@@ -10,6 +10,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.firebase.auth.FirebaseAuth;
@@ -45,6 +46,8 @@ public class Fragment_Forget_Password extends Fragment {
 
         auth = FirebaseAuth.getInstance();
 
+        mBinding.toolbar.setNavigationOnClickListener(v -> navigateToEmailContinueFragment());
+
         if (userEmail != null)
             Objects.requireNonNull(mBinding.emailTextField.getEditText()).setText(userEmail);
 
@@ -56,7 +59,7 @@ public class Fragment_Forget_Password extends Fragment {
                 auth.sendPasswordResetEmail(email).addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
 
-                        Toast.makeText(getContext(), "email send to " + email, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), getString(R.string.email_sent_to) + email, Toast.LENGTH_SHORT).show();
 
                     } else {
                         try {
@@ -70,7 +73,7 @@ public class Fragment_Forget_Password extends Fragment {
                 });
 
             } else {
-                Toast.makeText(getContext(), "Please type your email address", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), R.string.type_your_email_address, Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -78,11 +81,15 @@ public class Fragment_Forget_Password extends Fragment {
     }
 
     private void showErrorDialog(String message) {
-        final MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(requireContext(), R.style.ThemeOverlay_MaterialComponents_MaterialAlertDialog)
-                .setTitle("Error")
+        final MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(requireContext(), R.style.AlertDialogTheme)
+                .setTitle(getString(R.string.error))
                 .setMessage(message)
-                .setPositiveButton("ok", (dialog, which) -> dialog.dismiss())
+                .setPositiveButton(R.string.ok_dialog_btn, (dialog, which) -> dialog.dismiss())
                 .setIcon(R.drawable.ic_report_problem);
         builder.create().show();
+    }
+
+    private void navigateToEmailContinueFragment() {
+        Navigation.findNavController(mBinding.getRoot()).popBackStack();
     }
 }

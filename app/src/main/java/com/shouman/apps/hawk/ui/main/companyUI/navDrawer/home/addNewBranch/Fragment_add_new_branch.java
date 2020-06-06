@@ -3,6 +3,8 @@ package com.shouman.apps.hawk.ui.main.companyUI.navDrawer.home.addNewBranch;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,6 +30,26 @@ public class Fragment_add_new_branch extends Fragment {
 
     public FragmentAddNewBranchBinding mBinding;
     private FirebaseCompanyRepo firebaseCompanyRepo;
+    private TextWatcher branchNameTextWatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            if (s != null && !s.toString().isEmpty()) {
+                mBinding.btnAddBranch.setEnabled(true);
+            } else {
+                mBinding.btnAddBranch.setEnabled(false);
+            }
+        }
+    };
 
 
     public Fragment_add_new_branch() {
@@ -56,7 +78,7 @@ public class Fragment_add_new_branch extends Fragment {
             final String branchName = mBinding.edtBranchName.getEditableText().toString();
             if (!branchName.isEmpty()) {
                 AppExecutors.getsInstance().getNetworkIO().execute(() -> firebaseCompanyRepo.addNewBranchToMyCompany(getContext(), branchName));
-                Toast.makeText(getContext(), branchName + " added to Company", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), branchName + getString(R.string.add_to_company), Toast.LENGTH_SHORT).show();
                 mBinding.edtBranchName.setText("");
             } else {
                 mBinding.branchNameTextField.requestFocus();
@@ -86,7 +108,14 @@ public class Fragment_add_new_branch extends Fragment {
     @Override
     public void onResume() {
         mBinding.infoFrame.startAnimation(AnimationUtils.loadAnimation(requireContext(), R.anim.slide_from_down));
+        mBinding.edtBranchName.addTextChangedListener(branchNameTextWatcher);
         super.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        mBinding.edtBranchName.removeTextChangedListener(branchNameTextWatcher);
+        super.onPause();
     }
 
     @Override

@@ -8,86 +8,313 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/photo_background_protection"
         tools:context=".ui.auth.Fragment_entry_screen">
+
+
+        <FrameLayout
+            android:id="@+id/frameLayout3"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:foreground="@drawable/protection_background_dark_totally">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:contentDescription="@string/entry_screen"
+                android:scaleType="centerCrop"
+                android:src="@drawable/clark_van_der_beken_zisbxw3incc_blur" />
+        </FrameLayout>
+
 
         <ImageView
             android:id="@+id/app_logo_image"
-            android:layout_width="180dp"
-            android:layout_height="180dp"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
             android:layout_gravity="top|center_horizontal"
-            android:layout_marginTop="24dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="8dp"
             android:adjustViewBounds="true"
             android:contentDescription="@string/app_logo_dsc"
             android:scaleType="centerCrop"
             android:src="@drawable/ic_app_logo"
+            android:tint="@color/white"
             android:transitionName="@string/logo_image"
-            app:layout_constraintBottom_toTopOf="@+id/app_name_text"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/app_name_text"
+            app:layout_constraintEnd_toStartOf="@+id/app_name_text"
+            app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0"
-            app:layout_constraintVertical_chainStyle="packed" />
+            app:layout_constraintTop_toTopOf="@id/app_name_text" />
 
         <TextView
             android:id="@+id/app_name_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|center_horizontal"
-            android:layout_marginBottom="8dp"
-            android:fontFamily="sans-serif"
+            android:layout_marginEnd="16dp"
+            android:fontFamily="@font/josefinsans_medium"
             android:text="@string/app_name"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"
+            android:textAppearance="@style/Headline4"
             android:textColor="@color/white"
-            app:layout_constraintBottom_toTopOf="@+id/slogan_text"
-            app:layout_constraintEnd_toEndOf="@+id/app_logo_image"
-            app:layout_constraintStart_toStartOf="@+id/app_logo_image"
-            app:layout_constraintTop_toBottomOf="@+id/app_logo_image" />
+            app:layout_constraintBottom_toTopOf="@id/slogan_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/app_logo_image"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.25"
+            app:layout_constraintVertical_chainStyle="packed" />
 
         <TextView
             android:id="@+id/slogan_text"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom|center_horizontal"
-            android:layout_marginTop="8dp"
-            android:fontFamily="sans-serif-light"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:gravity="center"
+            android:maxLines="2"
             android:text="@string/slogan"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+            android:textAppearance="@style/Subtitle1"
             android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/app_name_text"
-            app:layout_constraintStart_toEndOf="@+id/app_name_text"
-            app:layout_constraintTop_toBottomOf="@+id/app_name_text"
-            app:layout_constraintVertical_chainStyle="spread_inside" />
-
-        <Button
-            android:id="@+id/btn_create_account"
-            android:layout_width="260dp"
-            android:layout_height="60dp"
-            android:layout_marginBottom="8dp"
-            android:backgroundTint="@color/colorPrimary"
-            android:text="@string/create_new_account"
-            android:textAllCaps="false"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
-            app:layout_constraintBottom_toTopOf="@+id/btn_already_have_account"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/slogan_text"
-            app:layout_constraintVertical_bias="1.0" />
+            app:layout_constraintTop_toBottomOf="@id/app_name_text"
+            app:layout_constraintVertical_bias="0.0" />
 
-        <Button
-            android:id="@+id/btn_already_have_account"
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/google_card_view"
             android:layout_width="0dp"
-            android:layout_height="60dp"
-            android:layout_marginBottom="32dp"
-            android:backgroundTint="@color/colorPrimaryDark"
-            android:text="@string/i_already_have_account"
-            android:textAllCaps="false"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/btn_create_account"
-            app:layout_constraintStart_toStartOf="@+id/btn_create_account" />
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@color/colorPrimary"
+            android:backgroundTint="@color/colorPrimary"
+            android:clickable="true"
+            android:focusable="true"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="4dp"
+            app:layout_constraintBottom_toTopOf="@+id/facebook_card_view"
+            app:layout_constraintEnd_toEndOf="@id/facebook_card_view"
+            app:layout_constraintStart_toStartOf="@id/facebook_card_view"
+            app:layout_constraintTop_toBottomOf="@+id/slogan_text"
+            app:layout_constraintVertical_bias="0.2"
+            app:layout_constraintVertical_chainStyle="packed"
+            app:rippleColor="?colorControlHighlight">
 
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/google_log_in"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+                <ImageView
+                    android:id="@+id/google_icon"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_margin="8dp"
+                    android:contentDescription="@string/facebook_logo"
+                    android:src="@drawable/ic_google_logo"
+                    android:tint="@color/white"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/textView4"
+                    app:layout_constraintHorizontal_chainStyle="spread_inside"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/textView4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:fontFamily="@font/jost_medium"
+                    android:padding="8dp"
+                    android:text="@string/continue_with_google"
+                    android:textAppearance="@style/Medium"
+                    android:textColor="@color/white"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/view"
+                    app:layout_constraintStart_toEndOf="@+id/google_icon"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <View
+                    android:id="@+id/view"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_margin="8dp"
+                    android:layout_marginStart="27dp"
+                    android:background="@android:color/transparent"
+                    android:backgroundTint="@android:color/transparent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/textView4"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/facebook_card_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@color/facebook_color"
+            android:backgroundTint="@color/facebook_color"
+            android:clickable="true"
+            android:focusable="true"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="4dp"
+            app:layout_constraintBottom_toTopOf="@id/email_card_view"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/frameLayout3"
+            app:layout_constraintTop_toBottomOf="@+id/google_card_view">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/facebook_log_in"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+
+                <ImageView
+                    android:id="@+id/facebook_icon"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:contentDescription="@string/facebook_logo"
+                    android:src="@drawable/ic_facebook_logo"
+                    android:tint="@color/white"
+                    android:layout_margin="8dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/textView5"
+                    app:layout_constraintHorizontal_chainStyle="spread_inside"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/textView5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:fontFamily="@font/jost_medium"
+                    android:padding="8dp"
+                    android:text="@string/continue_with_facebook"
+                    android:textAppearance="@style/Medium"
+                    android:textColor="@color/white"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/view2"
+                    app:layout_constraintStart_toEndOf="@+id/facebook_icon"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.facebook.login.widget.LoginButton
+                    android:id="@+id/facebook_login_button"
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:alpha="0"
+                    android:paddingBottom="1dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+                <View
+                    android:id="@+id/view2"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_margin="8dp"
+                    android:layout_marginStart="27dp"
+                    android:background="@android:color/transparent"
+                    android:backgroundTint="@android:color/transparent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/textView5"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/email_card_view"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:backgroundTint="@color/white_transparent"
+            android:clickable="true"
+            android:focusable="true"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/terms_text"
+            app:layout_constraintEnd_toEndOf="@+id/facebook_card_view"
+            app:layout_constraintStart_toStartOf="@+id/facebook_card_view"
+            app:layout_constraintTop_toBottomOf="@+id/facebook_card_view">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/email_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+                <ImageView
+                    android:id="@+id/email_icon"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:contentDescription="@string/facebook_logo"
+                    android:src="@drawable/ic_email"
+                    android:tint="@color/white"
+                    android:layout_margin="8dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/textView6"
+                    app:layout_constraintHorizontal_chainStyle="spread_inside"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/textView6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:fontFamily="@font/jost_medium"
+                    android:padding="8dp"
+                    android:text="@string/continue_with_email"
+                    android:textAppearance="@style/Medium"
+                    android:textColor="@color/white"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/view3"
+                    app:layout_constraintStart_toEndOf="@+id/email_icon"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <View
+                    android:id="@+id/view3"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_margin="8dp"
+                    android:layout_marginStart="27dp"
+                    android:background="@android:color/transparent"
+                    android:backgroundTint="@android:color/transparent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/textView6"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+
+        <TextView
+            android:id="@+id/terms_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:gravity="center"
+            android:padding="8dp"
+            android:text="@string/entry_terms"
+            android:textAppearance="@style/Caption"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="@+id/frameLayout3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

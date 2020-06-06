@@ -116,7 +116,7 @@ public class MainActivity extends AppCompatActivity {
                 break;
 
             case R.id.nav_activities:
-                if (enabledNav != mBinding.navCustomers) {
+                if (enabledNav != mBinding.navActivities) {
                     enabledNav.setSelected(false);
                     navController.navigate(R.id.fragment_activities);
                     enabledNav = mBinding.navActivities;

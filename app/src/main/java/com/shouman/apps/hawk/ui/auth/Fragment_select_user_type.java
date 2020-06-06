@@ -206,6 +206,7 @@ public class Fragment_select_user_type extends Fragment {
         userPreference.setSalesmanStatus(requireContext(), mainUser.isStatus());
         userPreference.setUserName(requireContext(), mainUser.getUn());
         userPreference.setUserType(requireContext(), mainUser.getUt());
+        requireActivity().finish();
     }
 
     private void navigateToCompanyHome() {

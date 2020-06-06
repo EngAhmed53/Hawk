@@ -22,7 +22,7 @@
             app:menu="@menu/all_customers_menu"
             app:title="@string/my_customers"
             app:titleTextAppearance="@style/Title"
-            app:navigationIcon="@drawable/ic_arrow_back"
+            app:navigationIcon="@drawable/ic_arrow_back_white"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
 

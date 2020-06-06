@@ -12,7 +12,6 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
-import androidx.navigation.fragment.FragmentNavigator;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -84,7 +83,7 @@ public class Fragment_Splash_Screen extends Fragment {
         mBinding = FragmentSplashScreenBinding.inflate(inflater);
 
         Handler handler = new Handler();
-        handler.postDelayed(() -> firebaseAuth.addAuthStateListener(firebaseAuthListener), 0);
+        handler.postDelayed(() -> firebaseAuth.addAuthStateListener(firebaseAuthListener), 2000);
 
         return mBinding.getRoot();
     }
@@ -97,14 +96,14 @@ public class Fragment_Splash_Screen extends Fragment {
         String userType = user.getUt();
 
         if (userType.equals("company_account")) {
-            Navigation.findNavController(mBinding.appNameText).navigate(R.id.action_fragment_Splash_Screen_to_mainActivity);
+            Navigation.findNavController(mBinding.getRoot()).navigate(R.id.action_fragment_Splash_Screen_to_mainActivity);
             Log.e(TAG, "showMainActivity: to company");
             userPreference.setCompanyUID(requireContext(), user.getCuid());
             userPreference.setCompanyName(requireContext(), user.getCn());
             userPreference.setUserName(requireContext(), user.getUn());
             userPreference.setUserType(requireContext(), user.getUt());
         } else if (userType.equals("sales_account")) {
-            Navigation.findNavController(mBinding.appNameText).navigate(R.id.action_fragment_Splash_Screen_to_main2Activity);
+            Navigation.findNavController(mBinding.getRoot()).navigate(R.id.action_fragment_Splash_Screen_to_main2Activity);
             userPreference.setBranchUID(requireContext(), user.getBuid());
             userPreference.setCompanyUID(requireContext(), user.getCuid());
             userPreference.setCompanyName(requireContext(), user.getCn());
@@ -114,31 +113,10 @@ public class Fragment_Splash_Screen extends Fragment {
         }
         requireActivity().finish();
 
-//        if (userType.equals("company_account")) {
-//            intent = new Intent(requireContext(), MainActivity.class);
-//            userPreference.setCompanyUID(requireContext(), user.getCuid());
-//            userPreference.setCompanyName(requireContext(), user.getCn());
-//        } else if (userType.equals("sales_account")) {
-//            intent = new Intent(requireContext(), Main2Activity.class);
-//
-//            userPreference.setBranchUID(requireContext(), user.getBuid());
-//            userPreference.setCompanyUID(requireContext(), user.getCuid());
-//            userPreference.setCompanyName(requireContext(), user.getCn());
-//            userPreference.setSalesmanStatus(requireContext(), user.isStatus());
-//        }
-//        if (intent != null)
-//            startActivity(intent);
     }
 
     private void showEntryScreen() {
-        FragmentNavigator.Extras extras = new FragmentNavigator.Extras.Builder()
-                .addSharedElement(mBinding.appLogoImage, getString(R.string.logo_image))
-                .build();
-
-        Navigation.findNavController(mBinding.appNameText).navigate(R.id.action_fragment_Splash_Screen_to_fragment_entry_screen,
-                null,
-                null,
-                extras);
+        Navigation.findNavController(mBinding.appNameText).navigate(R.id.action_fragment_Splash_Screen_to_fragment_entry_screen);
     }
 
     @Override

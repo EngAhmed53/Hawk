@@ -131,7 +131,7 @@
                             android:maxLines="1"
                             android:textAppearance="@style/Medium"
                             android:textColor="@color/black"
-                            android:textColorHint="@color/white" />
+                            android:textColorHint="@color/gray1" />
                     </com.google.android.material.textfield.TextInputLayout>
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
